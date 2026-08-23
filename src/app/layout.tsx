@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: { default: `${CLINIC.name} — ${CLINIC.tagline}`, template: `%s | ${CLINIC.name}` },
   description: `${CLINIC.name}. ${CLINIC.tagline}. ${CLINIC.badges.join(" · ")}. ${CLINIC.address}`,
   robots: { index: true, follow: true },
+  alternates: {
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: `${CLINIC.name} 원장 칼럼` }] },
+  },
   openGraph: {
     type: "website",
     locale: "ko_KR",
@@ -76,6 +79,15 @@ const clinicJsonLd = {
     { "@type": "OpeningHoursSpecification", dayOfWeek: "PublicHolidays", opens: "09:30", closes: "15:00" },
   ],
   currenciesAccepted: "KRW",
+  // 의료진을 Person 으로 노출하면 의료 콘텐츠의 신뢰도 평가에 유리하다
+  employee: CLINIC.doctors.map((d) => ({
+    "@type": "Person",
+    "@id": `${SITE_URL}/#doctor-${d.key}`,
+    name: d.name,
+    jobTitle: d.role,
+    worksFor: { "@id": `${SITE_URL}/#clinic` },
+  })),
+  numberOfEmployees: { "@type": "QuantitativeValue", value: CLINIC.doctors.length, unitText: "원장" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

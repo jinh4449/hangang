@@ -2,8 +2,10 @@ import type { Column } from "../types";
 
 /** 새 칼럼은 파일 하나를 추가하고 COLUMNS 에 넣으면 목록·사이트맵·RSS 에 자동 반영된다 */
 
+// TODO: 작성자 배정은 임의로 넣었다. 실제 집필자에 맞게 authorKey 를 교체할 것
 const nextDayPain: Column = {
   slug: "sore-after-treatment",
+  authorKey: "lee",
   title: "치료 다음 날 더 아픈 건 잘못된 걸까요",
   question: "추나 받고 다음날 더 아파요",
   summary: "치료 다음 날의 뻐근함은 흔한 반응입니다. 다만 구분해야 할 통증이 따로 있습니다.",
@@ -45,6 +47,7 @@ const nextDayPain: Column = {
 
 const howManySessions: Column = {
   slug: "how-many-sessions",
+  authorKey: "lee",
   title: "추나요법, 몇 번이나 받아야 하나요",
   question: "추나 몇 번 받아야 하나요",
   summary: "끝이 보이지 않으면 치료를 이어가기 어렵습니다. 저희가 기간을 먼저 말씀드리는 이유입니다.",
@@ -85,6 +88,7 @@ const howManySessions: Column = {
 
 const herbLiver: Column = {
   slug: "herbal-medicine-liver",
+  authorKey: "wang",
   title: "한약 먹으면 간이 나빠진다던데요",
   question: "한약 간 손상",
   summary: "묻지 않고 그냥 거절하시는 분이 많아 먼저 정리했습니다. 확인하고 넘어가야 할 부분은 분명히 있습니다.",
@@ -128,6 +132,7 @@ const herbLiver: Column = {
 
 const ultrasoundWhat: Column = {
   slug: "what-ultrasound-shows",
+  authorKey: "wang",
   title: "한의원에서 초음파로 무엇을 보나요",
   question: "한의원 초음파",
   summary: "X-ray에 안 나오는데 계속 아픈 이유를 설명드립니다.",

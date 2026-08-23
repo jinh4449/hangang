@@ -54,6 +54,10 @@ export default function ColumnIndex() {
                 </time>
                 <span aria-hidden="true">·</span>
                 <span>{readingMinutes(c.body)}분</span>
+                <span aria-hidden="true">·</span>
+                <span>
+                  {CLINIC.doctors.find((d) => d.key === c.authorKey)?.name ?? CLINIC.name}
+                </span>
               </div>
               <h2 className="kr text-xl font-bold leading-snug transition-colors group-hover:text-herb">
                 {c.title}

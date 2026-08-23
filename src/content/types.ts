@@ -133,6 +133,8 @@ export type Block =
  */
 export type Column = {
   slug: string;
+  /** CLINIC.doctors 의 key */
+  authorKey: string;
   /** 글 제목 */
   title: string;
   /** 환자가 실제로 검색하는 말 */

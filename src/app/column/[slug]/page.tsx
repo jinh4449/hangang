@@ -26,6 +26,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
   const c = getColumn((await params).slug);
   if (!c) notFound();
   const others = columnsByDate().filter((x) => x.slug !== c.slug).slice(0, 3);
+  const author = CLINIC.doctors.find((d) => d.key === c.authorKey);
 
   return (
     <>
@@ -39,8 +40,11 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           inLanguage: "ko",
           datePublished: c.date,
           dateModified: c.updated ?? c.date,
-          // TODO: 원장 성함이 확정되면 Person 으로 교체하면 신뢰도가 올라간다
-          author: { "@id": `${SITE_URL}/#clinic` },
+          author: {
+            "@type": "Person",
+            "@id": `${SITE_URL}/#doctor-${c.authorKey}`,
+            name: author ? `${author.name} ${author.role}` : CLINIC.name,
+          },
           publisher: { "@id": `${SITE_URL}/#clinic` },
           mainEntityOfPage: `${SITE_URL}/column/${c.slug}`,
         }}
@@ -67,7 +71,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
             <span aria-hidden="true">·</span>
             <span>{readingMinutes(c.body)}분</span>
             <span aria-hidden="true">·</span>
-            <span>{CLINIC.name}</span>
+            <span>{author ? `${author.name} ${author.role}` : CLINIC.name}</span>
           </div>
         </header>
 
