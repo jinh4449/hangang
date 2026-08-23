@@ -3,7 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { COMPARES, getCompare } from "@/content/compare";
 import { getSymptom } from "@/content/symptoms";
-import { PageHead, Section, Cta } from "@/components/site";
+import { PageHead, Section, Cta, JsonLd } from "@/components/site";
+import { medicalWebPage, faqPage, breadcrumb } from "@/content/schema";
 import type { ComparePane } from "@/content/types";
 
 export const generateStaticParams = () => COMPARES.map((c) => ({ slug: c.slug }));
@@ -41,6 +42,25 @@ export default async function ComparePage({ params }: PageProps<"/compare/[slug]
 
   return (
     <article className="mx-auto max-w-3xl px-5 py-12">
+      <JsonLd
+        data={medicalWebPage({
+          name: c.title,
+          description: c.lede,
+          condition: c.title,
+          path: `/compare/${c.slug}`,
+        })}
+      />
+      <JsonLd
+        data={faqPage([
+          {
+            q: c.question,
+            a:
+              `${c.lede} ${c.a.name}: ${c.a.does} ${c.b.name}: ${c.b.does}`,
+          },
+          { q: "두 가지를 함께 받아도 되나요?", a: c.together },
+        ])}
+      />
+      <JsonLd data={breadcrumb([{ name: "비교", path: `/compare/${c.slug}` }])} />
       <PageHead eyebrow="비교" title={c.title} lede={c.lede} />
 
       <Section title={c.question}>

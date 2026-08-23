@@ -5,6 +5,8 @@ import { AREAS, getArea } from "@/content/area";
 import { getSymptom } from "@/content/symptoms";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Section, Cta, Bezel, JsonLd, MapLinks } from "@/components/site";
+import { breadcrumb } from "@/content/schema";
+import { SITE_URL } from "@/content/clinic";
 
 export const generateStaticParams = () => AREAS.map((a) => ({ slug: a.slug }));
 
@@ -20,23 +22,22 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
 
   return (
     <>
+      {/* 병원 엔티티는 레이아웃에 하나만 두고 여기서는 @id 로 참조한다.
+          같은 페이지에 MedicalClinic 을 두 번 쓰면 병원이 둘인 것으로 읽힌다. */}
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@type": "MedicalClinic",
-          name: CLINIC.name,
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: CLINIC.addressShort,
-            addressLocality: CLINIC.locality,
-            addressRegion: CLINIC.region,
-            addressCountry: "KR",
-          },
-          telephone: "+82-31-8049-7541",
-          areaServed: { "@type": "Place", name: a.name },
-          publicAccess: true,
+          "@type": "MedicalWebPage",
+          name: a.title,
+          description: a.lede,
+          url: `${SITE_URL}/area/${a.slug}`,
+          inLanguage: "ko",
+          provider: { "@id": `${SITE_URL}/#clinic` },
+          about: { "@type": "Place", name: a.name },
+          significantLink: a.focusSlugs.map((f) => `${SITE_URL}/care/${f}`),
         }}
       />
+      <JsonLd data={breadcrumb([{ name: a.title, path: `/area/${a.slug}` }])} />
       <article className="mx-auto max-w-3xl px-5 py-12">
         <PageHead eyebrow="오시는 길" title={a.title} lede={a.lede} />
 

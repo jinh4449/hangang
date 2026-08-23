@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { IntentNav, PageHead, Cta, JsonLd } from "@/components/site";
+import { breadcrumb } from "@/content/schema";
 
 export const generateStaticParams = () => SYMPTOMS.map((s) => ({ symptom: s.slug }));
 
@@ -32,6 +33,12 @@ export default async function FaqPage({ params }: PageProps<"/faq/[symptom]">) {
             acceptedAnswer: { "@type": "Answer", text: f.a },
           })),
         }}
+      />
+      <JsonLd
+        data={breadcrumb([
+          { name: s.name, path: `/care/${s.slug}` },
+          { name: "자주 묻는 질문", path: `/faq/${s.slug}` },
+        ])}
       />
       <article className="mx-auto max-w-3xl px-5 py-12">
         <PageHead

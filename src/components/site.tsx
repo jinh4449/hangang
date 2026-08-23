@@ -114,14 +114,14 @@ export function Bezel({ children, className = "" }: { children: React.ReactNode;
 
 /**
  * 길찾기. 30~50대 한국 사용자는 네이버 지도와 카카오맵으로 길을 찾는다.
- * TODO: 네이버 플레이스 등록 후 검색 링크를 플레이스 고유 URL 로 교체하면 더 정확하다.
+ * 네이버는 플레이스 고유 URL 로 바로 보낸다. 검색을 거치지 않아 정확하다.
  */
 export function MapLinks({ compact = false }: { compact?: boolean }) {
   const q = encodeURIComponent(CLINIC.name);
   return (
     <div className={compact ? "flex flex-wrap gap-2" : "grid gap-2 sm:grid-cols-2"}>
       <a
-        href={`https://map.naver.com/p/search/${q}`}
+        href={CLINIC.placeUrl}
         target="_blank"
         rel="noopener"
         className="press inline-flex items-center justify-center gap-2 rounded-full bg-[#03C75A] px-6 py-3.5 font-semibold text-white"
@@ -240,7 +240,7 @@ export function SiteFooter() {
       <div className="h-16 md:hidden" />
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-line bg-line md:hidden">
         <a
-          href={`https://map.naver.com/p/search/${encodeURIComponent(CLINIC.name)}`}
+          href={CLINIC.placeUrl}
           target="_blank"
           rel="noopener"
           className="bg-surface py-4 text-center text-sm font-medium"

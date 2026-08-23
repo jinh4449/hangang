@@ -1,3 +1,6 @@
+// TODO: 실제 도메인으로 교체
+export const SITE_URL = "https://example.com";
+
 /** 진료시간·주차 등 미확정 항목은 TODO 로 표시했다. 확정되면 이 파일만 고치면 전 페이지에 반영된다. */
 export const CLINIC = {
   name: "김포한강한의원",
@@ -11,6 +14,7 @@ export const CLINIC = {
 
   transit: "김포골드라인 장기역 3·4번 출구 도보 1분",
   landmark: "다이소 맞은편",
+  placeUrl: "https://naver.me/G7NPJIyh",
   parking: "건물 옥상주차장 · 장기1공영주차장 · 장기2공영주차장",
   parkingList: ["건물 옥상주차장", "장기1공영주차장", "장기2공영주차장"],
   hours: [

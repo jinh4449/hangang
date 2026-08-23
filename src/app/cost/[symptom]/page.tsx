@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
-import { IntentNav, PageHead, Section, Cta } from "@/components/site";
+import { IntentNav, PageHead, Section, Cta, JsonLd } from "@/components/site";
+import { costSchema, breadcrumb } from "@/content/schema";
 
 export const generateStaticParams = () => SYMPTOMS.map((s) => ({ symptom: s.slug }));
 
@@ -27,6 +28,20 @@ export default async function CostPage({ params }: PageProps<"/cost/[symptom]">)
   return (
     <>
       <IntentNav slug={s.slug} name={s.name} current="cost" />
+      <JsonLd
+        data={costSchema({
+          name: `${s.name} 치료 비용과 보험 적용`,
+          path: `/cost/${s.slug}`,
+          condition: s.clinicalName,
+          rows: [...s.cost.rows],
+        })}
+      />
+      <JsonLd
+        data={breadcrumb([
+          { name: s.name, path: `/care/${s.slug}` },
+          { name: "비용·보험", path: `/cost/${s.slug}` },
+        ])}
+      />
       <article className="mx-auto max-w-3xl px-5 py-12">
         <PageHead
           eyebrow="비용 · 보험"

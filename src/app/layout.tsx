@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { SiteHeader, SiteFooter, JsonLd } from "@/components/site";
-import { CLINIC } from "@/content/clinic";
+import { CLINIC, SITE_URL } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
 import "./globals.css";
 
 const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"], display: "swap" });
-
-// TODO: 실제 도메인으로 교체
-export const SITE_URL = "https://example.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
 import { AREAS } from "@/content/area";
-import { PageHead, Section, Bezel, Cta, MapLinks } from "@/components/site";
+import { PageHead, Section, Bezel, Cta, MapLinks, JsonLd } from "@/components/site";
+import { breadcrumb } from "@/content/schema";
 
 export const metadata: Metadata = {
   title: "오시는 길",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 export default function Directions() {
   return (
     <article className="mx-auto max-w-3xl px-5 py-12">
+      <JsonLd data={breadcrumb([{ name: "오시는 길", path: "/directions" }])} />
       <PageHead
         eyebrow="오시는 길"
         title="장기역 3·4번 출구 도보 1분"

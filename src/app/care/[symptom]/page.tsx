@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { getCompare } from "@/content/compare";
 import { IntentNav, PageHead, Section, Cta, JsonLd } from "@/components/site";
+import { breadcrumb } from "@/content/schema";
 
 export const generateStaticParams = () => SYMPTOMS.map((s) => ({ symptom: s.slug }));
 
@@ -32,6 +33,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           about: { "@type": "MedicalCondition", name: s.clinicalName },
         }}
       />
+      <JsonLd data={breadcrumb([{ name: s.name, path: `/care/${s.slug}` }])} />
       <article className="mx-auto max-w-3xl px-5 py-12">
         <PageHead eyebrow={s.clinicalName} title={care.title} lede={care.lede} />
 
