@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
 import { AREAS } from "@/content/area";
-import { PageHead, Section, Bezel, Cta } from "@/components/site";
+import { PageHead, Section, Bezel, Cta, MapLinks } from "@/components/site";
 
 export const metadata: Metadata = {
   title: "오시는 길",
@@ -53,11 +53,9 @@ export default function Directions() {
         </div>
       </Section>
 
-      {/* TODO: 카카오맵 또는 네이버지도 임베드 */}
-      <Section title="지도">
-        <div className="flex h-64 items-center justify-center rounded-2xl border border-dashed border-line bg-surface-2 text-sm text-faint">
-          지도 임베드 자리
-        </div>
+      {/* TODO: 도메인 확정 후 네이버 지도 JS API 로 실제 지도 삽입 (Client ID 발급 시 도메인 등록 필요) */}
+      <Section title="길찾기" note="지도 앱에서 바로 경로를 확인하실 수 있습니다.">
+        <MapLinks />
       </Section>
 
       <Cta />

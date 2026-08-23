@@ -112,6 +112,50 @@ export function Bezel({ children, className = "" }: { children: React.ReactNode;
   );
 }
 
+/**
+ * 길찾기. 30~50대 한국 사용자는 네이버 지도와 카카오맵으로 길을 찾는다.
+ * TODO: 네이버 플레이스 등록 후 검색 링크를 플레이스 고유 URL 로 교체하면 더 정확하다.
+ */
+export function MapLinks({ compact = false }: { compact?: boolean }) {
+  const q = encodeURIComponent(CLINIC.name);
+  return (
+    <div className={compact ? "flex flex-wrap gap-2" : "grid gap-2 sm:grid-cols-2"}>
+      <a
+        href={`https://map.naver.com/p/search/${q}`}
+        target="_blank"
+        rel="noopener"
+        className="press inline-flex items-center justify-center gap-2 rounded-full bg-[#03C75A] px-6 py-3.5 font-semibold text-white"
+      >
+        <PinIcon />
+        <span>네이버 지도 길찾기</span>
+      </a>
+      <a
+        href={`https://map.kakao.com/?q=${q}`}
+        target="_blank"
+        rel="noopener"
+        className="press inline-flex items-center justify-center gap-2 rounded-full bg-[#FEE500] px-6 py-3.5 font-semibold text-[#191600]"
+      >
+        <PinIcon />
+        <span>카카오맵 길찾기</span>
+      </a>
+    </div>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+      <path
+        d="M12 21s7-5.686 7-11a7 7 0 1 0-14 0c0 5.314 7 11 7 11Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+      <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
+
 export function Cta({ label = "진료 예약하기" }: { label?: string }) {
   return (
     <aside className="mt-14 rounded-[2rem] border border-herb/15 bg-tint p-8">
@@ -195,11 +239,16 @@ export function SiteFooter() {
       {/* 모바일 하단 고정바 — 검색 유입 대부분이 모바일 */}
       <div className="h-16 md:hidden" />
       <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-line bg-line md:hidden">
-        <a href={CLINIC.phoneHref} className="bg-surface py-4 text-center text-sm font-medium">
-          전화 상담
+        <a
+          href={`https://map.naver.com/p/search/${encodeURIComponent(CLINIC.name)}`}
+          target="_blank"
+          rel="noopener"
+          className="bg-surface py-4 text-center text-sm font-medium"
+        >
+          길찾기
         </a>
         <a href={CLINIC.phoneHref} className="bg-herb py-4 text-center text-sm font-semibold text-paper">
-          예약하기
+          전화 예약
         </a>
       </div>
     </footer>

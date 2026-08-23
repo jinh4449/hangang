@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { AREAS, getArea } from "@/content/area";
 import { getSymptom } from "@/content/symptoms";
 import { CLINIC } from "@/content/clinic";
-import { PageHead, Section, Cta, Bezel, JsonLd } from "@/components/site";
+import { PageHead, Section, Cta, Bezel, JsonLd, MapLinks } from "@/components/site";
 
 export const generateStaticParams = () => AREAS.map((a) => ({ slug: a.slug }));
 
@@ -54,6 +54,9 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
           <p className="kr mt-4 text-sm leading-7 text-muted">
             {CLINIC.address} · {CLINIC.landmark}
           </p>
+          <div className="mt-5">
+            <MapLinks />
+          </div>
         </Section>
 
         {a.local.map((l) => (
