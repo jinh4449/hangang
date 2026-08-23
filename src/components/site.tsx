@@ -15,7 +15,13 @@ export function SiteHeader() {
         </Link>
         <ClinicStatus className="shrink-0" />
         <div className="ml-4 hidden items-center gap-1 text-[15px] text-muted lg:flex">
-          {SYMPTOMS.map((s) => (
+          <Link href="/part" className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink">
+            부위별
+          </Link>
+          <Link href="/treatment" className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink">
+            치료 방법
+          </Link>
+          {SYMPTOMS.slice(0, 3).map((s) => (
             <Link
               key={s.slug}
               href={`/care/${s.slug}`}
@@ -205,6 +211,8 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label="더 보기" className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+          <Link href="/part" className="transition-colors hover:text-ink">부위별 안내</Link>
+          <Link href="/treatment" className="transition-colors hover:text-ink">치료 방법</Link>
           <Link href="/column" className="transition-colors hover:text-ink">원장 칼럼</Link>
           <Link href="/directions" className="transition-colors hover:text-ink">오시는 길</Link>
         </nav>

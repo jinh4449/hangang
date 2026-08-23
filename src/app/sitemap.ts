@@ -3,6 +3,8 @@ import { SYMPTOMS } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { AREAS } from "@/content/area";
 import { COLUMNS } from "@/content/column";
+import { TREATMENTS } from "@/content/treatment";
+import { PARTS } from "@/content/part";
 import { INTENTS } from "@/content/types";
 import { SITE_URL } from "@/content/clinic";
 
@@ -30,6 +32,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.85,
     });
+  }
+  for (const [base, items, pr] of [
+    ["/treatment", TREATMENTS, 0.9],
+    ["/part", PARTS, 0.9],
+  ] as const) {
+    entries.push({ url: `${SITE_URL}${base}`, lastModified: now, changeFrequency: "monthly", priority: pr });
+    for (const it of items)
+      entries.push({
+        url: `${SITE_URL}${base}/${it.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly",
+        priority: pr,
+      });
   }
   entries.push({
     url: `${SITE_URL}/column`,

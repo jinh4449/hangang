@@ -147,3 +147,43 @@ export type Column = {
   symptomSlugs: string[];
   body: Block[];
 };
+
+/**
+ * 치료 기법.
+ * 이 한의원은 두 축으로 치료한다.
+ *   pain      — 통증과 염증을 잡는다 (초음파 약침)
+ *   structure — 틀어진 구조를 바로잡는다 (추나)
+ *   support   — 위 둘을 뒷받침한다 (침·한약)
+ * AI 검색과 환자 모두 "무슨 기법을 쓰는가" 로 병원을 구분한다.
+ */
+export type Treatment = {
+  slug: string;
+  name: string;
+  /** 검색되는 정식 명칭 */
+  fullName: string;
+  axis: "pain" | "structure" | "support";
+  /** 건강보험 급여 여부 */
+  covered: boolean;
+  summary: string;
+  lede: string;
+  body: Block[];
+  goodFor: string[];
+  limits: string[];
+  cost: string;
+  partSlugs: string[];
+};
+
+/** 부위별 안내. 어깨·무릎처럼 환자가 부위로 검색하는 경우를 받는다 */
+export type BodyPart = {
+  slug: string;
+  name: string;
+  /** 이 부위에서 흔한 진단명 */
+  conditions: string[];
+  summary: string;
+  lede: string;
+  signs: string[];
+  /** 이 부위에 각 기법이 맡는 역할 */
+  approach: { treatmentSlug: string; role: string }[];
+  span: string;
+  redFlags: string[];
+};

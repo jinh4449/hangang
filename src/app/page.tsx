@@ -3,6 +3,8 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { columnsByDate } from "@/content/column";
+import { AXIS_STORY } from "@/content/treatment";
+import { PARTS } from "@/content/part";
 import { Bezel, JsonLd } from "@/components/site";
 import { ClinicStatus } from "@/components/clinic-status";
 import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon } from "@/components/icons";
@@ -134,6 +136,60 @@ export default function Home() {
                 <p className={"kr mt-6 text-sm leading-7 " + (i === 0 ? "text-paper/80" : "text-muted")}>
                   {s.summary}
                 </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* 두 축 — 이 한의원의 치료 논리 */}
+        <section className="mt-16">
+          <h2 className="kr text-2xl font-bold tracking-tight">{AXIS_STORY.title}</h2>
+          <p className="kr mt-2 max-w-[54ch] text-[15px] leading-7 text-muted">{AXIS_STORY.lede}</p>
+          <div className="mt-6 grid gap-3 md:grid-cols-2">
+            {AXIS_STORY.axes.map((a) => (
+              <Link
+                key={a.key}
+                href={`/treatment/${a.slug}`}
+                className={
+                  "press rounded-[2rem] p-8 " +
+                  (a.key === "pain" ? "bg-herb text-paper" : "bg-surface ring-1 ring-line")
+                }
+              >
+                <p
+                  className={
+                    "font-mono text-[11px] uppercase tracking-[0.15em] " +
+                    (a.key === "pain" ? "text-paper/60" : "text-herb")
+                  }
+                >
+                  {a.label}
+                </p>
+                <h3 className="kr mt-4 text-2xl font-bold">{a.treatment}</h3>
+                <p
+                  className={
+                    "kr mt-3 text-[15px] leading-7 " +
+                    (a.key === "pain" ? "text-paper/80" : "text-muted")
+                  }
+                >
+                  {a.body}
+                </p>
+              </Link>
+            ))}
+          </div>
+          <p className="kr mt-3 rounded-2xl bg-tint px-6 py-5 text-[15px] leading-7 ring-1 ring-herb/15">
+            {AXIS_STORY.note}
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-2">
+            <span className="self-center font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
+              부위별
+            </span>
+            {PARTS.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/part/${p.slug}`}
+                className="rounded-full bg-surface px-5 py-2.5 text-sm ring-1 ring-line transition-colors hover:ring-herb"
+              >
+                {p.name}
               </Link>
             ))}
           </div>
