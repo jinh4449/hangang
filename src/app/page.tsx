@@ -1,138 +1,201 @@
 import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
-import { SYMPTOMS } from "@/content/symptoms";
+import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
-import { INTENTS } from "@/content/types";
+import { Bezel, JsonLd } from "@/components/site";
+
+const pain = getSymptom("pain")!;
 
 export default function Home() {
   return (
     <>
-      {/* 히어로 — 100vh를 쓰지 않는다. 아래 증상 그리드가 걸쳐 보여야 스크롤이 이어진다 */}
-      <section className="border-b border-line">
-        <div className="mx-auto max-w-5xl px-5 pb-14 pt-16 sm:pt-20">
-          <p className="mb-5 font-mono text-xs uppercase tracking-[0.16em] text-jade">
-            {CLINIC.tagline}
-          </p>
-          <h1 className="max-w-[16ch] font-serif text-4xl font-bold leading-[1.25] tracking-tight text-balance sm:text-5xl">
-            허리 통증, 참지 말고 원인부터 찾으세요
-          </h1>
-          <p className="mt-6 max-w-[52ch] text-[17px] leading-8 text-muted">
-            허리와 다리 저림이 함께 온다면 추간판 문제일 수 있습니다. 수술이 필요한 상태인지부터
-            확인하고, 그렇지 않다면 보존적 치료로 관리합니다.
-          </p>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: pain.faq.slice(0, 4).map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }}
+      />
 
-          <ul className="mt-8 grid gap-2 sm:grid-cols-4">
-            {CLINIC.badges.map((b, i) => (
-              <li
-                key={b}
-                className={
-                  "rounded border px-4 py-3 text-center text-sm font-medium " +
-                  (i === 3
-                    ? "border-ochre-line bg-ochre-soft"
-                    : "border-jade-line bg-jade-soft")
-                }
+      {/* 히어로 — Editorial Split. 100vh 를 쓰지 않아 아래가 걸쳐 보인다 */}
+      <section className="relative overflow-hidden border-b border-line">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-40 -top-40 h-[36rem] w-[36rem] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(30,91,69,.10) 0%, rgba(30,91,69,0) 68%)" }}
+        />
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-10 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-7">
+            <span className="inline-block rounded-full bg-tint px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
+              {CLINIC.tagline}
+            </span>
+            <h1 className="kr mt-6 max-w-[16ch] text-4xl font-bold leading-[1.25] tracking-tight text-balance sm:text-5xl">
+              참으면 익숙해질 뿐, 낫지는 않습니다
+            </h1>
+            <p className="kr mt-6 max-w-[46ch] text-[17px] leading-8 text-muted">
+              통증이든 소화든 피로든, 먼저 다른 과의 진료가 필요한 상태인지부터 가려냅니다.
+              그렇지 않다면 그때 한방치료를 시작합니다.
+            </p>
+
+            <ul className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {CLINIC.badges.map((b, i) => (
+                <li
+                  key={b}
+                  className={
+                    "kr rounded-xl border px-4 py-3 text-center text-sm font-medium " +
+                    (i === 1 ? "border-ochre-line bg-ochre-soft" : "border-herb/20 bg-tint")
+                  }
+                >
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 flex flex-wrap gap-2">
+              <a
+                href={CLINIC.phoneHref}
+                className="press inline-flex items-center gap-3 rounded-full bg-herb px-7 py-4 text-lg font-semibold text-paper shadow-[var(--shadow-ambient)]"
               >
-                {b}
-              </li>
-            ))}
-          </ul>
+                전화 예약 {CLINIC.phone}
+              </a>
+              <Link
+                href="/doubt/pain"
+                className="press inline-flex items-center gap-3 rounded-full bg-surface px-7 py-4 text-lg ring-1 ring-line"
+              >
+                효과가 있긴 한가요?
+              </Link>
+            </div>
+          </div>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            <Link
-              href="/reservation"
-              className="rounded bg-jade px-6 py-3.5 font-semibold text-paper transition-opacity hover:opacity-90"
-            >
-              1분 만에 예약하기
-            </Link>
-            <a
-              href={CLINIC.phoneHref}
-              className="rounded border border-line bg-surface px-6 py-3.5 transition-colors hover:border-jade"
-            >
-              전화 상담 {CLINIC.phone}
-            </a>
+          <div className="lg:col-span-5">
+            <Bezel>
+              <div className="p-7">
+                <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-herb">진료 시간</p>
+                <dl className="mt-4 space-y-3 text-[15px]">
+                  {CLINIC.hours.map((h) => (
+                    <div key={h.day} className="flex items-baseline justify-between border-b border-line pb-3 last:border-0 last:pb-0">
+                      <dt className="text-muted">{h.day}</dt>
+                      <dd className="font-display font-medium tabular-nums">{h.time}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="kr mt-5 border-t border-line pt-4 text-sm text-muted">{CLINIC.address}</p>
+              </div>
+            </Bezel>
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-5xl px-5 py-16">
+      <div className="mx-auto max-w-6xl px-5 py-16">
+        {/* 진료과목 — 비대칭 Bento */}
         <section>
-          <h2 className="font-serif text-2xl font-bold tracking-tight">어디가 불편하신가요?</h2>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
-            {SYMPTOMS.map((s) => (
+          <h2 className="kr text-2xl font-bold tracking-tight">어디가 불편하신가요</h2>
+          <p className="kr mt-2 text-[15px] leading-7 text-muted">
+            과목마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요.
+          </p>
+          <div className="mt-6 grid gap-4 md:grid-cols-6">
+            {SYMPTOMS.map((s, i) => (
               <Link
                 key={s.slug}
                 href={`/care/${s.slug}`}
-                className="rounded border border-line bg-surface p-6 transition-colors hover:border-jade"
+                className={
+                  "press flex flex-col justify-between rounded-[2rem] p-8 shadow-[var(--shadow-ambient)] " +
+                  (i === 0
+                    ? "min-h-[15rem] bg-herb text-paper md:col-span-4"
+                    : "min-h-[13rem] bg-surface ring-1 ring-line md:col-span-2")
+                }
               >
-                <h3 className="font-serif text-xl font-bold">{s.name}</h3>
-                <p className="mt-1 font-mono text-xs text-faint">{s.clinicalName}</p>
-                <p className="mt-3 text-[15px] leading-7 text-muted">{s.summary}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {INTENTS.map((i) => (
-                    <span
-                      key={i.key}
-                      className="rounded border border-line bg-surface-2 px-2 py-1 text-xs text-muted"
-                    >
-                      {i.label}
-                    </span>
-                  ))}
+                <div>
+                  <h3 className={"kr font-bold leading-snug " + (i === 0 ? "text-3xl" : "text-xl")}>{s.name}</h3>
+                  <p className={"mt-1 font-display text-xs " + (i === 0 ? "text-paper/60" : "text-faint")}>
+                    {s.clinicalName}
+                  </p>
                 </div>
+                <p className={"kr mt-6 text-sm leading-7 " + (i === 0 ? "text-paper/80" : "text-muted")}>
+                  {s.summary}
+                </p>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* 교통사고 — 자동차보험 100%라 전환율이 가장 높은 구간 */}
-        <section className="mt-12 rounded border border-ochre-line border-l-[3px] border-l-ochre bg-ochre-soft p-7">
-          <h2 className="font-serif text-2xl font-bold">교통사고 후 통증, 본인부담금 0원</h2>
-          <p className="mt-3 max-w-[58ch] text-[15px] leading-8">
-            교통사고로 인한 치료는 자동차보험으로 전액 처리되어 환자 부담이 없습니다. 접수번호만
-            있으면 바로 치료를 시작할 수 있습니다.
+        {/* 교통사고 — 앞뒤와 완전히 다른 구조 */}
+        <section className="mt-12 overflow-hidden rounded-[2rem] bg-herb-deep p-8 text-paper md:p-12">
+          <h2 className="kr text-2xl font-bold leading-tight md:text-3xl">
+            교통사고 치료는 본인부담금이 없습니다
+          </h2>
+          <p className="kr mt-4 max-w-[52ch] leading-8 text-paper/75">
+            자동차보험으로 전액 처리됩니다. 접수번호만 있으면 바로 시작할 수 있고,
+            건강보험에서 비급여인 약침과 한약도 자동차보험에서는 보장 항목입니다.
           </p>
-          <div className="mt-5 flex flex-wrap gap-2">
-            <Link
-              href="/care/car-accident"
-              className="rounded border border-ochre px-5 py-3 text-sm font-semibold text-ochre transition-colors hover:bg-ochre hover:text-paper"
-            >
-              교통사고 치료 안내
-            </Link>
-            <a
-              href={CLINIC.phoneHref}
-              className="rounded border border-line bg-surface px-5 py-3 text-sm transition-colors hover:border-ochre"
-            >
-              사고 접수 문의
-            </a>
-          </div>
+          <Link
+            href="/care/car-accident"
+            className="press mt-7 inline-flex rounded-full bg-paper px-7 py-3.5 font-semibold text-herb-deep"
+          >
+            교통사고 치료 안내
+          </Link>
         </section>
 
+        {/* 고민 — 의도 분해의 마지막 칸 */}
         <section className="mt-16">
-          <h2 className="font-serif text-2xl font-bold tracking-tight">고민되실 때</h2>
-          <p className="mt-2 text-[15px] leading-7 text-muted">
-            어디로 가야 할지, 어떤 치료가 맞는지 헷갈릴 때 참고하세요.
+          <h2 className="kr text-2xl font-bold tracking-tight">고민되실 때</h2>
+          <p className="kr mt-2 text-[15px] leading-7 text-muted">
+            어디로 가야 할지, 정말 효과가 있는지 헷갈릴 때 참고하세요.
           </p>
           <div className="mt-6 grid gap-2">
             {COMPARES.map((c) => (
               <Link
                 key={c.slug}
                 href={`/compare/${c.slug}`}
-                className="rounded border border-line bg-surface px-5 py-4 transition-colors hover:border-jade"
+                className="rounded-2xl bg-surface px-6 py-5 ring-1 ring-line transition-colors hover:ring-herb"
               >
-                <span className="font-semibold">{c.title}</span>
-                <span className="mt-1 block text-sm text-muted">{c.question}</span>
+                <span className="kr font-semibold">{c.title}</span>
+                <span className="kr mt-1 block text-sm text-muted">{c.question}</span>
               </Link>
             ))}
             {SYMPTOMS.map((s) => (
               <Link
                 key={s.slug}
                 href={`/doubt/${s.slug}`}
-                className="rounded border border-line bg-surface px-5 py-4 transition-colors hover:border-jade"
+                className="rounded-2xl bg-surface px-6 py-5 ring-1 ring-line transition-colors hover:ring-herb"
               >
-                <span className="font-semibold">{s.doubt.question}</span>
-                <span className="mt-1 block text-sm text-muted">
+                <span className="kr font-semibold">{s.doubt.question}</span>
+                <span className="kr mt-1 block text-sm text-muted">
                   도움이 되는 경우와 그렇지 않은 경우를 나눠서 설명드립니다.
                 </span>
               </Link>
             ))}
+          </div>
+        </section>
+
+        {/* 리뷰 — 페이지에 심지 않고 외부로 내보낸다 (의료법 56조②) */}
+        <section className="mt-16 rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
+          <h2 className="kr text-2xl font-bold tracking-tight">리뷰는 직접 확인해 보세요</h2>
+          <p className="kr mx-auto mt-4 max-w-[46ch] leading-8 text-muted">
+            의료법에 따라 환자분들의 후기를 저희 홈페이지에 직접 싣지 않습니다.
+            네이버와 구글에서 있는 그대로 확인하실 수 있습니다.
+          </p>
+          <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+            <a
+              href={`https://map.naver.com/p/search/${encodeURIComponent(CLINIC.name)}`}
+              target="_blank"
+              rel="noopener"
+              className="press rounded-full bg-[#03C75A] px-7 py-3.5 font-semibold text-white"
+            >
+              네이버 지도에서 보기
+            </a>
+            <a
+              href={`https://www.google.com/maps/search/${encodeURIComponent(CLINIC.name)}`}
+              target="_blank"
+              rel="noopener"
+              className="press rounded-full bg-surface px-7 py-3.5 ring-1 ring-line"
+            >
+              구글 지도에서 보기
+            </a>
           </div>
         </section>
       </div>

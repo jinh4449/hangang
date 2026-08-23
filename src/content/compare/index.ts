@@ -47,7 +47,7 @@ export const hanuiVsOrtho: Compare = {
     "두 곳을 동시에 다니는 것도 가능합니다. 다만 같은 날 같은 부위에 중복 치료를 받으면 " +
     "보험 적용에서 문제가 생길 수 있으니, 각각의 진료에서 다른 곳의 치료 내용을 알려주시는 것이 좋습니다.",
 
-  symptomSlugs: ["back-pain"],
+  symptomSlugs: ["pain"],
 };
 
 export const chunaVsManual: Compare = {
@@ -87,7 +87,7 @@ export const chunaVsManual: Compare = {
     "도수치료는 비급여라 병원마다 금액이 다르며 실손보험 약관에 따라 보장 여부가 갈립니다. " +
     "두 치료 모두 같은 날 받는 것은 권하지 않습니다.",
 
-  symptomSlugs: ["back-pain"],
+  symptomSlugs: ["pain"],
 };
 
 export const accidentHanuiVsOrtho: Compare = {

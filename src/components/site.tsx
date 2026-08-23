@@ -3,64 +3,51 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
 import { INTENTS, type IntentKey } from "@/content/types";
 
+/** 가장자리에 붙은 바가 아니라 떠 있는 글래스 필 */
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur">
-      <div className="mx-auto flex h-16 max-w-5xl items-center gap-4 px-5">
-        <Link href="/" className="font-serif text-lg font-bold tracking-tight">
+    <header className="fixed inset-x-0 top-4 z-40 px-4">
+      <nav className="mx-auto flex max-w-6xl items-center gap-3 rounded-full bg-surface/70 py-2 pl-6 pr-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-ink/[0.07] backdrop-blur-xl">
+        <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {CLINIC.name}
         </Link>
-        <nav className="ml-2 hidden gap-1 md:flex">
+        <div className="ml-4 hidden items-center gap-1 text-[15px] text-muted lg:flex">
           {SYMPTOMS.map((s) => (
             <Link
               key={s.slug}
               href={`/care/${s.slug}`}
-              className="rounded px-3 py-2 text-sm text-muted transition-colors hover:bg-jade-soft hover:text-ink"
+              className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink"
             >
               {s.name}
             </Link>
           ))}
-          <Link
-            href="/cost/back-pain"
-            className="rounded px-3 py-2 text-sm text-muted transition-colors hover:bg-jade-soft hover:text-ink"
-          >
-            비용·보험
-          </Link>
-        </nav>
-        <div className="ml-auto flex items-center gap-2">
-          <a
-            href={CLINIC.phoneHref}
-            className="hidden rounded border border-line px-3 py-2 text-sm text-ink transition-colors hover:border-jade sm:block"
-          >
-            전화
-          </a>
-          <Link
-            href="/reservation"
-            className="rounded bg-jade px-4 py-2 text-sm font-semibold text-paper transition-opacity hover:opacity-90"
-          >
-            예약
-          </Link>
         </div>
-      </div>
+        <a
+          href={CLINIC.phoneHref}
+          className="press ml-auto inline-flex items-center gap-2 rounded-full bg-herb py-2.5 pl-5 pr-2 text-[15px] font-semibold text-paper"
+        >
+          <span>예약</span>
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-white/15">
+            <Arrow className="arw" />
+          </span>
+        </a>
+      </nav>
     </header>
   );
 }
 
-/**
- * 같은 증상의 5개 의도 페이지를 서로 연결한다.
- * 검색 의도별로 페이지를 쪼갠 구조는 이 상호 링크가 있어야 작동한다.
- */
-export function IntentNav({
-  slug,
-  name,
-  current,
-}: {
-  slug: string;
-  name: string;
-  current: IntentKey;
-}) {
+function Arrow({ className = "" }: { className?: string }) {
   return (
-    <nav aria-label={`${name} 관련 페이지`} className="border-y border-line bg-surface-2">
+    <svg viewBox="0 0 24 24" fill="none" className={`h-4 w-4 ${className}`} aria-hidden="true">
+      <path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** 같은 과목의 4개 의도 페이지를 서로 연결한다. 이 상호 링크가 있어야 의도 분해가 작동한다. */
+export function IntentNav({ slug, name, current }: { slug: string; name: string; current: IntentKey }) {
+  return (
+    <nav aria-label={`${name} 관련 페이지`} className="border-b border-line bg-surface-2">
       <div className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-5 py-2">
         {INTENTS.map((i) => {
           const active = i.key === current;
@@ -70,10 +57,8 @@ export function IntentNav({
               href={`${i.base}/${slug}`}
               aria-current={active ? "page" : undefined}
               className={
-                "whitespace-nowrap rounded px-3 py-2 text-sm transition-colors " +
-                (active
-                  ? "bg-jade text-paper font-semibold"
-                  : "text-muted hover:bg-jade-soft hover:text-ink")
+                "whitespace-nowrap rounded-full px-4 py-2 text-sm transition-colors " +
+                (active ? "bg-herb font-semibold text-paper" : "text-muted hover:bg-tint hover:text-ink")
               }
             >
               {i.label}
@@ -85,22 +70,16 @@ export function IntentNav({
   );
 }
 
-export function PageHead({
-  eyebrow,
-  title,
-  lede,
-}: {
-  eyebrow: string;
-  title: string;
-  lede: string;
-}) {
+export function PageHead({ eyebrow, title, lede }: { eyebrow: string; title: string; lede: string }) {
   return (
     <header className="border-b border-line pb-10">
-      <p className="mb-4 font-mono text-xs uppercase tracking-[0.16em] text-jade">{eyebrow}</p>
-      <h1 className="font-serif text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl">
+      <span className="inline-block rounded-full bg-tint px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
+        {eyebrow}
+      </span>
+      <h1 className="kr mt-5 text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl">
         {title}
       </h1>
-      <p className="mt-5 max-w-[60ch] text-[17px] leading-8 text-muted">{lede}</p>
+      <p className="kr mt-5 max-w-[52ch] text-[17px] leading-8 text-muted">{lede}</p>
     </header>
   );
 }
@@ -116,32 +95,38 @@ export function Section({
 }) {
   return (
     <section className="mt-14">
-      <h2 className="font-serif text-2xl font-bold tracking-tight">{title}</h2>
-      {note && <p className="mt-2 max-w-[62ch] text-[15px] leading-7 text-muted">{note}</p>}
+      <h2 className="kr text-2xl font-bold tracking-tight">{title}</h2>
+      {note && <p className="kr mt-2 max-w-[58ch] text-[15px] leading-7 text-muted">{note}</p>}
       <div className="mt-6">{children}</div>
     </section>
   );
 }
 
+/** 유리판을 알루미늄 트레이에 얹은 구조 */
+export function Bezel({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`rounded-[2rem] bg-ink/[0.04] p-1.5 ring-1 ring-ink/[0.06] ${className}`}>
+      <div className="rounded-[calc(2rem-0.375rem)] bg-surface shadow-[var(--shadow-ambient)]">{children}</div>
+    </div>
+  );
+}
+
 export function Cta({ label = "진료 예약하기" }: { label?: string }) {
   return (
-    <aside className="mt-14 rounded border border-jade-line bg-jade-soft p-7">
-      <p className="font-serif text-xl font-bold">{label}</p>
-      <p className="mt-2 text-[15px] leading-7 text-muted">
-        {CLINIC.hours[0].day} {CLINIC.hours[0].time} · {CLINIC.parking} · {CLINIC.transit}
+    <aside className="mt-14 rounded-[2rem] border border-herb/15 bg-tint p-8">
+      <p className="kr text-xl font-bold">{label}</p>
+      <p className="kr mt-2 text-[15px] leading-7 text-muted">
+        {CLINIC.hours[0].day} {CLINIC.hours[0].time} · {CLINIC.address}
       </p>
-      <div className="mt-5 flex flex-wrap gap-2">
-        <Link
-          href="/reservation"
-          className="rounded bg-jade px-5 py-3 text-sm font-semibold text-paper transition-opacity hover:opacity-90"
-        >
-          온라인 예약
-        </Link>
+      <div className="mt-6 flex flex-wrap gap-2">
         <a
           href={CLINIC.phoneHref}
-          className="rounded border border-line bg-surface px-5 py-3 text-sm transition-colors hover:border-jade"
+          className="press inline-flex items-center justify-between gap-3 rounded-full bg-herb py-3.5 pl-7 pr-2 font-semibold text-paper"
         >
-          전화 상담 {CLINIC.phone}
+          <span>전화 예약 {CLINIC.phone}</span>
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15">
+            <Arrow className="arw" />
+          </span>
         </a>
       </div>
     </aside>
@@ -151,14 +136,26 @@ export function Cta({ label = "진료 예약하기" }: { label?: string }) {
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t border-line">
-      <div className="mx-auto max-w-5xl px-5 py-12">
-        <p className="font-serif text-lg font-bold">{CLINIC.name}</p>
-        <p className="mt-2 text-sm leading-7 text-muted">
-          {CLINIC.address}
-          <br />
-          {CLINIC.phone} · {CLINIC.transit} · {CLINIC.parking}
-        </p>
-        <dl className="mt-6 grid gap-x-8 gap-y-1 text-sm sm:grid-cols-2">
+      <div className="mx-auto max-w-5xl px-5 py-14">
+        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <p className="text-xl font-bold">{CLINIC.name}</p>
+            <p className="kr mt-3 text-sm leading-7 text-muted">
+              {CLINIC.address}
+              <br />
+              {CLINIC.phone}
+            </p>
+          </div>
+          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+            {SYMPTOMS.map((s) => (
+              <Link key={s.slug} href={`/care/${s.slug}`} className="transition-colors hover:text-ink">
+                {s.name}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        <dl className="mt-8 grid gap-x-8 text-sm sm:grid-cols-2">
           {CLINIC.hours.map((h) => (
             <div key={h.day} className="flex justify-between border-b border-line py-2">
               <dt className="text-muted">{h.day}</dt>
@@ -169,30 +166,35 @@ export function SiteFooter() {
             </div>
           ))}
         </dl>
-        <p className="mt-8 max-w-[70ch] text-xs leading-6 text-faint">{CLINIC.legalNote}</p>
+
+        <div className="mt-10 border-t border-line pt-8">
+          <p className="kr max-w-[76ch] text-xs leading-6 text-faint">{CLINIC.legalNote}</p>
+          {/* TODO: 사업자 정보 실제 값으로 교체 (의료기관 표시 의무) */}
+          <div className="kr mt-6 border-t border-line pt-6 text-[11px] leading-6 text-faint">
+            <p>
+              상호: {CLINIC.name} | 대표자: {CLINIC.business.owner} | 사업자등록번호: {CLINIC.business.regNo}
+            </p>
+            <p>
+              주소: {CLINIC.address} | 전화: {CLINIC.phone}
+            </p>
+          </div>
+        </div>
       </div>
-      {/* 모바일 하단 고정바 — 검색 유입의 대부분이 모바일이다 */}
+
+      {/* 모바일 하단 고정바 — 검색 유입 대부분이 모바일 */}
       <div className="h-16 md:hidden" />
-      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 gap-px border-t border-line bg-line md:hidden">
-        <a href={CLINIC.phoneHref} className="bg-surface py-4 text-center text-sm">
-          전화
+      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-line bg-line md:hidden">
+        <a href={CLINIC.phoneHref} className="bg-surface py-4 text-center text-sm font-medium">
+          전화 상담
         </a>
-        <Link href="/directions" className="bg-surface py-4 text-center text-sm">
-          길찾기
-        </Link>
-        <Link href="/reservation" className="bg-jade py-4 text-center text-sm font-semibold text-paper">
-          예약
-        </Link>
+        <a href={CLINIC.phoneHref} className="bg-herb py-4 text-center text-sm font-semibold text-paper">
+          예약하기
+        </a>
       </div>
     </footer>
   );
 }
 
 export function JsonLd({ data }: { data: object }) {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }
