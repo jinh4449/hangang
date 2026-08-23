@@ -3,6 +3,7 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { Bezel, JsonLd } from "@/components/site";
+import { SYMPTOM_ICONS } from "@/components/icons";
 
 const pain = getSymptom("pain")!;
 
@@ -110,7 +111,15 @@ export default function Home() {
                 }
               >
                 <div>
-                  <h3 className={"kr font-bold leading-snug " + (i === 0 ? "text-3xl" : "text-xl")}>{s.name}</h3>
+                  {(() => {
+                    const Icon = SYMPTOM_ICONS[s.slug];
+                    return Icon ? (
+                      <Icon className={i === 0 ? "h-9 w-9 text-paper/70" : "h-8 w-8 text-herb"} />
+                    ) : null;
+                  })()}
+                  <h3 className={"kr mt-4 font-bold leading-snug " + (i === 0 ? "text-3xl" : "text-xl")}>
+                    {s.name}
+                  </h3>
                   <p className={"mt-1 font-display text-xs " + (i === 0 ? "text-paper/60" : "text-faint")}>
                     {s.clinicalName}
                   </p>

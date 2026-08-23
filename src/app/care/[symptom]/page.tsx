@@ -5,6 +5,7 @@ import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { getCompare } from "@/content/compare";
 import { IntentNav, PageHead, Section, Cta, JsonLd } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
+import { SYMPTOM_ICONS } from "@/components/icons";
 
 export const generateStaticParams = () => SYMPTOMS.map((s) => ({ symptom: s.slug }));
 
@@ -35,6 +36,10 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
       />
       <JsonLd data={breadcrumb([{ name: s.name, path: `/care/${s.slug}` }])} />
       <article className="mx-auto max-w-3xl px-5 py-12">
+        {(() => {
+          const Icon = SYMPTOM_ICONS[s.slug];
+          return Icon ? <Icon className="mb-5 h-10 w-10 text-herb" /> : null;
+        })()}
         <PageHead eyebrow={s.clinicalName} title={care.title} lede={care.lede} />
 
         <Section title="이런 증상이 있다면" note="아래 항목 중 여러 개에 해당한다면 진찰을 권합니다.">
