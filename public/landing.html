@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한강한의원 — 김포 한강신도시 척추관절 한의원</title>
+<meta name="description" content="허리디스크, 목디스크, 교통사고 후유증 중점 진료. 평일 밤 9시까지, 토요일 진료. 추나요법 건강보험 적용.">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap">
+<script src="https://code.iconify.design/iconify-icon/2.3.0/iconify-icon.min.js"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        paper:   '#FAF9F5',
+        surface: '#FFFFFF',
+        ink:     '#1A1C16',
+        muted:   '#61665B',
+        line:    '#E5E3DA',
+        herb:    '#1E5B45',
+        'herb-deep': '#16412F',
+        tint:    '#E9F0EB',
+      },
+      fontFamily: {
+        sans:    ['Pretendard', 'system-ui', 'sans-serif'],
+        display: ['Outfit', 'Pretendard', 'sans-serif'],
+      },
+      boxShadow: {
+        ambient: '0 20px 60px -15px rgba(26,28,22,0.10)',
+        lifted:  '0 30px 80px -20px rgba(26,28,22,0.16)',
+      },
+    },
+  },
+}
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #FAF9F5; color: #1A1C16; }
+  .kr { word-break: keep-all; }
+
+  /* 한지 결 — 장식이 아니라 한방의 재료감을 위한 것 */
+  .grain {
+    position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(1.75rem); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; }
+  .reveal.on { animation: rise .85s cubic-bezier(0.16,1,0.3,1) forwards; animation-delay: var(--d, 0ms); }
+
+  @keyframes drift { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+  .drift { animation: drift 7s cubic-bezier(0.45,0,0.55,1) infinite; }
+
+  .press { transition: transform .4s cubic-bezier(0.16,1,0.3,1), box-shadow .4s cubic-bezier(0.16,1,0.3,1); }
+  .press:hover { transform: scale(1.02); }
+  .press:active { transform: scale(0.98); }
+  .press .arw { transition: transform .4s cubic-bezier(0.16,1,0.3,1); }
+  .press:hover .arw { transform: translateX(4px); }
+
+  :focus-visible { outline: 2px solid #1E5B45; outline-offset: 3px; border-radius: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1 !important; animation: none !important; }
+    .drift { animation: none !important; }
+    .press, .press .arw { transition: none !important; }
+  }
+</style>
+</head>
+<body class="font-sans antialiased">
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ══ 01 NAV — 떠 있는 글래스 필 (가장자리에 붙은 바 아님) ══ -->
+<header class="fixed top-4 inset-x-0 z-40 px-4">
+  <nav class="max-w-6xl mx-auto flex items-center gap-3 rounded-full bg-white/70 backdrop-blur-xl ring-1 ring-ink/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] pl-6 pr-2 py-2">
+    <a href="#top" class="font-display text-lg font-600 tracking-tight shrink-0">한강한의원</a>
+    <div class="hidden md:flex items-center gap-1 ml-4 text-[15px] text-muted">
+      <a href="#symptoms" class="px-3 py-2 rounded-full hover:bg-tint hover:text-ink transition-colors">증상별 진료</a>
+      <a href="#accident" class="px-3 py-2 rounded-full hover:bg-tint hover:text-ink transition-colors">교통사고</a>
+      <a href="#cost"     class="px-3 py-2 rounded-full hover:bg-tint hover:text-ink transition-colors">비용·보험</a>
+      <a href="#doubt"    class="px-3 py-2 rounded-full hover:bg-tint hover:text-ink transition-colors">효과 있나요</a>
+    </div>
+    <a href="tel:031-000-0000" class="ml-auto press inline-flex items-center gap-2 rounded-full bg-herb text-white pl-5 pr-2 py-2.5 text-[15px] font-600">
+      <span>예약</span>
+      <span class="w-8 h-8 rounded-full bg-white/15 grid place-items-center">
+        <iconify-icon icon="solar:arrow-right-linear" class="arw text-lg"></iconify-icon>
+      </span>
+    </a>
+  </nav>
+</header>
+
+<!-- ══ 02 HERO — Editorial Split (중앙정렬 금지) ══ -->
+<section id="top" class="relative overflow-hidden pt-36 pb-20 md:pt-44 md:pb-28">
+  <div class="pointer-events-none absolute -top-40 -right-40 w-[36rem] h-[36rem] rounded-full"
+       style="background: radial-gradient(circle, rgba(30,91,69,.10) 0%, rgba(30,91,69,0) 68%);"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+    <div class="lg:col-span-7 reveal">
+      <span class="inline-block rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.15em] font-500 bg-tint text-herb">
+        김포 한강신도시 · 척추관절 중점 진료
+      </span>
+      <h1 class="kr mt-6 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+        참으면 익숙해질 뿐,<br>낫지는 않습니다
+      </h1>
+      <p class="kr mt-6 text-base md:text-lg text-muted leading-relaxed max-w-[46ch]">
+        허리와 다리 저림이 함께 온다면 추간판 문제일 수 있습니다.
+        수술이 필요한 상태인지부터 확인하고, 그렇지 않다면 보존적 치료로 관리합니다.
+      </p>
+
+      <div class="mt-9 flex flex-col sm:flex-row gap-3">
+        <a href="tel:031-000-0000" class="press inline-flex items-center justify-between gap-3 rounded-full bg-herb text-white pl-8 pr-2 py-4 text-lg font-600 shadow-ambient">
+          <span>진료 예약하기</span>
+          <span class="w-9 h-9 rounded-full bg-white/15 grid place-items-center shrink-0">
+            <iconify-icon icon="solar:arrow-right-up-linear" class="arw text-xl"></iconify-icon>
+          </span>
+        </a>
+        <a href="#doubt" class="press inline-flex items-center gap-3 rounded-full bg-white ring-1 ring-line px-8 py-4 text-lg">
+          <iconify-icon icon="solar:question-circle-linear" class="text-xl text-herb"></iconify-icon>
+          <span>효과가 있긴 한가요?</span>
+        </a>
+      </div>
+      <p class="mt-4 text-sm text-muted">전화 한 통이면 예약됩니다 · 031-000-0000</p>
+    </div>
+
+    <!-- 진료 카드: Double-Bezel 구조 -->
+    <div class="lg:col-span-5 reveal" style="--d:140ms">
+      <div class="drift rounded-[2rem] bg-ink/[0.04] ring-1 ring-ink/[0.06] p-1.5">
+        <div class="rounded-[calc(2rem-0.375rem)] bg-surface shadow-lifted overflow-hidden">
+          <img src="https://picsum.photos/seed/korean-medicine-treatment-room/800/560"
+               alt="진료실" width="800" height="560" decoding="async"
+               class="w-full h-56 object-cover">
+          <div class="p-6">
+            <p class="text-[11px] uppercase tracking-[0.15em] text-herb font-500">오늘 진료</p>
+            <dl class="mt-4 space-y-3 text-[15px]">
+              <div class="flex justify-between items-baseline border-b border-line pb-3">
+                <dt class="text-muted">평일</dt>
+                <dd class="font-display font-500 tabular-nums">09:30 – 21:00</dd>
+              </div>
+              <div class="flex justify-between items-baseline border-b border-line pb-3">
+                <dt class="text-muted">토요일</dt>
+                <dd class="font-display font-500 tabular-nums">09:30 – 14:00</dd>
+              </div>
+              <div class="flex justify-between items-baseline">
+                <dt class="text-muted">주차</dt>
+                <dd class="font-display font-500 tabular-nums">30대</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 03 조건 지표 바 — 만족도·후기 대신 사실 정보만 (의료광고법) ══ -->
+<section class="border-y border-line bg-surface">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 divide-x divide-line">
+    <div class="py-8 px-4 md:px-6 reveal">
+      <p class="font-display text-3xl font-600 tabular-nums text-herb">21:00</p>
+      <p class="kr mt-1 text-sm text-muted">평일 야간진료 마감</p>
+    </div>
+    <div class="py-8 px-4 md:px-6 reveal" style="--d:80ms">
+      <p class="font-display text-3xl font-600 tabular-nums text-herb">30대</p>
+      <p class="kr mt-1 text-sm text-muted">건물 지하주차장</p>
+    </div>
+    <div class="py-8 px-4 md:px-6 reveal" style="--d:160ms">
+      <p class="font-display text-3xl font-600 tabular-nums text-herb">연 20회</p>
+      <p class="kr mt-1 text-sm text-muted">추나요법 건강보험 적용</p>
+    </div>
+    <div class="py-8 px-4 md:px-6 reveal" style="--d:240ms">
+      <p class="font-display text-3xl font-600 tabular-nums text-herb">0원</p>
+      <p class="kr mt-1 text-sm text-muted">교통사고 본인부담금</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 04 증상 — 비대칭 Bento Grid ══ -->
+<section id="symptoms" class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl reveal">
+      <span class="inline-block rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.15em] font-500 bg-tint text-herb">증상별 진료</span>
+      <h2 class="kr mt-5 text-3xl md:text-4xl font-bold tracking-tight leading-tight">어디가 불편하신가요</h2>
+      <p class="kr mt-4 text-muted leading-relaxed">증상마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요.</p>
+    </div>
+
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-6 gap-4">
+      <a href="/care/back-pain" class="press md:col-span-4 group relative overflow-hidden rounded-[2rem] bg-herb text-white p-8 md:p-10 shadow-ambient min-h-[16rem] flex flex-col justify-end">
+        <img src="https://picsum.photos/seed/lumbar-spine-care/900/600" alt="" aria-hidden="true"
+             loading="lazy" decoding="async"
+             class="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-25 transition-opacity duration-700">
+        <div class="relative">
+          <iconify-icon icon="solar:body-linear" class="text-3xl"></iconify-icon>
+          <h3 class="kr mt-4 text-2xl md:text-3xl font-bold leading-snug">허리디스크</h3>
+          <p class="kr mt-2 text-white/80 max-w-[36ch]">허리를 굽힐 때 아프고 다리가 저리다면. 요추 추간판탈출증.</p>
+        </div>
+      </a>
+
+      <a href="/care/car-accident" class="press md:col-span-2 rounded-[2rem] bg-surface ring-1 ring-line p-8 shadow-ambient flex flex-col justify-between min-h-[16rem]">
+        <iconify-icon icon="solar:car-linear" class="text-3xl text-herb"></iconify-icon>
+        <div>
+          <h3 class="kr text-xl font-bold leading-snug">교통사고 후유증</h3>
+          <p class="kr mt-2 text-sm text-muted">사고 2~3일 뒤부터 아픈 경우가 많습니다.</p>
+        </div>
+      </a>
+
+      <a href="#symptoms" class="press md:col-span-2 rounded-[2rem] bg-surface ring-1 ring-line p-8 shadow-ambient flex flex-col justify-between min-h-[13rem]">
+        <iconify-icon icon="solar:user-hands-linear" class="text-3xl text-herb"></iconify-icon>
+        <div>
+          <h3 class="kr text-xl font-bold leading-snug">목디스크·거북목</h3>
+          <p class="kr mt-2 text-sm text-muted">오래 앉아 일하는 분에게 흔합니다.</p>
+        </div>
+      </a>
+      <a href="#symptoms" class="press md:col-span-2 rounded-[2rem] bg-surface ring-1 ring-line p-8 shadow-ambient flex flex-col justify-between min-h-[13rem]">
+        <iconify-icon icon="solar:leaf-linear" class="text-3xl text-herb"></iconify-icon>
+        <div>
+          <h3 class="kr text-xl font-bold leading-snug">갱년기</h3>
+          <p class="kr mt-2 text-sm text-muted">얼굴 화끈거림, 불면, 감정 기복.</p>
+        </div>
+      </a>
+      <a href="#symptoms" class="press md:col-span-2 rounded-[2rem] bg-surface ring-1 ring-line p-8 shadow-ambient flex flex-col justify-between min-h-[13rem]">
+        <iconify-icon icon="solar:battery-low-linear" class="text-3xl text-herb"></iconify-icon>
+        <div>
+          <h3 class="kr text-xl font-bold leading-snug">만성피로</h3>
+          <p class="kr mt-2 text-sm text-muted">자고 일어나도 풀리지 않는 피로.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 05 교통사고 — Full-bleed 다크 (앞뒤 섹션과 완전히 다른 구조) ══ -->
+<section id="accident" class="relative bg-herb-deep text-white overflow-hidden">
+  <div class="pointer-events-none absolute inset-0"
+       style="background: radial-gradient(60% 80% at 15% 20%, rgba(255,255,255,.07) 0%, rgba(255,255,255,0) 60%);"></div>
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="reveal">
+      <span class="inline-block rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.15em] font-500 bg-white/10 text-white/90">교통사고 클리닉</span>
+      <h2 class="kr mt-5 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+        치료비 걱정은<br>하지 않으셔도 됩니다
+      </h2>
+      <p class="kr mt-5 text-white/75 leading-relaxed max-w-[44ch]">
+        교통사고 치료는 자동차보험으로 전액 처리됩니다. 접수번호만 있으면 바로 시작할 수 있고,
+        건강보험에서 비급여인 약침과 한약도 자동차보험에서는 보장 항목입니다.
+      </p>
+      <a href="/care/car-accident" class="press mt-9 inline-flex items-center justify-between gap-3 rounded-full bg-white text-herb-deep pl-8 pr-2 py-4 text-lg font-600">
+        <span>교통사고 치료 안내</span>
+        <span class="w-9 h-9 rounded-full bg-herb-deep/10 grid place-items-center shrink-0">
+          <iconify-icon icon="solar:arrow-right-linear" class="arw text-xl"></iconify-icon>
+        </span>
+      </a>
+    </div>
+
+    <ol class="reveal space-y-3" style="--d:120ms">
+      <li class="flex gap-4 rounded-2xl bg-white/[0.06] ring-1 ring-white/10 p-5">
+        <span class="font-display text-sm text-white/50 tabular-nums pt-1">01</span>
+        <div><p class="kr font-600">보험사에 사고를 접수합니다</p><p class="kr mt-1 text-sm text-white/60">접수번호가 발급됩니다.</p></div>
+      </li>
+      <li class="flex gap-4 rounded-2xl bg-white/[0.06] ring-1 ring-white/10 p-5">
+        <span class="font-display text-sm text-white/50 tabular-nums pt-1">02</span>
+        <div><p class="kr font-600">접수번호를 가지고 오십니다</p><p class="kr mt-1 text-sm text-white/60">저희가 보험사에 지불보증을 요청합니다.</p></div>
+      </li>
+      <li class="flex gap-4 rounded-2xl bg-white/[0.06] ring-1 ring-white/10 p-5">
+        <span class="font-display text-sm text-white/50 tabular-nums pt-1">03</span>
+        <div><p class="kr font-600">본인부담금은 없습니다</p><p class="kr mt-1 text-sm text-white/60">치료비는 전액 보험사로 청구됩니다.</p></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══ 06 비용·보험 — Zig-Zag ══ -->
+<section id="cost" class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 md:space-y-28">
+    <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+      <div>
+        <span class="inline-block rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.15em] font-500 bg-tint text-herb">비용·보험</span>
+        <h2 class="kr mt-5 text-3xl md:text-4xl font-bold tracking-tight leading-tight">생각보다 건강보험이<br>많이 됩니다</h2>
+        <p class="kr mt-5 text-muted leading-relaxed max-w-[44ch]">
+          추나요법은 2019년부터 건강보험이 적용되어 한 해 20회까지 급여로 받으실 수 있습니다.
+          침과 부항도 급여 항목입니다.
+        </p>
+      </div>
+      <div class="rounded-[2rem] bg-ink/[0.04] ring-1 ring-ink/[0.06] p-1.5">
+        <div class="rounded-[calc(2rem-0.375rem)] bg-surface p-7 shadow-ambient">
+          <ul class="divide-y divide-line text-[15px]">
+            <li class="flex justify-between items-baseline py-3.5">
+              <span class="kr">단순추나</span>
+              <span class="font-display tabular-nums text-muted">8,000 ~ 12,000원</span>
+            </li>
+            <li class="flex justify-between items-baseline py-3.5">
+              <span class="kr">복잡추나</span>
+              <span class="font-display tabular-nums text-muted">15,000 ~ 20,000원</span>
+            </li>
+            <li class="flex justify-between items-baseline py-3.5">
+              <span class="kr">침·부항</span>
+              <span class="font-display tabular-nums text-muted">5,000 ~ 9,000원</span>
+            </li>
+            <li class="flex justify-between items-baseline py-3.5">
+              <span class="kr">교통사고 치료</span>
+              <span class="font-display tabular-nums text-herb font-600">0원</span>
+            </li>
+          </ul>
+          <p class="kr mt-5 text-xs text-muted leading-relaxed">
+            본인부담금 예시입니다. 실제 금액은 상태와 치료 구성에 따라 달라지며 진찰 후 안내해 드립니다.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+      <div class="lg:order-2">
+        <h2 class="kr text-3xl md:text-4xl font-bold tracking-tight leading-tight">한약도 보험이<br>되는 경우가 있습니다</h2>
+        <p class="kr mt-5 text-muted leading-relaxed max-w-[44ch]">
+          요추 추간판탈출증은 첩약 건강보험 시범사업 대상 질환에 포함되어 있습니다.
+          적용 조건과 처방 일수 한도가 정해져 있어, 내원하시면 해당 여부를 확인해 드립니다.
+        </p>
+        <a href="/cost/back-pain" class="press mt-8 inline-flex items-center gap-2 text-herb font-600">
+          <span>비용 자세히 보기</span>
+          <iconify-icon icon="solar:arrow-right-linear" class="arw text-lg"></iconify-icon>
+        </a>
+      </div>
+      <div class="lg:order-1 grid grid-cols-2 gap-4">
+        <div class="rounded-2xl bg-surface ring-1 ring-line p-6 shadow-ambient">
+          <iconify-icon icon="solar:shield-check-linear" class="text-2xl text-herb"></iconify-icon>
+          <p class="kr mt-3 font-600">건강보험</p>
+          <p class="kr mt-1 text-sm text-muted">추나·침·부항</p>
+        </div>
+        <div class="rounded-2xl bg-surface ring-1 ring-line p-6 shadow-ambient mt-8">
+          <iconify-icon icon="solar:document-text-linear" class="text-2xl text-herb"></iconify-icon>
+          <p class="kr mt-3 font-600">실손보험</p>
+          <p class="kr mt-1 text-sm text-muted">약관에 따라 상이</p>
+        </div>
+        <div class="rounded-2xl bg-surface ring-1 ring-line p-6 shadow-ambient">
+          <iconify-icon icon="solar:pill-linear" class="text-2xl text-herb"></iconify-icon>
+          <p class="kr mt-3 font-600">첩약 시범사업</p>
+          <p class="kr mt-1 text-sm text-muted">디스크 포함</p>
+        </div>
+        <div class="rounded-2xl bg-surface ring-1 ring-line p-6 shadow-ambient mt-8">
+          <iconify-icon icon="solar:car-linear" class="text-2xl text-herb"></iconify-icon>
+          <p class="kr mt-3 font-600">자동차보험</p>
+          <p class="kr mt-1 text-sm text-muted">본인부담 0원</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07 효과 있나요 — 한계를 먼저 (후기 대신 신뢰를 만드는 구조) ══ -->
+<section id="doubt" class="py-24 md:py-32 bg-surface border-y border-line">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl reveal">
+      <span class="inline-block rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.15em] font-500 bg-tint text-herb">솔직한 답변</span>
+      <h2 class="kr mt-5 text-3xl md:text-4xl font-bold tracking-tight leading-tight">한의원 허리치료,<br>효과가 있긴 한가요</h2>
+      <p class="kr mt-5 text-muted leading-relaxed">
+        많이 받는 질문이라 먼저 정리해 두었습니다. 모든 허리 통증에 한방치료가 답이 되지는 않습니다.
+      </p>
+    </div>
+
+    <div class="mt-12 grid lg:grid-cols-2 gap-6">
+      <div class="reveal rounded-[2rem] ring-1 ring-line bg-paper p-8 md:p-10">
+        <div class="flex items-center gap-2 text-muted">
+          <iconify-icon icon="solar:danger-triangle-linear" class="text-xl"></iconify-icon>
+          <p class="kr text-[11px] uppercase tracking-[0.15em] font-500">다른 과로 안내드리는 경우</p>
+        </div>
+        <ul class="kr mt-5 space-y-3 text-[15px] leading-relaxed">
+          <li class="flex gap-3"><span class="text-muted shrink-0">—</span><span>대소변 장애나 회음부 감각 저하가 있을 때. 응급 수술이 필요합니다.</span></li>
+          <li class="flex gap-3"><span class="text-muted shrink-0">—</span><span>다리 근력이 빠르게 약해질 때. 신경외과 진료가 우선입니다.</span></li>
+          <li class="flex gap-3"><span class="text-muted shrink-0">—</span><span>골절, 종양, 감염이 의심될 때. 영상 검사가 먼저입니다.</span></li>
+          <li class="flex gap-3"><span class="text-muted shrink-0">—</span><span>4~6주 치료했는데 변화가 없을 때. 다른 원인을 찾아야 합니다.</span></li>
+        </ul>
+      </div>
+
+      <div class="reveal rounded-[2rem] bg-tint ring-1 ring-herb/15 p-8 md:p-10" style="--d:100ms">
+        <div class="flex items-center gap-2 text-herb">
+          <iconify-icon icon="solar:check-circle-linear" class="text-xl"></iconify-icon>
+          <p class="kr text-[11px] uppercase tracking-[0.15em] font-500">도움이 되는 경우</p>
+        </div>
+        <ul class="kr mt-5 space-y-3 text-[15px] leading-relaxed">
+          <li class="flex gap-3"><span class="text-herb shrink-0">—</span><span>갑자기 삐끗한 급성 요통</span></li>
+          <li class="flex gap-3"><span class="text-herb shrink-0">—</span><span>영상에서 돌출이 확인되었으나 마비는 없는 경우</span></li>
+          <li class="flex gap-3"><span class="text-herb shrink-0">—</span><span>수술 후에도 통증이 일부 남은 경우</span></li>
+          <li class="flex gap-3"><span class="text-herb shrink-0">—</span><span>원인이 뚜렷하지 않은 만성 요통</span></li>
+          <li class="flex gap-3"><span class="text-herb shrink-0">—</span><span>교통사고 이후의 요통과 근육 긴장</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="kr reveal mt-8 max-w-[62ch] text-sm text-muted leading-relaxed">
+      같은 진단이라도 경과는 사람마다 다릅니다. 치료 계획과 예상 기간을 미리 말씀드리고,
+      정해진 기간 안에 변화가 없으면 다른 방법이나 다른 과의 진료를 권해드립니다.
+    </p>
+  </div>
+</section>
+
+<!-- ══ 08 원장 — 후기(위법) 대신 진료 원칙으로 신뢰 ══ -->
+<!-- TODO: 성함·이력은 반드시 실제 값으로 교체. 허위 경력 표기는 의료법 위반입니다. -->
+<section class="py-24 md:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-5 reveal">
+      <div class="rounded-[2rem] bg-ink/[0.04] ring-1 ring-ink/[0.06] p-1.5">
+        <img src="https://picsum.photos/seed/korean-doctor-portrait/700/840" alt="원장 사진"
+             width="700" height="840" loading="lazy" decoding="async"
+             class="rounded-[calc(2rem-0.375rem)] w-full object-cover shadow-lifted">
+      </div>
+    </div>
+    <div class="lg:col-span-7 reveal" style="--d:100ms">
+      <span class="inline-block rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.15em] font-500 bg-tint text-herb">진료 원칙</span>
+      <h2 class="kr mt-5 text-3xl md:text-4xl font-bold tracking-tight leading-tight">낫지 않으면<br>붙잡지 않습니다</h2>
+      <div class="kr mt-7 space-y-5 text-muted leading-relaxed max-w-[52ch]">
+        <p>진료실에서 가장 먼저 하는 일은 <span class="text-ink font-500">여기서 치료할 상태인지 가려내는 것</span>입니다. 수술이 필요한 신호가 보이면 바로 전원을 안내해 드립니다.</p>
+        <p>치료를 시작할 때는 <span class="text-ink font-500">예상 횟수와 기간을 먼저 말씀드립니다.</span> 급성기 2~3주, 회복기 4~6주처럼 구체적으로요. 그 기간 안에 변화가 없으면 방법을 바꾸거나 다른 과를 권합니다.</p>
+        <p>증상이 없는데 기간을 채우기 위해 치료를 이어가는 일은 하지 않습니다.</p>
+      </div>
+      <div class="mt-8 flex flex-wrap gap-2">
+        <span class="rounded-full bg-surface ring-1 ring-line px-4 py-2 text-sm">한방재활의학과</span>
+        <span class="rounded-full bg-surface ring-1 ring-line px-4 py-2 text-sm">척추·관절 중점</span>
+        <span class="rounded-full bg-surface ring-1 ring-line px-4 py-2 text-sm">교통사고 후유증</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 09 CTA — Full-bleed ══ -->
+<section class="relative bg-ink text-white overflow-hidden">
+  <div class="pointer-events-none absolute inset-0"
+       style="background: radial-gradient(70% 100% at 50% 0%, rgba(30,91,69,.35) 0%, rgba(30,91,69,0) 70%);"></div>
+  <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 text-center">
+    <h2 class="kr text-3xl md:text-5xl font-bold tracking-tight leading-tight reveal">
+      오늘 밤 9시까지<br>진료합니다
+    </h2>
+    <p class="kr mt-6 text-white/70 leading-relaxed reveal" style="--d:80ms">
+      퇴근하고 오셔도 됩니다. 토요일도 점심시간 없이 진료합니다.
+    </p>
+    <div class="mt-10 flex flex-col sm:flex-row gap-3 justify-center reveal" style="--d:160ms">
+      <a href="tel:031-000-0000" class="press inline-flex items-center justify-between gap-3 rounded-full bg-white text-ink pl-8 pr-2 py-4 text-lg font-600">
+        <span>031-000-0000</span>
+        <span class="w-9 h-9 rounded-full bg-ink/10 grid place-items-center shrink-0">
+          <iconify-icon icon="solar:phone-linear" class="arw text-xl"></iconify-icon>
+        </span>
+      </a>
+      <a href="#top" class="press inline-flex items-center gap-3 rounded-full ring-1 ring-white/20 px-8 py-4 text-lg text-white/90 hover:bg-white/5">
+        <iconify-icon icon="solar:map-point-linear" class="text-xl"></iconify-icon>
+        <span>오시는 길</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 10 FOOTER — 미니멀 ══ -->
+<footer class="bg-paper">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+      <div>
+        <p class="font-display text-xl font-600">한강한의원</p>
+        <p class="kr mt-3 text-sm text-muted leading-relaxed">
+          경기도 김포시 한강신도시로 000, 3층<br>
+          031-000-0000 · 김포도시철도 운양역 도보 5분 · 주차 30대
+        </p>
+      </div>
+      <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted">
+        <a href="#symptoms" class="hover:text-ink transition-colors">증상별 진료</a>
+        <a href="#accident" class="hover:text-ink transition-colors">교통사고</a>
+        <a href="#cost" class="hover:text-ink transition-colors">비용·보험</a>
+        <a href="#doubt" class="hover:text-ink transition-colors">효과 있나요</a>
+      </nav>
+    </div>
+    <p class="kr mt-10 pt-8 border-t border-line text-xs text-muted leading-relaxed max-w-[76ch]">
+      본 사이트의 의료 정보는 일반적인 설명이며, 개인의 상태에 따라 진단과 치료는 달라집니다.
+      정확한 진단은 의료진의 진료를 통해 확인하시기 바랍니다.
+    </p>
+  </div>
+</footer>
+
+<script>
+  // 스크롤 리스너 대신 IntersectionObserver (스킬 요구사항)
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
+</body>
+</html>
