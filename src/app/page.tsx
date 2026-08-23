@@ -3,7 +3,7 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { Bezel, JsonLd } from "@/components/site";
-import { SYMPTOM_ICONS, WHY_ICONS } from "@/components/icons";
+import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon } from "@/components/icons";
 
 const pain = getSymptom("pain")!;
 
@@ -132,13 +132,75 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 왜 이곳인가 — 위(Bento)·아래(풀블리드)와 달리 가로 행으로 쌓는다 */}
+        {/* 왜 이곳인가 — 주장 카드로 열고 아래에서 증명한다 */}
         <section className="mt-16">
-          <h2 className="kr text-2xl font-bold tracking-tight">왜 김포한강한의원인가</h2>
-          <p className="kr mt-2 text-[15px] leading-7 text-muted">
-            치료법은 어디든 비슷합니다. 저희가 다르게 하는 부분을 말씀드립니다.
-          </p>
-          <div className="mt-8 border-t border-line">
+          <div className="max-w-2xl">
+            <span className="inline-block rounded-full bg-tint px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
+              {CLINIC.whyHero.eyebrow}
+            </span>
+            <h2 className="kr mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+              {CLINIC.whyHero.headline[0]}
+              <br />
+              <span className="text-herb">{CLINIC.whyHero.headline[1]}</span>
+            </h2>
+            <p className="kr mt-4 text-[17px] leading-8 text-muted">{CLINIC.whyHero.sub}</p>
+          </div>
+
+          {/* 주장 → 증명. 주장만 있으면 광고, 증명이 붙으면 설명이 된다 */}
+          <div className="relative mt-8 overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-12">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full"
+              style={{ background: "radial-gradient(circle, rgba(132,194,167,.16) 0%, rgba(132,194,167,0) 70%)" }}
+            />
+            <div className="relative">
+              <p className="kr text-2xl font-bold leading-snug md:text-3xl">
+                <span className="text-paper/45">&ldquo;</span>
+                {CLINIC.whyHero.claim[0]}
+                <br />
+                {CLINIC.whyHero.claim[1]}
+                <span className="text-paper/45">&rdquo;</span>
+              </p>
+              <p className="kr mt-5 max-w-[48ch] leading-8 text-paper/70">{CLINIC.whyHero.body}</p>
+
+              <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-paper/10 px-4 py-2 text-sm font-medium ring-1 ring-paper/15">
+                <UltrasoundIcon className="h-4 w-4" />
+                {CLINIC.whyHero.badge}
+              </span>
+
+              <div className="mt-8 border-t border-paper/15 pt-7">
+                <p className="kr text-[15px] leading-7 text-paper/70">
+                  {CLINIC.whyHero.proofLead}{" "}
+                  <strong className="font-semibold text-paper">{CLINIC.whyHero.proofLeadStrong}</strong>
+                </p>
+                <ul className="mt-5 grid gap-4 sm:grid-cols-2">
+                  {CLINIC.whyHero.proofs.map((pf) => {
+                    const Icon = WHY_ICONS[pf.key];
+                    return (
+                      <li key={pf.key} className="flex gap-3.5">
+                        <span className="mt-0.5 shrink-0 text-herb-light">
+                          {Icon ? <Icon className="h-5 w-5" /> : null}
+                        </span>
+                        <span className="kr text-[15px] leading-7 text-paper/70">
+                          <strong className="font-semibold text-paper">{pf.title}</strong> {pf.body}
+                        </span>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* 소개 비율 — 근거 표기를 함께 둔다 */}
+          <div className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-2xl bg-tint px-7 py-6 ring-1 ring-herb/15">
+            <span className="text-3xl font-bold text-herb">{CLINIC.whyHero.stat.value}</span>
+            <span className="kr text-[15px] text-ink">{CLINIC.whyHero.stat.label}</span>
+            <span className="kr ml-auto text-xs text-muted">※ {CLINIC.whyHero.stat.basis}</span>
+          </div>
+
+          {/* 상세 — 주장 카드 아래에 조용히 둔다 */}
+          <div className="mt-10 border-t border-line">
             {CLINIC.whyUs.map((w) => {
               const Icon = WHY_ICONS[w.key];
               return (
@@ -150,9 +212,6 @@ export default function Home() {
                   <div>
                     <h3 className="kr text-xl font-bold leading-snug">{w.title}</h3>
                     <p className="kr mt-3 max-w-[56ch] text-[15px] leading-8 text-muted">{w.body}</p>
-                    {w.basis && (
-                      <p className="kr mt-3 text-xs text-faint">※ {w.basis}</p>
-                    )}
                   </div>
                 </div>
               );

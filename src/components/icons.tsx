@@ -103,10 +103,34 @@ export function CoDoctorIcon({ className = base }: P) {
   );
 }
 
+/** 전후 비교 */
+export function CompareIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <rect x="2.5" y="5" width="8" height="14" rx="1.8" {...stroke} />
+      <rect x="13.5" y="5" width="8" height="14" rx="1.8" {...stroke} />
+      <path d="M12 8.5v7" {...stroke} strokeDasharray="2 2.5" />
+    </svg>
+  );
+}
+
+/** 다른 과로 안내 */
+export function RedirectIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path d="M4 12h11" {...stroke} />
+      <path d="M11.5 8.5 15 12l-3.5 3.5" {...stroke} />
+      <path d="M17.5 4.5h2v15h-2" {...stroke} />
+    </svg>
+  );
+}
+
 export const WHY_ICONS: Record<string, (p: P) => React.JSX.Element> = {
   ultrasound: UltrasoundIcon,
   referral: ReferralIcon,
   codoctor: CoDoctorIcon,
+  compare: CompareIcon,
+  redirect: RedirectIcon,
 };
 
 export const SYMPTOM_ICONS: Record<string, (p: P) => React.JSX.Element> = {

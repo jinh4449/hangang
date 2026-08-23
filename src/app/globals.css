@@ -12,6 +12,8 @@
   --herb: #1e5b45;
   --herb-deep: #16412f;
   --tint: #e9f0eb;
+  /* 어두운 배경 위에서 쓰는 옥색 */
+  --herb-light: #84c2a7;
   --ochre: #95661f;
   --ochre-soft: #f4ebda;
   --ochre-line: #dcc79b;
@@ -31,6 +33,7 @@
   --color-herb: var(--herb);
   --color-herb-deep: var(--herb-deep);
   --color-tint: var(--tint);
+  --color-herb-light: var(--herb-light);
   --color-ochre: var(--ochre);
   --color-ochre-soft: var(--ochre-soft);
   --color-ochre-line: var(--ochre-line);
