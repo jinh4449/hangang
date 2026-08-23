@@ -75,22 +75,23 @@ function computeStatus(): Status | null {
 
   const sc = scheduleFor(now.date, now.dow);
   const next = nextOpening(now.y, now.m, now.d);
-  const nextText = next ? `${next.label} ${next.open} 진료` : "";
+  const nextText = next ? `${next.label} ${next.open} 오픈` : "";
 
   if (!sc) return { kind: "closed", label: "휴진", detail: nextText };
 
-  if (now.minutes < sc.open) return { kind: "closed", label: "진료 전", detail: `${fmt(sc.open)} 진료 시작` };
-  if (now.minutes >= sc.close) return { kind: "closed", label: "진료 종료", detail: nextText };
+  if (now.minutes < sc.open) return { kind: "closed", label: "진료 전", detail: `오늘 ${fmt(sc.open)} 오픈` };
+  if (now.minutes >= sc.close) return { kind: "closed", label: "진료종료", detail: nextText };
   if (sc.lunch && now.minutes >= sc.lunch.from && now.minutes < sc.lunch.to)
     return { kind: "lunch", label: "점심시간", detail: `${fmt(sc.lunch.to)} 진료 재개` };
 
   return { kind: "open", label: "진료중", detail: `${fmt(sc.close)}까지` };
 }
 
-const TONE: Record<Kind, { dot: string; text: string; bg: string }> = {
-  open: { dot: "bg-herb", text: "text-herb", bg: "bg-tint" },
-  lunch: { dot: "bg-ochre", text: "text-ochre", bg: "bg-ochre-soft" },
-  closed: { dot: "bg-faint", text: "text-muted", bg: "bg-surface-2" },
+/** 테두리와 진한 라벨로 대비를 준다. 배지가 흐리면 상태를 못 읽는다 */
+const TONE: Record<Kind, { dot: string; text: string; box: string }> = {
+  open: { dot: "bg-herb", text: "text-herb", box: "bg-tint ring-1 ring-herb/30" },
+  lunch: { dot: "bg-ochre", text: "text-ochre", box: "bg-ochre-soft ring-1 ring-ochre/35" },
+  closed: { dot: "bg-rust", text: "text-rust", box: "bg-rust-soft ring-1 ring-rust/30" },
 };
 
 export function ClinicStatus({ className = "" }: { className?: string }) {
@@ -109,12 +110,12 @@ export function ClinicStatus({ className = "" }: { className?: string }) {
   const tone = TONE[status.kind];
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs ${tone.bg} ${className}`}
+      className={`inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] ${tone.box} ${className}`}
       aria-label={`현재 ${status.label}. ${status.detail}`}
     >
-      <span className={`h-1.5 w-1.5 rounded-full ${tone.dot}`} aria-hidden="true" />
-      <span className={`font-semibold ${tone.text}`}>{status.label}</span>
-      {status.detail && <span className="hidden text-muted sm:inline">{status.detail}</span>}
+      <span className={`h-2 w-2 shrink-0 rounded-full ${tone.dot}`} aria-hidden="true" />
+      <span className={`font-bold ${tone.text}`}>{status.label}</span>
+      {status.detail && <span className="font-medium text-ink/75">{status.detail}</span>}
     </span>
   );
 }
