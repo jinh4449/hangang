@@ -133,9 +133,21 @@ export default function Home() {
                     {s.clinicalName}
                   </p>
                 </div>
-                <p className={"kr mt-6 text-sm leading-7 " + (i === 0 ? "text-paper/80" : "text-muted")}>
-                  {s.summary}
-                </p>
+                <div className="mt-6">
+                  {s.highlight && (
+                    <span
+                      className={
+                        "mb-2 inline-block rounded-full px-3 py-1 text-xs font-semibold " +
+                        (i === 0 ? "bg-paper/15 text-paper" : "bg-ochre-soft text-ochre")
+                      }
+                    >
+                      {s.highlight.label}
+                    </span>
+                  )}
+                  <p className={"kr text-sm leading-7 " + (i === 0 ? "text-paper/80" : "text-muted")}>
+                    {s.summary}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
@@ -280,23 +292,6 @@ export default function Home() {
               );
             })}
           </div>
-        </section>
-
-        {/* 교통사고 — 앞뒤와 완전히 다른 구조 */}
-        <section className="mt-12 overflow-hidden rounded-[2rem] bg-herb-deep p-8 text-paper md:p-12">
-          <h2 className="kr text-2xl font-bold leading-tight md:text-3xl">
-            교통사고 치료는 본인부담금이 없습니다
-          </h2>
-          <p className="kr mt-4 max-w-[52ch] leading-8 text-paper/75">
-            자동차보험으로 전액 처리됩니다. 접수번호만 있으면 바로 시작할 수 있고,
-            건강보험에서 비급여인 약침과 한약도 자동차보험에서는 보장 항목입니다.
-          </p>
-          <Link
-            href="/care/car-accident"
-            className="press mt-7 inline-flex rounded-full bg-paper px-7 py-3.5 font-semibold text-herb-deep"
-          >
-            교통사고 치료 안내
-          </Link>
         </section>
 
         {/* 고민 — 의도 분해의 마지막 칸 */}

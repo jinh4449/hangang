@@ -42,6 +42,18 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         })()}
         <PageHead eyebrow={s.clinicalName} title={care.title} lede={care.lede} />
 
+        {/* 이 과목에서 가장 먼저 알려야 할 사실. 없으면 렌더링하지 않는다 */}
+        {s.highlight && (
+          <aside className="mt-8 rounded-[2rem] bg-herb p-7 text-paper md:p-8">
+            <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-paper/60">
+              {s.highlight.label}
+            </p>
+            <p className="kr mt-3 max-w-[52ch] text-lg font-semibold leading-8">
+              {s.highlight.text}
+            </p>
+          </aside>
+        )}
+
         <Section title="이런 증상이 있다면" note="아래 항목 중 여러 개에 해당한다면 진찰을 권합니다.">
           <ul className="grid gap-2 sm:grid-cols-2">
             {care.signs.map((sign) => (

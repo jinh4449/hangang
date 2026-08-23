@@ -340,5 +340,12 @@ export const carAccident: Symptom = {
     ],
   },
 
+  highlight: {
+    label: "자동차보험 적용",
+    text:
+      "치료비는 전액 보험사에 청구되어 환자 본인부담금이 없습니다. " +
+      "접수번호만 있으면 바로 시작할 수 있고, 아직 접수 전이어도 우선 진료가 가능합니다.",
+  },
+
   compareSlugs: ["accident-hanui-vs-ortho"],
 };

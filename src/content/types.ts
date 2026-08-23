@@ -65,6 +65,12 @@ export type Symptom = {
     sideEffects: string[];
   };
 
+  /**
+   * 페이지 상단에 크게 띄울 한 줄. 목록 카드의 배지로도 쓴다.
+   * 해당 과목에서 가장 먼저 알려야 할 사실이 있을 때만 둔다.
+   */
+  highlight?: { label: string; text: string };
+
   /** 이 증상과 연결된 비교 페이지 slug */
   compareSlugs: string[];
 };
