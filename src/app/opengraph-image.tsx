@@ -60,7 +60,7 @@ export default async function OgImage() {
           <div
             style={{
               marginTop: 36,
-              fontSize: 82,
+              fontSize: 72,
               fontWeight: 700,
               color: "#1A1C16",
               lineHeight: 1.24,
@@ -69,8 +69,9 @@ export default async function OgImage() {
               flexDirection: "column",
             }}
           >
-            <span>참으면 익숙해질 뿐,</span>
-            <span>낫지는 않습니다</span>
+            <span>나아지고 있는지,</span>
+            <span>눈으로 확인하면서</span>
+            <span>치료합니다</span>
           </div>
         </div>
 

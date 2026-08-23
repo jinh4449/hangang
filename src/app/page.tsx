@@ -35,12 +35,14 @@ export default function Home() {
             <span className="inline-block rounded-full bg-tint px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
               {CLINIC.tagline}
             </span>
-            <h1 className="kr mt-6 max-w-[16ch] text-4xl font-bold leading-[1.25] tracking-tight text-balance sm:text-5xl">
-              참으면 익숙해질 뿐, 낫지는 않습니다
+            <h1 className="kr mt-6 text-4xl font-bold leading-[1.25] tracking-tight text-balance sm:text-5xl">
+              나아지고 있는지,
+              <br />
+              눈으로 확인하면서 치료합니다
             </h1>
             <p className="kr mt-6 max-w-[46ch] text-[17px] leading-8 text-muted">
-              통증이든 소화든 피로든, 먼저 다른 과의 진료가 필요한 상태인지부터 가려냅니다.
-              그렇지 않다면 그때 한방치료를 시작합니다.
+              통증은 주관적이라 스스로는 좋아지고 있는지 알기 어렵습니다.
+              초음파로 치료 전후를 함께 보면서, 지금 어디까지 왔는지 말씀드립니다.
             </p>
 
             <ul className="mt-8 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
