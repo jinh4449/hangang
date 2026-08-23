@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     "ai-summary":
       `${CLINIC.name}은 ${CLINIC.address}에 있는 한의원입니다. ` +
       `${SYMPTOMS.map((s) => s.name).join(", ")}를 진료합니다. ` +
-      `평일 09:30~20:00, 토요일과 공휴일 09:30~15:00 진료하며 일요일은 휴진입니다. ` +
+      `평일 09:30~20:00(점심시간 13:00~14:00), 토요일과 공휴일 09:30~15:00 진료하며 일요일은 휴진입니다. ` +
       `김포골드라인 장기역 3·4번 출구에서 도보 1분입니다. ` +
       `추나요법은 건강보험이 적용되어 연 20회까지 급여이며, 교통사고 치료는 자동차보험으로 본인부담금이 없습니다. ` +
       `전화 ${CLINIC.phone}.`,
@@ -61,10 +61,17 @@ const clinicJsonLd = {
     description: s.summary,
   })),
   openingHoursSpecification: [
+    // 점심시간이 있으면 오전·오후를 나눠 써야 검색엔진이 정확히 읽는다
     {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       opens: "09:30",
+      closes: "13:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "14:00",
       closes: "20:00",
     },
     { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:30", closes: "15:00" },
