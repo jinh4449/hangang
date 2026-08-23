@@ -3,6 +3,7 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { Bezel, JsonLd } from "@/components/site";
+import { ClinicStatus } from "@/components/clinic-status";
 import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon } from "@/components/icons";
 
 const pain = getSymptom("pain")!;
@@ -75,7 +76,10 @@ export default function Home() {
           <div className="lg:col-span-5">
             <Bezel>
               <div className="p-7">
-                <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-herb">진료 시간</p>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-herb">진료 시간</p>
+                  <ClinicStatus />
+                </div>
                 <dl className="mt-4 space-y-3 text-[15px]">
                   {CLINIC.hours.map((h) => (
                     <div key={h.day} className="flex items-baseline justify-between border-b border-line pb-3 last:border-0 last:pb-0">

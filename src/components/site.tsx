@@ -3,6 +3,7 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
 import { AREAS } from "@/content/area";
 import { INTENTS, type IntentKey } from "@/content/types";
+import { ClinicStatus } from "./clinic-status";
 
 /** 가장자리에 붙은 바가 아니라 떠 있는 글래스 필 */
 export function SiteHeader() {
@@ -12,6 +13,7 @@ export function SiteHeader() {
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {CLINIC.name}
         </Link>
+        <ClinicStatus className="shrink-0" />
         <div className="ml-4 hidden items-center gap-1 text-[15px] text-muted lg:flex">
           {SYMPTOMS.map((s) => (
             <Link
