@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
+import { columnsByDate } from "@/content/column";
 import { Bezel, JsonLd } from "@/components/site";
 import { ClinicStatus } from "@/components/clinic-status";
 import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon } from "@/components/icons";
@@ -269,6 +270,28 @@ export default function Home() {
                 <span className="kr mt-1 block text-sm text-muted">
                   도움이 되는 경우와 그렇지 않은 경우를 나눠서 설명드립니다.
                 </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* 최신 칼럼 — 검색으로 들어온 사람에게 읽을거리를 준다 */}
+        <section className="mt-16">
+          <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <h2 className="kr text-2xl font-bold tracking-tight">진료실에서 자주 받는 질문</h2>
+            <Link href="/column" className="text-sm font-medium text-herb hover:underline">
+              칼럼 전체 보기
+            </Link>
+          </div>
+          <div className="mt-6 grid gap-2 md:grid-cols-2">
+            {columnsByDate().slice(0, 4).map((c) => (
+              <Link
+                key={c.slug}
+                href={`/column/${c.slug}`}
+                className="rounded-2xl bg-surface px-6 py-5 ring-1 ring-line transition-colors hover:ring-herb"
+              >
+                <span className="kr font-semibold leading-snug">{c.title}</span>
+                <span className="kr mt-1.5 block text-sm leading-7 text-muted">{c.summary}</span>
               </Link>
             ))}
           </div>

@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { SYMPTOMS } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { AREAS } from "@/content/area";
+import { COLUMNS } from "@/content/column";
 import { INTENTS } from "@/content/types";
 import { SITE_URL } from "@/content/clinic";
 
@@ -28,6 +29,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.85,
+    });
+  }
+  entries.push({
+    url: `${SITE_URL}/column`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.8,
+  });
+  for (const c of COLUMNS) {
+    entries.push({
+      url: `${SITE_URL}/column/${c.slug}`,
+      lastModified: new Date(c.updated ?? c.date),
+      changeFrequency: "monthly",
+      priority: 0.7,
     });
   }
   for (const c of COMPARES) {

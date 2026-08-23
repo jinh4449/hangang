@@ -118,3 +118,30 @@ export type Area = {
   /** 이 지역에서 특히 많이 찾는 진료과목 */
   focusSlugs: string[];
 };
+
+/** 칼럼 본문 블록. 자유 HTML 대신 타입으로 묶어 형태가 흐트러지지 않게 한다 */
+export type Block =
+  | { t: "p"; text: string }
+  | { t: "h"; text: string }
+  | { t: "ul"; items: string[] }
+  | { t: "note"; tone: "warn" | "info"; title: string; text: string };
+
+/**
+ * 원장 칼럼.
+ * 칼럼도 의료광고에 해당할 수 있다. 효과 보장·최상급 표현을 쓰지 않고,
+ * 진료실에서 실제로 받는 질문에 답하는 형태로만 쓴다.
+ */
+export type Column = {
+  slug: string;
+  /** 글 제목 */
+  title: string;
+  /** 환자가 실제로 검색하는 말 */
+  question: string;
+  summary: string;
+  /** ISO 날짜 */
+  date: string;
+  updated?: string;
+  /** 관련 진료과목 slug */
+  symptomSlugs: string[];
+  body: Block[];
+};

@@ -204,7 +204,12 @@ export function SiteFooter() {
           </nav>
         </div>
 
-        <nav aria-label="지역별 안내" className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+        <nav aria-label="더 보기" className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+          <Link href="/column" className="transition-colors hover:text-ink">원장 칼럼</Link>
+          <Link href="/directions" className="transition-colors hover:text-ink">오시는 길</Link>
+        </nav>
+
+        <nav aria-label="지역별 안내" className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
           {AREAS.map((a) => (
             <Link key={a.slug} href={`/area/${a.slug}`} className="transition-colors hover:text-ink">
               {a.title}
