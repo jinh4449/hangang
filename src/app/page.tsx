@@ -89,12 +89,20 @@ export default function Home() {
             교통사고로 인한 치료는 자동차보험으로 전액 처리되어 환자 부담이 없습니다. 접수번호만
             있으면 바로 치료를 시작할 수 있습니다.
           </p>
-          <a
-            href={CLINIC.phoneHref}
-            className="mt-5 inline-block rounded border border-ochre px-5 py-3 text-sm font-semibold text-ochre transition-colors hover:bg-ochre hover:text-paper"
-          >
-            사고 접수 문의
-          </a>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <Link
+              href="/care/car-accident"
+              className="rounded border border-ochre px-5 py-3 text-sm font-semibold text-ochre transition-colors hover:bg-ochre hover:text-paper"
+            >
+              교통사고 치료 안내
+            </Link>
+            <a
+              href={CLINIC.phoneHref}
+              className="rounded border border-line bg-surface px-5 py-3 text-sm transition-colors hover:border-ochre"
+            >
+              사고 접수 문의
+            </a>
+          </div>
         </section>
 
         <section className="mt-16">

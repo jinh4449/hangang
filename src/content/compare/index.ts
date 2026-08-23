@@ -90,6 +90,51 @@ export const chunaVsManual: Compare = {
   symptomSlugs: ["back-pain"],
 };
 
-export const COMPARES: Compare[] = [hanuiVsOrtho, chunaVsManual];
+export const accidentHanuiVsOrtho: Compare = {
+  slug: "accident-hanui-vs-ortho",
+  title: "교통사고, 한의원과 정형외과 중 어디로",
+  question: "교통사고 났는데 한의원이랑 정형외과 중 어디로 가야 하나요?",
+  lede:
+    "둘 다 자동차보험으로 처리되므로 비용 차이는 없습니다. " +
+    "무엇을 확인해야 하는 단계인지에 따라 순서를 정하시면 됩니다.",
+
+  a: {
+    name: "정형외과를 먼저",
+    does:
+      "영상 검사로 골절과 구조적 손상을 확인합니다. 사고 직후 무엇이 손상되었는지 " +
+      "가려내는 것이 핵심 역할입니다.",
+    betterWhen: [
+      "머리를 부딪쳤거나 의식을 잃은 적이 있을 때",
+      "골절이 의심될 정도의 강한 충격이었을 때",
+      "팔다리에 힘이 빠지는 느낌이 있을 때",
+      "아직 X-ray나 CT를 찍지 않았을 때",
+      "상처나 출혈이 있을 때",
+    ],
+  },
+
+  b: {
+    name: "한의원을 먼저",
+    does:
+      "영상에 나타나지 않는 근육과 인대의 손상을 다룹니다. " +
+      "검사상 이상이 없는데 남는 통증이 주된 대상입니다.",
+    betterWhen: [
+      "검사에서 이상이 없다고 들었는데 계속 아플 때",
+      "사고 며칠 뒤부터 목과 허리가 뻣뻣해졌을 때",
+      "두통, 어지럼, 불면이 사고 후에 생겼을 때",
+      "정형외과 치료를 받았지만 통증이 남았을 때",
+      "약침이나 한약을 함께 받고 싶을 때",
+    ],
+  },
+
+  together:
+    "두 곳을 함께 다니는 것도 가능하고 실제로 많이들 그렇게 하십니다. " +
+    "다만 같은 날 같은 부위에 중복 치료를 받으면 보험 처리에서 문제가 될 수 있으니, " +
+    "양쪽 진료에서 서로의 치료 내용을 알려주시는 것이 좋습니다. " +
+    "비용은 어느 쪽이든 자동차보험으로 처리되어 본인부담금이 없습니다.",
+
+  symptomSlugs: ["car-accident"],
+};
+
+export const COMPARES: Compare[] = [hanuiVsOrtho, chunaVsManual, accidentHanuiVsOrtho];
 
 export const getCompare = (slug: string) => COMPARES.find((c) => c.slug === slug);

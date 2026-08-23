@@ -119,6 +119,19 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </ol>
         </Section>
 
+        {care.extraSections?.map((sec) => (
+          <Section key={sec.title} title={sec.title} note={sec.note}>
+            <div className="grid gap-3">
+              {sec.items.map((it) => (
+                <div key={it.title} className="rounded border border-line bg-surface p-5">
+                  <h3 className="font-semibold">{it.title}</h3>
+                  <p className="mt-2 text-[15px] leading-7 text-muted">{it.body}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+        ))}
+
         {s.compareSlugs.length > 0 && (
           <Section title="함께 보면 좋은 비교">
             <div className="grid gap-2">
