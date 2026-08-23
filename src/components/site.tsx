@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
+import { AREAS } from "@/content/area";
 import { INTENTS, type IntentKey } from "@/content/types";
 
 /** 가장자리에 붙은 바가 아니라 떠 있는 글래스 필 */
@@ -141,7 +142,9 @@ export function SiteFooter() {
           <div>
             <p className="text-xl font-bold">{CLINIC.name}</p>
             <p className="kr mt-3 text-sm leading-7 text-muted">
-              {CLINIC.address}
+              {CLINIC.address} · {CLINIC.landmark}
+              <br />
+              {CLINIC.transit}
               <br />
               {CLINIC.phone}
             </p>
@@ -154,6 +157,14 @@ export function SiteFooter() {
             ))}
           </nav>
         </div>
+
+        <nav aria-label="지역별 안내" className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+          {AREAS.map((a) => (
+            <Link key={a.slug} href={`/area/${a.slug}`} className="transition-colors hover:text-ink">
+              {a.title}
+            </Link>
+          ))}
+        </nav>
 
         <dl className="mt-8 grid gap-x-8 text-sm sm:grid-cols-2">
           {CLINIC.hours.map((h) => (
