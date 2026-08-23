@@ -48,9 +48,11 @@ const fmt = (mins: number) =>
 
 /** 그날의 진료 시간대. 휴진이면 null */
 function scheduleFor(date: string, dow: number) {
-  const isHoliday = CLINIC.holidays.dates.includes(date);
-  if (dow === 0) return null; // 일요일 휴진
-  if (isHoliday || dow === 6) return { open: hm("09:30"), close: hm("15:00"), lunch: null };
+  if (CLINIC.holidays.closed.includes(date)) return null; // 설날·추석 당일
+  if (dow === 0) return null; // 일요일
+  // 공휴일·대체공휴일과 토요일은 15시 마감, 점심시간 없음
+  if (CLINIC.holidays.shortDay.includes(date) || dow === 6)
+    return { open: hm("09:30"), close: hm("15:00"), lunch: null };
   return { open: hm("09:30"), close: hm("20:00"), lunch: { from: hm("13:00"), to: hm("14:00") } };
 }
 
