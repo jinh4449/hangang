@@ -66,6 +66,49 @@ export function BatteryIcon({ className = base }: P) {
   );
 }
 
+/** 초음파 — 프로브에서 퍼지는 파형 */
+export function UltrasoundIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path d="M4.5 3.5h4a1 1 0 0 1 1 1v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3v-6a1 1 0 0 1 1-1Z" {...stroke} />
+      <path d="M13 7.5a5 5 0 0 1 0 9" {...stroke} />
+      <path d="M16 5a8.5 8.5 0 0 1 0 14" {...stroke} />
+      <path d="M19 2.5a12 12 0 0 1 0 19" {...stroke} />
+    </svg>
+  );
+}
+
+/** 소개 — 사람에서 사람으로 */
+export function ReferralIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="6" cy="7" r="2.6" {...stroke} />
+      <path d="M2.5 19c0-2.5 1.6-4.2 3.5-4.2S9.5 16.5 9.5 19" {...stroke} />
+      <circle cx="18" cy="7" r="2.6" {...stroke} />
+      <path d="M14.5 19c0-2.5 1.6-4.2 3.5-4.2s3.5 1.7 3.5 4.2" {...stroke} />
+      <path d="M10.5 10.5h3m0 0-1.2-1.2m1.2 1.2-1.2 1.2" {...stroke} />
+    </svg>
+  );
+}
+
+/** 협진 — 두 원장 */
+export function CoDoctorIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="8.5" cy="7.5" r="3" {...stroke} />
+      <circle cx="16.5" cy="9.5" r="2.4" {...stroke} />
+      <path d="M3 19.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5" {...stroke} />
+      <path d="M15 15.2c2.4.3 4 2.1 4 4.3" {...stroke} />
+    </svg>
+  );
+}
+
+export const WHY_ICONS: Record<string, (p: P) => React.JSX.Element> = {
+  ultrasound: UltrasoundIcon,
+  referral: ReferralIcon,
+  codoctor: CoDoctorIcon,
+};
+
 export const SYMPTOM_ICONS: Record<string, (p: P) => React.JSX.Element> = {
   pain: SpineIcon,
   "car-accident": ImpactIcon,

@@ -3,7 +3,7 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { Bezel, JsonLd } from "@/components/site";
-import { SYMPTOM_ICONS } from "@/components/icons";
+import { SYMPTOM_ICONS, WHY_ICONS } from "@/components/icons";
 
 const pain = getSymptom("pain")!;
 
@@ -129,6 +129,34 @@ export default function Home() {
                 </p>
               </Link>
             ))}
+          </div>
+        </section>
+
+        {/* 왜 이곳인가 — 위(Bento)·아래(풀블리드)와 달리 가로 행으로 쌓는다 */}
+        <section className="mt-16">
+          <h2 className="kr text-2xl font-bold tracking-tight">왜 김포한강한의원인가</h2>
+          <p className="kr mt-2 text-[15px] leading-7 text-muted">
+            치료법은 어디든 비슷합니다. 저희가 다르게 하는 부분을 말씀드립니다.
+          </p>
+          <div className="mt-8 border-t border-line">
+            {CLINIC.whyUs.map((w) => {
+              const Icon = WHY_ICONS[w.key];
+              return (
+                <div
+                  key={w.key}
+                  className="grid gap-4 border-b border-line py-8 sm:grid-cols-[3.5rem_1fr] sm:gap-8"
+                >
+                  <div className="text-herb">{Icon ? <Icon className="h-10 w-10" /> : null}</div>
+                  <div>
+                    <h3 className="kr text-xl font-bold leading-snug">{w.title}</h3>
+                    <p className="kr mt-3 max-w-[56ch] text-[15px] leading-8 text-muted">{w.body}</p>
+                    {w.basis && (
+                      <p className="kr mt-3 text-xs text-faint">※ {w.basis}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </section>
 
