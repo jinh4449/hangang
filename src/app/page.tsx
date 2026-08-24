@@ -71,21 +71,24 @@ export default function Home() {
 
           <h1 className="display display-black kr mt-7 text-[2.15rem] text-balance sm:text-5xl lg:text-[3.75rem]">
             <span className="enter inline-block" style={{ "--d": "110ms" } as React.CSSProperties}>
-              나아지고 있는지,
+              내 증상,
+            </span>
+            <br />
+            <span className="enter inline-block" style={{ "--d": "220ms" } as React.CSSProperties}>
+              편하게 물어봐도
             </span>
             <br />
             <span
               className="grad enter inline-block"
-              style={{ "--d": "260ms" } as React.CSSProperties}
+              style={{ "--d": "330ms" } as React.CSSProperties}
             >
-              눈으로 확인하면서 치료합니다
+              될까?
             </span>
           </h1>
 
-          <Enter d={430}>
-            <p className="kr mx-auto mt-7 max-w-[48ch] text-[17px] leading-8 text-muted">
-              통증은 주관적이라 스스로는 좋아지고 있는지 알기 어렵습니다. 초음파로 치료 전후를 함께
-              보면서, 지금 어디까지 왔는지 말씀드립니다.
+          <Enter d={440}>
+            <p className="kr mx-auto mt-7 max-w-[56ch] text-[17px] leading-8 text-muted">
+              그 세 가지를 위해 진료 방식을 정했습니다. 초음파로 함께 보고, 남녀 두 원장이 나눠 맡고, 아니면 아니라고 말씀드립니다.
             </p>
           </Enter>
 
