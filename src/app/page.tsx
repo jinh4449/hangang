@@ -54,7 +54,7 @@ export default function Home() {
         }}
       />
 
-      {/* 히어로 — 한 문장을 화면 한가운데 크게 세운다 */}
+      {/* 히어로 — 환자가 속으로 던지는 세 가지 질문을 그대로 세운다 */}
       <section className="relative overflow-hidden border-b border-line">
         <div
           aria-hidden="true"
@@ -69,30 +69,25 @@ export default function Home() {
             </span>
           </Enter>
 
-          <h1 className="display display-black kr mt-7 text-[2.15rem] text-balance sm:text-5xl lg:text-[3.75rem]">
-            <span className="enter inline-block" style={{ "--d": "110ms" } as React.CSSProperties}>
-              내 증상,
+          <h1 className="display display-black kr mt-7 text-[2rem] leading-[1.28] sm:text-[2.9rem] lg:text-[3.4rem]">
+            <span className="enter block" style={{ "--d": "110ms" } as React.CSSProperties}>
+              내 증상, 이해해줄까?
             </span>
-            <br />
-            <span className="enter inline-block" style={{ "--d": "220ms" } as React.CSSProperties}>
-              편하게 물어봐도
+            <span className="enter block" style={{ "--d": "250ms" } as React.CSSProperties}>
+              편하게 물어봐도 될까?
             </span>
-            <br />
-            <span
-              className="grad enter inline-block"
-              style={{ "--d": "330ms" } as React.CSSProperties}
-            >
-              될까?
+            <span className="grad enter block" style={{ "--d": "390ms" } as React.CSSProperties}>
+              믿고 맡겨도 될까?
             </span>
           </h1>
 
-          <Enter d={440}>
+          <Enter d={520}>
             <p className="kr mx-auto mt-7 max-w-[56ch] text-[17px] leading-8 text-muted">
               그 세 가지를 위해 진료 방식을 정했습니다. 초음파로 함께 보고, 남녀 두 원장이 나눠 맡고, 아니면 아니라고 말씀드립니다.
             </p>
           </Enter>
 
-          <Enter d={540}>
+          <Enter d={620}>
             <ul className="mt-9 flex flex-wrap justify-center gap-2">
               {CLINIC.badges.map((b, i) => (
                 <li
@@ -110,7 +105,7 @@ export default function Home() {
             </ul>
           </Enter>
 
-          <Enter d={640}>
+          <Enter d={720}>
             <div className="mt-9 flex flex-wrap justify-center gap-2">
               <a
                 href={CLINIC.phoneHref}
@@ -128,7 +123,7 @@ export default function Home() {
           </Enter>
         </div>
 
-        <Enter d={760} className="relative mx-auto max-w-3xl px-5 pb-16">
+        <Enter d={840} className="relative mx-auto max-w-3xl px-5 pb-16">
           <Bezel>
             <div className="p-7">
               <div className="flex flex-wrap items-center justify-between gap-2">
