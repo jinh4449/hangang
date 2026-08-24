@@ -68,7 +68,7 @@ export default function CostIndexPage() {
       />
       <JsonLd data={breadcrumb([{ name: "진료비 안내", path: "/cost" }])} />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
+      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
         <PageHead
           eyebrow="진료비 안내"
           title="치료 가격이 궁금하신가요"

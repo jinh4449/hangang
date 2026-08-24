@@ -41,7 +41,7 @@ export default async function ComparePage({ params }: PageProps<"/compare/[slug]
   if (!c) notFound();
 
   return (
-    <article className="mx-auto max-w-3xl px-5 py-12">
+    <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
       <JsonLd
         data={medicalWebPage({
           name: c.title,

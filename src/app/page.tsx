@@ -16,8 +16,12 @@ const pain = getSymptom("pain")!;
 function H2({ children, note }: { children: React.ReactNode; note?: string }) {
   return (
     <div className="text-center">
-      <h2 className="display kr text-3xl sm:text-4xl">{children}</h2>
-      {note && <p className="kr mx-auto mt-4 max-w-[52ch] text-base leading-8 text-muted">{note}</p>}
+      <h2 className="display kr text-3xl sm:text-4xl xl:text-[2.75rem]">{children}</h2>
+      {note && (
+        <p className="kr mx-auto mt-4 max-w-[52ch] text-base leading-8 text-muted xl:text-[17px] xl:leading-9">
+          {note}
+        </p>
+      )}
     </div>
   );
 }
@@ -62,14 +66,14 @@ export default function Home() {
           style={{ background: "radial-gradient(circle, rgba(30,91,69,.09) 0%, rgba(30,91,69,0) 68%)" }}
         />
 
-        <div className="relative mx-auto max-w-5xl px-5 pb-14 pt-12 text-center sm:pt-16">
+        <div className="relative mx-auto max-w-5xl px-5 pb-14 pt-12 text-center sm:pt-16 xl:max-w-6xl xl:pb-20 xl:pt-24">
           <Enter d={0}>
             <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
               {CLINIC.tagline}
             </span>
           </Enter>
 
-          <h1 className="display display-black kr mt-7 text-[2rem] leading-[1.28] sm:text-[2.9rem] lg:text-[3.4rem]">
+          <h1 className="display display-black kr mt-7 text-[2rem] leading-[1.28] sm:text-[2.9rem] lg:text-[3.4rem] xl:text-[4rem] 2xl:text-[4.6rem]">
             <span className="enter block" style={{ "--d": "110ms" } as React.CSSProperties}>
               내 증상, 이해해줄까?
             </span>
@@ -82,7 +86,7 @@ export default function Home() {
           </h1>
 
           <Enter d={520}>
-            <p className="kr mx-auto mt-7 max-w-[56ch] text-[17px] leading-8 text-muted">
+            <p className="kr mx-auto mt-7 max-w-[56ch] text-[17px] leading-8 text-muted xl:mt-9 xl:text-[19px] xl:leading-9">
               그 세 가지를 위해 진료 방식을 정했습니다. 초음파로 함께 보고, 남녀 두 원장이 나눠 맡고, 아니면 아니라고 말씀드립니다.
             </p>
           </Enter>
@@ -123,7 +127,7 @@ export default function Home() {
           </Enter>
         </div>
 
-        <Enter d={840} className="relative mx-auto max-w-3xl px-5 pb-16">
+        <Enter d={840} className="relative mx-auto max-w-3xl px-5 pb-16 xl:max-w-4xl 2xl:max-w-5xl">
           <Bezel>
             <div className="p-7">
               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -149,7 +153,7 @@ export default function Home() {
         </Enter>
       </section>
 
-      <div className="mx-auto max-w-6xl px-5 py-16">
+      <div className="mx-auto max-w-6xl px-5 py-16 xl:max-w-[80rem] xl:py-24 2xl:max-w-[92rem]">
         {/* 진료과목 — 비대칭 Bento */}
         <Reveal>
           <section>

@@ -35,7 +35,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         }}
       />
       <JsonLd data={breadcrumb([{ name: s.name, path: `/care/${s.slug}` }])} />
-      <article className="mx-auto max-w-3xl px-5 py-12">
+      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
         {(() => {
           const Icon = SYMPTOM_ICONS[s.slug];
           return Icon ? <Icon className="mb-5 h-10 w-10 text-herb" /> : null;

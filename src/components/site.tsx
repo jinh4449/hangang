@@ -17,7 +17,7 @@ import { MapPinIcon } from "./icons";
 export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-4 z-40 px-4">
-      <nav className="mx-auto flex max-w-6xl items-center gap-3 rounded-full bg-surface/70 py-2 pl-6 pr-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-ink/[0.07] backdrop-blur-xl">
+      <nav className="mx-auto flex max-w-6xl items-center gap-3 rounded-full bg-surface/70 py-2 pl-6 pr-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-ink/[0.07] backdrop-blur-xl xl:max-w-[80rem] 2xl:max-w-[92rem]">
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {CLINIC.name}
         </Link>
@@ -290,7 +290,7 @@ export function Cta({ label = "진료 예약하기" }: { label?: string }) {
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t border-line">
-      <div className="mx-auto max-w-5xl px-5 py-14">
+      <div className="mx-auto max-w-5xl px-5 py-14 xl:max-w-[80rem] 2xl:max-w-[92rem]">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
             <p className="text-xl font-bold">{CLINIC.name}</p>

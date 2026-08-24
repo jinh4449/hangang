@@ -43,7 +43,7 @@ export default async function CostPage({ params }: PageProps<"/cost/[symptom]">)
           { name: "비용·보험", path: `/cost/${s.slug}` },
         ])}
       />
-      <article className="mx-auto max-w-3xl px-5 py-12">
+      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
         <Link href="/cost" className="font-mono text-xs text-herb hover:underline">
           ← 진료비 안내
         </Link>

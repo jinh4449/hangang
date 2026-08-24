@@ -43,7 +43,7 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
           { name: p.name, path: `/part/${p.slug}` },
         ])}
       />
-      <article className="mx-auto max-w-3xl px-5 py-12">
+      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
         <Link href="/part" className="font-mono text-xs text-herb hover:underline">
           ← 부위별 안내
         </Link>

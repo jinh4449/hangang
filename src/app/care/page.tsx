@@ -24,7 +24,7 @@ export default function CareIndex() {
       />
       <JsonLd data={breadcrumb([{ name: "진료과목", path: "/care" }])} />
 
-      <article className="mx-auto max-w-3xl px-5 py-12">
+      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
         <PageHead
           eyebrow="진료과목"
           title="어떤 치료가 필요하신가요"

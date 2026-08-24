@@ -38,7 +38,7 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
         }}
       />
       <JsonLd data={breadcrumb([{ name: a.title, path: `/area/${a.slug}` }])} />
-      <article className="mx-auto max-w-3xl px-5 py-12">
+      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
         <PageHead eyebrow="오시는 길" title={a.title} lede={a.lede} />
 
         <Section title="찾아오시는 방법">

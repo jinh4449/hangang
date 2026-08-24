@@ -35,7 +35,7 @@ export default function ColumnIndex() {
           })),
         }}
       />
-      <article className="mx-auto max-w-3xl px-5 py-12">
+      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
         <PageHead
           eyebrow="원장 칼럼"
           title="진료실에서 자주 받는 질문"
