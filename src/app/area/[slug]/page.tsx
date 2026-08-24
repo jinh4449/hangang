@@ -75,7 +75,7 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
                 <Link
                   key={fs}
                   href={`/care/${fs}`}
-                  className="rounded-2xl bg-surface px-5 py-4 ring-1 ring-line transition-colors hover:ring-herb"
+                  className="tile block bg-surface px-5 py-4"
                 >
                   <span className="kr font-semibold">{s.name}</span>
                   <span className="kr mt-1 block text-sm text-muted">{s.summary}</span>

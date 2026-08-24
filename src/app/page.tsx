@@ -5,7 +5,8 @@ import { COMPARES } from "@/content/compare";
 import { columnsByDate } from "@/content/column";
 import { AXIS_STORY } from "@/content/treatment";
 import { PARTS } from "@/content/part";
-import { Bezel, JsonLd } from "@/components/site";
+import { Bezel, JsonLd, Arrow } from "@/components/site";
+import { Reveal } from "@/components/reveal";
 import { ClinicStatus } from "@/components/clinic-status";
 import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon } from "@/components/icons";
 
@@ -53,8 +54,10 @@ export default function Home() {
                 <li
                   key={b}
                   className={
-                    "kr rounded-xl border px-4 py-3 text-center text-sm font-medium " +
-                    (i === 1 ? "border-ochre-line bg-ochre-soft" : "border-herb/20 bg-tint")
+                    "badge kr cursor-default rounded-xl border px-4 py-3 text-center text-sm font-medium " +
+                    (i === 1
+                      ? "border-ochre-line bg-ochre-soft hover:border-ochre"
+                      : "border-herb/20 bg-tint hover:border-herb")
                   }
                 >
                   {b}
@@ -102,6 +105,7 @@ export default function Home() {
 
       <div className="mx-auto max-w-6xl px-5 py-16">
         {/* 진료과목 — 비대칭 Bento */}
+        <Reveal>
         <section>
           <h2 className="kr text-2xl font-bold tracking-tight">어디가 불편하신가요</h2>
           <p className="kr mt-2 text-[15px] leading-7 text-muted">
@@ -113,10 +117,10 @@ export default function Home() {
                 key={s.slug}
                 href={`/care/${s.slug}`}
                 className={
-                  "press flex flex-col justify-between rounded-[2rem] p-8 shadow-[var(--shadow-ambient)] " +
+                  "tile flex flex-col justify-between p-8 " +
                   (i === 0
-                    ? "min-h-[15rem] bg-herb text-paper md:col-span-4"
-                    : "min-h-[13rem] bg-surface ring-1 ring-line md:col-span-2")
+                    ? "tile-dark min-h-[15rem] bg-herb text-paper md:col-span-4"
+                    : "min-h-[13rem] bg-surface md:col-span-2")
                 }
               >
                 <div>
@@ -147,11 +151,21 @@ export default function Home() {
                   <p className={"kr text-sm leading-7 " + (i === 0 ? "text-paper/80" : "text-muted")}>
                     {s.summary}
                   </p>
+                  <span
+                    className={
+                      "tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium " +
+                      (i === 0 ? "text-paper" : "text-herb")
+                    }
+                  >
+                    자세히 보기
+                    <Arrow />
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
         </section>
+        </Reveal>
 
         {/* 두 축 — 이 한의원의 치료 논리 */}
         <section className="mt-16">
@@ -163,8 +177,7 @@ export default function Home() {
                 key={a.key}
                 href={`/treatment/${a.slug}`}
                 className={
-                  "press rounded-[2rem] p-8 " +
-                  (a.key === "pain" ? "bg-herb text-paper" : "bg-surface ring-1 ring-line")
+                  "tile p-8 " + (a.key === "pain" ? "tile-dark bg-herb text-paper" : "bg-surface")
                 }
               >
                 <p
@@ -199,7 +212,7 @@ export default function Home() {
               <Link
                 key={p.slug}
                 href={`/part/${p.slug}`}
-                className="rounded-full bg-surface px-5 py-2.5 text-sm ring-1 ring-line transition-colors hover:ring-herb"
+                className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb"
               >
                 {p.name}
               </Link>
@@ -305,7 +318,7 @@ export default function Home() {
               <Link
                 key={c.slug}
                 href={`/compare/${c.slug}`}
-                className="rounded-2xl bg-surface px-6 py-5 ring-1 ring-line transition-colors hover:ring-herb"
+                className="tile block bg-surface px-6 py-5"
               >
                 <span className="kr font-semibold">{c.title}</span>
                 <span className="kr mt-1 block text-sm text-muted">{c.question}</span>
@@ -315,7 +328,7 @@ export default function Home() {
               <Link
                 key={s.slug}
                 href={`/doubt/${s.slug}`}
-                className="rounded-2xl bg-surface px-6 py-5 ring-1 ring-line transition-colors hover:ring-herb"
+                className="tile block bg-surface px-6 py-5"
               >
                 <span className="kr font-semibold">{s.doubt.question}</span>
                 <span className="kr mt-1 block text-sm text-muted">
@@ -339,7 +352,7 @@ export default function Home() {
               <Link
                 key={c.slug}
                 href={`/column/${c.slug}`}
-                className="rounded-2xl bg-surface px-6 py-5 ring-1 ring-line transition-colors hover:ring-herb"
+                className="tile block bg-surface px-6 py-5"
               >
                 <span className="kr font-semibold leading-snug">{c.title}</span>
                 <span className="kr mt-1.5 block text-sm leading-7 text-muted">{c.summary}</span>

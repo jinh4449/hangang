@@ -63,6 +63,115 @@ body {
   border-radius: 4px;
 }
 
+/* ── 카드 위계 ──
+   박스는 "누를 수 있는 것" 에만 쓴다. 읽기만 하는 목록은 박스를 빼고
+   구분선과 마커로 정리한다. 박스를 줄여야 남은 박스가 강해진다. */
+
+/* background 는 여기서 정하지 않는다. bg-herb 같은 유틸리티를 덮어쓰기 때문이다 */
+.tile {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(26, 28, 22, 0.04);
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease;
+}
+a.tile:hover,
+button.tile:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in oklab, var(--herb) 45%, var(--line));
+  box-shadow: 0 14px 30px -14px rgba(26, 28, 22, 0.22);
+}
+a.tile:active,
+button.tile:active {
+  transform: translateY(-1px);
+  transition-duration: 0.1s;
+}
+
+/* 눌러서 이동하는 카드에만 붙는 화살표. hover 에 반응해 밀려 들어온다 */
+.tile-arrow {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+a.tile:hover .tile-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 어두운 배경 위의 카드 */
+.tile-dark {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+}
+a.tile-dark:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.5);
+}
+
+/* 작은 배지 — 히어로처럼 정보를 얹어두는 칩 */
+.badge {
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+.badge:hover {
+  transform: scale(1.05) translateY(-2px);
+}
+
+/* 읽기 목록 — 박스 대신 구분선과 마커 */
+.readlist {
+  display: grid;
+  gap: 0;
+}
+.readlist > li {
+  display: flex;
+  gap: 0.875rem;
+  padding: 0.875rem 0;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.75;
+}
+.readlist > li::before {
+  content: "";
+  flex: none;
+  width: 0.375rem;
+  height: 0.375rem;
+  margin-top: 0.75rem;
+  border-radius: 1px;
+  background: var(--herb);
+  transform: rotate(45deg);
+}
+
+/* 진입 리빌 — 섹션 단위로만. 항목마다 걸면 산만해진다 */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal {
+  opacity: 0;
+}
+.reveal.on {
+  animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}
+
 /* 스프링 이징 — 물리적 질감 */
 .press {
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);

@@ -55,12 +55,9 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         )}
 
         <Section title="이런 증상이 있다면" note="아래 항목 중 여러 개에 해당한다면 진찰을 권합니다.">
-          <ul className="grid gap-2 sm:grid-cols-2">
+          <ul className="readlist sm:grid-cols-2 sm:gap-x-10">
             {care.signs.map((sign) => (
-              <li
-                key={sign}
-                className="rounded border border-line bg-surface px-4 py-3 text-[15px] leading-7"
-              >
+              <li key={sign} className="kr text-[15.5px]">
                 {sign}
               </li>
             ))}

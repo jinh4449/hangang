@@ -24,7 +24,7 @@ export default function PartIndex() {
             <Link
               key={p.slug}
               href={`/part/${p.slug}`}
-              className="rounded-[2rem] bg-surface p-7 ring-1 ring-line transition-colors hover:ring-herb"
+              className="tile block bg-surface p-7"
             >
               <h2 className="kr text-xl font-bold">{p.name}</h2>
               <p className="kr mt-2 text-[15px] leading-7 text-muted">{p.summary}</p>

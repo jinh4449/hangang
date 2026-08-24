@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { SiteHeader, SiteFooter, JsonLd } from "@/components/site";
 import { CLINIC, SITE_URL } from "@/content/clinic";
+import { withJosa } from "@/content/josa";
 import { SYMPTOMS } from "@/content/symptoms";
 import "./globals.css";
 
@@ -26,8 +27,8 @@ export const metadata: Metadata = {
     "geo.placename": `${CLINIC.locality}, ${CLINIC.region}`,
     // AEO — AI 검색엔진이 읽어가는 요약. 사람이 읽는 문장으로 쓴다
     "ai-summary":
-      `${CLINIC.name}은 ${CLINIC.address}에 있는 한의원입니다. ` +
-      `${SYMPTOMS.map((s) => s.name).join(", ")}를 진료합니다. ` +
+      `${withJosa(CLINIC.name, "은는")} ${CLINIC.address}에 있는 한의원입니다. ` +
+      `${withJosa(SYMPTOMS.map((s) => s.name).join(", "), "을를")} 진료합니다. ` +
       `평일 09:30~20:00(점심시간 13:00~14:00), 토요일과 공휴일 09:30~15:00 진료하며 일요일은 휴진입니다. ` +
       `김포골드라인 장기역 3·4번 출구에서 도보 1분입니다. ` +
       `초음파로 통증 부위를 함께 보면서 상태를 설명하며, 남녀 원장 두 명이 진료합니다. ` +

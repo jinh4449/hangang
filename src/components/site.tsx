@@ -45,7 +45,7 @@ export function SiteHeader() {
   );
 }
 
-function Arrow({ className = "" }: { className?: string }) {
+export function Arrow({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={`h-4 w-4 ${className}`} aria-hidden="true">
       <path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />

@@ -87,7 +87,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
                   <Link
                     key={s}
                     href={`/care/${s}`}
-                    className="rounded-2xl bg-surface px-5 py-4 ring-1 ring-line transition-colors hover:ring-herb"
+                    className="tile block bg-surface px-5 py-4"
                   >
                     <span className="kr font-semibold">{sym.name}</span>
                     <span className="kr mt-1 block text-sm text-muted">{sym.summary}</span>
@@ -105,7 +105,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
                 <Link
                   key={o.slug}
                   href={`/column/${o.slug}`}
-                  className="rounded-2xl bg-surface px-5 py-4 ring-1 ring-line transition-colors hover:ring-herb"
+                  className="tile block bg-surface px-5 py-4"
                 >
                   <span className="kr font-semibold">{o.title}</span>
                   <span className="kr mt-1 block text-sm text-muted">{o.summary}</span>

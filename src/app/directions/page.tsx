@@ -47,7 +47,7 @@ export default function Directions() {
             <Link
               key={a.slug}
               href={`/area/${a.slug}`}
-              className="rounded-2xl bg-surface px-5 py-4 ring-1 ring-line transition-colors hover:ring-herb"
+              className="tile block bg-surface px-5 py-4"
             >
               <span className="kr font-semibold">{a.title}</span>
             </Link>

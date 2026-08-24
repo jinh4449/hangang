@@ -5,6 +5,7 @@ import { PARTS, getPart } from "@/content/part";
 import { getTreatment } from "@/content/treatment";
 import { PageHead, Section, Cta, JsonLd } from "@/components/site";
 import { breadcrumb, SITE_URL } from "@/content/schema";
+import { withJosa } from "@/content/josa";
 
 export const generateStaticParams = () => PARTS.map((p) => ({ slug: p.slug }));
 
@@ -51,9 +52,9 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
         </div>
 
         <Section title="이런 증상이 있다면">
-          <ul className="grid gap-2 sm:grid-cols-2">
+          <ul className="readlist sm:grid-cols-2 sm:gap-x-10">
             {p.signs.map((s) => (
-              <li key={s} className="kr rounded-2xl bg-surface px-5 py-3.5 text-[15px] leading-7 ring-1 ring-line">
+              <li key={s} className="kr text-[15.5px]">
                 {s}
               </li>
             ))}
@@ -62,7 +63,7 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
 
         {/* 이 페이지의 핵심 — 부위마다 각 기법이 무엇을 맡는지 */}
         <Section
-          title={`${p.name}은 이렇게 접근합니다`}
+          title={`${withJosa(p.name, "은는")} 이렇게 접근합니다`}
           note="통증을 줄이는 치료와 구조를 바로잡는 치료를 나눠서 씁니다."
         >
           <div className="grid gap-3">
@@ -115,13 +116,13 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
 
         <Section title="함께 보기">
           <div className="flex flex-wrap gap-2">
-            <Link href="/care/pain" className="rounded-full bg-surface px-5 py-2.5 text-sm ring-1 ring-line transition-colors hover:ring-herb">
+            <Link href="/care/pain" className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb">
               통증치료 전체 안내
             </Link>
-            <Link href="/cost/pain" className="rounded-full bg-surface px-5 py-2.5 text-sm ring-1 ring-line transition-colors hover:ring-herb">
+            <Link href="/cost/pain" className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb">
               비용·보험
             </Link>
-            <Link href="/doubt/pain" className="rounded-full bg-surface px-5 py-2.5 text-sm ring-1 ring-line transition-colors hover:ring-herb">
+            <Link href="/doubt/pain" className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb">
               효과가 있긴 한가요
             </Link>
           </div>

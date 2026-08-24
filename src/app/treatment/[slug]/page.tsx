@@ -96,7 +96,7 @@ export default async function TreatmentPage({ params }: PageProps<"/treatment/[s
                   <Link
                     key={ps}
                     href={`/part/${ps}`}
-                    className="rounded-full bg-surface px-5 py-2.5 text-sm ring-1 ring-line transition-colors hover:ring-herb"
+                    className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb"
                   >
                     {p.name}
                   </Link>
