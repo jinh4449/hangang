@@ -39,7 +39,7 @@ export default function TreatmentIndex() {
           })),
         }}
       />
-      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
         <PageHead eyebrow="치료 방법" title={AXIS_STORY.title} lede={AXIS_STORY.lede} />
 
         <div className="mt-10 grid gap-3 md:grid-cols-2">

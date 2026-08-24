@@ -57,6 +57,10 @@ body {
   background: var(--paper);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
+  /* 어떤 요소가 폭을 넘겨도 페이지 자체는 가로로 스크롤되지 않는다.
+     넘치는 표는 각자의 overflow-x-auto 안에서 스크롤한다.
+     clip은 스크롤 컨테이너를 만들지 않으므로 fixed 헤더가 그대로 동작한다 */
+  overflow-x: clip;
 }
 
 /* 한국어는 단어 중간에서 줄이 바뀌면 안 읽힌다 */

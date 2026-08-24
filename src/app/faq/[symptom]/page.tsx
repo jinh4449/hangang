@@ -40,7 +40,7 @@ export default async function FaqPage({ params }: PageProps<"/faq/[symptom]">) {
           { name: "자주 묻는 질문", path: `/faq/${s.slug}` },
         ])}
       />
-      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
         <PageHead
           eyebrow="자주 묻는 질문"
           title={`${s.name}, 이런 것들을 많이 물어보십니다`}

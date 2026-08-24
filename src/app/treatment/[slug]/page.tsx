@@ -40,7 +40,7 @@ export default async function TreatmentPage({ params }: PageProps<"/treatment/[s
           { name: t.fullName, path: `/treatment/${t.slug}` },
         ])}
       />
-      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
         <Link href="/treatment" className="font-mono text-xs text-herb hover:underline">
           ← 치료 방법
         </Link>

@@ -43,7 +43,7 @@ export default async function DoubtPage({ params }: PageProps<"/doubt/[symptom]"
           { name: "효과 있나요", path: `/doubt/${s.slug}` },
         ])}
       />
-      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
         <PageHead eyebrow="솔직한 답변" title={doubt.question} lede={doubt.lede} />
 
         {/* 한계를 먼저 놓는다. 효과부터 말하면 광고로 읽히고, 한계부터 말하면 설명으로 읽힌다. */}

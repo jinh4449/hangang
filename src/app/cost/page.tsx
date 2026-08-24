@@ -24,7 +24,8 @@ function Price({ row }: { row: PriceRow }) {
 function PriceTable({ rows }: { rows: readonly PriceRow[] }) {
   return (
     <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
-      <table className="w-full min-w-[420px] border-collapse text-[15px]">
+      {/* 320px 화면에도 들어가는 폭. 그보다 좁아지면 래퍼 안에서만 스크롤한다 */}
+      <table className="w-full min-w-[17rem] border-collapse text-[15px]">
         <thead>
           <tr className="bg-surface-2">
             {["항목", "본인부담"].map((h) => (
@@ -68,7 +69,7 @@ export default function CostIndexPage() {
       />
       <JsonLd data={breadcrumb([{ name: "진료비 안내", path: "/cost" }])} />
 
-      <article className="mx-auto max-w-3xl xl:max-w-4xl px-5 py-12">
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
         <PageHead
           eyebrow="진료비 안내"
           title="치료 가격이 궁금하신가요"
@@ -89,7 +90,8 @@ export default function CostIndexPage() {
         <Section title={PRICING.uncovered.title} note={PRICING.uncovered.lede}>
           <div className="grid gap-8">
             {PRICING.uncovered.groups.map((g) => (
-              <div key={g.title}>
+              /* min-w-0가 없으면 그리드 자식이 표 너비만큼 부풀어 페이지를 밀어낸다 */
+              <div key={g.title} className="min-w-0">
                 <h3 className="kr text-lg font-bold">{g.title}</h3>
                 {g.note && <p className="kr mt-1 text-sm leading-7 text-muted">{g.note}</p>}
                 <div className="mt-3">

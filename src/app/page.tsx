@@ -66,7 +66,7 @@ export default function Home() {
           style={{ background: "radial-gradient(circle, rgba(30,91,69,.09) 0%, rgba(30,91,69,0) 68%)" }}
         />
 
-        <div className="relative mx-auto max-w-5xl px-5 pb-14 pt-12 text-center sm:pt-16 xl:max-w-6xl xl:pb-20 xl:pt-24">
+        <div className="relative mx-auto w-full max-w-[80rem] px-[clamp(1.25rem,4vw,4rem)] pb-14 pt-12 text-center sm:pt-16 xl:pb-20 xl:pt-24">
           <Enter d={0}>
             <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
               {CLINIC.tagline}
@@ -127,7 +127,7 @@ export default function Home() {
           </Enter>
         </div>
 
-        <Enter d={840} className="relative mx-auto max-w-3xl px-5 pb-16 xl:max-w-4xl 2xl:max-w-5xl">
+        <Enter d={840} className="relative mx-auto w-full max-w-[64rem] px-[clamp(1.25rem,4vw,4rem)] pb-16">
           <Bezel>
             <div className="p-7">
               <div className="flex flex-wrap items-center justify-between gap-2">
@@ -153,7 +153,7 @@ export default function Home() {
         </Enter>
       </section>
 
-      <div className="mx-auto max-w-6xl px-5 py-16 xl:max-w-[80rem] xl:py-24 2xl:max-w-[92rem]">
+      <div className="mx-auto w-full max-w-[110rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
         {/* 진료과목 — 비대칭 Bento */}
         <Reveal>
           <section>
@@ -166,10 +166,12 @@ export default function Home() {
                   key={s.slug}
                   href={`/care/${s.slug}`}
                   className={
-                    "tile flex flex-col justify-between p-8 " +
+                    /* 넓은 화면에서는 카드가 옆으로 늘어나므로 최소 높이를 풀어
+                       내용에 맞게 눕힌다. 안 그러면 가운데가 비어 보인다 */
+                    "tile flex flex-col justify-between p-8 xl:p-10 " +
                     (i === 0
-                      ? "tile-dark min-h-[15rem] bg-herb text-paper md:col-span-4"
-                      : "min-h-[13rem] bg-surface md:col-span-2")
+                      ? "tile-dark min-h-[15rem] bg-herb text-paper md:col-span-4 xl:min-h-0"
+                      : "min-h-[13rem] bg-surface md:col-span-2 xl:min-h-0")
                   }
                 >
                   <div>

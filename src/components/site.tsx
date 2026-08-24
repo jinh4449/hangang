@@ -16,8 +16,8 @@ import { MapPinIcon } from "./icons";
  */
 export function SiteHeader() {
   return (
-    <header className="fixed inset-x-0 top-4 z-40 px-4">
-      <nav className="mx-auto flex max-w-6xl items-center gap-3 rounded-full bg-surface/70 py-2 pl-6 pr-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-ink/[0.07] backdrop-blur-xl xl:max-w-[80rem] 2xl:max-w-[92rem]">
+    <header className="fixed inset-x-0 top-4 z-40 px-[clamp(1rem,4vw,4rem)]">
+      <nav className="mx-auto flex w-full max-w-[110rem] items-center gap-3 rounded-full bg-surface/70 py-2 pl-6 pr-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-ink/[0.07] backdrop-blur-xl">
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {CLINIC.name}
         </Link>
@@ -104,7 +104,8 @@ export function Arrow({ className = "" }: { className?: string }) {
 export function IntentNav({ slug, name, current }: { slug: string; name: string; current: IntentKey }) {
   return (
     <nav aria-label={`${name} 관련 페이지`} className="border-b border-line bg-surface-2">
-      <div className="mx-auto flex max-w-5xl gap-1 overflow-x-auto px-5 py-2">
+      {/* 이 탭이 붙는 증상 페이지 본문과 같은 폭으로 세워야 왼쪽 끝이 맞는다 */}
+      <div className="mx-auto flex w-full max-w-[58rem] gap-1 overflow-x-auto px-[clamp(1.25rem,4vw,4rem)] py-2">
         {INTENTS.map((i) => {
           const active = i.key === current;
           return (
@@ -290,7 +291,7 @@ export function Cta({ label = "진료 예약하기" }: { label?: string }) {
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t border-line">
-      <div className="mx-auto max-w-5xl px-5 py-14 xl:max-w-[80rem] 2xl:max-w-[92rem]">
+      <div className="mx-auto w-full max-w-[110rem] px-[clamp(1.25rem,4vw,4rem)] py-14">
         <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
           <div>
             <p className="text-xl font-bold">{CLINIC.name}</p>
@@ -355,9 +356,11 @@ export function SiteFooter() {
         </div>
       </div>
 
-      {/* 모바일 하단 고정바 — 검색 유입 대부분이 모바일 */}
-      <div className="h-16 md:hidden" />
-      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-line bg-line md:hidden">
+      {/* 모바일·태블릿 하단 고정바 — 검색 유입 대부분이 모바일.
+          상단 메뉴가 나타나는 lg에서 교대한다. md로 끊으면 768~1024px 구간에
+          내비게이션이 하나도 남지 않는다 */}
+      <div className="h-16 lg:hidden" />
+      <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-line bg-line lg:hidden">
         <a
           href={CLINIC.placeUrl}
           target="_blank"
