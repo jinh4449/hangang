@@ -13,13 +13,18 @@ export function SiteHeader() {
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {CLINIC.name}
         </Link>
-        <ClinicStatus className="shrink-0" />
+        <span className="hidden sm:block">
+          <ClinicStatus className="shrink-0" />
+        </span>
         <div className="ml-4 hidden items-center gap-1 text-[15px] text-muted lg:flex">
           <Link href="/part" className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink">
             부위별
           </Link>
           <Link href="/treatment" className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink">
             치료 방법
+          </Link>
+          <Link href="/cost" className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink">
+            진료비
           </Link>
           {SYMPTOMS.slice(0, 3).map((s) => (
             <Link
@@ -33,7 +38,7 @@ export function SiteHeader() {
         </div>
         <a
           href={CLINIC.phoneHref}
-          className="press ml-auto inline-flex items-center gap-2 rounded-full bg-herb py-2.5 pl-5 pr-2 text-[15px] font-semibold text-paper"
+          className="press ml-auto inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-herb py-2.5 pl-5 pr-2 text-[15px] font-semibold text-paper"
         >
           <span>예약</span>
           <span className="grid h-8 w-8 place-items-center rounded-full bg-white/15">
@@ -79,16 +84,40 @@ export function IntentNav({ slug, name, current }: { slug: string; name: string;
   );
 }
 
+/**
+ * 상세 페이지의 첫 화면.
+ * 스크롤을 기다리지 않고 로드와 동시에 어절 단위로 글자가 맺힌다.
+ * 지연은 CSS 변수로만 넘기고 계산은 여기서 끝낸다.
+ */
 export function PageHead({ eyebrow, title, lede }: { eyebrow: string; title: string; lede: string }) {
+  const words = title.split(" ");
+  const ledeDelay = 220 + words.length * 70;
+
   return (
     <header className="border-b border-line pb-10">
-      <span className="inline-block rounded-full bg-tint px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
+      <span
+        className="enter inline-block rounded-full bg-tint px-3 py-1 text-[11px] font-medium uppercase tracking-[0.15em] text-herb"
+        style={{ "--d": "0ms" } as React.CSSProperties}
+      >
         {eyebrow}
       </span>
-      <h1 className="kr mt-5 text-3xl font-bold leading-tight tracking-tight text-balance sm:text-4xl">
-        {title}
+      <h1 className="display kr mt-5 text-3xl text-balance sm:text-[2.6rem]">
+        {words.map((w, i) => (
+          <span
+            key={`${w}-${i}`}
+            className="enter enter-word"
+            style={{ "--d": `${140 + i * 70}ms` } as React.CSSProperties}
+          >
+            {i === 0 ? w : ` ${w}`}
+          </span>
+        ))}
       </h1>
-      <p className="kr mt-5 max-w-[52ch] text-[17px] leading-8 text-muted">{lede}</p>
+      <p
+        className="enter kr mt-5 max-w-[52ch] text-[17px] leading-8 text-muted"
+        style={{ "--d": `${ledeDelay}ms` } as React.CSSProperties}
+      >
+        {lede}
+      </p>
     </header>
   );
 }
@@ -104,7 +133,7 @@ export function Section({
 }) {
   return (
     <section className="mt-14">
-      <h2 className="kr text-2xl font-bold tracking-tight">{title}</h2>
+      <h2 className="display kr text-2xl sm:text-[1.7rem]">{title}</h2>
       {note && <p className="kr mt-2 max-w-[58ch] text-[15px] leading-7 text-muted">{note}</p>}
       <div className="mt-6">{children}</div>
     </section>
@@ -213,6 +242,7 @@ export function SiteFooter() {
         <nav aria-label="더 보기" className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
           <Link href="/part" className="transition-colors hover:text-ink">부위별 안내</Link>
           <Link href="/treatment" className="transition-colors hover:text-ink">치료 방법</Link>
+          <Link href="/cost" className="transition-colors hover:text-ink">진료비 안내</Link>
           <Link href="/column" className="transition-colors hover:text-ink">원장 칼럼</Link>
           <Link href="/directions" className="transition-colors hover:text-ink">오시는 길</Link>
         </nav>

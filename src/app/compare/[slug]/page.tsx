@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps<"/compare/[slug]">)
 
 function Pane({ pane, tone }: { pane: ComparePane; tone: "a" | "b" }) {
   const accent =
-    tone === "a" ? "border-ochre-line bg-ochre-soft" : "border-jade-line bg-jade-soft";
+    tone === "a" ? "border-ochre-line bg-ochre-soft" : "border-herb-line bg-tint";
   return (
     <div className={`rounded border p-6 ${accent}`}>
       <h3 className="font-serif text-xl font-bold">{pane.name}</h3>
@@ -86,7 +86,7 @@ export default async function ComparePage({ params }: PageProps<"/compare/[slug]
                 <Link
                   key={ss}
                   href={`/care/${ss}`}
-                  className="rounded border border-line bg-surface px-5 py-4 transition-colors hover:border-jade"
+                  className="rounded border border-line bg-surface px-5 py-4 transition-colors hover:border-herb"
                 >
                   <span className="font-semibold">
                     {s.name} <span className="text-muted">({s.clinicalName})</span>

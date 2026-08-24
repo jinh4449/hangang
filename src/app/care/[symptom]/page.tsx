@@ -95,7 +95,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                 <div className="flex flex-wrap items-baseline gap-3">
                   <h3 className="font-semibold">{t.name}</h3>
                   {t.covered && (
-                    <span className="rounded border border-jade-line bg-jade-soft px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-jade">
+                    <span className="rounded border border-herb-line bg-tint px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-herb">
                       건강보험 적용
                     </span>
                   )}
@@ -106,7 +106,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </div>
           <p className="mt-4 text-sm leading-7 text-muted">
             비용은{" "}
-            <Link href={`/cost/${s.slug}`} className="text-jade underline underline-offset-4">
+            <Link href={`/cost/${s.slug}`} className="text-herb underline underline-offset-4">
               비용·보험 안내
             </Link>
             에서 확인하실 수 있습니다.
@@ -120,7 +120,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           <ol className="border-t border-line">
             {care.stages.map((st, i) => (
               <li key={st.label} className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-line py-5">
-                <span className="pt-0.5 font-mono text-xs tabular-nums text-jade">
+                <span className="pt-0.5 font-mono text-xs tabular-nums text-herb">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
@@ -158,7 +158,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                   <Link
                     key={cs}
                     href={`/compare/${cs}`}
-                    className="rounded border border-line bg-surface px-5 py-4 transition-colors hover:border-jade"
+                    className="rounded border border-line bg-surface px-5 py-4 transition-colors hover:border-herb"
                   >
                     <span className="font-semibold">{c.title}</span>
                     <span className="mt-1 block text-sm text-muted">{c.question}</span>

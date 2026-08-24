@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { IntentNav, PageHead, Section, Cta, JsonLd } from "@/components/site";
@@ -16,7 +17,7 @@ export async function generateMetadata({ params }: PageProps<"/cost/[symptom]">)
 }
 
 const COVERAGE_STYLE: Record<string, string> = {
-  급여: "border-jade-line bg-jade-soft text-jade",
+  급여: "border-herb-line bg-tint text-herb",
   비급여: "border-line bg-surface-2 text-muted",
   자동차보험: "border-ochre-line bg-ochre-soft text-ochre",
 };
@@ -43,6 +44,10 @@ export default async function CostPage({ params }: PageProps<"/cost/[symptom]">)
         ])}
       />
       <article className="mx-auto max-w-3xl px-5 py-12">
+        <Link href="/cost" className="font-mono text-xs text-herb hover:underline">
+          ← 진료비 안내
+        </Link>
+        <div className="mt-6" />
         <PageHead
           eyebrow="비용 · 보험"
           title={`${s.name} 치료, 얼마나 드나요`}

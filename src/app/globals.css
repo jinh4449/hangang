@@ -2,24 +2,30 @@
 @import "pretendard/dist/web/static/pretendard.css";
 
 :root {
-  --paper: #faf9f5;
+  /* 배경은 순백. 카드는 배경과 같은 흰색이고 선과 그림자로만 구분한다 */
+  --paper: #ffffff;
   --surface: #ffffff;
-  --surface-2: #eeefe8;
-  --ink: #1a1c16;
-  --muted: #5f6963;
-  --faint: #8b948d;
-  --line: #e5e3da;
+  --surface-2: #f5f6f4;
+  --ink: #171a18;
+  --muted: #5c665f;
+  --faint: #8d958f;
+  --line: #e6e8e3;
   --herb: #1e5b45;
   --herb-deep: #16412f;
-  --tint: #e9f0eb;
+  --herb-line: #bcd8ca;
+  --tint: #eef4f0;
   /* 어두운 배경 위에서 쓰는 옥색 */
   --herb-light: #84c2a7;
   --ochre: #95661f;
-  --ochre-soft: #f4ebda;
-  --ochre-line: #dcc79b;
+  --ochre-soft: #f9f2e6;
+  --ochre-line: #e0cca6;
   --rust: #8c3b2e;
-  --rust-soft: #f5e4e0;
-  --rust-line: #ddb6ad;
+  --rust-soft: #fbeeeb;
+  --rust-line: #e5c2ba;
+  /* 큰 문장 한 줄에만 쓰는 금빛 그라데이션 */
+  --grad-a: #7a5a2b;
+  --grad-b: #c2a166;
+  --grad-c: #8f6d38;
 }
 
 @theme inline {
@@ -32,6 +38,7 @@
   --color-line: var(--line);
   --color-herb: var(--herb);
   --color-herb-deep: var(--herb-deep);
+  --color-herb-line: var(--herb-line);
   --color-tint: var(--tint);
   --color-herb-light: var(--herb-light);
   --color-ochre: var(--ochre);
@@ -42,8 +49,8 @@
   --color-rust-line: var(--rust-line);
   --font-sans: "Pretendard", system-ui, sans-serif;
   --font-display: var(--font-outfit), "Pretendard", sans-serif;
-  --shadow-ambient: 0 20px 60px -15px rgba(26, 28, 22, 0.1);
-  --shadow-lifted: 0 30px 80px -20px rgba(26, 28, 22, 0.16);
+  --shadow-ambient: 0 18px 50px -18px rgba(23, 26, 24, 0.14);
+  --shadow-lifted: 0 30px 80px -22px rgba(23, 26, 24, 0.2);
 }
 
 body {
@@ -72,7 +79,7 @@ body {
   position: relative;
   border: 1px solid var(--line);
   border-radius: 1.25rem;
-  box-shadow: 0 1px 2px rgba(26, 28, 22, 0.04);
+  box-shadow: 0 1px 2px rgba(23, 26, 24, 0.05);
   transition:
     transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
@@ -82,7 +89,7 @@ a.tile:hover,
 button.tile:hover {
   transform: translateY(-3px);
   border-color: color-mix(in oklab, var(--herb) 45%, var(--line));
-  box-shadow: 0 14px 30px -14px rgba(26, 28, 22, 0.22);
+  box-shadow: 0 16px 34px -14px rgba(23, 26, 24, 0.26);
 }
 a.tile:active,
 button.tile:active {
@@ -195,5 +202,67 @@ a.tile-dark:hover {
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── 큰 문장 ──
+   히어로와 섹션 제목은 본문과 다른 무게로 쓴다. 자간을 좁혀야
+   한글이 큰 크기에서 흩어지지 않는다 */
+.display {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.16;
+}
+.display-black {
+  font-weight: 900;
+}
+
+/* 한 페이지에 한두 줄만. 여기저기 쓰면 강조가 아니라 배경이 된다 */
+.grad {
+  background-image: linear-gradient(96deg, var(--grad-a) 0%, var(--grad-b) 52%, var(--grad-c) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* 받침이 잘리지 않게 여유를 준다 */
+  padding-bottom: 0.06em;
+}
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .grad {
+    color: var(--grad-a);
+  }
+}
+
+/* ── 진입 애니메이션 ──
+   첫 화면은 스크롤을 기다릴 수 없으니 로드와 동시에 순서대로 나타난다.
+   흐림에서 또렷해지는 편이 "없다가 생겨나는" 느낌에 가깝다 */
+@keyframes textIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+.enter {
+  opacity: 0;
+  animation: textIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+/* 제목은 어절 단위로 끊어 들어온다 */
+.enter-word {
+  display: inline-block;
+  white-space: pre;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enter {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+    animation: none !important;
   }
 }

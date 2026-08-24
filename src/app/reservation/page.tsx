@@ -15,7 +15,7 @@ export default function Reservation() {
       <Section title="전화 예약">
         <a
           href={CLINIC.phoneHref}
-          className="inline-block rounded bg-jade px-6 py-3.5 font-semibold text-paper"
+          className="inline-block rounded bg-herb px-6 py-3.5 font-semibold text-paper"
         >
           {CLINIC.phone}
         </a>

@@ -50,7 +50,7 @@ export default async function FaqPage({ params }: PageProps<"/faq/[symptom]">) {
           {s.faq.map((f) => (
             <details key={f.q} className="group border-b border-line">
               <summary className="flex cursor-pointer list-none items-baseline gap-3 py-5 font-semibold marker:hidden">
-                <span className="font-mono text-sm text-jade">Q</span>
+                <span className="font-mono text-sm text-herb">Q</span>
                 <span className="flex-1">{f.q}</span>
                 <span className="text-faint transition-transform group-open:rotate-45">+</span>
               </summary>

@@ -68,7 +68,7 @@ export default async function DoubtPage({ params }: PageProps<"/doubt/[symptom]"
             {doubt.worksFor.map((w) => (
               <li
                 key={w}
-                className="rounded border border-jade-line bg-jade-soft px-4 py-3 text-[15px] leading-7"
+                className="rounded border border-herb-line bg-tint px-4 py-3 text-[15px] leading-7"
               >
                 {w}
               </li>
@@ -99,11 +99,11 @@ export default async function DoubtPage({ params }: PageProps<"/doubt/[symptom]"
 
         <p className="mt-10 text-sm leading-7 text-muted">
           치료 방법이 궁금하시면{" "}
-          <Link href={`/care/${s.slug}`} className="text-jade underline underline-offset-4">
+          <Link href={`/care/${s.slug}`} className="text-herb underline underline-offset-4">
             {s.name} 치료 안내
           </Link>
           를, 비용이 궁금하시면{" "}
-          <Link href={`/cost/${s.slug}`} className="text-jade underline underline-offset-4">
+          <Link href={`/cost/${s.slug}`} className="text-herb underline underline-offset-4">
             비용·보험 안내
           </Link>
           를 확인해 주세요.

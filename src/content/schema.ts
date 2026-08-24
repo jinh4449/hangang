@@ -29,7 +29,8 @@ export function medicalWebPage({
 }: {
   name: string;
   description: string;
-  condition: string;
+  /** 특정 질환 페이지가 아니면 비워 둔다 */
+  condition?: string;
   path: string;
 }) {
   return {
@@ -39,7 +40,7 @@ export function medicalWebPage({
     description,
     url: `${SITE_URL}${path}`,
     inLanguage: "ko",
-    about: { "@type": "MedicalCondition", name: condition },
+    ...(condition ? { about: { "@type": "MedicalCondition", name: condition } } : {}),
     audience: { "@type": "MedicalAudience", audienceType: "환자" },
     publisher: CLINIC_REF,
     provider: CLINIC_REF,
