@@ -27,6 +27,20 @@ export const CLINIC = {
   lunch: { opens: "13:00", closes: "14:00" },
   badges: ["장기역 도보 1분", "평일 밤 8시까지", "공휴일 진료", "추나 건강보험 적용"],
 
+  /**
+   * 예약·상담 창구.
+   * 없는 창구를 안내하면 환자가 헛수고를 한다. 그래서 값이 없으면
+   * 예약 페이지에서 카드 자체가 나오지 않는다. 개설한 뒤에 채운다.
+   */
+  booking: {
+    /** 카카오톡 채널 검색용 ID. 예: "@김포한강한의원" — TODO: 채널 개설 후 입력 */
+    kakaoChannel: null as string | null,
+    /** 카카오톡 채널 채팅 링크. 예: "http://pf.kakao.com/_xxxxx/chat" */
+    kakaoChatUrl: null as string | null,
+    /** 네이버 예약 링크. 없으면 네이버 플레이스로 연결한다 — TODO: 네이버 예약 개설 후 입력 */
+    naverBookingUrl: null as string | null,
+  },
+
   /** 의료진. 칼럼 작성자와 구조화 데이터의 employee 로 함께 쓴다 */
   doctors: [
     { key: "lee", name: "이진희", role: "원장" },

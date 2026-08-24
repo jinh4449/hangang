@@ -266,3 +266,36 @@ a.tile-dark:hover {
     animation: none !important;
   }
 }
+
+/* ── 접히는 FAQ ──
+   details/summary 라 자바스크립트가 없어도 동작한다 */
+.faq {
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgba(23, 26, 24, 0.05);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.faq:hover {
+  border-color: color-mix(in oklab, var(--herb) 35%, var(--line));
+}
+.faq[open] {
+  border-color: color-mix(in oklab, var(--herb) 45%, var(--line));
+  box-shadow: 0 10px 24px -14px rgba(23, 26, 24, 0.22);
+}
+.faq > summary {
+  list-style: none;
+}
+.faq > summary::-webkit-details-marker {
+  display: none;
+}
+.faq-mark {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+.faq[open] .faq-mark {
+  transform: rotate(180deg);
+  color: var(--herb);
+}
+/* 펼쳐질 때 본문이 흘러 들어온다 */
+.faq[open] > p {
+  animation: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}

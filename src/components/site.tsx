@@ -4,6 +4,7 @@ import { SYMPTOMS } from "@/content/symptoms";
 import { AREAS } from "@/content/area";
 import { INTENTS, type IntentKey } from "@/content/types";
 import { ClinicStatus } from "./clinic-status";
+import { MapPinIcon } from "./icons";
 
 /** 가장자리에 붙은 바가 아니라 떠 있는 글래스 필 */
 export function SiteHeader() {
@@ -36,15 +37,15 @@ export function SiteHeader() {
             </Link>
           ))}
         </div>
-        <a
-          href={CLINIC.phoneHref}
+        <Link
+          href="/reservation"
           className="press ml-auto inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-herb py-2.5 pl-5 pr-2 text-[15px] font-semibold text-paper"
         >
-          <span>예약</span>
+          <span>편리한 상담예약</span>
           <span className="grid h-8 w-8 place-items-center rounded-full bg-white/15">
             <Arrow className="arw" />
           </span>
-        </a>
+        </Link>
       </nav>
     </header>
   );
@@ -150,21 +151,24 @@ export function Bezel({ children, className = "" }: { children: React.ReactNode;
 }
 
 /**
- * 길찾기. 30~50대 한국 사용자는 네이버 지도와 카카오맵으로 길을 찾는다.
+ * 길찾기.
+ *
+ * 30~50대 한국 사용자는 네이버 지도와 카카오맵으로 길을 찾는다.
  * 네이버는 플레이스 고유 URL 로 바로 보낸다. 검색을 거치지 않아 정확하다.
  */
 export function MapLinks({ compact = false }: { compact?: boolean }) {
   const q = encodeURIComponent(CLINIC.name);
+  const dest = encodeURIComponent(`${CLINIC.name} ${CLINIC.address}`);
   return (
-    <div className={compact ? "flex flex-wrap gap-2" : "grid gap-2 sm:grid-cols-2"}>
+    <div className={compact ? "flex flex-wrap gap-2" : "grid gap-2 sm:grid-cols-3"}>
       <a
         href={CLINIC.placeUrl}
         target="_blank"
         rel="noopener"
         className="press inline-flex items-center justify-center gap-2 rounded-full bg-[#03C75A] px-6 py-3.5 font-semibold text-white"
       >
-        <PinIcon />
-        <span>네이버 지도 길찾기</span>
+        <MapPinIcon className="h-5 w-5" />
+        <span>네이버 지도</span>
       </a>
       <a
         href={`https://map.kakao.com/?q=${q}`}
@@ -172,24 +176,51 @@ export function MapLinks({ compact = false }: { compact?: boolean }) {
         rel="noopener"
         className="press inline-flex items-center justify-center gap-2 rounded-full bg-[#FEE500] px-6 py-3.5 font-semibold text-[#191600]"
       >
-        <PinIcon />
-        <span>카카오맵 길찾기</span>
+        <MapPinIcon className="h-5 w-5" />
+        <span>카카오맵</span>
+      </a>
+      <a
+        href={`https://www.google.com/maps/dir/?api=1&destination=${dest}`}
+        target="_blank"
+        rel="noopener"
+        className="press inline-flex items-center justify-center gap-2 rounded-full bg-surface px-6 py-3.5 font-semibold ring-1 ring-line"
+      >
+        <MapPinIcon className="h-5 w-5 text-herb" />
+        <span>구글 지도</span>
       </a>
     </div>
   );
 }
 
-function PinIcon() {
+/**
+ * 지도.
+ *
+ * 구글 지도만 열쇠 없이 삽입할 수 있다. 네이버와 카카오는 지도를 페이지에 심으려면
+ * API 키를 발급받고 도메인을 등록해야 해서, 도메인이 정해진 뒤에 붙인다.
+ * 그때까지는 지도 한 장을 띄우고 세 앱으로 나가는 버튼을 함께 둔다.
+ */
+export function MapPanel() {
+  const q = encodeURIComponent(`${CLINIC.address} ${CLINIC.name}`);
   return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
-      <path
-        d="M12 21s7-5.686 7-11a7 7 0 1 0-14 0c0 5.314 7 11 7 11Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.6" />
-    </svg>
+    <div>
+      <div className="overflow-hidden rounded-[2rem] border border-line bg-surface-2">
+        <iframe
+          title={`${CLINIC.name} 위치`}
+          src={`https://www.google.com/maps?q=${q}&hl=ko&z=17&output=embed`}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          className="block h-[22rem] w-full border-0"
+        />
+      </div>
+      <p className="kr mt-4 text-[15px] leading-7 text-muted">
+        {CLINIC.address} · {CLINIC.landmark}
+        <br />
+        {CLINIC.transit}
+      </p>
+      <div className="mt-4">
+        <MapLinks />
+      </div>
+    </div>
   );
 }
 
@@ -242,6 +273,7 @@ export function SiteFooter() {
         <nav aria-label="더 보기" className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
           <Link href="/part" className="transition-colors hover:text-ink">부위별 안내</Link>
           <Link href="/treatment" className="transition-colors hover:text-ink">치료 방법</Link>
+          <Link href="/reservation" className="transition-colors hover:text-ink">예약·상담</Link>
           <Link href="/cost" className="transition-colors hover:text-ink">진료비 안내</Link>
           <Link href="/column" className="transition-colors hover:text-ink">원장 칼럼</Link>
           <Link href="/directions" className="transition-colors hover:text-ink">오시는 길</Link>

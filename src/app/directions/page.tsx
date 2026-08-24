@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
 import { AREAS } from "@/content/area";
-import { PageHead, Section, Bezel, Cta, MapLinks, JsonLd } from "@/components/site";
+import { PageHead, Section, Bezel, Cta, MapPanel, JsonLd } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
 
 export const metadata: Metadata = {
@@ -55,9 +55,9 @@ export default function Directions() {
         </div>
       </Section>
 
-      {/* TODO: 도메인 확정 후 네이버 지도 JS API 로 실제 지도 삽입 (Client ID 발급 시 도메인 등록 필요) */}
-      <Section title="길찾기" note="지도 앱에서 바로 경로를 확인하실 수 있습니다.">
-        <MapLinks />
+      {/* TODO: 도메인 확정 후 네이버 지도 JS API 로 네이버 지도도 삽입 (Client ID 발급 시 도메인 등록 필요) */}
+      <Section title="지도와 길찾기" note="네이버 지도, 카카오맵, 구글 지도 중 쓰시는 앱으로 여실 수 있습니다.">
+        <MapPanel />
       </Section>
 
       <Cta />
