@@ -64,6 +64,8 @@ ${PARTS.map((p) => `- [${p.name} 통증](${SITE_URL}/part/${p.slug}) — ${p.con
 
 ## 진료과목
 
+[진료과목 전체](${SITE_URL}/care)
+
 ${SYMPTOMS.map((s) => `- [${s.name}](${SITE_URL}/care/${s.slug}) — ${s.summary}`).join("\n")}
 
 각 진료과목은 검색 의도에 따라 네 페이지로 나뉩니다.

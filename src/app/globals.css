@@ -299,3 +299,60 @@ a.tile-dark:hover {
 .faq[open] > p {
   animation: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+/* ── 헤더 드롭다운 ──
+   자바스크립트 없이 CSS 로만 연다. 커서를 올리면 펼쳐지고,
+   키보드로 항목에 포커스가 가도 같은 메뉴가 열린다. */
+.navpanel {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 50;
+  /* 트리거와 패널 사이에 빈틈이 생기면 커서를 내리는 중에 메뉴가 닫힌다.
+     여백을 패널 안쪽에 둬서 그 사이도 계속 hover 로 잡는다 */
+  padding-top: 0.75rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -6px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.2s;
+}
+/* 폭은 여기서 정하지 않는다. min-w-* 유틸리티를 덮어쓰기 때문이다 */
+.navcard {
+  padding: 0.875rem 0.5rem;
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  background: var(--surface);
+  box-shadow: 0 26px 60px -26px rgba(23, 26, 24, 0.32);
+}
+.navchev {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 터치 기기에서는 첫 탭이 hover 로 먹혀 링크가 안 눌린다. 마우스가 있을 때만 연다 */
+@media (hover: hover) and (pointer: fine) {
+  .navitem:hover > .navpanel {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+  }
+  .navitem:hover .navchev {
+    transform: rotate(180deg);
+  }
+  .navitem:hover > .navtrigger {
+    background: var(--tint);
+    color: var(--ink);
+  }
+}
+
+/* 키보드 — 항목에 포커스가 닿으면 열린다 */
+.navitem:focus-within > .navpanel {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+.navitem:focus-within .navchev {
+  transform: rotate(180deg);
+}

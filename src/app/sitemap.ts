@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
     // 진료비는 검색 유입이 많은 페이지라 우선순위를 높게 둔다
     { url: `${SITE_URL}/cost`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE_URL}/care`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/reservation`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE_URL}/directions`, lastModified: now, changeFrequency: "yearly", priority: 0.7 },
   ];

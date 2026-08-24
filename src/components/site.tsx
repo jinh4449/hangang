@@ -3,10 +3,17 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
 import { AREAS } from "@/content/area";
 import { INTENTS, type IntentKey } from "@/content/types";
+import { NAV } from "@/content/nav";
 import { ClinicStatus } from "./clinic-status";
 import { MapPinIcon } from "./icons";
 
-/** 가장자리에 붙은 바가 아니라 떠 있는 글래스 필 */
+/**
+ * 가장자리에 붙은 바가 아니라 떠 있는 글래스 필.
+ *
+ * 각 항목은 커서를 올리면 하위 메뉴가 펼쳐진다. 자바스크립트 없이 CSS 로만
+ * 동작하므로 느린 기기에서도 바로 열리고, 키보드 탭으로도 같은 메뉴가 열린다.
+ * 최상위 항목도 실제 페이지를 가리켜서 그냥 눌러도 이동한다.
+ */
 export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-4 z-40 px-4">
@@ -17,26 +24,60 @@ export function SiteHeader() {
         <span className="hidden sm:block">
           <ClinicStatus className="shrink-0" />
         </span>
-        <div className="ml-4 hidden items-center gap-1 text-[15px] text-muted lg:flex">
-          <Link href="/part" className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink">
-            부위별
-          </Link>
-          <Link href="/treatment" className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink">
-            치료 방법
-          </Link>
-          <Link href="/cost" className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink">
-            진료비
-          </Link>
-          {SYMPTOMS.slice(0, 3).map((s) => (
-            <Link
-              key={s.slug}
-              href={`/care/${s.slug}`}
-              className="rounded-full px-3 py-2 transition-colors hover:bg-tint hover:text-ink"
-            >
-              {s.name}
-            </Link>
+
+        <div className="ml-3 hidden items-center gap-0.5 text-[15px] lg:flex">
+          {NAV.map((entry) => (
+            <div key={entry.label} className="navitem relative">
+              <Link
+                href={entry.href}
+                className="navtrigger flex items-center gap-1 rounded-full px-3 py-2 text-muted transition-colors hover:bg-tint hover:text-ink"
+              >
+                {entry.label}
+                <svg viewBox="0 0 24 24" fill="none" className="navchev h-3.5 w-3.5" aria-hidden="true">
+                  <path d="m6 9 6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+
+              <div className="navpanel">
+                {/* 두 줄짜리 메뉴는 칸이 좁으면 제목이 서너 줄로 쪼개진다. 폭을 미리 벌려 둔다 */}
+                <div
+                  className={
+                    "navcard grid gap-x-6 gap-y-5 " +
+                    (entry.groups.length > 1 ? "min-w-[32rem] grid-cols-2" : "min-w-[16rem] grid-cols-1")
+                  }
+                >
+                  {entry.groups.map((g) => (
+                    <div key={g.title}>
+                      <p className="px-3 font-mono text-[10px] uppercase tracking-[0.14em] text-faint">
+                        {g.title}
+                      </p>
+                      <ul className="mt-1.5">
+                        {g.links.map((l) => (
+                          <li key={l.href + l.label}>
+                            <Link
+                              href={l.href}
+                              className="block rounded-xl px-3 py-2 transition-colors hover:bg-tint"
+                            >
+                              <span className="kr block text-[15px] font-medium leading-snug text-ink">
+                                {l.label}
+                              </span>
+                              {l.note && (
+                                <span className="kr mt-0.5 block text-xs leading-5 text-faint">
+                                  {l.note}
+                                </span>
+                              )}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           ))}
         </div>
+
         <Link
           href="/reservation"
           className="press ml-auto inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-herb py-2.5 pl-5 pr-2 text-[15px] font-semibold text-paper"
@@ -271,6 +312,7 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label="더 보기" className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+          <Link href="/care" className="transition-colors hover:text-ink">진료과목</Link>
           <Link href="/part" className="transition-colors hover:text-ink">부위별 안내</Link>
           <Link href="/treatment" className="transition-colors hover:text-ink">치료 방법</Link>
           <Link href="/reservation" className="transition-colors hover:text-ink">예약·상담</Link>
