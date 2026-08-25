@@ -8,15 +8,27 @@ import { PARTS } from "@/content/part";
 import { Bezel, JsonLd, Arrow } from "@/components/site";
 import { Reveal } from "@/components/reveal";
 import { ClinicStatus } from "@/components/clinic-status";
-import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon } from "@/components/icons";
+import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon, MapPinIcon } from "@/components/icons";
 
 const pain = getSymptom("pain")!;
 
-/** 메인의 섹션 제목은 모두 같은 크기·같은 정렬로 선다. 여기서만 정한다 */
-function H2({ children, note }: { children: React.ReactNode; note?: string }) {
+/** 메인의 섹션 제목은 모두 같은 크기·같은 정렬로 선다. 여기서만 정한다.
+ *  accent는 제목의 뒷부분으로, 녹색 그라데이션이 걸린다 */
+function H2({
+  children,
+  accent,
+  note,
+}: {
+  children: React.ReactNode;
+  accent?: string;
+  note?: string;
+}) {
   return (
     <div className="text-center">
-      <h2 className="display kr text-3xl sm:text-4xl xl:text-[2.75rem]">{children}</h2>
+      <h2 className="display kr text-3xl sm:text-4xl xl:text-[2.75rem]">
+        {children}
+        {accent && <> <span className="grad-herb">{accent}</span></>}
+      </h2>
       {note && (
         <p className="kr mx-auto mt-4 max-w-[52ch] text-base leading-8 text-muted xl:text-[17px] xl:leading-9">
           {note}
@@ -153,37 +165,35 @@ export default function Home() {
         </Enter>
       </section>
 
-      <div className="mx-auto w-full max-w-[110rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
-        {/* 진료과목 — 비대칭 Bento */}
+      <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
+        {/* 진료과목 — 같은 크기 격자 */}
         <Reveal>
           <section>
-            <H2 note="과목마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요.">
-              어떤 치료가 필요하신가요?
+            <H2
+              accent="필요하신가요?"
+              note="과목마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요."
+            >
+              어떤 치료가
             </H2>
-            <div className="mt-10 grid gap-4 md:grid-cols-6">
+            {/* 칸을 모두 같은 크기로 세운다. 첫 칸만 색으로 눌러 무게를 준다 */}
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {SYMPTOMS.map((s, i) => (
                 <Link
                   key={s.slug}
                   href={`/care/${s.slug}`}
                   className={
-                    /* 넓은 화면에서는 카드가 옆으로 늘어나므로 최소 높이를 풀어
-                       내용에 맞게 눕힌다. 안 그러면 가운데가 비어 보인다 */
-                    "tile flex flex-col justify-between p-8 xl:p-10 " +
-                    (i === 0
-                      ? "tile-dark min-h-[15rem] bg-herb text-paper md:col-span-4 xl:min-h-0"
-                      : "min-h-[13rem] bg-surface md:col-span-2 xl:min-h-0")
+                    "tile flex min-h-[15rem] flex-col justify-between p-8 " +
+                    (i === 0 ? "tile-dark bg-herb text-paper" : "bg-surface")
                   }
                 >
                   <div>
                     {(() => {
                       const Icon = SYMPTOM_ICONS[s.slug];
                       return Icon ? (
-                        <Icon className={i === 0 ? "h-9 w-9 text-paper/70" : "h-8 w-8 text-herb"} />
+                        <Icon className={i === 0 ? "h-8 w-8 text-paper/70" : "h-8 w-8 text-herb"} />
                       ) : null;
                     })()}
-                    <h3 className={"kr mt-4 font-bold leading-snug " + (i === 0 ? "text-3xl" : "text-xl")}>
-                      {s.name}
-                    </h3>
+                    <h3 className="kr mt-4 text-xl font-bold leading-snug">{s.name}</h3>
                     <p className={"mt-1 font-display text-xs " + (i === 0 ? "text-paper/60" : "text-faint")}>
                       {s.clinicalName}
                     </p>
@@ -214,6 +224,27 @@ export default function Home() {
                   </div>
                 </Link>
               ))}
+
+              {/* 진료과목이 5개라 3열 격자에 한 칸이 빈다. 없는 과목을 지어내는 대신
+                  이미 있는 부위별 페이지로 채운다 */}
+              <Link href="/part" className="tile flex min-h-[15rem] flex-col justify-between bg-surface p-8">
+                <div>
+                  <MapPinIcon className="h-8 w-8 text-herb" />
+                  <h3 className="kr mt-4 text-xl font-bold leading-snug">부위별로 찾기</h3>
+                  <p className="mt-1 font-display text-xs text-faint">
+                    {PARTS.map((p) => p.name).join(" · ")}
+                  </p>
+                </div>
+                <div className="mt-6">
+                  <p className="kr text-sm leading-7 text-muted">
+                    아픈 곳이 어디인지로 찾으시면 해당 부위의 흔한 원인부터 보여드립니다.
+                  </p>
+                  <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
+                    자세히 보기
+                    <Arrow />
+                  </span>
+                </div>
+              </Link>
             </div>
           </section>
         </Reveal>
@@ -221,7 +252,9 @@ export default function Home() {
         {/* 두 축 — 이 한의원의 치료 논리 */}
         <Reveal>
           <section className="mt-24">
-            <H2 note={AXIS_STORY.lede}>{AXIS_STORY.title}</H2>
+            <H2 accent="나눠서 봅니다" note={AXIS_STORY.lede}>
+              통증과 구조를
+            </H2>
             <div className="mt-10 grid gap-3 md:grid-cols-2">
               {AXIS_STORY.axes.map((a) => (
                 <Link
@@ -278,7 +311,8 @@ export default function Home() {
               <h2 className="display kr mt-6 text-3xl text-balance sm:text-[2.75rem]">
                 {CLINIC.whyHero.headline[0]}
                 <br />
-                <span className="grad">{CLINIC.whyHero.headline[1]}</span>
+                {/* 소제목의 강조는 녹색으로 통일한다. 금빛은 히어로 한 곳에만 남긴다 */}
+                <span className="grad-herb">{CLINIC.whyHero.headline[1]}</span>
               </h2>
               <p className="kr mt-5 text-[17px] leading-8 text-muted">{CLINIC.whyHero.sub}</p>
             </div>
@@ -360,8 +394,11 @@ export default function Home() {
         {/* 진료비 — 물어보기 전에 먼저 꺼낸다 */}
         <Reveal>
           <section className="mt-24">
-            <H2 note="건강보험이 적용되는 치료와 그렇지 않은 치료를 나눠서 안내해 드립니다. 비급여 항목은 시작하기 전에 금액을 말씀드립니다.">
-              치료 가격이 궁금하신가요?
+            <H2
+              accent="궁금하신가요?"
+              note="건강보험이 적용되는 치료와 그렇지 않은 치료를 나눠서 안내해 드립니다. 비급여 항목은 시작하기 전에 금액을 말씀드립니다."
+            >
+              치료 가격이
             </H2>
             <div className="mt-10 grid gap-3 md:grid-cols-3">
               <Link href="/cost" className="tile bg-surface p-8">
@@ -418,7 +455,9 @@ export default function Home() {
         {/* 고민 — 의도 분해의 마지막 칸 */}
         <Reveal>
           <section className="mt-24">
-            <H2 note="어디로 가야 할지, 정말 효과가 있는지 헷갈릴 때 참고하세요.">고민되실 때</H2>
+            <H2 accent="되실 때" note="어디로 가야 할지, 정말 효과가 있는지 헷갈릴 때 참고하세요.">
+              고민
+            </H2>
             <div className="mt-10 grid gap-2">
               {COMPARES.map((c) => (
                 <Link key={c.slug} href={`/compare/${c.slug}`} className="tile block bg-surface px-6 py-5">
@@ -441,7 +480,7 @@ export default function Home() {
         {/* 최신 칼럼 — 검색으로 들어온 사람에게 읽을거리를 준다 */}
         <Reveal>
           <section className="mt-24">
-            <H2>진료실에서 자주 받는 질문</H2>
+            <H2 accent="자주 받는 질문">진료실에서</H2>
             <div className="mt-10 grid gap-2 md:grid-cols-2">
               {columnsByDate()
                 .slice(0, 4)
@@ -463,7 +502,7 @@ export default function Home() {
         {/* 리뷰 — 페이지에 심지 않고 외부로 내보낸다 (의료법 56조②) */}
         <Reveal>
           <section className="mt-24 rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
-            <H2>리뷰는 직접 확인해 보세요</H2>
+            <H2 accent="직접 확인해 보세요">리뷰는</H2>
             <p className="kr mx-auto mt-4 max-w-[46ch] leading-8 text-muted">
               의료법에 따라 환자분들의 후기를 저희 홈페이지에 직접 싣지 않습니다. 네이버와 구글에서 있는
               그대로 확인하실 수 있습니다.
