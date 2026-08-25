@@ -11,10 +11,12 @@ crawl.mjs 가 만든 .cache/crawl.json 을 읽어 .cache/preview.html 을 낸다
 """
 
 import base64
+import html as html_mod
 import io
 import json
 import re
 from pathlib import Path
+from urllib.parse import unquote
 
 from fontTools import subset
 
@@ -82,12 +84,50 @@ def rewrite(html: str) -> str:
 
     html = re.sub(r'href="(/[^"]*)"', sub, html)
     # 지도 iframe 은 아티팩트 CSP 가 막는다. 자리만 알려 준다
-    return re.sub(
+    html = re.sub(
         r"<iframe[^>]*></iframe>",
         '<div class="pv-noembed">지도는 미리보기에서 표시되지 않습니다 · '
         "실제 사이트에서는 정상 표시됩니다</div>",
         html,
     )
+    return embed_images(html)
+
+
+# ── public/ 이미지를 통째로 심는다 ───────────────────────────
+# next/image 는 /_next/image?url=... 로 서빙하는데 아티팩트에는 그 경로가 없다.
+# 원본을 data URI 로 바꿔야 사진이 뜬다.
+PUBLIC = ROOT / "public"
+_MIME = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".png": "image/png", ".webp": "image/webp",
+         ".svg": "image/svg+xml", ".avif": "image/avif", ".gif": "image/gif"}
+_embedded: dict[str, str] = {}
+
+
+def _data_uri(name: str) -> str | None:
+    if name in _embedded:
+        return _embedded[name]
+    path = PUBLIC / name.lstrip("/")
+    mime = _MIME.get(path.suffix.lower())
+    if not path.is_file() or mime is None:
+        return None
+    uri = f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode()}"
+    _embedded[name] = uri
+    print(f"  이미지 {name}  {path.stat().st_size // 1024}KB")
+    return uri
+
+
+def embed_images(html: str) -> str:
+    # srcset 은 여러 폭을 나열하는데 원본 한 장으로 충분하다. 통째로 지운다
+    html = re.sub(r'\ssrcsets?="[^"]*"', "", html)
+
+    def sub(m):
+        raw = html_mod.unescape(m.group(1))
+        # /_next/image?url=%2Fclinic-interior.jpg&w=... 에서 원본 경로를 되찾는다
+        hit = re.search(r"[?&]url=([^&]+)", raw)
+        name = unquote(hit.group(1)) if hit else raw
+        uri = _data_uri(name)
+        return f'src="{uri}"' if uri else m.group(0)
+
+    return re.sub(r'src="(/[^"]*)"', sub, html)
 
 
 sections = "".join(
