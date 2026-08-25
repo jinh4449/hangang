@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { columnsByDate } from "@/content/column";
-import { AXIS_STORY } from "@/content/treatment";
 import { PARTS } from "@/content/part";
+import { AREAS } from "@/content/area";
 import { Bezel, JsonLd, Arrow } from "@/components/site";
 import { Reveal } from "@/components/reveal";
 import { ClinicStatus } from "@/components/clinic-status";
@@ -18,14 +19,22 @@ function H2({
   children,
   accent,
   note,
+  small = false,
 }: {
   children: React.ReactNode;
   accent?: string;
   note?: string;
+  /** 상위 섹션에 딸린 이야기는 한 단계 작게 세워 위계를 만든다 */
+  small?: boolean;
 }) {
   return (
     <div className="text-center">
-      <h2 className="display kr text-3xl sm:text-4xl xl:text-[2.75rem]">
+      <h2
+        className={
+          "display kr " +
+          (small ? "text-2xl sm:text-3xl xl:text-[2.1rem]" : "text-3xl sm:text-4xl xl:text-[2.75rem]")
+        }
+      >
         {children}
         {accent && <> <span className="grad">{accent}</span></>}
       </h2>
@@ -166,137 +175,44 @@ export default function Home() {
       </section>
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
-        {/* 진료과목 — 같은 크기 격자 */}
+        {/* 한의원 소개 — 누가 보는 곳인지부터 밝힌다 */}
         <Reveal>
           <section>
             <H2
-              accent="필요하신가요?"
-              note="과목마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요."
+              accent="소개"
+              note="김포 한강신도시 장기동, 장기역에서 걸어 1분 거리에 있습니다. 척추·관절 통증을 중점으로 보고, 두 원장이 함께 진료합니다."
             >
-              어떤 치료가
+              한의원
             </H2>
-            {/* 칸을 모두 같은 크기로 세운다. 첫 칸만 색으로 눌러 무게를 준다 */}
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {SYMPTOMS.map((s, i) => (
-                <Link
-                  key={s.slug}
-                  href={`/care/${s.slug}`}
-                  className={
-                    "tile flex min-h-[15rem] flex-col justify-between p-8 " +
-                    (i === 0 ? "tile-dark bg-herb text-paper" : "bg-surface")
-                  }
-                >
-                  <div>
-                    {(() => {
-                      const Icon = SYMPTOM_ICONS[s.slug];
-                      return Icon ? (
-                        <Icon className={i === 0 ? "h-8 w-8 text-paper/70" : "h-8 w-8 text-herb"} />
-                      ) : null;
-                    })()}
-                    <h3 className="kr mt-4 text-xl font-bold leading-snug">{s.name}</h3>
-                    <p className={"mt-1 font-display text-xs " + (i === 0 ? "text-paper/60" : "text-faint")}>
-                      {s.clinicalName}
-                    </p>
-                  </div>
-                  <div className="mt-6">
-                    {s.highlight && (
-                      <span
-                        className={
-                          "mb-2 inline-block rounded-full px-3 py-1 text-xs font-semibold " +
-                          (i === 0 ? "bg-paper/15 text-paper" : "bg-ochre-soft text-ochre")
-                        }
-                      >
-                        {s.highlight.label}
-                      </span>
-                    )}
-                    <p className={"kr text-sm leading-7 " + (i === 0 ? "text-paper/80" : "text-muted")}>
-                      {s.summary}
-                    </p>
-                    <span
-                      className={
-                        "tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium " +
-                        (i === 0 ? "text-paper" : "text-herb")
-                      }
-                    >
-                      자세히 보기
-                      <Arrow />
-                    </span>
-                  </div>
-                </Link>
-              ))}
-
-              {/* 진료과목이 5개라 3열 격자에 한 칸이 빈다. 없는 과목을 지어내는 대신
-                  이미 있는 부위별 페이지로 채운다 */}
-              <Link href="/part" className="tile flex min-h-[15rem] flex-col justify-between bg-surface p-8">
-                <div>
-                  <MapPinIcon className="h-8 w-8 text-herb" />
-                  <h3 className="kr mt-4 text-xl font-bold leading-snug">부위별로 찾기</h3>
-                  <p className="mt-1 font-display text-xs text-faint">
-                    {PARTS.map((p) => p.name).join(" · ")}
+            <div className="mt-10 grid gap-3 sm:grid-cols-2">
+              {CLINIC.doctors.map((d) => (
+                <div key={d.key} className="rounded-[1.25rem] border border-line bg-surface p-8">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
+                    {d.role}
                   </p>
+                  <h3 className="kr mt-3 text-2xl font-bold">{d.name}</h3>
                 </div>
-                <div className="mt-6">
-                  <p className="kr text-sm leading-7 text-muted">
-                    아픈 곳이 어디인지로 찾으시면 해당 부위의 흔한 원인부터 보여드립니다.
-                  </p>
-                  <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                    자세히 보기
-                    <Arrow />
-                  </span>
-                </div>
-              </Link>
-            </div>
-          </section>
-        </Reveal>
-
-        {/* 두 축 — 이 한의원의 치료 논리 */}
-        <Reveal>
-          <section className="mt-24">
-            <H2 accent="나눠서 봅니다" note={AXIS_STORY.lede}>
-              통증과 구조를
-            </H2>
-            <div className="mt-10 grid gap-3 md:grid-cols-2">
-              {AXIS_STORY.axes.map((a) => (
-                <Link
-                  key={a.key}
-                  href={`/treatment/${a.slug}`}
-                  className={"tile p-8 " + (a.key === "pain" ? "tile-dark bg-herb text-paper" : "bg-surface")}
-                >
-                  <p
-                    className={
-                      "font-mono text-[11px] uppercase tracking-[0.15em] " +
-                      (a.key === "pain" ? "text-paper/60" : "text-herb")
-                    }
-                  >
-                    {a.label}
-                  </p>
-                  <h3 className="kr mt-4 text-2xl font-bold">{a.treatment}</h3>
-                  <p
-                    className={
-                      "kr mt-3 text-[15px] leading-7 " +
-                      (a.key === "pain" ? "text-paper/80" : "text-muted")
-                    }
-                  >
-                    {a.body}
-                  </p>
-                </Link>
               ))}
             </div>
             <p className="kr mt-3 rounded-2xl bg-tint px-6 py-5 text-center text-[15px] leading-7 ring-1 ring-herb/15">
-              {AXIS_STORY.note}
+              진료받기 편한 쪽을 고르실 수 있습니다. 판단이 어려운 경우에는 두 원장이 함께 상의해
+              방향을 정합니다.
             </p>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">부위별</span>
-              {PARTS.map((p) => (
-                <Link
-                  key={p.slug}
-                  href={`/part/${p.slug}`}
-                  className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb"
-                >
-                  {p.name}
-                </Link>
-              ))}
+            <div className="mt-8 flex flex-wrap justify-center gap-2">
+              <Link
+                href="/directions"
+                className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
+              >
+                오시는 길
+                <Arrow className="arw" />
+              </Link>
+              <Link
+                href="/reservation"
+                className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
+              >
+                예약·상담 안내
+                <Arrow className="arw" />
+              </Link>
             </div>
           </section>
         </Reveal>
@@ -390,10 +306,94 @@ export default function Home() {
           </section>
         </Reveal>
 
+        {/* 진료과목 — 같은 크기 격자 */}
+        <Reveal>
+          <section className="mt-24">
+            <H2
+              accent="필요하신가요?"
+              note="과목마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요."
+            >
+              어떤 치료가
+            </H2>
+            {/* 칸을 모두 같은 크기로 세운다. 첫 칸만 색으로 눌러 무게를 준다 */}
+            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {SYMPTOMS.map((s, i) => (
+                <Link
+                  key={s.slug}
+                  href={`/care/${s.slug}`}
+                  className={
+                    "tile flex min-h-[15rem] flex-col justify-between p-8 " +
+                    (i === 0 ? "tile-dark bg-herb text-paper" : "bg-surface")
+                  }
+                >
+                  <div>
+                    {(() => {
+                      const Icon = SYMPTOM_ICONS[s.slug];
+                      return Icon ? (
+                        <Icon className={i === 0 ? "h-8 w-8 text-paper/70" : "h-8 w-8 text-herb"} />
+                      ) : null;
+                    })()}
+                    <h3 className="kr mt-4 text-xl font-bold leading-snug">{s.name}</h3>
+                    <p className={"mt-1 font-display text-xs " + (i === 0 ? "text-paper/60" : "text-faint")}>
+                      {s.clinicalName}
+                    </p>
+                  </div>
+                  <div className="mt-6">
+                    {s.highlight && (
+                      <span
+                        className={
+                          "mb-2 inline-block rounded-full px-3 py-1 text-xs font-semibold " +
+                          (i === 0 ? "bg-paper/15 text-paper" : "bg-ochre-soft text-ochre")
+                        }
+                      >
+                        {s.highlight.label}
+                      </span>
+                    )}
+                    <p className={"kr text-sm leading-7 " + (i === 0 ? "text-paper/80" : "text-muted")}>
+                      {s.summary}
+                    </p>
+                    <span
+                      className={
+                        "tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium " +
+                        (i === 0 ? "text-paper" : "text-herb")
+                      }
+                    >
+                      자세히 보기
+                      <Arrow />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+
+              {/* 진료과목이 5개라 3열 격자에 한 칸이 빈다. 없는 과목을 지어내는 대신
+                  이미 있는 부위별 페이지로 채운다 */}
+              <Link href="/part" className="tile flex min-h-[15rem] flex-col justify-between bg-surface p-8">
+                <div>
+                  <MapPinIcon className="h-8 w-8 text-herb" />
+                  <h3 className="kr mt-4 text-xl font-bold leading-snug">부위별로 찾기</h3>
+                  <p className="mt-1 font-display text-xs text-faint">
+                    {PARTS.map((p) => p.name).join(" · ")}
+                  </p>
+                </div>
+                <div className="mt-6">
+                  <p className="kr text-sm leading-7 text-muted">
+                    아픈 곳이 어디인지로 찾으시면 해당 부위의 흔한 원인부터 보여드립니다.
+                  </p>
+                  <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
+                    자세히 보기
+                    <Arrow />
+                  </span>
+                </div>
+              </Link>
+            </div>
+          </section>
+        </Reveal>
+
         {/* 진료비 — 물어보기 전에 먼저 꺼낸다 */}
         <Reveal>
           <section className="mt-24">
             <H2
+              small
               accent="궁금하신가요?"
               note="건강보험이 적용되는 치료와 그렇지 않은 치료를 나눠서 안내해 드립니다. 비급여 항목은 시작하기 전에 금액을 말씀드립니다."
             >
@@ -447,6 +447,68 @@ export default function Home() {
                 진료비 안내 전체 보기
                 <Arrow className="arw" />
               </Link>
+            </div>
+          </section>
+        </Reveal>
+
+        {/* 지역 진료 — 장기동에 있어서 오시는 분이 대부분 이 동네다 */}
+        <Reveal>
+          <section className="mt-24">
+            <H2
+              accent="진료합니다"
+              note="장기역 도보 1분, 다이소 맞은편에 있습니다. 한강신도시와 장기동에서 걸어오시거나 퇴근길에 들르시는 분이 대부분입니다."
+            >
+              김포 장기동에서
+            </H2>
+            <div className="mt-10 grid gap-3 md:grid-cols-3">
+              <Link href="/treatment/chuna" className="tile bg-surface p-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">추나요법</p>
+                <h3 className="kr mt-4 text-xl font-bold">김포 추나치료</h3>
+                <p className="kr mt-3 text-[15px] leading-7 text-muted">
+                  건강보험이 적용되는 추나요법입니다. 연 20회까지 급여로 인정됩니다.
+                </p>
+                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
+                  자세히 보기
+                  <Arrow />
+                </span>
+              </Link>
+
+              <Link href="/care/pain" className="tile bg-surface p-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">통증치료</p>
+                <h3 className="kr mt-4 text-xl font-bold">김포 통증치료</h3>
+                <p className="kr mt-3 text-[15px] leading-7 text-muted">
+                  허리, 목, 어깨, 무릎. 참고 지내던 통증의 원인을 먼저 찾습니다.
+                </p>
+                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
+                  자세히 보기
+                  <Arrow />
+                </span>
+              </Link>
+
+              <Link href="/area/gimpo-accident" className="tile bg-surface p-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ochre">자동차보험</p>
+                <h3 className="kr mt-4 text-xl font-bold">김포 교통사고</h3>
+                <p className="kr mt-3 text-[15px] leading-7 text-muted">
+                  대인접수가 되면 본인부담금 없이 치료받으실 수 있습니다.
+                </p>
+                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
+                  자세히 보기
+                  <Arrow />
+                </span>
+              </Link>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">동네별</span>
+              {AREAS.map((a) => (
+                <Link
+                  key={a.slug}
+                  href={`/area/${a.slug}`}
+                  className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb"
+                >
+                  {a.name}
+                </Link>
+              ))}
             </div>
           </section>
         </Reveal>
@@ -523,6 +585,38 @@ export default function Home() {
               >
                 구글 지도에서 보기
               </a>
+            </div>
+          </section>
+        </Reveal>
+
+        {/* 공간 — 처음 오는 사람은 문 열기 전이 가장 망설여진다 */}
+        <Reveal>
+          <section className="mt-24">
+            <H2
+              accent="미리 만나보세요"
+              note="접수 데스크와 대기 공간입니다. 물리치료실은 안쪽에 따로 있습니다."
+            >
+              오시기 전에
+            </H2>
+            <figure className="mt-10 overflow-hidden rounded-[2rem] ring-1 ring-line">
+              <Image
+                src="/clinic-interior.jpg"
+                alt="김포한강한의원 접수 데스크와 대기 공간"
+                width={2000}
+                height={1333}
+                sizes="(min-width: 1440px) 1344px, 100vw"
+                className="h-auto w-full"
+                priority={false}
+              />
+            </figure>
+            <div className="mt-8 text-center">
+              <Link
+                href="/directions"
+                className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
+              >
+                오시는 길 보기
+                <Arrow className="arw" />
+              </Link>
             </div>
           </section>
         </Reveal>
