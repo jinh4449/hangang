@@ -1,0 +1,159 @@
+"""크롤한 페이지를 아티팩트로 올릴 단일 HTML 한 장으로 묶는다.
+
+    python3 tools/preview/build.py
+
+crawl.mjs 가 만든 .cache/crawl.json 을 읽어 .cache/preview.html 을 낸다.
+
+주의할 점 두 가지.
+  - 미리보기 껍데기는 폭을 잡지 않는다. 페이지가 제 반응형 규칙대로 화면을
+    다 써야 한다. 무대를 고정폭으로 두면 넓은 화면에서 한쪽이 비어 보인다.
+  - 폰트는 실제 쓰인 글자만 남겨 심는다. 통째로 넣으면 6MB가 넘는다.
+"""
+
+import base64
+import io
+import json
+import re
+from pathlib import Path
+
+from fontTools import subset
+
+HERE = Path(__file__).parent
+CACHE = HERE / ".cache"
+ROOT = HERE.parent.parent
+FONT_DIR = ROOT / "node_modules/pretendard/dist/web/static/woff2"
+
+WEIGHTS = {400: "Regular", 500: "Medium", 600: "SemiBold", 700: "Bold", 800: "ExtraBold", 900: "Black"}
+
+data = json.loads((CACHE / "crawl.json").read_text())
+css, pages = data["css"], data["pages"]
+
+# ── 실제로 쓰인 글자만 모은다 ─────────────────────────────────
+text = "".join(p["body"] for p in pages)
+chars = set(text)
+# 눈에 안 띄는 자리에서 두부가 뜨지 않도록 기본 라틴은 통째로 넣는다
+chars |= {chr(c) for c in range(0x20, 0x7F)}
+unicodes = sorted(ord(c) for c in chars if ord(c) > 31)
+print(f"글자 {len(unicodes)}자")
+
+# ── 그 글자만 남기고 폰트를 깎는다 ────────────────────────────
+faces = []
+for weight, name in WEIGHTS.items():
+    src = FONT_DIR / f"Pretendard-{name}.woff2"
+    opts = subset.Options()
+    opts.flavor = "woff2"
+    opts.desubroutinize = True
+    opts.layout_features = ["kern", "liga", "calt"]
+    opts.notdef_outline = False
+    font = subset.load_font(str(src), opts)
+    subsetter = subset.Subsetter(options=opts)
+    subsetter.populate(unicodes=unicodes)
+    subsetter.subset(font)
+    buf = io.BytesIO()
+    subset.save_font(font, buf, opts)
+    font.close()
+    raw = buf.getvalue()
+    print(f"  {weight:>3} {src.stat().st_size // 1024:>4}KB → {len(raw) // 1024:>3}KB")
+    faces.append(
+        "@font-face{font-family:Pretendard;font-style:normal;font-display:swap;"
+        f"font-weight:{weight};"
+        f"src:url(data:font/woff2;base64,{base64.b64encode(raw).decode()}) format('woff2')}}"
+    )
+
+# ── 로컬 서버를 가리키는 참조를 걷어낸다 ──────────────────────
+css = re.sub(r"@font-face\s*\{[^}]*\}", "", css)
+css = re.sub(r"url\((['\"]?)(?:https?://localhost:\d+)?/_next/[^)]*\)", "url()", css)
+# Outfit(next/font)은 구글 폰트로 대체한다. 아티팩트가 허용하는 유일한 외부 호스트다
+css = css.replace("var(--font-outfit)", "'Outfit'")
+
+# ── 내부 링크를 해시 라우팅으로 바꾼다 ────────────────────────
+known = {p["route"] for p in pages}
+
+
+def rewrite(html: str) -> str:
+    def sub(m):
+        href = m.group(1)
+        if href in known:
+            return f'href="#{href}"'
+        if href.startswith("/") and not href.startswith("//"):
+            # 미리보기에 없는 페이지는 죽은 링크로 두지 않고 표시만 남긴다
+            return f'href="#" data-missing="{href}"'
+        return m.group(0)
+
+    html = re.sub(r'href="(/[^"]*)"', sub, html)
+    # 지도 iframe 은 아티팩트 CSP 가 막는다. 자리만 알려 준다
+    return re.sub(
+        r"<iframe[^>]*></iframe>",
+        '<div class="pv-noembed">지도는 미리보기에서 표시되지 않습니다 · '
+        "실제 사이트에서는 정상 표시됩니다</div>",
+        html,
+    )
+
+
+sections = "".join(
+    f'<div class="pv-page" data-route="{p["route"]}" hidden>{rewrite(p["body"])}</div>' for p in pages
+)
+options = "".join(
+    f'<option value="{p["route"]}">{p["route"]}</option>'
+    for p in sorted(pages, key=lambda x: x["route"])
+)
+
+SHELL = """
+/* 껍데기는 폭을 잡지 않는다. 페이지가 제 반응형 규칙대로 화면을 다 쓴다 */
+.pv-page{width:100%}
+.pv-noembed{display:flex;align-items:center;justify-content:center;min-height:14rem;
+  border:1px dashed var(--line,#e6e8e3);border-radius:1rem;background:var(--surface-2,#f5f6f4);
+  color:var(--faint,#8d958f);font-size:.8125rem;text-align:center;padding:1.5rem;line-height:1.7}
+.pv-bar{position:fixed;right:1rem;bottom:1rem;z-index:2147483647;display:flex;gap:.5rem;
+  align-items:center;padding:.5rem .625rem;border-radius:999px;background:#171a18;
+  box-shadow:0 6px 24px rgba(0,0,0,.28)}
+.pv-bar select{appearance:none;border:0;border-radius:999px;background:#2a2f2c;color:#fff;
+  font:inherit;font-size:.75rem;padding:.375rem .75rem;width:11rem;cursor:pointer;
+  text-overflow:ellipsis}
+.pv-bar span{color:#8d958f;font-size:.6875rem;letter-spacing:.08em;text-transform:uppercase}
+@media print{.pv-bar{display:none}}
+"""
+
+JS = """
+(function(){
+  var pages=[].slice.call(document.querySelectorAll('.pv-page'));
+  var sel=document.getElementById('pv-route');
+  function show(route){
+    var hit=false;
+    pages.forEach(function(el){
+      var on=el.dataset.route===route;
+      el.hidden=!on; if(on)hit=true;
+    });
+    if(!hit&&pages.length){pages[0].hidden=false;route=pages[0].dataset.route;}
+    sel.value=route;
+    window.scrollTo(0,0);
+  }
+  function fromHash(){
+    var h=decodeURIComponent(location.hash.replace(/^#/,''))||'/';
+    show(h.charAt(0)==='/'?h:'/');
+  }
+  sel.addEventListener('change',function(){location.hash=sel.value;});
+  window.addEventListener('hashchange',fromHash);
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[data-missing]');
+    if(a)e.preventDefault();
+  });
+  fromHash();
+})();
+"""
+
+html = f"""<title>김포한강한의원 미리보기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>{"".join(faces)}</style>
+<style>{css}</style>
+<style>{SHELL}</style>
+{sections}
+<div class="pv-bar"><span>미리보기</span><select id="pv-route" aria-label="페이지 선택">{options}</select></div>
+<script>{JS}</script>
+"""
+
+out = CACHE / "preview.html"
+out.write_text(html)
+print(f"\n{out}  {out.stat().st_size / 1024 / 1024:.2f}MB")

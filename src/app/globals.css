@@ -26,10 +26,6 @@
   --grad-a: #7a5a2b;
   --grad-b: #c2a166;
   --grad-c: #8f6d38;
-  /* 섹션 제목의 강조 부분. 통증치료 카드의 녹색(--herb)에서 뽑았다 */
-  --gradh-a: #1a5240;
-  --gradh-b: #46a07b;
-  --gradh-c: #247054;
 }
 
 @theme inline {
@@ -232,15 +228,6 @@ a.tile-dark:hover {
   background-clip: text;
   color: transparent;
   /* 받침이 잘리지 않게 여유를 준다 */
-  padding-bottom: 0.06em;
-}
-
-/* 섹션 제목의 뒷부분에만 건다. 앞부분은 먹색으로 두어야 대비가 산다 */
-.grad-herb {
-  background-image: linear-gradient(96deg, var(--gradh-a) 0%, var(--gradh-b) 54%, var(--gradh-c) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
   padding-bottom: 0.06em;
 }
 @supports not ((background-clip: text) or (-webkit-background-clip: text)) {

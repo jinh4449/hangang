@@ -13,7 +13,7 @@ import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon, MapPinIcon } from "@/componen
 const pain = getSymptom("pain")!;
 
 /** 메인의 섹션 제목은 모두 같은 크기·같은 정렬로 선다. 여기서만 정한다.
- *  accent는 제목의 뒷부분으로, 녹색 그라데이션이 걸린다 */
+ *  accent는 제목의 뒷부분으로, 히어로와 같은 금빛 그라데이션이 걸린다 */
 function H2({
   children,
   accent,
@@ -27,7 +27,7 @@ function H2({
     <div className="text-center">
       <h2 className="display kr text-3xl sm:text-4xl xl:text-[2.75rem]">
         {children}
-        {accent && <> <span className="grad-herb">{accent}</span></>}
+        {accent && <> <span className="grad">{accent}</span></>}
       </h2>
       {note && (
         <p className="kr mx-auto mt-4 max-w-[52ch] text-base leading-8 text-muted xl:text-[17px] xl:leading-9">
@@ -311,8 +311,7 @@ export default function Home() {
               <h2 className="display kr mt-6 text-3xl text-balance sm:text-[2.75rem]">
                 {CLINIC.whyHero.headline[0]}
                 <br />
-                {/* 소제목의 강조는 녹색으로 통일한다. 금빛은 히어로 한 곳에만 남긴다 */}
-                <span className="grad-herb">{CLINIC.whyHero.headline[1]}</span>
+                <span className="grad">{CLINIC.whyHero.headline[1]}</span>
               </h2>
               <p className="kr mt-5 text-[17px] leading-8 text-muted">{CLINIC.whyHero.sub}</p>
             </div>
