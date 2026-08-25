@@ -172,6 +172,22 @@ JS = """
     var h=decodeURIComponent(location.hash.replace(/^#/,''))||'/';
     show(h.charAt(0)==='/'?h:'/');
   }
+  // 크롤러가 애니메이션을 최종 상태로 굳혀 담기 때문에, 움직임을 보여주려면
+  // 미리보기에서 다시 걸어줘야 한다. 화면에 들어올 때 한 번씩 재생한다
+  if (window.IntersectionObserver) {
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var el=e.target;
+        el.style.animation='none';
+        // SVG 요소에는 offsetWidth 가 없다. 리플로우는 이걸로 강제한다
+        el.getBoundingClientRect();
+        el.style.animation='';
+      });
+    },{threshold:.35});
+    document.querySelectorAll('.ring-arc,.ring-label').forEach(function(el){io.observe(el);});
+  }
+
   sel.addEventListener('change',function(){location.hash=sel.value;});
   window.addEventListener('hashchange',fromHash);
   document.addEventListener('click',function(e){
