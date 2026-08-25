@@ -47,6 +47,59 @@ function H2({
   );
 }
 
+/**
+ * 소개 비율 원.
+ *
+ * 원내 집계가 「절반 이상」이라는 어림값이라 퍼센트를 지어내지 않는다.
+ * 대신 절반 자리에 눈금을 두고 원이 그 눈금을 지나 멈추게 해서,
+ * 「절반을 넘었다」는 사실만 눈에 보이게 했다.
+ */
+function ReferralRing() {
+  // 눈금을 링 바깥에 두어야 원이 지나갈 때 가려지지 않는다
+  const R = 80;
+  const CIRC = 2 * Math.PI * R;
+  const STOP = 0.56; // 눈금(0.5)을 지난 것이 보일 만큼만
+
+  return (
+    <div className="relative mx-auto aspect-square w-[17rem] sm:w-[20rem]">
+      <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
+        <circle cx="100" cy="100" r={R} fill="none" stroke="var(--tint)" strokeWidth="16" />
+        {/* 절반 자리 눈금 — 12시에서 시계 방향으로 반 바퀴 돈 6시, 링 바깥 */}
+        <line x1="100" y1="192" x2="100" y2="200" stroke="var(--herb)" strokeWidth="3" strokeLinecap="round" />
+        <circle
+          className="ring-arc"
+          cx="100"
+          cy="100"
+          r={R}
+          fill="none"
+          stroke="var(--herb)"
+          strokeWidth="16"
+          strokeLinecap="round"
+          style={
+            {
+              "--circ": CIRC,
+              "--target": CIRC * (1 - STOP),
+            } as React.CSSProperties
+          }
+        />
+      </svg>
+
+      <div className="ring-label absolute inset-0 flex flex-col items-center justify-center text-center">
+        <span className="display kr text-4xl font-black text-herb sm:text-5xl">
+          {CLINIC.whyHero.stat.value}
+        </span>
+        <span className="kr mt-2 max-w-[9rem] text-sm leading-6 text-muted">
+          소개로 오십니다
+        </span>
+      </div>
+
+      <span className="absolute left-1/2 top-full -translate-x-1/2 pt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-faint">
+        여기가 절반
+      </span>
+    </div>
+  );
+}
+
 /** 로드와 동시에 순서대로 나타나는 히어로 조각 */
 function Enter({
   d,
@@ -278,13 +331,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 소개 비율 — 근거 표기를 함께 둔다 */}
-            <div className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-2xl bg-tint px-7 py-6 ring-1 ring-herb/15">
-              <span className="text-3xl font-bold text-herb">{CLINIC.whyHero.stat.value}</span>
-              <span className="kr text-[15px] text-ink">{CLINIC.whyHero.stat.label}</span>
-              <span className="kr ml-auto text-xs text-muted">※ {CLINIC.whyHero.stat.basis}</span>
-            </div>
-
             {/* 상세 — 주장 카드 아래에 조용히 둔다 */}
             <div className="mt-10 border-t border-line">
               {CLINIC.whyUs.map((w) => {
@@ -302,6 +348,32 @@ export default function Home() {
                   </div>
                 );
               })}
+            </div>
+          </section>
+        </Reveal>
+
+        {/* 소개 비율 — 광고가 아니라 다녀간 사람이 데려온다는 이야기 */}
+        <Reveal>
+          <section className="mt-24">
+            <H2
+              accent="알고 오시나요?"
+              note="처음 오시는 분께 어떻게 알고 오셨는지 여쭤봅니다. 절반 이상이 아는 분 소개라고 답하십니다."
+            >
+              어떻게
+            </H2>
+            <div className="mt-12 grid items-center gap-10 md:grid-cols-2">
+              <ReferralRing />
+              <div className="mx-auto max-w-[34ch] text-center md:mx-0 md:text-left">
+                <p className="kr text-[17px] leading-8 text-muted">
+                  {CLINIC.whyHero.stat.label}입니다. 다녀가신 분이 가족이나 이웃을 데려오시는
+                  경우가 많습니다.
+                </p>
+                <p className="kr mt-5 text-[15px] leading-7 text-muted">
+                  치료가 끝나면 끝났다고 말씀드립니다. 그래서 다시 아플 때, 또 주변에 아픈 분이
+                  생겼을 때 저희를 떠올리십니다.
+                </p>
+                <p className="kr mt-6 text-xs text-faint">※ {CLINIC.whyHero.stat.basis}</p>
+              </div>
             </div>
           </section>
         </Reveal>

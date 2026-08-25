@@ -236,6 +236,44 @@ a.tile-dark:hover {
   }
 }
 
+/* ── 소개 비율 원 ──
+   화면에 들어오면 12시에서 시계 방향으로 돌아가 절반을 조금 넘긴 자리에
+   멈춘다. 숫자를 지어내지 않으려고 절반 지점에 눈금을 두어, 원이 그
+   눈금을 지나는 것으로 「절반 이상」을 보이게 했다 */
+.ring-arc {
+  stroke-dasharray: var(--circ);
+  stroke-dashoffset: var(--circ);
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+.reveal.on .ring-arc {
+  animation: ringSweep 1.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+}
+@keyframes ringSweep {
+  to {
+    stroke-dashoffset: var(--target);
+  }
+}
+
+/* 가운데 글자는 원이 멈출 즈음에 맺힌다 */
+.ring-label {
+  opacity: 0;
+}
+.reveal.on .ring-label {
+  animation: textIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 1.05s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-arc {
+    stroke-dashoffset: var(--target);
+    animation: none !important;
+  }
+  .ring-label {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}
+
 /* ── 진입 애니메이션 ──
    첫 화면은 스크롤을 기다릴 수 없으니 로드와 동시에 순서대로 나타난다.
    흐림에서 또렷해지는 편이 "없다가 생겨나는" 느낌에 가깝다 */
