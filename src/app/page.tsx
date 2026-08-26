@@ -230,12 +230,6 @@ export default function Home() {
               >
                 전화 예약 {CLINIC.phone}
               </a>
-              <Link
-                href="/doubt/pain"
-                className="press inline-flex items-center gap-3 rounded-full bg-surface px-7 py-4 text-lg ring-1 ring-line"
-              >
-                효과가 있긴 한가요?
-              </Link>
             </div>
           </Enter>
         </div>
