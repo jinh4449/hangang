@@ -36,7 +36,6 @@ export type Symptom = {
     treatments: { name: string; body: string; covered: boolean }[];
     stages: Stage[];
     /** 지체하면 위험한 신호. 환자를 다른 과로 보내야 하는 경우 */
-    redFlags: { title: string; body: string; signs: string[] };
     /** 공통 틀에 없는 증상별 추가 섹션. 교통사고의 보험 접수 절차 같은 것 */
     extraSections?: {
       title: string;

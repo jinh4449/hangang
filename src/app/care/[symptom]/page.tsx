@@ -64,19 +64,6 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </ul>
         </Section>
 
-        {/* 응급 신호를 치료 설명보다 앞에 둔다. 환자를 붙잡는 것보다 안전이 먼저다. */}
-        <section className="mt-14 rounded border border-rust-line border-l-[3px] border-l-rust bg-rust-soft p-7">
-          <h2 className="font-serif text-xl font-bold text-rust">{care.redFlags.title}</h2>
-          <p className="mt-3 text-[15px] leading-7">{care.redFlags.body}</p>
-          <ul className="mt-4 grid gap-1.5 sm:grid-cols-2">
-            {care.redFlags.signs.map((sign) => (
-              <li key={sign} className="text-[15px] leading-7">
-                · {sign}
-              </li>
-            ))}
-          </ul>
-        </section>
-
         <Section title="왜 생기나">
           <div className="grid gap-3">
             {care.causes.map((c) => (
