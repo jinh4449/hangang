@@ -54,6 +54,34 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </aside>
         )}
 
+        {/* 진료 흐름 — 순서가 곧 내용이라 번호를 붙여 칸으로 세운다 */}
+        {care.flow && (
+          <Section
+            title="저희는 이렇게 봅니다"
+            note="같은 통증이라도 원인이 다르면 치료가 달라집니다. 그 갈림길을 짐작이 아니라 화면으로 가릅니다."
+          >
+            <ol className="grid gap-3 sm:grid-cols-2">
+              {care.flow.map((f, i) => (
+                <li
+                  key={f.title}
+                  className="flex flex-col rounded-[1.25rem] border border-line bg-surface p-6"
+                >
+                  <span className="font-mono text-[11px] tracking-[0.1em] text-herb">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="kr mt-3 text-[17px] font-bold leading-snug">{f.title}</h3>
+                  <p className="kr mt-2 text-[15px] leading-7 text-muted">{f.text}</p>
+                  {f.tag && (
+                    <span className="kr mt-4 self-start rounded-full bg-tint px-3 py-1 text-xs font-medium text-herb">
+                      {f.tag}
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </Section>
+        )}
+
         <Section title="이런 증상이 있다면" note="아래 항목 중 여러 개에 해당한다면 진찰을 권합니다.">
           <ul className="readlist sm:grid-cols-2 sm:gap-x-10">
             {care.signs.map((sign) => (

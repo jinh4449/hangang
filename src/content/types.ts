@@ -32,6 +32,8 @@ export type Symptom = {
     lede: string;
     /** "이런 증상이 있다면" — 자기 확인용 */
     signs: string[];
+    /** 진료 흐름. 문장으로 늘어놓지 않고 번호 붙은 칸으로 세운다 */
+    flow?: { title: string; text: string; tag?: string }[];
     causes: { title: string; body: string }[];
     treatments: { name: string; body: string; covered: boolean }[];
     stages: Stage[];
