@@ -7,6 +7,7 @@ import { ClinicStatus } from "./clinic-status";
 import { PhoneLink } from "./phone-link";
 import { MapPinIcon } from "./icons";
 import { MapFrame } from "./map-frame";
+import { MobileNav } from "./mobile-nav";
 
 /**
  * 화면 폭을 채우는 유리 바.
@@ -79,15 +80,21 @@ export function SiteHeader() {
           ))}
         </div>
 
-        <Link
-          href="/reservation"
-          className="press ml-auto inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-herb py-2.5 pl-5 pr-2 text-[15px] font-semibold text-paper"
-        >
-          <span>편리한 상담예약</span>
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-white/15">
-            <Arrow className="arw" />
-          </span>
-        </Link>
+        <div className="ml-auto flex shrink-0 items-center gap-2">
+          <Link
+            href="/reservation"
+            className="press inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-herb py-2.5 pl-5 pr-2 text-[15px] font-semibold text-paper"
+          >
+            {/* 좁은 화면에서는 메뉴 단추와 나란히 서야 해서 글자를 줄인다 */}
+            <span className="hidden sm:inline">편리한 상담예약</span>
+            <span className="sm:hidden">상담예약</span>
+            <span className="grid h-8 w-8 place-items-center rounded-full bg-white/15">
+              <Arrow className="arw" />
+            </span>
+          </Link>
+          {/* 1024px 아래에서 위 메뉴가 전부 숨는다. 그 자리를 이것이 받는다 */}
+          <MobileNav />
+        </div>
       </nav>
     </header>
   );
