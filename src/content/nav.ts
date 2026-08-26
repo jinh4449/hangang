@@ -25,10 +25,10 @@ export const NAV: NavEntry[] = [
     groups: [
       {
         title: "한의원",
+        // 오시는 길은 병원 안내에 있다. 같은 링크를 두 곳에 두지 않는다
         links: [
           { label: "병원 소개", href: "/about" },
           { label: "의료진 소개", href: "/doctors" },
-          { label: "오시는 길", href: "/directions" },
         ],
       },
     ],
@@ -47,12 +47,23 @@ export const NAV: NavEntry[] = [
     ],
   },
   {
-    label: "치료 방법",
-    href: "/treatment",
+    label: "콘텐츠",
+    href: "/column",
     groups: [
       {
-        title: "부위별 안내",
-        links: PARTS.map((p) => ({ label: p.name, href: `/part/${p.slug}` })),
+        title: "읽을거리",
+        links: [
+          { label: "원장 칼럼", href: "/column" },
+          ...COMPARES.map((c) => ({ label: c.title, href: `/compare/${c.slug}` })),
+        ],
+      },
+      {
+        // 치료 방법 목록도 여기 둔다. 빼면 헤더에서 닿을 곳이 없어진다
+        title: "치료 안내",
+        links: [
+          { label: "치료 방법", href: "/treatment" },
+          ...PARTS.map((p) => ({ label: p.name, href: `/part/${p.slug}` })),
+        ],
       },
     ],
   },
@@ -78,17 +89,11 @@ export const NAV: NavEntry[] = [
     href: "/directions",
     groups: [
       {
+        // 읽을거리는 콘텐츠로 옮겼다
         title: "찾아오시는 길",
         links: [
           { label: "오시는 길", href: "/directions" },
           ...AREAS.map((a) => ({ label: a.name, href: `/area/${a.slug}` })),
-        ],
-      },
-      {
-        title: "읽을거리",
-        links: [
-          { label: "원장 칼럼", href: "/column" },
-          ...COMPARES.map((c) => ({ label: c.title, href: `/compare/${c.slug}` })),
         ],
       },
     ],
