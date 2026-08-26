@@ -141,6 +141,24 @@ options = "".join(
 SHELL = """
 /* 껍데기는 폭을 잡지 않는다. 페이지가 제 반응형 규칙대로 화면을 다 쓴다 */
 .pv-page{width:100%}
+/* 미리보기는 정적 스냅샷이라 메뉴 부품이 붙지 않아 햄버거가 먹통이 된다.
+   헤더에 이미 들어 있는 메뉴를 그대로 펼쳐 쓰는 것으로 대신한다 */
+@media (max-width:1023px){
+  .pv-menu-open .navmenu{
+    display:block;position:absolute;left:0;right:0;top:100%;margin:0;
+    max-height:82dvh;overflow-y:auto;background:var(--surface,#fff);
+    border-bottom:1px solid var(--line,#e6e8e3);
+    padding:1.25rem clamp(1.25rem,4vw,4rem) 7rem;
+  }
+  .pv-menu-open .navmenu .navitem{display:block;margin-bottom:1.5rem}
+  .pv-menu-open .navmenu .navtrigger{padding-left:0;font-weight:700;color:var(--ink,#171a18)}
+  .pv-menu-open .navmenu .navchev{display:none}
+  .pv-menu-open .navmenu .navpanel{
+    position:static;opacity:1;visibility:visible;transform:none;padding-top:.5rem}
+  .pv-menu-open .navmenu .navcard{border:0;box-shadow:none;padding:0;background:none;
+    min-width:0!important;width:auto!important}
+}
+
 .pv-toast{position:fixed;left:50%;bottom:5rem;transform:translateX(-50%);z-index:70;
   background:#171a18;color:#fbfbf9;border-radius:9999px;padding:.75rem 1.5rem;
   font-size:.9375rem;font-weight:500;box-shadow:0 12px 32px rgba(0,0,0,.22)}
@@ -195,6 +213,13 @@ JS = """
   window.addEventListener('hashchange',fromHash);
   document.addEventListener('click',function(e){
     if(!e.target.closest)return;
+    var mb=e.target.closest('button[aria-controls="mobile-nav"]');
+    if(mb){
+      e.preventDefault();
+      var hd=mb.closest('header');
+      if(hd)hd.classList.toggle('pv-menu-open');
+      return;
+    }
     var a=e.target.closest('a[data-missing]');
     if(a){e.preventDefault();return;}
     /* 미리보기는 정적 스냅샷이라 PhoneLink 가 붙지 않는다.

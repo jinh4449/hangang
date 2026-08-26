@@ -32,7 +32,7 @@ export function SiteHeader() {
           <ClinicStatus className="shrink-0" />
         </span>
 
-        <div className="ml-3 hidden items-center gap-0.5 text-[15px] lg:flex">
+        <div className="navmenu ml-3 hidden items-center gap-0.5 text-[15px] lg:flex">
           {NAV.map((entry) => (
             <div key={entry.label} className="navitem relative">
               <Link
