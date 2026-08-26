@@ -384,7 +384,7 @@ export default function Home() {
 
         {/* 진료과목 — 같은 크기 격자 */}
         <Reveal>
-          <section className="mt-32 rounded-[2rem] bg-surface-2 p-8 md:p-12 xl:p-14">
+          <section className="band mt-32 py-16 md:py-20 xl:py-24">
             <H2
               accent="필요하신가요?"
               note="과목마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요."
@@ -563,7 +563,7 @@ export default function Home() {
 
         {/* 지역 진료 — 장기동에 있어서 오시는 분이 대부분 이 동네다 */}
         <Reveal>
-          <section className="mt-32 rounded-[2rem] bg-surface-2 p-8 md:p-12 xl:p-14">
+          <section className="band mt-32 py-16 md:py-20 xl:py-24">
             <H2
               accent="진료합니다"
               note="장기역 도보 1분, 다이소 맞은편에 있습니다. 한강신도시와 장기동에서 걸어오시거나 퇴근길에 들르시는 분이 대부분입니다."

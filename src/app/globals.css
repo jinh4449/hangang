@@ -236,6 +236,25 @@ a.tile-dark:hover {
   }
 }
 
+/* ── 화면 끝까지 가는 배경 띠 ──
+   섹션은 본문 컨테이너 안에 그대로 두고 배경만 좌우로 넓힌다. 컨테이너를
+   쪼개지 않아도 되고 글의 폭은 그대로 유지된다.
+   100vw 는 스크롤바 폭만큼 넘치지만 body 에 overflow-x: clip 이 걸려 있어
+   가로 스크롤은 생기지 않는다. */
+.band {
+  position: relative;
+}
+.band::before {
+  content: "";
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  width: 100vw;
+  translate: -50% 0;
+  background: var(--surface-2);
+  z-index: -1;
+}
+
 /* ── 소개 비율 원 ──
    화면에 들어오면 12시에서 시계 방향으로 돌아가 절반을 조금 넘긴 자리에
    멈춘다. 숫자를 지어내지 않으려고 절반 지점에 눈금을 두어, 원이 그
