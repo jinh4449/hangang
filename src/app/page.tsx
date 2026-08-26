@@ -356,7 +356,7 @@ export default function Home() {
 
         {/* 소개 비율 — 광고가 아니라 다녀간 사람이 데려온다는 이야기 */}
         <Reveal>
-          <section className="mt-24">
+          <section className="mt-32">
             <H2
               accent="알고 오시나요?"
               note="처음 오시는 분께 어떻게 알고 오셨는지 여쭤봅니다. 절반 이상이 아는 분 소개라고 답하십니다."
@@ -384,7 +384,7 @@ export default function Home() {
 
         {/* 진료과목 — 같은 크기 격자 */}
         <Reveal>
-          <section className="mt-24">
+          <section className="mt-32 rounded-[2rem] bg-surface-2 p-8 md:p-12 xl:p-14">
             <H2
               accent="필요하신가요?"
               note="과목마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요."
@@ -493,7 +493,7 @@ export default function Home() {
 
         {/* 진료비 — 물어보기 전에 먼저 꺼낸다 */}
         <Reveal>
-          <section className="mt-24">
+          <section className="mt-32">
             <H2
               small
               accent="궁금하신가요?"
@@ -563,7 +563,7 @@ export default function Home() {
 
         {/* 지역 진료 — 장기동에 있어서 오시는 분이 대부분 이 동네다 */}
         <Reveal>
-          <section className="mt-24">
+          <section className="mt-32 rounded-[2rem] bg-surface-2 p-8 md:p-12 xl:p-14">
             <H2
               accent="진료합니다"
               note="장기역 도보 1분, 다이소 맞은편에 있습니다. 한강신도시와 장기동에서 걸어오시거나 퇴근길에 들르시는 분이 대부분입니다."
@@ -634,7 +634,7 @@ export default function Home() {
 
         {/* 고민 — 의도 분해의 마지막 칸 */}
         <Reveal>
-          <section className="mt-24">
+          <section className="mt-32">
             <H2
               accent="되실 때"
               note="어디로 가야 할지, 정말 효과가 있는지 헷갈릴 때 참고하세요."
@@ -672,7 +672,7 @@ export default function Home() {
 
         {/* 최신 칼럼 — 검색으로 들어온 사람에게 읽을거리를 준다 */}
         <Reveal>
-          <section className="mt-24">
+          <section className="mt-32">
             <H2 accent="자주 받는 질문">진료실에서</H2>
             <div className="mt-10 grid gap-2 md:grid-cols-2">
               {columnsByDate()
@@ -705,7 +705,7 @@ export default function Home() {
 
         {/* 리뷰 — 페이지에 심지 않고 외부로 내보낸다 (의료법 56조②) */}
         <Reveal>
-          <section className="mt-24 rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
+          <section className="mt-32 rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
             <H2 accent="직접 확인해 보세요">리뷰는</H2>
             <p className="kr mx-auto mt-4 max-w-[46ch] leading-8 text-muted">
               의료법에 따라 환자분들의 후기를 저희 홈페이지에 직접 싣지
@@ -734,7 +734,7 @@ export default function Home() {
 
         {/* 공간 — 처음 오는 사람은 문 열기 전이 가장 망설여진다 */}
         <Reveal>
-          <section className="mt-24">
+          <section className="mt-32">
             <H2
               accent="미리 만나보세요"
               note="접수 데스크와 대기 공간입니다. 물리치료실은 안쪽에 따로 있습니다."
