@@ -8,16 +8,19 @@ import { ClinicStatus } from "./clinic-status";
 import { MapPinIcon } from "./icons";
 
 /**
- * 가장자리에 붙은 바가 아니라 떠 있는 글래스 필.
+ * 화면 폭을 채우는 유리 바.
  *
  * 각 항목은 커서를 올리면 하위 메뉴가 펼쳐진다. 자바스크립트 없이 CSS 로만
  * 동작하므로 느린 기기에서도 바로 열리고, 키보드 탭으로도 같은 메뉴가 열린다.
  * 최상위 항목도 실제 페이지를 가리켜서 그냥 눌러도 이동한다.
+ *
+ * 바는 화면 폭을 채우고 내용만 본문과 같은 컨테이너에 맞춰 선다.
+ * 그래야 아래 회색 띠들과 좌우 선이 일치한다.
  */
 export function SiteHeader() {
   return (
-    <header className="fixed inset-x-0 top-4 z-40 px-[clamp(1rem,4vw,4rem)]">
-      <nav className="mx-auto flex w-full max-w-[90rem] items-center gap-3 rounded-full bg-surface/70 py-2 pl-6 pr-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] ring-1 ring-ink/[0.07] backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-40 border-b border-ink/[0.07] bg-surface/70 backdrop-blur-xl">
+      <nav className="mx-auto flex w-full max-w-[90rem] items-center gap-3 px-[clamp(1.25rem,4vw,4rem)] py-2.5">
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {CLINIC.name}
         </Link>
@@ -63,11 +66,6 @@ export function SiteHeader() {
                               <span className="kr block text-[15px] font-medium leading-snug text-ink">
                                 {l.label}
                               </span>
-                              {l.note && (
-                                <span className="kr mt-0.5 block text-xs leading-5 text-faint">
-                                  {l.note}
-                                </span>
-                              )}
                             </Link>
                           </li>
                         ))}

@@ -15,7 +15,7 @@ import { COMPARES } from "./compare";
  * 메뉴는 키보드로 쓸 수 없고, 눌러 본 사람을 헛걸음시킨다.
  */
 
-export type NavLink = { label: string; href: string; note?: string };
+export type NavLink = { label: string; href: string };
 export type NavGroup = { title: string; links: NavLink[] };
 export type NavEntry = { label: string; href: string; groups: NavGroup[] };
 
@@ -27,9 +27,9 @@ export const NAV: NavEntry[] = [
       {
         title: "한의원",
         links: [
-          { label: "병원 소개", href: "/about", note: "진료 방침 · 공간 · 진료 시간" },
-          { label: "의료진 소개", href: "/doctors", note: "이진희 · 왕소정 원장" },
-          { label: "오시는 길", href: "/directions", note: "지하철 · 주차" },
+          { label: "병원 소개", href: "/about" },
+          { label: "의료진 소개", href: "/doctors" },
+          { label: "오시는 길", href: "/directions" },
         ],
       },
     ],
@@ -43,7 +43,6 @@ export const NAV: NavEntry[] = [
         links: SYMPTOMS.map((s) => ({
           label: s.name,
           href: `/care/${s.slug}`,
-          note: s.clinicalName,
         })),
       },
     ],
@@ -57,7 +56,6 @@ export const NAV: NavEntry[] = [
         links: TREATMENTS.map((t) => ({
           label: t.name,
           href: `/treatment/${t.slug}`,
-          note: t.covered ? "건강보험 적용" : "비급여",
         })),
       },
       {
@@ -73,8 +71,8 @@ export const NAV: NavEntry[] = [
       {
         title: "전체 안내",
         links: [
-          { label: "진료비 안내", href: "/cost", note: "급여 · 비급여" },
-          { label: "예약 · 상담", href: "/reservation", note: "예약 방법과 준비물" },
+          { label: "진료비 안내", href: "/cost" },
+          { label: "예약 · 상담", href: "/reservation" },
         ],
       },
       {
@@ -90,14 +88,14 @@ export const NAV: NavEntry[] = [
       {
         title: "찾아오시는 길",
         links: [
-          { label: "오시는 길", href: "/directions", note: "지하철 · 주차" },
+          { label: "오시는 길", href: "/directions" },
           ...AREAS.map((a) => ({ label: a.name, href: `/area/${a.slug}` })),
         ],
       },
       {
         title: "읽을거리",
         links: [
-          { label: "원장 칼럼", href: "/column", note: "진료실에서 받는 질문" },
+          { label: "원장 칼럼", href: "/column" },
           ...COMPARES.map((c) => ({ label: c.title, href: `/compare/${c.slug}` })),
         ],
       },
