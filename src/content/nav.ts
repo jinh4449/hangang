@@ -10,7 +10,7 @@ import { COMPARES } from "./compare";
  * 항목을 손으로 나열하지 않고 콘텐츠에서 뽑는다. 진료과목이나 치료 기법을
  * 추가하면 메뉴에도 자동으로 들어온다.
  *
- * 최상위는 4개까지만 둔다. 그 이상은 헤더 알약 안에 들어가지 않는다.
+ * 최상위는 5개까지 둔다. 그 이상은 헤더 알약 안에 들어가지 않는다.
  * 최상위 항목도 전부 실제로 존재하는 페이지를 가리킨다. 누를 곳이 없는
  * 메뉴는 키보드로 쓸 수 없고, 눌러 본 사람을 헛걸음시킨다.
  */
@@ -20,6 +20,20 @@ export type NavGroup = { title: string; links: NavLink[] };
 export type NavEntry = { label: string; href: string; groups: NavGroup[] };
 
 export const NAV: NavEntry[] = [
+  {
+    label: "김포한강한의원",
+    href: "/about",
+    groups: [
+      {
+        title: "한의원",
+        links: [
+          { label: "병원 소개", href: "/about", note: "진료 방침 · 공간 · 진료 시간" },
+          { label: "의료진 소개", href: "/doctors", note: "이진희 · 왕소정 원장" },
+          { label: "오시는 길", href: "/directions", note: "지하철 · 주차" },
+        ],
+      },
+    ],
+  },
   {
     label: "진료과목",
     href: "/care",

@@ -21,7 +21,9 @@ export function SiteHeader() {
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {CLINIC.name}
         </Link>
-        <span className="hidden sm:block">
+        {/* 메뉴가 다섯 개라 1024px 부근에서는 상태 배지까지 들어갈 자리가 없다.
+            메뉴를 줄이는 대신 배지를 넓은 화면에서만 띄운다 */}
+        <span className="hidden xl:block">
           <ClinicStatus className="shrink-0" />
         </span>
 

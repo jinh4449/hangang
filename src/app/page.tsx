@@ -161,7 +161,7 @@ export default function Home() {
 
           <Enter d={520}>
             <p className="kr mx-auto mt-7 max-w-[56ch] text-[17px] leading-8 text-muted xl:mt-9 xl:text-[19px] xl:leading-9">
-              그 세 가지를 위해 진료 방식을 정했습니다. 초음파로 함께 보고, 남녀 두 원장이 나눠 맡고, 아니면 아니라고 말씀드립니다.
+              세 가지 다 물어보셔도 됩니다. 그리고 안 될 것 같으면 안 된다고 먼저 말씀드립니다. 그 말을 할 수 있어야 맡기실 수 있다고 생각합니다.
             </p>
           </Enter>
 
@@ -228,51 +228,9 @@ export default function Home() {
       </section>
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
-        {/* 한의원 소개 — 누가 보는 곳인지부터 밝힌다 */}
-        <Reveal>
-          <section>
-            <H2
-              accent="소개"
-              note="김포 한강신도시 장기동, 장기역에서 걸어 1분 거리에 있습니다. 척추·관절 통증을 중점으로 보고, 두 원장이 함께 진료합니다."
-            >
-              한의원
-            </H2>
-            <div className="mt-10 grid gap-3 sm:grid-cols-2">
-              {CLINIC.doctors.map((d) => (
-                <div key={d.key} className="rounded-[1.25rem] border border-line bg-surface p-8">
-                  <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
-                    {d.role}
-                  </p>
-                  <h3 className="kr mt-3 text-2xl font-bold">{d.name}</h3>
-                </div>
-              ))}
-            </div>
-            <p className="kr mt-3 rounded-2xl bg-tint px-6 py-5 text-center text-[15px] leading-7 ring-1 ring-herb/15">
-              진료받기 편한 쪽을 고르실 수 있습니다. 판단이 어려운 경우에는 두 원장이 함께 상의해
-              방향을 정합니다.
-            </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
-              <Link
-                href="/directions"
-                className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
-              >
-                오시는 길
-                <Arrow className="arw" />
-              </Link>
-              <Link
-                href="/reservation"
-                className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
-              >
-                예약·상담 안내
-                <Arrow className="arw" />
-              </Link>
-            </div>
-          </section>
-        </Reveal>
-
         {/* 왜 이곳인가 — 주장 카드로 열고 아래에서 증명한다 */}
         <Reveal>
-          <section className="mt-24">
+          <section>
             <div className="mx-auto max-w-3xl text-center">
               <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
                 {CLINIC.whyHero.eyebrow}
