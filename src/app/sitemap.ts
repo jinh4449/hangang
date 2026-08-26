@@ -3,7 +3,6 @@ import { SYMPTOMS } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { AREAS } from "@/content/area";
 import { COLUMNS } from "@/content/column";
-import { TREATMENTS } from "@/content/treatment";
 import { PARTS } from "@/content/part";
 import { SITE_URL } from "@/content/clinic";
 
@@ -22,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   for (const s of SYMPTOMS) {
+    entries.push({
+      url: `${SITE_URL}/care/${s.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    });
   }
   for (const a of AREAS) {
     entries.push({
@@ -31,6 +36,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     });
   }
+  entries.push({
+    url: `${SITE_URL}/treatment`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  });
   for (const [base, items, pr] of [
     ["/part", PARTS, 0.9],
   ] as const) {

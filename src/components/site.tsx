@@ -6,6 +6,7 @@ import { NAV } from "@/content/nav";
 import { ClinicStatus } from "./clinic-status";
 import { PhoneLink } from "./phone-link";
 import { MapPinIcon } from "./icons";
+import { MapFrame } from "./map-frame";
 
 /**
  * 화면 폭을 채우는 유리 바.
@@ -215,18 +216,9 @@ export function MapLinks({ compact = false }: { compact?: boolean }) {
  * 그때까지는 지도 한 장을 띄우고 세 앱으로 나가는 버튼을 함께 둔다.
  */
 export function MapPanel() {
-  const q = encodeURIComponent(`${CLINIC.address} ${CLINIC.name}`);
   return (
     <div>
-      <div className="overflow-hidden rounded-[2rem] border border-line bg-surface-2">
-        <iframe
-          title={`${CLINIC.name} 위치`}
-          src={`https://www.google.com/maps?q=${q}&hl=ko&z=17&output=embed`}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className="block h-[22rem] w-full border-0"
-        />
-      </div>
+      <MapFrame />
       <p className="kr mt-4 text-[15px] leading-7 text-muted">
         {CLINIC.address} · {CLINIC.landmark}
         <br />
