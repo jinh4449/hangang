@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
+import { CLINIC } from "@/content/clinic";
 import { getCompare } from "@/content/compare";
-import { IntentNav, PageHead, Section, Cta, JsonLd } from "@/components/site";
+import { IntentNav, PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
 import { SYMPTOM_ICONS } from "@/components/icons";
 
@@ -35,12 +37,63 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         }}
       />
       <JsonLd data={breadcrumb([{ name: s.name, path: `/care/${s.slug}` }])} />
+
+      {/* 사진이 있는 과목은 첫 화면을 배경으로 채운다. 없으면 아래 머리글로 선다 */}
+      {s.heroImage && (
+        <section className="relative isolate overflow-hidden bg-ink">
+          <Image
+            src={s.heroImage}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          {/* 글자가 놓이는 왼쪽을 더 어둡게 덮어 대비를 만든다 */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/75 to-ink/35"
+          />
+          <div className="relative mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-20 text-paper xl:py-28">
+            <p className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/60">
+              <span aria-hidden="true" className="h-px w-10 bg-paper/30" />
+              {CLINIC.locality} · {s.clinicalName}
+            </p>
+            <h1 className="display display-black kr mt-6 max-w-[20ch] text-[2rem] leading-[1.28] sm:text-[2.6rem] xl:text-[3.2rem]">
+              {care.title}
+            </h1>
+            <p className="kr mt-6 max-w-[46ch] text-[16px] leading-8 text-paper/75 xl:text-[17px]">
+              {care.lede}
+            </p>
+            <div className="mt-9 flex flex-wrap gap-2">
+              <Link
+                href="/reservation"
+                className="press inline-flex items-center gap-2 rounded-full bg-herb px-7 py-3.5 font-semibold text-paper"
+              >
+                상담 예약하기
+                <Arrow className="arw" />
+              </Link>
+              <a
+                href={CLINIC.phoneHref}
+                className="press inline-flex items-center rounded-full px-7 py-3.5 font-semibold ring-1 ring-paper/30"
+              >
+                {CLINIC.phone}
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
       <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
-        {(() => {
-          const Icon = SYMPTOM_ICONS[s.slug];
-          return Icon ? <Icon className="mb-5 h-10 w-10 text-herb" /> : null;
-        })()}
-        <PageHead eyebrow={s.clinicalName} title={care.title} lede={care.lede} />
+        {!s.heroImage && (
+          <>
+            {(() => {
+              const Icon = SYMPTOM_ICONS[s.slug];
+              return Icon ? <Icon className="mb-5 h-10 w-10 text-herb" /> : null;
+            })()}
+            <PageHead eyebrow={s.clinicalName} title={care.title} lede={care.lede} />
+          </>
+        )}
 
         {/* 이 과목에서 가장 먼저 알려야 할 사실. 없으면 렌더링하지 않는다 */}
         {s.highlight && (

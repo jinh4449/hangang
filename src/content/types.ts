@@ -72,6 +72,12 @@ export type Symptom = {
    */
   highlight?: { label: string; text: string };
 
+  /**
+   * 첫 화면 배경 사진. public 기준 경로를 쓴다. 예: "/care/pain.jpg"
+   * 값이 없으면 사진 없는 머리글로 서므로, 사진이 준비된 과목부터 채우면 된다.
+   */
+  heroImage?: string;
+
   /** 이 증상과 연결된 비교 페이지 slug */
   compareSlugs: string[];
 };
