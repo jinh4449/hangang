@@ -32,11 +32,18 @@ function H2({
       <h2
         className={
           "display kr " +
-          (small ? "text-2xl sm:text-3xl xl:text-[2.1rem]" : "text-3xl sm:text-4xl xl:text-[2.75rem]")
+          (small
+            ? "text-2xl sm:text-3xl xl:text-[2.1rem]"
+            : "text-3xl sm:text-4xl xl:text-[2.75rem]")
         }
       >
         {children}
-        {accent && <> <span className="grad">{accent}</span></>}
+        {accent && (
+          <>
+            {" "}
+            <span className="grad">{accent}</span>
+          </>
+        )}
       </h2>
       {note && (
         <p className="kr mx-auto mt-4 max-w-[52ch] text-base leading-8 text-muted xl:text-[17px] xl:leading-9">
@@ -63,9 +70,24 @@ function ReferralRing() {
   return (
     <div className="relative mx-auto aspect-square w-[17rem] sm:w-[20rem]">
       <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
-        <circle cx="100" cy="100" r={R} fill="none" stroke="var(--tint)" strokeWidth="16" />
+        <circle
+          cx="100"
+          cy="100"
+          r={R}
+          fill="none"
+          stroke="var(--tint)"
+          strokeWidth="16"
+        />
         {/* 절반 자리 눈금 — 12시에서 시계 방향으로 반 바퀴 돈 6시, 링 바깥 */}
-        <line x1="100" y1="192" x2="100" y2="200" stroke="var(--herb)" strokeWidth="3" strokeLinecap="round" />
+        <line
+          x1="100"
+          y1="192"
+          x2="100"
+          y2="200"
+          stroke="var(--herb)"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
         <circle
           className="ring-arc"
           cx="100"
@@ -111,7 +133,10 @@ function Enter({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`enter ${className}`} style={{ "--d": `${d}ms` } as React.CSSProperties}>
+    <div
+      className={`enter ${className}`}
+      style={{ "--d": `${d}ms` } as React.CSSProperties}
+    >
       {children}
     </div>
   );
@@ -137,7 +162,10 @@ export default function Home() {
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-[-22rem] h-[44rem] w-[44rem] -translate-x-1/2 rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(30,91,69,.09) 0%, rgba(30,91,69,0) 68%)" }}
+          style={{
+            background:
+              "radial-gradient(circle, rgba(30,91,69,.09) 0%, rgba(30,91,69,0) 68%)",
+          }}
         />
 
         <div className="relative mx-auto w-full max-w-[80rem] px-[clamp(1.25rem,4vw,4rem)] pb-14 pt-12 text-center sm:pt-16 xl:pb-20 xl:pt-24">
@@ -148,20 +176,31 @@ export default function Home() {
           </Enter>
 
           <h1 className="display display-black kr mt-7 text-[2rem] leading-[1.28] sm:text-[2.9rem] lg:text-[3.4rem] xl:text-[4rem] 2xl:text-[4.6rem]">
-            <span className="enter block" style={{ "--d": "110ms" } as React.CSSProperties}>
+            <span
+              className="enter block"
+              style={{ "--d": "110ms" } as React.CSSProperties}
+            >
               내 증상, 이해해줄까?
             </span>
-            <span className="enter block" style={{ "--d": "250ms" } as React.CSSProperties}>
+            <span
+              className="enter block"
+              style={{ "--d": "250ms" } as React.CSSProperties}
+            >
               편하게 물어봐도 될까?
             </span>
-            <span className="grad enter block" style={{ "--d": "390ms" } as React.CSSProperties}>
+            <span
+              className="grad enter block"
+              style={{ "--d": "390ms" } as React.CSSProperties}
+            >
               믿고 맡겨도 될까?
             </span>
           </h1>
 
           <Enter d={520}>
             <p className="kr mx-auto mt-7 max-w-[56ch] text-[17px] leading-8 text-muted xl:mt-9 xl:text-[19px] xl:leading-9">
-              세 가지 다 물어보셔도 됩니다. 그리고 안 될 것 같으면 안 된다고 먼저 말씀드립니다. 그 말을 할 수 있어야 맡기실 수 있다고 생각합니다.
+              세 가지 다 물어보셔도 됩니다. 그리고 안 될 것 같으면 안 된다고
+              먼저 말씀드립니다. 그 말을 할 수 있어야 맡기실 수 있다고
+              생각합니다.
             </p>
           </Enter>
 
@@ -201,11 +240,16 @@ export default function Home() {
           </Enter>
         </div>
 
-        <Enter d={840} className="relative mx-auto w-full max-w-[64rem] px-[clamp(1.25rem,4vw,4rem)] pb-16">
+        <Enter
+          d={840}
+          className="relative mx-auto w-full max-w-[64rem] px-[clamp(1.25rem,4vw,4rem)] pb-16"
+        >
           <Bezel>
             <div className="p-7">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-herb">진료 시간</p>
+                <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
+                  진료 시간
+                </p>
                 <ClinicStatus />
               </div>
               <dl className="mt-4 grid gap-x-10 text-[15px] sm:grid-cols-2">
@@ -215,7 +259,9 @@ export default function Home() {
                     className="flex items-baseline justify-between border-b border-line py-3"
                   >
                     <dt className="text-muted">{h.day}</dt>
-                    <dd className="font-display font-medium tabular-nums">{h.time}</dd>
+                    <dd className="font-display font-medium tabular-nums">
+                      {h.time}
+                    </dd>
                   </div>
                 ))}
               </dl>
@@ -230,54 +276,87 @@ export default function Home() {
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
         {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다 */}
         <Reveal>
-          <section className="relative overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-12 xl:p-16">
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(132,194,167,.16) 0%, rgba(132,194,167,0) 70%)" }}
-            />
-
-            <div className="relative grid gap-10 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <p className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/50">
-                  <span aria-hidden="true" className="h-px w-10 bg-paper/30" />
-                  {CLINIC.standards.eyebrow}
-                </p>
-                <h2 className="display display-black kr mt-6 text-[1.9rem] leading-[1.28] sm:text-4xl xl:text-[2.9rem]">
-                  {CLINIC.standards.headline[0]}
-                  <br />
-                  <span className="text-herb-light">{CLINIC.standards.headline[1]}</span>
-                  <br />
-                  {CLINIC.standards.headline[2]}
-                </h2>
-              </div>
-
-              <div className="space-y-6">
-                {CLINIC.standards.body.map((t) => (
-                  <p key={t} className="kr text-[15px] leading-8 text-paper/70 xl:text-base">
-                    {t}
-                  </p>
-                ))}
-              </div>
+          <section>
+            <div className="mx-auto max-w-3xl text-center">
+              <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
+                {CLINIC.whyHero.eyebrow}
+              </span>
+              <h2 className="display kr mt-6 text-3xl text-balance sm:text-[2.75rem]">
+                {CLINIC.whyHero.headline[0]}
+                <br />
+                <span className="grad">{CLINIC.whyHero.headline[1]}</span>
+              </h2>
+              <p className="kr mt-5 text-[17px] leading-8 text-muted">
+                {CLINIC.whyHero.sub}
+              </p>
             </div>
 
-            <ul className="relative mt-14 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-              {CLINIC.standards.values.map((v) => (
-                <li
-                  key={v.no}
-                  className="rounded-[1.25rem] border border-paper/12 bg-paper/[0.04] p-7"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-[11px] tracking-[0.1em] text-herb-light">{v.no}</span>
-                    <span className="kr rounded-full bg-paper/10 px-3 py-1 text-[11px] font-medium text-paper/70">
-                      핵심가치 · {v.tag}
+            <div className="relative mt-10 overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-12 xl:p-14">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(132,194,167,.16) 0%, rgba(132,194,167,0) 70%)",
+                }}
+              />
+
+              <div className="relative grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
+                <div>
+                  <p className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/50">
+                    <span
+                      aria-hidden="true"
+                      className="h-px w-10 bg-paper/30"
+                    />
+                    {CLINIC.standards.eyebrow}
+                  </p>
+                  {/* 두 줄로 선다. 넓은 화면에서는 줄이 꺾이지 않게 붙잡아 둔다 */}
+                  <h3 className="kr mt-6 text-[1.7rem] font-bold leading-[1.35] tracking-[-0.03em] sm:text-[2.05rem] lg:whitespace-nowrap lg:text-[1.85rem] xl:text-[2.15rem] 2xl:text-[2.5rem]">
+                    {CLINIC.standards.headline[0]}
+                    <span className="text-herb-light">
+                      {CLINIC.standards.headline[1]}
                     </span>
-                  </div>
-                  <h3 className="kr mt-5 text-lg font-bold leading-snug">{v.title}</h3>
-                  <p className="kr mt-3 text-[14px] leading-7 text-paper/60">{v.body}</p>
-                </li>
-              ))}
-            </ul>
+                    <br />
+                    {CLINIC.standards.headline[2]}
+                  </h3>
+                </div>
+
+                <div className="space-y-6">
+                  {CLINIC.standards.body.map((t) => (
+                    <p
+                      key={t}
+                      className="kr text-[15px] leading-8 text-paper/70 xl:text-base"
+                    >
+                      {t}
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              <ul className="relative mt-14 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+                {CLINIC.standards.values.map((v) => (
+                  <li
+                    key={v.no}
+                    className="rounded-[1.25rem] border border-paper/12 bg-paper/[0.04] p-7"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[11px] tracking-[0.1em] text-herb-light">
+                        {v.no}
+                      </span>
+                      <span className="kr rounded-full bg-paper/10 px-3 py-1 text-[11px] font-medium text-paper/70">
+                        핵심가치 · {v.tag}
+                      </span>
+                    </div>
+                    <h3 className="kr mt-5 text-lg font-bold leading-snug">
+                      {v.title}
+                    </h3>
+                    <p className="kr mt-3 text-[14px] leading-7 text-paper/60">
+                      {v.body}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </section>
         </Reveal>
 
@@ -294,14 +373,16 @@ export default function Home() {
               <ReferralRing />
               <div className="mx-auto max-w-[34ch] text-center md:mx-0 md:text-left">
                 <p className="kr text-[17px] leading-8 text-muted">
-                  {CLINIC.whyHero.stat.label}입니다. 다녀가신 분이 가족이나 이웃을 데려오시는
-                  경우가 많습니다.
+                  {CLINIC.whyHero.stat.label}입니다. 다녀가신 분이 가족이나
+                  이웃을 데려오시는 경우가 많습니다.
                 </p>
                 <p className="kr mt-5 text-[15px] leading-7 text-muted">
-                  치료가 끝나면 끝났다고 말씀드립니다. 그래서 다시 아플 때, 또 주변에 아픈 분이
-                  생겼을 때 저희를 떠올리십니다.
+                  치료가 끝나면 끝났다고 말씀드립니다. 그래서 다시 아플 때, 또
+                  주변에 아픈 분이 생겼을 때 저희를 떠올리십니다.
                 </p>
-                <p className="kr mt-6 text-xs text-faint">※ {CLINIC.whyHero.stat.basis}</p>
+                <p className="kr mt-6 text-xs text-faint">
+                  ※ {CLINIC.whyHero.stat.basis}
+                </p>
               </div>
             </div>
           </section>
@@ -331,11 +412,24 @@ export default function Home() {
                     {(() => {
                       const Icon = SYMPTOM_ICONS[s.slug];
                       return Icon ? (
-                        <Icon className={i === 0 ? "h-8 w-8 text-paper/70" : "h-8 w-8 text-herb"} />
+                        <Icon
+                          className={
+                            i === 0
+                              ? "h-8 w-8 text-paper/70"
+                              : "h-8 w-8 text-herb"
+                          }
+                        />
                       ) : null;
                     })()}
-                    <h3 className="kr mt-4 text-xl font-bold leading-snug">{s.name}</h3>
-                    <p className={"mt-1 font-display text-xs " + (i === 0 ? "text-paper/60" : "text-faint")}>
+                    <h3 className="kr mt-4 text-xl font-bold leading-snug">
+                      {s.name}
+                    </h3>
+                    <p
+                      className={
+                        "mt-1 font-display text-xs " +
+                        (i === 0 ? "text-paper/60" : "text-faint")
+                      }
+                    >
                       {s.clinicalName}
                     </p>
                   </div>
@@ -344,13 +438,20 @@ export default function Home() {
                       <span
                         className={
                           "mb-2 inline-block rounded-full px-3 py-1 text-xs font-semibold " +
-                          (i === 0 ? "bg-paper/15 text-paper" : "bg-ochre-soft text-ochre")
+                          (i === 0
+                            ? "bg-paper/15 text-paper"
+                            : "bg-ochre-soft text-ochre")
                         }
                       >
                         {s.highlight.label}
                       </span>
                     )}
-                    <p className={"kr text-sm leading-7 " + (i === 0 ? "text-paper/80" : "text-muted")}>
+                    <p
+                      className={
+                        "kr text-sm leading-7 " +
+                        (i === 0 ? "text-paper/80" : "text-muted")
+                      }
+                    >
                       {s.summary}
                     </p>
                     <span
@@ -368,17 +469,23 @@ export default function Home() {
 
               {/* 진료과목이 5개라 3열 격자에 한 칸이 빈다. 없는 과목을 지어내는 대신
                   이미 있는 부위별 페이지로 채운다 */}
-              <Link href="/part" className="tile flex min-h-[15rem] flex-col justify-between bg-surface p-8">
+              <Link
+                href="/part"
+                className="tile flex min-h-[15rem] flex-col justify-between bg-surface p-8"
+              >
                 <div>
                   <MapPinIcon className="h-8 w-8 text-herb" />
-                  <h3 className="kr mt-4 text-xl font-bold leading-snug">부위별로 찾기</h3>
+                  <h3 className="kr mt-4 text-xl font-bold leading-snug">
+                    부위별로 찾기
+                  </h3>
                   <p className="mt-1 font-display text-xs text-faint">
                     {PARTS.map((p) => p.name).join(" · ")}
                   </p>
                 </div>
                 <div className="mt-6">
                   <p className="kr text-sm leading-7 text-muted">
-                    아픈 곳이 어디인지로 찾으시면 해당 부위의 흔한 원인부터 보여드립니다.
+                    아픈 곳이 어디인지로 찾으시면 해당 부위의 흔한 원인부터
+                    보여드립니다.
                   </p>
                   <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
                     자세히 보기
@@ -402,11 +509,15 @@ export default function Home() {
             </H2>
             <div className="mt-10 grid gap-3 md:grid-cols-3">
               <Link href="/cost" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">건강보험</p>
-                <h3 className="kr mt-4 text-xl font-bold">보험이 적용되는 치료</h3>
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
+                  건강보험
+                </p>
+                <h3 className="kr mt-4 text-xl font-bold">
+                  보험이 적용되는 치료
+                </h3>
                 <p className="kr mt-3 text-[15px] leading-7 text-muted">
-                  침, 뜸, 부항, 추나요법, 보험 한약제제는 건강보험이 적용됩니다. 추나요법은 연 20회까지
-                  급여로 인정됩니다.
+                  침, 뜸, 부항, 추나요법, 보험 한약제제는 건강보험이 적용됩니다.
+                  추나요법은 연 20회까지 급여로 인정됩니다.
                 </p>
                 <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
                   본인부담률 보기
@@ -415,11 +526,13 @@ export default function Home() {
               </Link>
 
               <Link href="/cost" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">비급여</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
+                  비급여
+                </p>
                 <h3 className="kr mt-4 text-xl font-bold">비급여 진료비용</h3>
                 <p className="kr mt-3 text-[15px] leading-7 text-muted">
-                  약침과 한약처럼 보험이 적용되지 않는 항목입니다. 치료를 시작하기 전에 금액을 말씀드리고
-                  동의를 받습니다.
+                  약침과 한약처럼 보험이 적용되지 않는 항목입니다. 치료를
+                  시작하기 전에 금액을 말씀드리고 동의를 받습니다.
                 </p>
                 <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
                   수가표 보기
@@ -428,11 +541,13 @@ export default function Home() {
               </Link>
 
               <Link href="/cost/car-accident" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ochre">자동차보험</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ochre">
+                  자동차보험
+                </p>
                 <h3 className="kr mt-4 text-xl font-bold">교통사고 치료</h3>
                 <p className="kr mt-3 text-[15px] leading-7 text-muted">
-                  상대 보험사에 대인접수가 되면 본인부담금 없이 치료받으실 수 있습니다. 접수 번호만
-                  알려주시면 저희가 처리합니다.
+                  상대 보험사에 대인접수가 되면 본인부담금 없이 치료받으실 수
+                  있습니다. 접수 번호만 알려주시면 저희가 처리합니다.
                 </p>
                 <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
                   절차 보기
@@ -463,10 +578,13 @@ export default function Home() {
             </H2>
             <div className="mt-10 grid gap-3 md:grid-cols-3">
               <Link href="/treatment/chuna" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">추나요법</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
+                  추나요법
+                </p>
                 <h3 className="kr mt-4 text-xl font-bold">김포 추나치료</h3>
                 <p className="kr mt-3 text-[15px] leading-7 text-muted">
-                  건강보험이 적용되는 추나요법입니다. 연 20회까지 급여로 인정됩니다.
+                  건강보험이 적용되는 추나요법입니다. 연 20회까지 급여로
+                  인정됩니다.
                 </p>
                 <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
                   자세히 보기
@@ -475,7 +593,9 @@ export default function Home() {
               </Link>
 
               <Link href="/care/pain" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">통증치료</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
+                  통증치료
+                </p>
                 <h3 className="kr mt-4 text-xl font-bold">김포 통증치료</h3>
                 <p className="kr mt-3 text-[15px] leading-7 text-muted">
                   허리, 목, 어깨, 무릎. 참고 지내던 통증의 원인을 먼저 찾습니다.
@@ -487,7 +607,9 @@ export default function Home() {
               </Link>
 
               <Link href="/area/gimpo-accident" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ochre">자동차보험</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ochre">
+                  자동차보험
+                </p>
                 <h3 className="kr mt-4 text-xl font-bold">김포 교통사고</h3>
                 <p className="kr mt-3 text-[15px] leading-7 text-muted">
                   대인접수가 되면 본인부담금 없이 치료받으실 수 있습니다.
@@ -500,7 +622,9 @@ export default function Home() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">동네별</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
+                동네별
+              </span>
               {AREAS.map((a) => (
                 <Link
                   key={a.slug}
@@ -517,18 +641,31 @@ export default function Home() {
         {/* 고민 — 의도 분해의 마지막 칸 */}
         <Reveal>
           <section className="mt-24">
-            <H2 accent="되실 때" note="어디로 가야 할지, 정말 효과가 있는지 헷갈릴 때 참고하세요.">
+            <H2
+              accent="되실 때"
+              note="어디로 가야 할지, 정말 효과가 있는지 헷갈릴 때 참고하세요."
+            >
               고민
             </H2>
             <div className="mt-10 grid gap-2">
               {COMPARES.map((c) => (
-                <Link key={c.slug} href={`/compare/${c.slug}`} className="tile block bg-surface px-6 py-5">
+                <Link
+                  key={c.slug}
+                  href={`/compare/${c.slug}`}
+                  className="tile block bg-surface px-6 py-5"
+                >
                   <span className="kr font-semibold">{c.title}</span>
-                  <span className="kr mt-1 block text-sm text-muted">{c.question}</span>
+                  <span className="kr mt-1 block text-sm text-muted">
+                    {c.question}
+                  </span>
                 </Link>
               ))}
               {SYMPTOMS.map((s) => (
-                <Link key={s.slug} href={`/doubt/${s.slug}`} className="tile block bg-surface px-6 py-5">
+                <Link
+                  key={s.slug}
+                  href={`/doubt/${s.slug}`}
+                  className="tile block bg-surface px-6 py-5"
+                >
                   <span className="kr font-semibold">{s.doubt.question}</span>
                   <span className="kr mt-1 block text-sm text-muted">
                     도움이 되는 경우와 그렇지 않은 경우를 나눠서 설명드립니다.
@@ -547,14 +684,25 @@ export default function Home() {
               {columnsByDate()
                 .slice(0, 4)
                 .map((c) => (
-                  <Link key={c.slug} href={`/column/${c.slug}`} className="tile block bg-surface px-6 py-5">
-                    <span className="kr font-semibold leading-snug">{c.title}</span>
-                    <span className="kr mt-1.5 block text-sm leading-7 text-muted">{c.summary}</span>
+                  <Link
+                    key={c.slug}
+                    href={`/column/${c.slug}`}
+                    className="tile block bg-surface px-6 py-5"
+                  >
+                    <span className="kr font-semibold leading-snug">
+                      {c.title}
+                    </span>
+                    <span className="kr mt-1.5 block text-sm leading-7 text-muted">
+                      {c.summary}
+                    </span>
                   </Link>
                 ))}
             </div>
             <div className="mt-6 text-center">
-              <Link href="/column" className="text-sm font-medium text-herb hover:underline">
+              <Link
+                href="/column"
+                className="text-sm font-medium text-herb hover:underline"
+              >
                 칼럼 전체 보기
               </Link>
             </div>
@@ -566,8 +714,8 @@ export default function Home() {
           <section className="mt-24 rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
             <H2 accent="직접 확인해 보세요">리뷰는</H2>
             <p className="kr mx-auto mt-4 max-w-[46ch] leading-8 text-muted">
-              의료법에 따라 환자분들의 후기를 저희 홈페이지에 직접 싣지 않습니다. 네이버와 구글에서 있는
-              그대로 확인하실 수 있습니다.
+              의료법에 따라 환자분들의 후기를 저희 홈페이지에 직접 싣지
+              않습니다. 네이버와 구글에서 있는 그대로 확인하실 수 있습니다.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <a
