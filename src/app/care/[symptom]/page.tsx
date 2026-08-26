@@ -5,9 +5,9 @@ import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { CLINIC } from "@/content/clinic";
 import { getCompare } from "@/content/compare";
-import { IntentNav, PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
+import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
-import { SYMPTOM_ICONS } from "@/components/icons";
+import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
 
 export const generateStaticParams = () => SYMPTOMS.map((s) => ({ symptom: s.slug }));
 
@@ -27,7 +27,6 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
 
   return (
     <>
-      <IntentNav slug={s.slug} name={s.name} current="care" />
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -145,38 +144,36 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </ul>
         </Section>
 
-        <Section title="왜 생기나">
-          <div className="grid gap-3">
-            {care.causes.map((c) => (
-              <div key={c.title} className="rounded border border-line bg-surface p-5">
-                <h3 className="font-semibold">{c.title}</h3>
-                <p className="mt-2 text-[15px] leading-7 text-muted">{c.body}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <Section title="치료 방법">
-          <div className="grid gap-3">
-            {care.treatments.map((t) => (
-              <div key={t.name} className="rounded border border-line bg-surface p-5">
-                <div className="flex flex-wrap items-baseline gap-3">
-                  <h3 className="font-semibold">{t.name}</h3>
+        <Section title="어떻게 치료하나요?">
+          <div className="grid gap-4 sm:grid-cols-2">
+            {care.treatments.map((t) => {
+              const Icon = t.icon ? TREATMENT_ICONS[t.icon] : undefined;
+              return (
+                <div
+                  key={t.name}
+                  className="flex flex-col rounded-[1.5rem] border border-line bg-surface p-7 transition-colors hover:border-herb-line"
+                >
+                  {Icon && (
+                    <span className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-full bg-tint text-herb">
+                      <Icon className="h-7 w-7" />
+                    </span>
+                  )}
+                  <h3 className="kr text-[19px] font-bold leading-snug">{t.name}</h3>
+                  <p className="kr mt-3 text-[15px] leading-7 text-muted">{t.body}</p>
                   {t.covered && (
-                    <span className="rounded border border-herb-line bg-tint px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-herb">
+                    <span className="kr mt-5 self-start rounded-full border border-herb-line bg-tint px-3 py-1 text-xs font-medium text-herb">
                       건강보험 적용
                     </span>
                   )}
                 </div>
-                <p className="mt-2 text-[15px] leading-7 text-muted">{t.body}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </Section>
 
         <Section
           title="치료 과정"
-          note="후기 대신 예상 기간을 공개합니다. 개인차가 있으며 진찰 후 조정됩니다."
+          note="첫 내원부터 마무리까지 어떤 순서로 진행되는지 미리 알려 드립니다."
         >
           <ol className="border-t border-line">
             {care.stages.map((st, i) => (
@@ -185,10 +182,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <div className="flex flex-wrap items-baseline gap-3">
-                    <h3 className="font-semibold">{st.label}</h3>
-                    {st.span && <span className="font-mono text-xs text-ochre">{st.span}</span>}
-                  </div>
+                  <h3 className="font-semibold">{st.label}</h3>
                   <p className="mt-1.5 text-[15px] leading-7 text-muted">{st.detail}</p>
                 </div>
               </li>
@@ -208,6 +202,27 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
             </div>
           </Section>
         ))}
+
+        {s.faq.length > 0 && (
+          <Section title="자주 묻는 질문" note="진료실에서 실제로 많이 받는 질문입니다.">
+            <div className="border-t border-line">
+              {s.faq.map((f) => (
+                <details key={f.q} className="group border-b border-line">
+                  <summary className="kr flex cursor-pointer list-none items-center justify-between gap-5 py-5 font-semibold [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 text-lg text-faint transition-transform group-open:rotate-45"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <p className="kr pb-6 text-[15px] leading-8 text-muted">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </Section>
+        )}
 
         {s.compareSlugs.length > 0 && (
           <Section title="함께 보면 좋은 비교">

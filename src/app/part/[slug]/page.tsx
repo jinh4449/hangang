@@ -107,13 +107,7 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
             <Link href="/care/pain" className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb">
               통증치료 전체 안내
             </Link>
-            <Link href="/cost/pain" className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb">
-              비용·보험
-            </Link>
-            <Link href="/doubt/pain" className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb">
-              효과가 있긴 한가요
-            </Link>
-          </div>
+                                  </div>
         </Section>
 
         <Cta />

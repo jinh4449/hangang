@@ -2,7 +2,6 @@ import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
 import { AREAS } from "@/content/area";
-import { INTENTS, type IntentKey } from "@/content/types";
 import { NAV } from "@/content/nav";
 import { ClinicStatus } from "./clinic-status";
 import { MapPinIcon } from "./icons";
@@ -97,33 +96,6 @@ export function Arrow({ className = "" }: { className?: string }) {
     <svg viewBox="0 0 24 24" fill="none" className={`h-4 w-4 ${className}`} aria-hidden="true">
       <path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
-  );
-}
-
-/** 같은 과목의 4개 의도 페이지를 서로 연결한다. 이 상호 링크가 있어야 의도 분해가 작동한다. */
-export function IntentNav({ slug, name, current }: { slug: string; name: string; current: IntentKey }) {
-  return (
-    <nav aria-label={`${name} 관련 페이지`} className="border-b border-line bg-surface-2">
-      {/* 이 탭이 붙는 증상 페이지 본문과 같은 폭으로 세워야 왼쪽 끝이 맞는다 */}
-      <div className="mx-auto flex w-full max-w-[58rem] gap-1 overflow-x-auto px-[clamp(1.25rem,4vw,4rem)] py-2">
-        {INTENTS.map((i) => {
-          const active = i.key === current;
-          return (
-            <Link
-              key={i.key}
-              href={`${i.base}/${slug}`}
-              aria-current={active ? "page" : undefined}
-              className={
-                "whitespace-nowrap rounded-full px-4 py-2 text-sm transition-colors " +
-                (active ? "bg-herb font-semibold text-paper" : "text-muted hover:bg-tint hover:text-ink")
-              }
-            >
-              {i.label}
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
   );
 }
 

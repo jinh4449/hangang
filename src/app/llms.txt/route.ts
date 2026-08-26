@@ -5,7 +5,6 @@ import { COLUMNS } from "@/content/column";
 import { COMPARES } from "@/content/compare";
 import { TREATMENTS, AXIS_STORY } from "@/content/treatment";
 import { PARTS } from "@/content/part";
-import { INTENTS } from "@/content/types";
 
 /**
  * llms.txt — AI 검색엔진에 사이트 구조와 핵심 사실을 알려주는 파일.
@@ -68,8 +67,6 @@ ${PARTS.map((p) => `- [${p.name} 통증](${SITE_URL}/part/${p.slug}) — ${p.con
 
 ${SYMPTOMS.map((s) => `- [${s.name}](${SITE_URL}/care/${s.slug}) — ${s.summary}`).join("\n")}
 
-각 진료과목은 검색 의도에 따라 네 페이지로 나뉩니다.
-${INTENTS.map((i) => `- ${i.label}: ${SITE_URL}${i.base}/{진료과목}`).join("\n")}
 
 ## 비교
 

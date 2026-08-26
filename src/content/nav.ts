@@ -78,10 +78,6 @@ export const NAV: NavEntry[] = [
           { label: "예약 · 상담", href: "/reservation" },
         ],
       },
-      {
-        title: "과목별 비용",
-        links: SYMPTOMS.map((s) => ({ label: `${s.name} 비용`, href: `/cost/${s.slug}` })),
-      },
     ],
   },
   {

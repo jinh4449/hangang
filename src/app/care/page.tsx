@@ -5,7 +5,6 @@ import { CLINIC } from "@/content/clinic";
 import { PageHead, Cta, JsonLd, Arrow } from "@/components/site";
 import { SYMPTOM_ICONS } from "@/components/icons";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
-import { INTENTS } from "@/content/types";
 
 export const metadata: Metadata = {
   title: "진료과목",
@@ -53,22 +52,6 @@ export default function CareIndex() {
             );
           })}
         </div>
-
-        {/* 과목마다 네 갈래로 나뉜다는 것을 여기서 한 번 알려 준다 */}
-        <section className="mt-12 rounded-[2rem] bg-tint px-7 py-8 ring-1 ring-herb/15">
-          <h2 className="kr text-lg font-bold">궁금한 방향에 맞춰 나눠 뒀습니다</h2>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-            {INTENTS.map((i) => (
-              <li key={i.key} className="kr text-[15px] leading-7">
-                <strong className="font-semibold">{i.label}</strong>
-                <span className="text-muted"> — {i.blurb}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="kr mt-5 text-sm leading-7 text-muted">
-            과목 페이지에 들어가시면 위 네 가지로 이동하실 수 있습니다.
-          </p>
-        </section>
 
         <Cta />
       </article>

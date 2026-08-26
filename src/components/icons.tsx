@@ -178,3 +178,72 @@ export function MapPinIcon({ className = base }: P) {
     </svg>
   );
 }
+
+/** 침 — 가느다란 침 한 대 */
+export function NeedleIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path d="M19 4 8.5 14.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="m17.5 2.5 4 4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="m8.5 14.5-2.2 5.2 5.2-2.2" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/** 추나 — 손으로 다룬다 */
+export function HandIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path
+        d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11m0-1V4.5a1.5 1.5 0 0 1 3 0V11m0-.5V6.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a5 5 0 0 1-4.3-2.5L6 14.5a1.5 1.5 0 0 1 2.6-1.5L9 14"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+/** 체외충격파 — 퍼져 나가는 파동 */
+export function ShockwaveIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M7.8 7.8a6 6 0 0 0 0 8.4M16.2 7.8a6 6 0 0 1 0 8.4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M5 5a10 10 0 0 0 0 14M19 5a10 10 0 0 1 0 14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity=".5" />
+    </svg>
+  );
+}
+
+/** 한약 — 약탕기 */
+export function HerbIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path d="M4 9.5h16v3a8 8 0 0 1-8 8 8 8 0 0 1-8-8v-3Z" {...stroke} />
+      <path d="M20 11h1.2a1.8 1.8 0 0 1 0 3.6H19.6" {...stroke} />
+      <path d="M9 6.5c0-1.5 1.3-2 1.3-3.5M14 6.5c0-1.2 1-1.7 1-3" {...stroke} />
+    </svg>
+  );
+}
+
+/** 식이 · 생활 지도 — 접시와 수저 */
+export function MealIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="10" cy="12" r="6.5" {...stroke} />
+      <circle cx="10" cy="12" r="3" {...stroke} />
+      <path d="M19 3.5v17M17 3.5v4a2 2 0 0 0 4 0v-4" {...stroke} />
+    </svg>
+  );
+}
+
+/** 치료 박스에 얹는 아이콘. 키는 Symptom.care.treatments[].icon */
+export const TREATMENT_ICONS: Record<string, (p: P) => React.JSX.Element> = {
+  needle: NeedleIcon,
+  hand: HandIcon,
+  shockwave: ShockwaveIcon,
+  ultrasound: UltrasoundIcon,
+  herb: HerbIcon,
+  meal: MealIcon,
+};

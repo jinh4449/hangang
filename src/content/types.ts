@@ -14,8 +14,6 @@ export type CostRow = {
 export type Stage = {
   label: string;
   detail: string;
-  /** 예상 소요. 후기를 쓸 수 없는 대신 이것으로 신뢰를 만든다 */
-  span?: string;
 };
 
 export type Symptom = {
@@ -34,8 +32,8 @@ export type Symptom = {
     signs: string[];
     /** 진료 흐름. 문장으로 늘어놓지 않고 번호 붙은 칸으로 세운다 */
     flow?: { title: string; text: string; tag?: string }[];
-    causes: { title: string; body: string }[];
-    treatments: { name: string; body: string; covered: boolean }[];
+    /** icon 은 TREATMENT_ICONS 의 키. 없으면 아이콘 없이 선다 */
+    treatments: { name: string; body: string; covered: boolean; icon?: string }[];
     stages: Stage[];
     /** 지체하면 위험한 신호. 환자를 다른 과로 보내야 하는 경우 */
     /** 공통 틀에 없는 증상별 추가 섹션. 교통사고의 보험 접수 절차 같은 것 */
@@ -103,16 +101,6 @@ export type ComparePane = {
   /** 이쪽이 하는 일 */
   does: string;
 };
-
-/** 5개 의도 페이지의 정의. 내부 링크와 라우팅이 모두 여기서 나온다 */
-export const INTENTS = [
-  { key: "care", label: "증상·치료", base: "/care", blurb: "무엇이고 어떻게 치료하나" },
-  { key: "cost", label: "비용·보험", base: "/cost", blurb: "얼마가 드나" },
-  { key: "faq", label: "자주 묻는 질문", base: "/faq", blurb: "궁금한 것들" },
-  { key: "doubt", label: "효과 있나요", base: "/doubt", blurb: "솔직한 답변" },
-] as const;
-
-export type IntentKey = (typeof INTENTS)[number]["key"];
 
 /**
  * 지역 페이지. 지역명만 바꾼 복사본은 구글이 doorway page 로 보고 불이익을 준다.

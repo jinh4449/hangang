@@ -534,7 +534,7 @@ export default function Home() {
                 </span>
               </Link>
 
-              <Link href="/cost/car-accident" className="tile bg-surface p-8">
+              <Link href="/care/car-accident" className="tile bg-surface p-8">
                 <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ochre">
                   자동차보험
                 </p>
@@ -651,18 +651,6 @@ export default function Home() {
                   <span className="kr font-semibold">{c.title}</span>
                   <span className="kr mt-1 block text-sm text-muted">
                     {c.question}
-                  </span>
-                </Link>
-              ))}
-              {SYMPTOMS.map((s) => (
-                <Link
-                  key={s.slug}
-                  href={`/doubt/${s.slug}`}
-                  className="tile block bg-surface px-6 py-5"
-                >
-                  <span className="kr font-semibold">{s.doubt.question}</span>
-                  <span className="kr mt-1 block text-sm text-muted">
-                    도움이 되는 경우와 그렇지 않은 경우를 나눠서 설명드립니다.
                   </span>
                 </Link>
               ))}

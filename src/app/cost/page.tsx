@@ -118,20 +118,6 @@ export default function CostIndexPage() {
           </div>
         </Section>
 
-        <Section title="진료과목별 비용" note="과목마다 치료 구성이 달라 예상 비용도 다릅니다.">
-          <div className="grid gap-2 sm:grid-cols-2">
-            {SYMPTOMS.map((s) => (
-              <Link key={s.slug} href={`/cost/${s.slug}`} className="tile block bg-surface px-6 py-5">
-                <span className="kr font-semibold">{s.name} 치료 비용</span>
-                <span className="tile-arrow mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  자세히 보기
-                  <Arrow />
-                </span>
-              </Link>
-            ))}
-          </div>
-        </Section>
-
         <Cta label="비용 상담받기" />
       </article>
     </>
