@@ -9,7 +9,7 @@ import { AREAS } from "@/content/area";
 import { Bezel, JsonLd, Arrow } from "@/components/site";
 import { Reveal } from "@/components/reveal";
 import { ClinicStatus } from "@/components/clinic-status";
-import { SYMPTOM_ICONS, WHY_ICONS, UltrasoundIcon, MapPinIcon } from "@/components/icons";
+import { SYMPTOM_ICONS, MapPinIcon } from "@/components/icons";
 
 const pain = getSymptom("pain")!;
 
@@ -228,85 +228,56 @@ export default function Home() {
       </section>
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
-        {/* 왜 이곳인가 — 주장 카드로 열고 아래에서 증명한다 */}
+        {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다 */}
         <Reveal>
-          <section>
-            <div className="mx-auto max-w-3xl text-center">
-              <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
-                {CLINIC.whyHero.eyebrow}
-              </span>
-              <h2 className="display kr mt-6 text-3xl text-balance sm:text-[2.75rem]">
-                {CLINIC.whyHero.headline[0]}
-                <br />
-                <span className="grad">{CLINIC.whyHero.headline[1]}</span>
-              </h2>
-              <p className="kr mt-5 text-[17px] leading-8 text-muted">{CLINIC.whyHero.sub}</p>
-            </div>
+          <section className="relative overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-12 xl:p-16">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full"
+              style={{ background: "radial-gradient(circle, rgba(132,194,167,.16) 0%, rgba(132,194,167,0) 70%)" }}
+            />
 
-            {/* 주장 → 증명. 주장만 있으면 광고, 증명이 붙으면 설명이 된다 */}
-            <div className="relative mt-10 overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-12">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full"
-                style={{ background: "radial-gradient(circle, rgba(132,194,167,.16) 0%, rgba(132,194,167,0) 70%)" }}
-              />
-              <div className="relative">
-                <p className="kr text-2xl font-bold leading-snug md:text-3xl">
-                  <span className="text-paper/45">&ldquo;</span>
-                  {CLINIC.whyHero.claim[0]}
-                  <br />
-                  {CLINIC.whyHero.claim[1]}
-                  <span className="text-paper/45">&rdquo;</span>
+            <div className="relative grid gap-10 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <p className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/50">
+                  <span aria-hidden="true" className="h-px w-10 bg-paper/30" />
+                  {CLINIC.standards.eyebrow}
                 </p>
-                <p className="kr mt-5 max-w-[48ch] leading-8 text-paper/70">{CLINIC.whyHero.body}</p>
+                <h2 className="display display-black kr mt-6 text-[1.9rem] leading-[1.28] sm:text-4xl xl:text-[2.9rem]">
+                  {CLINIC.standards.headline[0]}
+                  <br />
+                  <span className="text-herb-light">{CLINIC.standards.headline[1]}</span>
+                  <br />
+                  {CLINIC.standards.headline[2]}
+                </h2>
+              </div>
 
-                <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-paper/10 px-4 py-2 text-sm font-medium ring-1 ring-paper/15">
-                  <UltrasoundIcon className="h-4 w-4" />
-                  {CLINIC.whyHero.badge}
-                </span>
-
-                <div className="mt-8 border-t border-paper/15 pt-7">
-                  <p className="kr text-[15px] leading-7 text-paper/70">
-                    {CLINIC.whyHero.proofLead}{" "}
-                    <strong className="font-semibold text-paper">{CLINIC.whyHero.proofLeadStrong}</strong>
+              <div className="space-y-6">
+                {CLINIC.standards.body.map((t) => (
+                  <p key={t} className="kr text-[15px] leading-8 text-paper/70 xl:text-base">
+                    {t}
                   </p>
-                  <ul className="mt-5 grid gap-4 sm:grid-cols-2">
-                    {CLINIC.whyHero.proofs.map((pf) => {
-                      const Icon = WHY_ICONS[pf.key];
-                      return (
-                        <li key={pf.key} className="flex gap-3.5">
-                          <span className="mt-0.5 shrink-0 text-herb-light">
-                            {Icon ? <Icon className="h-5 w-5" /> : null}
-                          </span>
-                          <span className="kr text-[15px] leading-7 text-paper/70">
-                            <strong className="font-semibold text-paper">{pf.title}</strong> {pf.body}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* 상세 — 주장 카드 아래에 조용히 둔다 */}
-            <div className="mt-10 border-t border-line">
-              {CLINIC.whyUs.map((w) => {
-                const Icon = WHY_ICONS[w.key];
-                return (
-                  <div
-                    key={w.key}
-                    className="grid gap-4 border-b border-line py-8 sm:grid-cols-[3.5rem_1fr] sm:gap-8"
-                  >
-                    <div className="text-herb">{Icon ? <Icon className="h-10 w-10" /> : null}</div>
-                    <div>
-                      <h3 className="kr text-xl font-bold leading-snug">{w.title}</h3>
-                      <p className="kr mt-3 max-w-[56ch] text-[15px] leading-8 text-muted">{w.body}</p>
-                    </div>
+            <ul className="relative mt-14 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+              {CLINIC.standards.values.map((v) => (
+                <li
+                  key={v.no}
+                  className="rounded-[1.25rem] border border-paper/12 bg-paper/[0.04] p-7"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-[11px] tracking-[0.1em] text-herb-light">{v.no}</span>
+                    <span className="kr rounded-full bg-paper/10 px-3 py-1 text-[11px] font-medium text-paper/70">
+                      핵심가치 · {v.tag}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
+                  <h3 className="kr mt-5 text-lg font-bold leading-snug">{v.title}</h3>
+                  <p className="kr mt-3 text-[14px] leading-7 text-paper/60">{v.body}</p>
+                </li>
+              ))}
+            </ul>
           </section>
         </Reveal>
 

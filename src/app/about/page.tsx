@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Section, Bezel, Cta, JsonLd, Arrow } from "@/components/site";
-import { WHY_ICONS } from "@/components/icons";
+import { WHY_ICONS, UltrasoundIcon } from "@/components/icons";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
@@ -37,6 +37,10 @@ export default function About() {
             <span className="text-paper/45">&rdquo;</span>
           </p>
           <p className="kr mt-5 max-w-[48ch] leading-8 text-paper/70">{CLINIC.whyHero.body}</p>
+          <span className="mt-6 inline-flex items-center gap-2 rounded-full bg-paper/10 px-4 py-2 text-sm font-medium ring-1 ring-paper/15">
+            <UltrasoundIcon className="h-4 w-4" />
+            {CLINIC.whyHero.badge}
+          </span>
         </div>
 
         <ul className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -54,6 +58,27 @@ export default function About() {
             );
           })}
         </ul>
+      </Section>
+
+      <Section title="이렇게 진료합니다" note="말로만 드리는 약속이 아니라 실제 진료가 그렇게 굴러갑니다.">
+        <div className="border-t border-line">
+          {CLINIC.whyUs.map((w) => {
+            const Icon = WHY_ICONS[w.key];
+            return (
+              <div
+                key={w.key}
+                className="grid gap-4 border-b border-line py-8 sm:grid-cols-[3.5rem_1fr] sm:gap-8"
+              >
+                <div className="text-herb">{Icon ? <Icon className="h-10 w-10" /> : null}</div>
+                <div>
+                  <h3 className="kr text-xl font-bold leading-snug">{w.title}</h3>
+                  <p className="kr mt-3 max-w-[56ch] text-[15px] leading-8 text-muted">{w.body}</p>
+                  {w.basis && <p className="kr mt-3 text-xs text-faint">※ {w.basis}</p>}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </Section>
 
       <Section title="공간" note="접수 데스크와 대기 공간입니다. 물리치료실은 안쪽에 따로 있습니다.">
