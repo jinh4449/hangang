@@ -1,5 +1,4 @@
 import { SYMPTOMS } from "./symptoms";
-import { TREATMENTS } from "./treatment";
 import { PARTS } from "./part";
 import { AREAS } from "./area";
 import { COMPARES } from "./compare";
@@ -51,13 +50,6 @@ export const NAV: NavEntry[] = [
     label: "치료 방법",
     href: "/treatment",
     groups: [
-      {
-        title: "치료 기법",
-        links: TREATMENTS.map((t) => ({
-          label: t.name,
-          href: `/treatment/${t.slug}`,
-        })),
-      },
       {
         title: "부위별 안내",
         links: PARTS.map((p) => ({ label: p.name, href: `/part/${p.slug}` })),

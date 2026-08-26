@@ -119,13 +119,6 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
               </div>
             ))}
           </div>
-          <p className="mt-4 text-sm leading-7 text-muted">
-            비용은{" "}
-            <Link href={`/cost/${s.slug}`} className="text-herb underline underline-offset-4">
-              비용·보험 안내
-            </Link>
-            에서 확인하실 수 있습니다.
-          </p>
         </Section>
 
         <Section

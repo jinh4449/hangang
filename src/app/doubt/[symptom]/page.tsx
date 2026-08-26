@@ -46,23 +46,6 @@ export default async function DoubtPage({ params }: PageProps<"/doubt/[symptom]"
       <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
         <PageHead eyebrow="솔직한 답변" title={doubt.question} lede={doubt.lede} />
 
-        {/* 한계를 먼저 놓는다. 효과부터 말하면 광고로 읽히고, 한계부터 말하면 설명으로 읽힌다. */}
-        <Section
-          title="이런 경우에는 다른 과로 안내해 드립니다"
-          note="아래에 해당하면 한방치료를 권하지 않습니다. 진찰 후 적절한 곳으로 안내해 드립니다."
-        >
-          <ul className="grid gap-2">
-            {doubt.limitsOf.map((l) => (
-              <li
-                key={l}
-                className="rounded border border-rust-line bg-rust-soft px-5 py-3.5 text-[15px] leading-7"
-              >
-                {l}
-              </li>
-            ))}
-          </ul>
-        </Section>
-
         <Section title="도움이 되는 경우">
           <ul className="grid gap-2 sm:grid-cols-2">
             {doubt.worksFor.map((w) => (

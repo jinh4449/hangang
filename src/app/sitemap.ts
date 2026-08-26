@@ -41,7 +41,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
   for (const [base, items, pr] of [
-    ["/treatment", TREATMENTS, 0.9],
     ["/part", PARTS, 0.9],
   ] as const) {
     entries.push({ url: `${SITE_URL}${base}`, lastModified: now, changeFrequency: "monthly", priority: pr });

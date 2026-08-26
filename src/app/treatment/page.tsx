@@ -32,7 +32,6 @@ export default function TreatmentIndex() {
               "@type": "MedicalProcedure",
               name: t.fullName,
               alternateName: t.name,
-              url: `${SITE_URL}/treatment/${t.slug}`,
               description: t.summary,
               howPerformed: t.lede,
             },
@@ -44,11 +43,10 @@ export default function TreatmentIndex() {
 
         <div className="mt-10 grid gap-3 md:grid-cols-2">
           {AXIS_STORY.axes.map((a) => (
-            <Link
+            <div
               key={a.key}
-              href={`/treatment/${a.slug}`}
               className={
-                "press rounded-[2rem] p-8 transition-shadow " +
+                "rounded-[2rem] p-8 " +
                 (a.key === "pain"
                   ? "bg-herb text-paper"
                   : "bg-surface ring-1 ring-line hover:ring-herb")
@@ -71,7 +69,7 @@ export default function TreatmentIndex() {
               >
                 {a.body}
               </p>
-            </Link>
+            </div>
           ))}
         </div>
         <p className="kr mt-4 rounded-2xl bg-tint px-6 py-5 text-[15px] leading-7 ring-1 ring-herb/15">
@@ -80,11 +78,7 @@ export default function TreatmentIndex() {
 
         <div className="mt-14 border-t border-line">
           {TREATMENTS.map((t) => (
-            <Link
-              key={t.slug}
-              href={`/treatment/${t.slug}`}
-              className="group grid gap-2 border-b border-line py-7 transition-colors hover:bg-surface"
-            >
+            <div key={t.slug} className="grid gap-2 border-b border-line py-7">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
                   {AXIS_LABEL[t.axis]}
@@ -95,11 +89,11 @@ export default function TreatmentIndex() {
                   </span>
                 )}
               </div>
-              <h3 className="kr text-xl font-bold leading-snug transition-colors group-hover:text-herb">
+              <h3 className="kr text-xl font-bold leading-snug ">
                 {t.fullName}
               </h3>
               <p className="kr max-w-[56ch] text-[15px] leading-7 text-muted">{t.summary}</p>
-            </Link>
+            </div>
           ))}
         </div>
         <Cta />

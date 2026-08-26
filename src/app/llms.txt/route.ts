@@ -56,7 +56,7 @@ export function GET() {
 
 ## 치료 기법
 
-${TREATMENTS.map((t) => `- [${t.fullName}](${SITE_URL}/treatment/${t.slug}) — ${t.summary}${t.covered ? " (건강보험 급여)" : ""}`).join("\n")}
+${TREATMENTS.map((t) => `- ${t.fullName} — ${t.summary}${t.covered ? " (건강보험 급여)" : ""}`).join("\n")}
 
 ## 부위별 안내
 

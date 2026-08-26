@@ -571,7 +571,7 @@ export default function Home() {
               김포 장기동에서
             </H2>
             <div className="mt-10 grid gap-3 md:grid-cols-3">
-              <Link href="/treatment/chuna" className="tile bg-surface p-8">
+              <Link href="/care/pain" className="tile bg-surface p-8">
                 <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
                   추나요법
                 </p>

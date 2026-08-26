@@ -72,11 +72,10 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
               if (!t) return null;
               const isPain = t.axis === "pain";
               return (
-                <Link
+                <div
                   key={a.treatmentSlug}
-                  href={`/treatment/${a.treatmentSlug}`}
                   className={
-                    "rounded-[2rem] p-7 transition-colors " +
+                    "rounded-[2rem] p-7 " +
                     (isPain
                       ? "border border-herb/25 bg-tint hover:border-herb"
                       : "bg-surface ring-1 ring-line hover:ring-herb")
@@ -91,7 +90,7 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
                     )}
                   </div>
                   <p className="kr mt-3 text-[15px] leading-8 text-muted">{a.role}</p>
-                </Link>
+                </div>
               );
             })}
           </div>
@@ -102,17 +101,6 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
             {p.span} 개인차가 있어 진찰 후에 다시 잡습니다.
           </p>
         </Section>
-
-        <section className="mt-14 rounded-[2rem] border border-rust-line border-l-[3px] border-l-rust bg-rust-soft p-7">
-          <h2 className="kr text-xl font-bold text-rust">이런 경우에는 먼저 검사를 받으셔야 합니다</h2>
-          <ul className="mt-4 grid gap-2">
-            {p.redFlags.map((r) => (
-              <li key={r} className="kr text-[15px] leading-7">
-                · {r}
-              </li>
-            ))}
-          </ul>
-        </section>
 
         <Section title="함께 보기">
           <div className="flex flex-wrap gap-2">
