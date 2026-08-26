@@ -89,7 +89,8 @@ function computeStatus(): Status | null {
 
 /** 테두리와 진한 라벨로 대비를 준다. 배지가 흐리면 상태를 못 읽는다 */
 const TONE: Record<Kind, { dot: string; text: string; box: string }> = {
-  open: { dot: "bg-herb", text: "text-herb", box: "bg-tint ring-1 ring-herb/30" },
+  // 진료중일 때만 점이 밝게 살아 있다. 나머지 상태까지 빛나면 구분이 사라진다
+  open: { dot: "bg-live livedot", text: "text-herb", box: "bg-tint ring-1 ring-herb/30" },
   lunch: { dot: "bg-ochre", text: "text-ochre", box: "bg-ochre-soft ring-1 ring-ochre/35" },
   closed: { dot: "bg-rust", text: "text-rust", box: "bg-rust-soft ring-1 ring-rust/30" },
 };
@@ -113,7 +114,7 @@ export function ClinicStatus({ className = "" }: { className?: string }) {
       className={`inline-flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-1.5 text-[13px] ${tone.box} ${className}`}
       aria-label={`현재 ${status.label}. ${status.detail}`}
     >
-      <span className={`h-2 w-2 shrink-0 rounded-full ${tone.dot}`} aria-hidden="true" />
+      <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${tone.dot}`} aria-hidden="true" />
       <span className={`font-bold ${tone.text}`}>{status.label}</span>
       {status.detail && <span className="font-medium text-ink/75">{status.detail}</span>}
     </span>

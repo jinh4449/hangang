@@ -4,6 +4,7 @@ import { CLINIC } from "@/content/clinic";
 import { BOOKING_FAQ } from "@/content/booking";
 import { Section, MapPanel, JsonLd, Arrow } from "@/components/site";
 import { ClinicStatus } from "@/components/clinic-status";
+import { PhoneLink } from "@/components/phone-link";
 import { PhoneIcon, ChatIcon, CalendarIcon } from "@/components/icons";
 import { breadcrumb, faqPage, medicalWebPage } from "@/content/schema";
 
@@ -125,21 +126,25 @@ export default function Reservation() {
             "grid gap-3 " + (list.length >= 3 ? "md:grid-cols-3" : "sm:grid-cols-2")
           }
         >
-          {list.map((c) => (
-            <a
-              key={c.key}
-              href={c.href}
-              {...(c.external ? { target: "_blank", rel: "noopener" } : {})}
-              className="tile flex flex-col items-center bg-surface px-6 py-9 text-center"
-            >
-              <span className={`grid h-14 w-14 place-items-center rounded-2xl ${c.tile}`}>
-                <c.Icon className={`h-7 w-7 ${c.glyph}`} />
-              </span>
-              <span className="kr mt-5 font-bold">{c.label}</span>
-              <span className="mt-1 text-lg font-bold text-herb">{c.value}</span>
-              <span className="kr mt-2 text-sm text-muted">{c.note}</span>
-            </a>
-          ))}
+          {list.map((c) => {
+            /* 전화만 PC 에서 동작이 다르다. 나머지 창구는 그냥 링크다 */
+            const Tag = c.key === "phone" ? PhoneLink : "a";
+            return (
+              <Tag
+                key={c.key}
+                href={c.href}
+                {...(c.external ? { target: "_blank", rel: "noopener" } : {})}
+                className="tile flex flex-col items-center bg-surface px-6 py-9 text-center"
+              >
+                <span className={`grid h-14 w-14 place-items-center rounded-2xl ${c.tile}`}>
+                  <c.Icon className={`h-7 w-7 ${c.glyph}`} />
+                </span>
+                <span className="kr mt-5 font-bold">{c.label}</span>
+                <span className="mt-1 text-lg font-bold text-herb">{c.value}</span>
+                <span className="kr mt-2 text-sm text-muted">{c.note}</span>
+              </Tag>
+            );
+          })}
         </div>
 
         {/* 카카오톡 채널이 아직 없으면 카드 대신 이 줄만 나간다 */}
@@ -196,9 +201,9 @@ export default function Reservation() {
           </div>
           <p className="kr mt-4 text-sm text-muted">
             여기에 없는 것은{" "}
-            <a href={CLINIC.phoneHref} className="font-semibold text-herb underline underline-offset-4">
+            <PhoneLink className="font-semibold text-herb underline underline-offset-4">
               {CLINIC.phone}
-            </a>
+            </PhoneLink>
             로 물어봐 주세요.
           </p>
         </Section>
@@ -235,15 +240,12 @@ export default function Reservation() {
           <p className="kr mx-auto mt-3 max-w-[40ch] leading-8 text-paper/70">
             어디가 어떻게 불편하신지만 말씀해 주시면, 얼마나 걸릴지 예상해서 시간을 비워 두겠습니다.
           </p>
-          <a
-            href={CLINIC.phoneHref}
-            className="press mt-7 inline-flex items-center justify-between gap-3 rounded-full bg-paper py-4 pl-8 pr-2 text-lg font-bold text-ink"
-          >
+          <PhoneLink className="press mt-7 inline-flex items-center justify-between gap-3 rounded-full bg-paper py-4 pl-8 pr-2 text-lg font-bold text-ink">
             <span>{CLINIC.phone}</span>
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-herb text-paper">
               <Arrow className="arw" />
             </span>
-          </a>
+          </PhoneLink>
         </aside>
       </article>
     </>

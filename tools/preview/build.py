@@ -141,6 +141,9 @@ options = "".join(
 SHELL = """
 /* 껍데기는 폭을 잡지 않는다. 페이지가 제 반응형 규칙대로 화면을 다 쓴다 */
 .pv-page{width:100%}
+.pv-toast{position:fixed;left:50%;bottom:5rem;transform:translateX(-50%);z-index:70;
+  background:#171a18;color:#fbfbf9;border-radius:9999px;padding:.75rem 1.5rem;
+  font-size:.9375rem;font-weight:500;box-shadow:0 12px 32px rgba(0,0,0,.22)}
 .pv-noembed{display:flex;align-items:center;justify-content:center;min-height:14rem;
   border:1px dashed var(--line,#e6e8e3);border-radius:1rem;background:var(--surface-2,#f5f6f4);
   color:var(--faint,#8d958f);font-size:.8125rem;text-align:center;padding:1.5rem;line-height:1.7}
@@ -191,8 +194,23 @@ JS = """
   sel.addEventListener('change',function(){location.hash=sel.value;});
   window.addEventListener('hashchange',fromHash);
   document.addEventListener('click',function(e){
-    var a=e.target.closest&&e.target.closest('a[data-missing]');
-    if(a)e.preventDefault();
+    if(!e.target.closest)return;
+    var a=e.target.closest('a[data-missing]');
+    if(a){e.preventDefault();return;}
+    /* 미리보기는 정적 스냅샷이라 PhoneLink 가 붙지 않는다.
+       tel: 을 그대로 두면 샌드박스가 오류 화면을 띄우므로 여기서 막고
+       실제 사이트에서 PC 가 하는 일(복사)을 흉내 낸다 */
+    var t=e.target.closest('a[href^="tel:"]');
+    if(t){
+      e.preventDefault();
+      var num=t.getAttribute('href').slice(4);
+      if(navigator.clipboard)navigator.clipboard.writeText(num).catch(function(){});
+      var el=document.createElement('div');
+      el.className='pv-toast';
+      el.textContent='전화번호를 복사했습니다 · '+num;
+      document.body.appendChild(el);
+      setTimeout(function(){el.remove();},2600);
+    }
   });
   fromHash();
 })();

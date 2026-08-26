@@ -8,6 +8,7 @@ import { getCompare } from "@/content/compare";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
+import { PhoneLink } from "@/components/phone-link";
 
 export const generateStaticParams = () => SYMPTOMS.map((s) => ({ symptom: s.slug }));
 
@@ -72,12 +73,9 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                 상담 예약하기
                 <Arrow className="arw" />
               </Link>
-              <a
-                href={CLINIC.phoneHref}
-                className="press inline-flex items-center rounded-full px-7 py-3.5 font-semibold ring-1 ring-paper/30"
-              >
+              <PhoneLink className="press inline-flex items-center rounded-full px-7 py-3.5 font-semibold ring-1 ring-paper/30">
                 {CLINIC.phone}
-              </a>
+              </PhoneLink>
             </div>
           </div>
         </section>

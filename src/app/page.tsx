@@ -8,10 +8,24 @@ import { PARTS } from "@/content/part";
 import { AREAS } from "@/content/area";
 import { Bezel, JsonLd, Arrow } from "@/components/site";
 import { Reveal } from "@/components/reveal";
+import { PhoneLink } from "@/components/phone-link";
 import { ClinicStatus } from "@/components/clinic-status";
 import { SYMPTOM_ICONS, MapPinIcon } from "@/components/icons";
 
 const pain = getSymptom("pain")!;
+
+/** 문장마다 줄을 바꾼다. 가운데 정렬한 글은 문장이 뭉치면 눈이 줄을 놓친다 */
+function Lines({ children }: { children: string[] }) {
+  return (
+    <>
+      {children.map((line) => (
+        <span key={line} className="block">
+          {line}
+        </span>
+      ))}
+    </>
+  );
+}
 
 /** 메인의 섹션 제목은 모두 같은 크기·같은 정렬로 선다. 여기서만 정한다.
  *  accent는 제목의 뒷부분으로, 히어로와 같은 금빛 그라데이션이 걸린다 */
@@ -23,7 +37,8 @@ function H2({
 }: {
   children: React.ReactNode;
   accent?: string;
-  note?: string;
+  /** 배열로 주면 한 줄씩 끊어 세운다. 두 문장이 한 줄에 뭉치면 읽기 힘들다 */
+  note?: string | string[];
   /** 상위 섹션에 딸린 이야기는 한 단계 작게 세워 위계를 만든다 */
   small?: boolean;
 }) {
@@ -47,7 +62,11 @@ function H2({
       </h2>
       {note && (
         <p className="kr mx-auto mt-4 max-w-[52ch] text-base leading-8 text-muted xl:text-[17px] xl:leading-9">
-          {note}
+          {(Array.isArray(note) ? note : [note]).map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
         </p>
       )}
     </div>
@@ -198,9 +217,13 @@ export default function Home() {
 
           <Enter d={520}>
             <p className="kr mx-auto mt-7 max-w-[56ch] text-[17px] leading-8 text-muted xl:mt-9 xl:text-[19px] xl:leading-9">
-              세 가지 다 물어보셔도 됩니다. 그리고 안 될 것 같으면 안 된다고
-              먼저 말씀드립니다. 그 말을 할 수 있어야 맡기실 수 있다고
-              생각합니다.
+              <Lines>
+                {[
+                  "세 가지 다 물어보셔도 됩니다.",
+                  "그리고 안 될 것 같으면 안 된다고 먼저 말씀드립니다.",
+                  "그 말을 할 수 있어야 맡기실 수 있다고 생각합니다.",
+                ]}
+              </Lines>
             </p>
           </Enter>
 
@@ -224,12 +247,9 @@ export default function Home() {
 
           <Enter d={720}>
             <div className="mt-9 flex flex-wrap justify-center gap-2">
-              <a
-                href={CLINIC.phoneHref}
-                className="press inline-flex items-center gap-3 rounded-full bg-herb px-7 py-4 text-lg font-semibold text-paper shadow-[var(--shadow-ambient)]"
-              >
+              <PhoneLink className="press inline-flex items-center gap-3 rounded-full bg-herb px-7 py-4 text-lg font-semibold text-paper shadow-[var(--shadow-ambient)]">
                 전화 예약 {CLINIC.phone}
-              </a>
+              </PhoneLink>
             </div>
           </Enter>
         </div>
@@ -359,7 +379,10 @@ export default function Home() {
           <section className="mt-32">
             <H2
               accent="알고 오시나요?"
-              note="처음 오시는 분께 어떻게 알고 오셨는지 여쭤봅니다. 절반 이상이 아는 분 소개라고 답하십니다."
+              note={[
+                "처음 오시는 분께 어떻게 알고 오셨는지 여쭤봅니다.",
+                "절반 이상이 아는 분 소개라고 답하십니다.",
+              ]}
             >
               어떻게
             </H2>
@@ -387,7 +410,10 @@ export default function Home() {
           <section className="band mt-32 py-16 md:py-20 xl:py-24">
             <H2
               accent="필요하신가요?"
-              note="과목마다 치료 방법과 예상 기간이 다릅니다. 해당하는 곳을 눌러 확인해 보세요."
+              note={[
+                "과목마다 치료 방법과 예상 기간이 다릅니다.",
+                "해당하는 곳을 눌러 확인해 보세요.",
+              ]}
             >
               어떤 치료가
             </H2>
@@ -497,7 +523,10 @@ export default function Home() {
             <H2
               small
               accent="궁금하신가요?"
-              note="건강보험이 적용되는 치료와 그렇지 않은 치료를 나눠서 안내해 드립니다. 비급여 항목은 시작하기 전에 금액을 말씀드립니다."
+              note={[
+                "건강보험이 적용되는 치료와 그렇지 않은 치료를 나눠서 안내해 드립니다.",
+                "비급여 항목은 시작하기 전에 금액을 말씀드립니다.",
+              ]}
             >
               치료 가격이
             </H2>
@@ -566,7 +595,10 @@ export default function Home() {
           <section className="band mt-32 py-16 md:py-20 xl:py-24">
             <H2
               accent="진료합니다"
-              note="장기역 도보 1분, 다이소 맞은편에 있습니다. 한강신도시와 장기동에서 걸어오시거나 퇴근길에 들르시는 분이 대부분입니다."
+              note={[
+                "장기역 도보 1분, 다이소 맞은편에 있습니다.",
+                "한강신도시와 장기동에서 걸어오시거나 퇴근길에 들르시는 분이 대부분입니다.",
+              ]}
             >
               김포 장기동에서
             </H2>
@@ -694,10 +726,14 @@ export default function Home() {
         {/* 리뷰 — 페이지에 심지 않고 외부로 내보낸다 (의료법 56조②) */}
         <Reveal>
           <section className="mt-32 rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
-            <H2 accent="직접 확인해 보세요">리뷰는</H2>
+            <H2 accent="직접 확인해 보세요">리뷰를</H2>
             <p className="kr mx-auto mt-4 max-w-[46ch] leading-8 text-muted">
-              의료법에 따라 환자분들의 후기를 저희 홈페이지에 직접 싣지
-              않습니다. 네이버와 구글에서 있는 그대로 확인하실 수 있습니다.
+              <Lines>
+                {[
+                  "의료법에 따라 환자분들의 후기를 저희 홈페이지에 직접 싣지 않습니다.",
+                  "네이버와 구글에서 있는 그대로 확인하실 수 있습니다.",
+                ]}
+              </Lines>
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <a
@@ -725,7 +761,10 @@ export default function Home() {
           <section className="mt-32">
             <H2
               accent="미리 만나보세요"
-              note="접수 데스크와 대기 공간입니다. 물리치료실은 안쪽에 따로 있습니다."
+              note={[
+                "접수 데스크와 대기 공간입니다.",
+                "물리치료실은 안쪽에 따로 있습니다.",
+              ]}
             >
               오시기 전에
             </H2>

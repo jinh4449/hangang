@@ -4,6 +4,7 @@ import { SYMPTOMS } from "@/content/symptoms";
 import { AREAS } from "@/content/area";
 import { NAV } from "@/content/nav";
 import { ClinicStatus } from "./clinic-status";
+import { PhoneLink } from "./phone-link";
 import { MapPinIcon } from "./icons";
 
 /**
@@ -246,15 +247,12 @@ export function Cta({ label = "진료 예약하기" }: { label?: string }) {
         {CLINIC.hours[0].day} {CLINIC.hours[0].time} · {CLINIC.address}
       </p>
       <div className="mt-6 flex flex-wrap gap-2">
-        <a
-          href={CLINIC.phoneHref}
-          className="press inline-flex items-center justify-between gap-3 rounded-full bg-herb py-3.5 pl-7 pr-2 font-semibold text-paper"
-        >
+        <PhoneLink className="press inline-flex items-center justify-between gap-3 rounded-full bg-herb py-3.5 pl-7 pr-2 font-semibold text-paper">
           <span>전화 예약 {CLINIC.phone}</span>
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15">
             <Arrow className="arw" />
           </span>
-        </a>
+        </PhoneLink>
       </div>
     </aside>
   );
@@ -341,9 +339,9 @@ export function SiteFooter() {
         >
           길찾기
         </a>
-        <a href={CLINIC.phoneHref} className="bg-herb py-4 text-center text-sm font-semibold text-paper">
+        <PhoneLink className="bg-herb py-4 text-center text-sm font-semibold text-paper">
           전화 예약
-        </a>
+        </PhoneLink>
       </div>
     </footer>
   );

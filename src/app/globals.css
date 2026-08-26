@@ -16,6 +16,8 @@
   --tint: #eef4f0;
   /* 어두운 배경 위에서 쓰는 옥색 */
   --herb-light: #84c2a7;
+  /* 진료중 점. 초록 계열 중 가장 밝은 값이라 2px 짜리 점에서도 눈에 걸린다 */
+  --live: #14e06a;
   --ochre: #95661f;
   --ochre-soft: #f9f2e6;
   --ochre-line: #e0cca6;
@@ -41,6 +43,7 @@
   --color-herb-line: var(--herb-line);
   --color-tint: var(--tint);
   --color-herb-light: var(--herb-light);
+  --color-live: var(--live);
   --color-ochre: var(--ochre);
   --color-ochre-soft: var(--ochre-soft);
   --color-ochre-line: var(--ochre-line);
@@ -416,4 +419,27 @@ a.tile-dark:hover {
 }
 .navitem:focus-within .navchev {
   transform: rotate(180deg);
+}
+
+/* ── 진료중 점 ───────────────────────────────────────────────
+   점 하나로 「지금 열려 있다」를 말해야 해서, 색만으로는 약하다.
+   바깥으로 퍼지는 고리를 한 겹 더 두어 살아 있는 표시로 만든다. */
+.livedot {
+  position: relative;
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--live) 28%, transparent);
+}
+.livedot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--live);
+  animation: livepulse 2.2s ease-out infinite;
+}
+@keyframes livepulse {
+  0% { opacity: 0.55; transform: scale(1); }
+  70%, 100% { opacity: 0; transform: scale(2.6); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .livedot::after { animation: none; }
 }
