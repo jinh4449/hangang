@@ -90,7 +90,7 @@ export default function Reservation() {
 
       {/* 히어로 — 예약하려고 들어온 사람에게 방법부터 보여준다 */}
       <section className="border-b border-line bg-surface-2/60">
-        <div className="mx-auto w-full max-w-[64rem] px-[clamp(1.25rem,4vw,4rem)] pb-14 pt-12 text-center sm:pt-16">
+        <div className="mx-auto w-full max-w-[64rem] px-[clamp(1.5rem,6vw,7rem)] pb-14 pt-12 text-center sm:pt-16">
           <span
             className="enter inline-flex items-center gap-2 rounded-full bg-ochre-soft px-3.5 py-1.5 text-[12px] font-semibold text-ochre"
             style={{ "--d": "0ms" } as React.CSSProperties}
@@ -120,7 +120,7 @@ export default function Reservation() {
         </div>
       </section>
 
-      <article className="mx-auto w-full max-w-[64rem] px-[clamp(1.25rem,4vw,4rem)] py-14">
+      <article className="mx-auto w-full max-w-[64rem] px-[clamp(1.5rem,6vw,7rem)] py-14">
         {/* 예약 창구 */}
         <div
           className={

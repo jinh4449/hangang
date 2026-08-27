@@ -54,7 +54,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
             aria-hidden="true"
             className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/75 to-ink/35"
           />
-          <div className="relative mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-20 text-paper xl:py-28">
+          <div className="relative mx-auto w-full max-w-[90rem] px-[clamp(1.5rem,6vw,7rem)] py-20 text-paper xl:py-28">
             <p className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/60">
               <span aria-hidden="true" className="h-px w-10 bg-paper/30" />
               {CLINIC.locality} · {s.clinicalName}
@@ -81,7 +81,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         </section>
       )}
 
-      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
         {!s.heroImage && (
           <>
             {(() => {

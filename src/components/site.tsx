@@ -23,7 +23,7 @@ import { MobileNav } from "./mobile-nav";
 export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-ink/[0.07] bg-surface/70 backdrop-blur-xl">
-      <nav className="mx-auto flex w-full max-w-[90rem] items-center gap-3 px-[clamp(1.25rem,4vw,4rem)] py-2.5">
+      <nav className="mx-auto flex w-full max-w-[90rem] items-center gap-3 px-[clamp(1.5rem,6vw,7rem)] py-2.5">
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
           {CLINIC.name}
         </Link>
@@ -297,7 +297,7 @@ const FOOTER_NAV = [
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t border-line">
-      <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-14">
+      <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.5rem,6vw,7rem)] py-14">
         {/* 가로로 늘어놓으면 어디까지가 한 묶음인지 읽히지 않는다.
             제목 아래로 세로로 세워 묶음마다 경계를 만든다 */}
         <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16">

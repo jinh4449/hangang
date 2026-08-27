@@ -5,7 +5,6 @@ import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { columnsByDate } from "@/content/column";
 import { PARTS } from "@/content/part";
-import { AREAS } from "@/content/area";
 import { JsonLd, Arrow } from "@/components/site";
 import { Reveal } from "@/components/reveal";
 import { SYMPTOM_ICONS, MapPinIcon } from "@/components/icons";
@@ -159,6 +158,27 @@ function Enter({
   );
 }
 
+/**
+ * 메인에 세우는 질문 목록.
+ * 비교 페이지와 칼럼은 만든 사람에게나 다른 것이지, 묻는 사람에게는 둘 다 질문이다.
+ * 그래서 한 줄로 세운다. 갈 곳이 어디든 물음표로 시작하는 것만 모은다.
+ */
+const QA = [
+  ...COMPARES.map((c) => ({
+    question: c.question,
+    summary: c.lede,
+    href: `/compare/${c.slug}`,
+  })),
+  // 칼럼의 question 은 검색어라 물음표가 없다. Q 뒤에는 제목이 붙어야 질문으로 읽힌다
+  ...columnsByDate()
+    .slice(0, 4)
+    .map((c) => ({
+      question: c.title.endsWith("?") ? c.title : `${c.title}?`,
+      summary: c.summary,
+      href: `/column/${c.slug}`,
+    })),
+];
+
 export default function Home() {
   return (
     <>
@@ -185,7 +205,7 @@ export default function Home() {
           }}
         />
 
-        <div className="relative mx-auto w-full max-w-[80rem] px-[clamp(1.25rem,4vw,4rem)] pb-14 pt-12 text-center sm:pt-16 xl:pb-20 xl:pt-24">
+        <div className="relative mx-auto w-full max-w-[80rem] px-[clamp(1.5rem,6vw,7rem)] pb-14 pt-12 text-center sm:pt-16 xl:pb-20 xl:pt-24">
           <Enter d={0}>
             <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
               {CLINIC.tagline}
@@ -229,7 +249,7 @@ export default function Home() {
 
       </section>
 
-      <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
+      <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.5rem,6vw,7rem)] py-16 xl:py-24">
 
         {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다 */}
         <Reveal>
@@ -332,19 +352,23 @@ export default function Home() {
                     "flex flex-col items-center " + (i === 0 ? "lg:order-1" : "lg:order-3")
                   }
                 >
-                  <Image
-                    src={d.photo}
-                    alt={`${CLINIC.name} ${d.name} ${d.role}`}
-                    width={900}
-                    height={1098}
-                    sizes="(min-width: 1024px) 20rem, 45vw"
-                    className="h-auto w-full max-w-[20rem]"
-                  />
+                  {/* 사진의 배경이 흰색이라 종이 위에 떠 보인다.
+                      회색 판을 깔아 사람이 그 안에 서 있게 만든다 */}
+                  <div className="w-full max-w-[20rem] overflow-hidden rounded-[1.5rem] bg-surface-2">
+                    <Image
+                      src={d.photo}
+                      alt={`${CLINIC.name} ${d.name} ${d.role}`}
+                      width={900}
+                      height={1098}
+                      sizes="(min-width: 1024px) 20rem, 45vw"
+                      className="h-auto w-full mix-blend-multiply"
+                    />
+                  </div>
                   <figcaption className="mt-4 text-center">
                     <span className="font-mono text-[12px] uppercase tracking-[0.15em] text-herb">
                       {d.role}
                     </span>
-                    <span className="kr mt-1.5 block text-2xl font-bold">{d.name}</span>
+                    <span className="kr mt-1.5 block text-xl font-bold">{d.name}</span>
                   </figcaption>
                 </figure>
               ))}
@@ -514,133 +538,33 @@ export default function Home() {
           </section>
         </Reveal>
 
-        {/* 지역 진료 — 장기동에 있어서 오시는 분이 대부분 이 동네다 */}
-        <Reveal>
-          <section className="band screen">
-            <H2
-              accent="진료합니다"
-              note={[
-                "장기역 도보 1분, 다이소 맞은편에 있습니다.",
-                "한강신도시와 장기동에서 걸어오시거나 퇴근길에 들르시는 분이 대부분입니다.",
-              ]}
-            >
-              김포 장기동에서
-            </H2>
-            <div className="mt-10 grid gap-3 md:grid-cols-3">
-              <Link href="/care/pain" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
-                  추나요법
-                </p>
-                <h3 className="kr mt-4 text-xl font-bold">김포 추나치료</h3>
-                <p className="kr mt-3 text-[16px] leading-7 text-muted">
-                  건강보험이 적용되는 추나요법입니다. 연 20회까지 급여로
-                  인정됩니다.
-                </p>
-                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  자세히 보기
-                  <Arrow />
-                </span>
-              </Link>
-
-              <Link href="/care/pain" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
-                  통증치료
-                </p>
-                <h3 className="kr mt-4 text-xl font-bold">김포 통증치료</h3>
-                <p className="kr mt-3 text-[16px] leading-7 text-muted">
-                  허리, 목, 어깨, 무릎. 참고 지내던 통증의 원인을 먼저 찾습니다.
-                </p>
-                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  자세히 보기
-                  <Arrow />
-                </span>
-              </Link>
-
-              <Link href="/area/gimpo-accident" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ochre">
-                  자동차보험
-                </p>
-                <h3 className="kr mt-4 text-xl font-bold">김포 교통사고</h3>
-                <p className="kr mt-3 text-[16px] leading-7 text-muted">
-                  대인접수가 되면 본인부담금 없이 치료받으실 수 있습니다.
-                </p>
-                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  자세히 보기
-                  <Arrow />
-                </span>
-              </Link>
-            </div>
-
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-              <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-faint">
-                동네별
-              </span>
-              {AREAS.map((a) => (
-                <Link
-                  key={a.slug}
-                  href={`/area/${a.slug}`}
-                  className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb"
-                >
-                  {a.name}
-                </Link>
-              ))}
-            </div>
-          </section>
-        </Reveal>
-
-        {/* 고민 — 의도 분해의 마지막 칸 */}
+        {/* Q&A — 진료실에서 실제로 받는 질문과, 어디로 가야 할지 헷갈리는 질문을
+            한 자리에 모은다. 물어보는 사람 입장에서는 둘이 같은 종류다 */}
         <Reveal>
           <section className="screen">
-            <H2
-              accent="되실 때"
-              note="어디로 가야 할지, 정말 효과가 있는지 헷갈릴 때 참고하세요."
-            >
-              고민
+            <H2 accent="자주 묻는 질문" note="진료실에서 실제로 받는 질문들입니다.">
+              Q&amp;A
             </H2>
-            <div className="mt-10 grid gap-2">
-              {COMPARES.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/compare/${c.slug}`}
-                  className="tile block bg-surface px-6 py-5"
-                >
-                  <span className="kr font-semibold">{c.title}</span>
-                  <span className="kr mt-1 block text-[15px] text-muted">
-                    {c.question}
+            <div className="mt-10 grid gap-2 md:grid-cols-2">
+              {QA.map((q) => (
+                <Link key={q.href} href={q.href} className="tile block bg-surface px-6 py-5">
+                  <span className="flex gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="font-display text-lg font-bold leading-none text-herb"
+                    >
+                      Q
+                    </span>
+                    <span className="kr font-semibold leading-snug">{q.question}</span>
+                  </span>
+                  <span className="kr mt-2 block pl-7 text-[15px] leading-7 text-muted">
+                    {q.summary}
                   </span>
                 </Link>
               ))}
             </div>
-          </section>
-        </Reveal>
-
-        {/* 최신 칼럼 — 검색으로 들어온 사람에게 읽을거리를 준다 */}
-        <Reveal>
-          <section className="screen">
-            <H2 accent="자주 받는 질문">진료실에서</H2>
-            <div className="mt-10 grid gap-2 md:grid-cols-2">
-              {columnsByDate()
-                .slice(0, 4)
-                .map((c) => (
-                  <Link
-                    key={c.slug}
-                    href={`/column/${c.slug}`}
-                    className="tile block bg-surface px-6 py-5"
-                  >
-                    <span className="kr font-semibold leading-snug">
-                      {c.title}
-                    </span>
-                    <span className="kr mt-1.5 block text-[15px] leading-7 text-muted">
-                      {c.summary}
-                    </span>
-                  </Link>
-                ))}
-            </div>
             <div className="mt-6 text-center">
-              <Link
-                href="/column"
-                className="text-sm font-medium text-herb hover:underline"
-              >
+              <Link href="/column" className="text-[15px] font-medium text-herb hover:underline">
                 칼럼 전체 보기
               </Link>
             </div>

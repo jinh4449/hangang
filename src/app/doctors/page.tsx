@@ -28,7 +28,7 @@ const CO_CARE = [
 
 export default function Doctors() {
   return (
-    <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
+    <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
       <JsonLd
         data={medicalWebPage({
           name: `${CLINIC.name} 의료진 소개`,

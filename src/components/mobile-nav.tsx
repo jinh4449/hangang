@@ -75,7 +75,7 @@ export function MobileNav() {
           />
           <div
             id="mobile-nav"
-            className="absolute inset-x-0 top-full max-h-[82dvh] overflow-y-auto border-b border-line bg-surface px-[clamp(1.25rem,4vw,4rem)] pb-28 pt-6"
+            className="absolute inset-x-0 top-full max-h-[82dvh] overflow-y-auto border-b border-line bg-surface px-[clamp(1.5rem,6vw,7rem)] pb-28 pt-6"
           >
             <ClinicStatus />
             <nav aria-label="전체 메뉴" className="mt-5 grid gap-7">

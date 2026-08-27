@@ -148,7 +148,7 @@ SHELL = """
     display:block;position:absolute;left:0;right:0;top:100%;margin:0;
     max-height:82dvh;overflow-y:auto;background:var(--surface,#fff);
     border-bottom:1px solid var(--line,#e6e8e3);
-    padding:1.25rem clamp(1.25rem,4vw,4rem) 7rem;
+    padding:1.25rem clamp(1.5rem,6vw,7rem) 7rem;
   }
   .pv-menu-open .navmenu .navitem{display:block;margin-bottom:1.5rem}
   .pv-menu-open .navmenu .navtrigger{padding-left:0;font-weight:700;color:var(--ink,#171a18)}

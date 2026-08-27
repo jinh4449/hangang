@@ -13,7 +13,7 @@ export default function PartIndex() {
   return (
     <>
       <JsonLd data={breadcrumb([{ name: "부위별 안내", path: "/part" }])} />
-      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
         <PageHead
           eyebrow="부위별 안내"
           title="어디가 아프신가요"

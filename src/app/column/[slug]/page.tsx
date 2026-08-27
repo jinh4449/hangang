@@ -55,7 +55,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           { name: c.title, path: `/column/${c.slug}` },
         ])}
       />
-      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.25rem,4vw,4rem)] py-12">
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
         <Link href="/column" className="font-mono text-xs text-herb hover:underline">
           ← 원장 칼럼
         </Link>
