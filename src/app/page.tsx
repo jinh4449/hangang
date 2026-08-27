@@ -6,10 +6,8 @@ import { COMPARES } from "@/content/compare";
 import { columnsByDate } from "@/content/column";
 import { PARTS } from "@/content/part";
 import { AREAS } from "@/content/area";
-import { Bezel, JsonLd, Arrow } from "@/components/site";
+import { JsonLd, Arrow } from "@/components/site";
 import { Reveal } from "@/components/reveal";
-import { PhoneLink } from "@/components/phone-link";
-import { ClinicStatus } from "@/components/clinic-status";
 import { SYMPTOM_ICONS, MapPinIcon } from "@/components/icons";
 
 const pain = getSymptom("pain")!;
@@ -227,64 +225,8 @@ export default function Home() {
             </p>
           </Enter>
 
-          <Enter d={620}>
-            <ul className="mt-9 flex flex-wrap justify-center gap-2">
-              {CLINIC.badges.map((b, i) => (
-                <li
-                  key={b}
-                  className={
-                    "badge kr cursor-default rounded-full border px-5 py-2.5 text-sm font-medium " +
-                    (i === 1
-                      ? "border-ochre-line bg-ochre-soft hover:border-ochre"
-                      : "border-herb/20 bg-tint hover:border-herb")
-                  }
-                >
-                  {b}
-                </li>
-              ))}
-            </ul>
-          </Enter>
-
-          <Enter d={720}>
-            <div className="mt-9 flex flex-wrap justify-center gap-2">
-              <PhoneLink className="press inline-flex items-center gap-3 rounded-full bg-herb px-7 py-4 text-lg font-semibold text-paper shadow-[var(--shadow-ambient)]">
-                전화 예약 {CLINIC.phone}
-              </PhoneLink>
-            </div>
-          </Enter>
         </div>
 
-        <Enter
-          d={840}
-          className="relative mx-auto w-full max-w-[64rem] px-[clamp(1.25rem,4vw,4rem)] pb-16"
-        >
-          <Bezel>
-            <div className="p-7">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <p className="text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
-                  진료 시간
-                </p>
-                <ClinicStatus />
-              </div>
-              <dl className="mt-4 grid gap-x-10 text-[15px] sm:grid-cols-2">
-                {CLINIC.hours.map((h) => (
-                  <div
-                    key={h.day}
-                    className="flex items-baseline justify-between border-b border-line py-3"
-                  >
-                    <dt className="text-muted">{h.day}</dt>
-                    <dd className="font-display font-medium tabular-nums">
-                      {h.time}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-              <p className="kr mt-5 text-sm text-muted">
-                {CLINIC.address} · {CLINIC.landmark}
-              </p>
-            </div>
-          </Bezel>
-        </Enter>
       </section>
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
@@ -512,79 +454,6 @@ export default function Home() {
                     <Arrow />
                   </span>
                 </div>
-              </Link>
-            </div>
-          </section>
-        </Reveal>
-
-        {/* 진료비 — 물어보기 전에 먼저 꺼낸다 */}
-        <Reveal>
-          <section className="mt-32">
-            <H2
-              small
-              accent="궁금하신가요?"
-              note={[
-                "건강보험이 적용되는 치료와 그렇지 않은 치료를 나눠서 안내해 드립니다.",
-                "비급여 항목은 시작하기 전에 금액을 말씀드립니다.",
-              ]}
-            >
-              치료 가격이
-            </H2>
-            <div className="mt-10 grid gap-3 md:grid-cols-3">
-              <Link href="/cost" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
-                  건강보험
-                </p>
-                <h3 className="kr mt-4 text-xl font-bold">
-                  보험이 적용되는 치료
-                </h3>
-                <p className="kr mt-3 text-[15px] leading-7 text-muted">
-                  침, 뜸, 부항, 추나요법, 보험 한약제제는 건강보험이 적용됩니다.
-                  추나요법은 연 20회까지 급여로 인정됩니다.
-                </p>
-                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  본인부담률 보기
-                  <Arrow />
-                </span>
-              </Link>
-
-              <Link href="/cost" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
-                  비급여
-                </p>
-                <h3 className="kr mt-4 text-xl font-bold">비급여 진료비용</h3>
-                <p className="kr mt-3 text-[15px] leading-7 text-muted">
-                  약침과 한약처럼 보험이 적용되지 않는 항목입니다. 치료를
-                  시작하기 전에 금액을 말씀드리고 동의를 받습니다.
-                </p>
-                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  수가표 보기
-                  <Arrow />
-                </span>
-              </Link>
-
-              <Link href="/care/car-accident" className="tile bg-surface p-8">
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-ochre">
-                  자동차보험
-                </p>
-                <h3 className="kr mt-4 text-xl font-bold">교통사고 치료</h3>
-                <p className="kr mt-3 text-[15px] leading-7 text-muted">
-                  상대 보험사에 대인접수가 되면 본인부담금 없이 치료받으실 수
-                  있습니다. 접수 번호만 알려주시면 저희가 처리합니다.
-                </p>
-                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  절차 보기
-                  <Arrow />
-                </span>
-              </Link>
-            </div>
-            <div className="mt-6 text-center">
-              <Link
-                href="/cost"
-                className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
-              >
-                진료비 안내 전체 보기
-                <Arrow className="arw" />
               </Link>
             </div>
           </section>
