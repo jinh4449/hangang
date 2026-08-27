@@ -206,7 +206,7 @@ JS = """
         el.style.animation='';
       });
     },{threshold:.35});
-    document.querySelectorAll('.ring-arc,.ring-label').forEach(function(el){io.observe(el);});
+    document.querySelectorAll('.ring-arc,.ring-label,.ring-fill').forEach(function(el){io.observe(el);});
   }
 
   sel.addEventListener('change',function(){location.hash=sel.value;});

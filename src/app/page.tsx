@@ -86,6 +86,8 @@ function ReferralRing() {
   return (
     <div className="relative mx-auto aspect-square w-[17rem] sm:w-[20rem]">
       <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
+        {/* 안쪽을 채우는 판. 테두리가 돌아가는 동안 같이 차오른다 */}
+        <circle className="ring-fill" cx="100" cy="100" r={R - 8} fill="var(--tint)" />
         <circle
           cx="100"
           cy="100"
@@ -194,8 +196,9 @@ export default function Home() {
         }}
       />
 
-      {/* 히어로 — 환자가 속으로 던지는 세 가지 질문을 그대로 세운다 */}
-      <section className="relative overflow-hidden border-b border-line">
+      {/* 히어로 — 환자가 속으로 던지는 세 가지 질문을 그대로 세운다.
+          첫 화면은 이 세 줄만 보이게 화면을 통째로 쓴다 */}
+      <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden border-b border-line">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-[-22rem] h-[44rem] w-[44rem] -translate-x-1/2 rounded-full"
@@ -212,7 +215,7 @@ export default function Home() {
             </span>
           </Enter>
 
-          <h1 className="display display-black kr mt-7 text-[2rem] leading-[1.28] sm:text-[2.9rem] lg:text-[3.4rem] xl:text-[4rem] 2xl:text-[4.6rem]">
+          <h1 className="display display-black kr mt-8 text-[2.15rem] leading-[1.26] sm:text-[3.1rem] lg:text-[3.8rem] xl:text-[4.5rem] 2xl:text-[5.2rem]">
             <span
               className="enter block"
               style={{ "--d": "110ms" } as React.CSSProperties}
@@ -251,24 +254,25 @@ export default function Home() {
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.5rem,6vw,7rem)] py-16 xl:py-24">
 
-        {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다 */}
+        {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다.
+            내용이 많아 한 화면을 넘기므로 여기만 글자와 여백을 한 단계 줄인다 */}
         <Reveal>
           <section className="screen">
             <div className="mx-auto max-w-3xl text-center">
               <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
                 {CLINIC.whyHero.eyebrow}
               </span>
-              <h2 className="display kr mt-6 text-3xl text-balance sm:text-[2.75rem]">
+              <h2 className="display kr mt-5 text-[1.65rem] text-balance sm:text-[2.3rem]">
                 {CLINIC.whyHero.headline[0]}
                 <br />
                 <span className="grad">{CLINIC.whyHero.headline[1]}</span>
               </h2>
-              <p className="kr mt-5 text-[18px] leading-8 text-muted">
+              <p className="kr mt-4 text-[17px] leading-8 text-muted">
                 {CLINIC.whyHero.sub}
               </p>
             </div>
 
-            <div className="relative mt-10 overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-12 xl:p-14">
+            <div className="relative mt-8 overflow-hidden rounded-[2rem] bg-ink p-7 text-paper md:p-10 xl:p-12">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full"
@@ -278,7 +282,7 @@ export default function Home() {
                 }}
               />
 
-              <div className="relative grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-14">
+              <div className="relative grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
                 <div>
                   <p className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/50">
                     <span
@@ -288,7 +292,7 @@ export default function Home() {
                     {CLINIC.standards.eyebrow}
                   </p>
                   {/* 두 줄로 선다. 넓은 화면에서는 줄이 꺾이지 않게 붙잡아 둔다 */}
-                  <h3 className="kr mt-6 text-[1.7rem] font-bold leading-[1.35] tracking-[-0.03em] sm:text-[2.05rem] lg:whitespace-nowrap lg:text-[1.85rem] xl:text-[2.15rem] 2xl:text-[2.5rem]">
+                  <h3 className="kr mt-5 text-[1.5rem] font-bold leading-[1.35] tracking-[-0.03em] sm:text-[1.8rem] lg:whitespace-nowrap lg:text-[1.62rem] xl:text-[1.9rem] 2xl:text-[2.2rem]">
                     {CLINIC.standards.headline[0]}
                     <span className="text-herb-light">
                       {CLINIC.standards.headline[1]}
@@ -298,11 +302,11 @@ export default function Home() {
                   </h3>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-5">
                   {CLINIC.standards.body.map((t) => (
                     <p
                       key={t}
-                      className="kr text-[15px] leading-8 text-paper/70 xl:text-base"
+                      className="kr text-[14.5px] leading-7 text-paper/70 xl:text-[15px]"
                     >
                       {t}
                     </p>
@@ -310,11 +314,11 @@ export default function Home() {
                 </div>
               </div>
 
-              <ul className="relative mt-14 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+              <ul className="relative mt-10 grid gap-2.5 md:grid-cols-2 lg:grid-cols-3">
                 {CLINIC.standards.values.map((v) => (
                   <li
                     key={v.no}
-                    className="rounded-[1.25rem] border border-paper/12 bg-paper/[0.04] p-7"
+                    className="rounded-[1.25rem] border border-paper/12 bg-paper/[0.04] p-6"
                   >
                     <div className="flex items-center gap-3">
                       <span className="font-mono text-[11px] tracking-[0.1em] text-herb-light">
@@ -324,10 +328,10 @@ export default function Home() {
                         핵심가치 · {v.tag}
                       </span>
                     </div>
-                    <h3 className="kr mt-5 text-lg font-bold leading-snug">
+                    <h3 className="kr mt-4 text-[17px] font-bold leading-snug">
                       {v.title}
                     </h3>
-                    <p className="kr mt-3 text-[14px] leading-7 text-paper/60">
+                    <p className="kr mt-2.5 text-[13.5px] leading-7 text-paper/60">
                       {v.body}
                     </p>
                   </li>
@@ -352,16 +356,18 @@ export default function Home() {
                     "flex flex-col items-center " + (i === 0 ? "lg:order-1" : "lg:order-3")
                   }
                 >
-                  {/* 사진의 배경이 흰색이라 종이 위에 떠 보인다.
-                      회색 판을 깔아 사람이 그 안에 서 있게 만든다 */}
-                  <div className="w-full max-w-[20rem] overflow-hidden rounded-[1.5rem] bg-surface-2">
+                  {/* 사진은 사람에 딱 맞춰 잘라 두었다. 틀이 사진을 감싸기만 하면
+                      둘 사이에 빈 곳이 생기지 않는다.
+                      키를 맞추고 폭은 사진이 정하게 둬야 두 사람이 같은 크기로 선다.
+                      배경이 흰색이라 회색 판 위에 곱하기로 겹친다 */}
+                  <div className="overflow-hidden rounded-[1.5rem] bg-surface-2">
                     <Image
-                      src={d.photo}
+                      src={d.photo.src}
                       alt={`${CLINIC.name} ${d.name} ${d.role}`}
-                      width={900}
-                      height={1098}
-                      sizes="(min-width: 1024px) 20rem, 45vw"
-                      className="h-auto w-full mix-blend-multiply"
+                      width={d.photo.w}
+                      height={d.photo.h}
+                      sizes="(min-width: 1024px) 18rem, 42vw"
+                      className="block h-[clamp(13rem,32vh,22rem)] w-auto mix-blend-multiply"
                     />
                   </div>
                   <figcaption className="mt-4 text-center">

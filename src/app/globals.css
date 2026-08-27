@@ -277,6 +277,20 @@ a.tile-dark:hover {
   }
 }
 
+/* 안쪽 판 — 테두리를 따라 같이 차오른다 */
+.ring-fill {
+  transform: scale(0);
+  transform-origin: 50% 50%;
+}
+.reveal.on .ring-fill {
+  animation: ringFill 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+}
+@keyframes ringFill {
+  to {
+    transform: scale(1);
+  }
+}
+
 /* 가운데 글자는 원이 멈출 즈음에 맺힌다 */
 .ring-label {
   opacity: 0;
@@ -292,6 +306,10 @@ a.tile-dark:hover {
   }
   .ring-label {
     opacity: 1 !important;
+    animation: none !important;
+  }
+  .ring-fill {
+    transform: scale(1);
     animation: none !important;
   }
 }
