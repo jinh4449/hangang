@@ -230,9 +230,49 @@ export default function Home() {
       </section>
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
+        {/* 의료진 — 사람 얼굴을 먼저 보여 준다. 처음 오는 분에게는 이게 제일 궁금하다 */}
+        <Reveal>
+          <section className="screen">
+            <H2 accent="함께 진료합니다" note="진료받기 편한 쪽을 고르실 수 있습니다.">
+              두 원장이
+            </H2>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:gap-10">
+              {CLINIC.doctors.map((d) => (
+                <Link
+                  key={d.key}
+                  href="/doctors"
+                  className="tile group flex flex-col items-center bg-surface p-8 text-center"
+                >
+                  <div className="w-full max-w-[17rem] overflow-hidden rounded-[1.5rem] bg-surface-2">
+                    <Image
+                      src={d.photo}
+                      alt={`${CLINIC.name} ${d.name} ${d.role}`}
+                      width={900}
+                      height={1098}
+                      sizes="(min-width: 640px) 17rem, 80vw"
+                      className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <p className="mt-7 font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
+                    {d.role}
+                  </p>
+                  <h3 className="kr mt-2 text-2xl font-bold">{d.name}</h3>
+                  <p className="kr mt-4 max-w-[28ch] text-[15px] leading-7 text-muted">
+                    {d.line}
+                  </p>
+                  <span className="tile-arrow mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
+                    의료진 소개 보기
+                    <Arrow />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+
         {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다 */}
         <Reveal>
-          <section>
+          <section className="screen">
             <div className="mx-auto max-w-3xl text-center">
               <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
                 {CLINIC.whyHero.eyebrow}
@@ -318,7 +358,7 @@ export default function Home() {
 
         {/* 소개 비율 — 광고가 아니라 다녀간 사람이 데려온다는 이야기 */}
         <Reveal>
-          <section className="mt-32">
+          <section className="screen">
             <H2
               accent="알고 오시나요?"
               note={[
@@ -349,7 +389,7 @@ export default function Home() {
 
         {/* 진료과목 — 같은 크기 격자 */}
         <Reveal>
-          <section className="band mt-32 py-16 md:py-20 xl:py-24">
+          <section className="band screen">
             <H2
               accent="필요하신가요?"
               note={[
@@ -461,7 +501,7 @@ export default function Home() {
 
         {/* 지역 진료 — 장기동에 있어서 오시는 분이 대부분 이 동네다 */}
         <Reveal>
-          <section className="band mt-32 py-16 md:py-20 xl:py-24">
+          <section className="band screen">
             <H2
               accent="진료합니다"
               note={[
@@ -535,7 +575,7 @@ export default function Home() {
 
         {/* 고민 — 의도 분해의 마지막 칸 */}
         <Reveal>
-          <section className="mt-32">
+          <section className="screen">
             <H2
               accent="되실 때"
               note="어디로 가야 할지, 정말 효과가 있는지 헷갈릴 때 참고하세요."
@@ -561,7 +601,7 @@ export default function Home() {
 
         {/* 최신 칼럼 — 검색으로 들어온 사람에게 읽을거리를 준다 */}
         <Reveal>
-          <section className="mt-32">
+          <section className="screen">
             <H2 accent="자주 받는 질문">진료실에서</H2>
             <div className="mt-10 grid gap-2 md:grid-cols-2">
               {columnsByDate()
@@ -594,7 +634,8 @@ export default function Home() {
 
         {/* 리뷰 — 페이지에 심지 않고 외부로 내보낸다 (의료법 56조②) */}
         <Reveal>
-          <section className="mt-32 rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
+          <section className="screen">
+            <div className="rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
             <H2 accent="직접 확인해 보세요">리뷰를</H2>
             <p className="kr mx-auto mt-4 max-w-[46ch] leading-8 text-muted">
               <Lines>
@@ -622,12 +663,13 @@ export default function Home() {
                 구글 지도에서 보기
               </a>
             </div>
+            </div>
           </section>
         </Reveal>
 
         {/* 공간 — 처음 오는 사람은 문 열기 전이 가장 망설여진다 */}
         <Reveal>
-          <section className="mt-32">
+          <section className="screen">
             <H2
               accent="미리 만나보세요"
               note={[

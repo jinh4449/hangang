@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { HOURS } from "@/content/hours";
 import Link from "next/link";
 import Image from "next/image";
 import { CLINIC } from "@/content/clinic";
@@ -98,7 +99,7 @@ export default function About() {
         <Bezel>
           <div className="p-7">
             <dl className="grid gap-x-10 text-[15px] sm:grid-cols-2">
-              {CLINIC.hours.map((h) => (
+              {HOURS.map((h) => (
                 <div
                   key={h.day}
                   className="flex items-baseline justify-between border-b border-line py-3"

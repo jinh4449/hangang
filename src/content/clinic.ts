@@ -17,14 +17,21 @@ export const CLINIC = {
   placeUrl: "https://naver.me/G7NPJIyh",
   parking: "건물 옥상주차장 · 장기1공영주차장 · 장기2공영주차장",
   parkingList: ["건물 옥상주차장", "장기1공영주차장", "장기2공영주차장"],
-  hours: [
-    { day: "평일", time: "09:30 – 20:00", note: "" },
-    { day: "토요일", time: "09:30 – 15:00", note: "" },
-    { day: "공휴일", time: "09:30 – 15:00", note: "" },
-    { day: "점심시간", time: "13:00 – 14:00", note: "평일" },
-    { day: "일요일", time: "휴진", note: "" },
-  ],
-  lunch: { opens: "13:00", closes: "14:00" },
+  /**
+   * 진료 시간의 원본.
+   *
+   * 화면에 찍는 표(hours)와 헤더의 「진료중」 표시가 서로 다른 값을 보고 있으면
+   * 언젠가 한쪽만 고쳐진다. 그래서 시간은 여기에만 적고 둘 다 여기서 끌어다 쓴다.
+   * 시간을 바꾸려면 이 덩어리만 고치면 된다.
+   */
+  schedule: {
+    weekday: { open: "09:30", close: "20:00", lunch: { from: "13:00", to: "14:00" } },
+    saturday: { open: "09:30", close: "15:00", lunch: null },
+    /** 공휴일·대체공휴일 */
+    holiday: { open: "09:30", close: "15:00", lunch: null },
+    /** 일요일은 휴진 */
+    sunday: null,
+  },
   badges: ["장기역 도보 1분", "평일 밤 8시까지", "공휴일 진료", "추나 건강보험 적용"],
 
   /**
@@ -41,10 +48,25 @@ export const CLINIC = {
     naverBookingUrl: null as string | null,
   },
 
-  /** 의료진. 칼럼 작성자와 구조화 데이터의 employee 로 함께 쓴다 */
+  /**
+   * 의료진. 칼럼 작성자와 구조화 데이터의 employee 로 함께 쓴다.
+   * photo 순서는 원본 사진 그대로다. 왕소정 원장이 왼쪽, 이진희 원장이 오른쪽.
+   */
   doctors: [
-    { key: "lee", name: "이진희", role: "원장" },
-    { key: "wang", name: "왕소정", role: "원장" },
+    {
+      key: "wang",
+      name: "왕소정",
+      role: "원장",
+      photo: "/doctor-a.jpg",
+      line: "묻기 어려운 이야기까지 편하게 꺼내실 수 있도록 듣는 데 시간을 씁니다.",
+    },
+    {
+      key: "lee",
+      name: "이진희",
+      role: "원장",
+      photo: "/doctor-b.jpg",
+      line: "초음파로 상태를 함께 보면서, 지금 치료가 필요한 이유부터 설명드립니다.",
+    },
   ],
 
   /**

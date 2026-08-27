@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HOURS } from "@/content/hours";
 import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
 import { AREAS } from "@/content/area";
@@ -243,73 +244,106 @@ export function Cta({ label = "진료 예약하기" }: { label?: string }) {
     <aside className="mt-14 rounded-[2rem] border border-herb/15 bg-tint p-8">
       <p className="kr text-xl font-bold">{label}</p>
       <p className="kr mt-2 text-[15px] leading-7 text-muted">
-        {CLINIC.hours[0].day} {CLINIC.hours[0].time} · {CLINIC.address}
+        {HOURS[0].day} {HOURS[0].time} · {CLINIC.address}
       </p>
       <div className="mt-6 flex flex-wrap gap-2">
-        <PhoneLink className="press inline-flex items-center justify-between gap-3 rounded-full bg-herb py-3.5 pl-7 pr-2 font-semibold text-paper">
-          <span>전화 예약 {CLINIC.phone}</span>
+        <Link
+          href="/reservation"
+          className="press inline-flex items-center justify-between gap-3 rounded-full bg-herb py-3.5 pl-7 pr-2 font-semibold text-paper"
+        >
+          <span>{label}</span>
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/15">
             <Arrow className="arw" />
           </span>
+        </Link>
+        <PhoneLink className="press inline-flex items-center rounded-full px-7 py-3.5 font-medium ring-1 ring-herb/25">
+          전화 {CLINIC.phone}
         </PhoneLink>
       </div>
     </aside>
   );
 }
 
+/** 푸터 메뉴. 세 묶음으로 나눠 세로로 세운다 */
+const FOOTER_NAV = [
+  {
+    title: "진료",
+    links: [
+      { label: "진료과목", href: "/care" },
+      ...SYMPTOMS.map((s) => ({ label: s.name, href: `/care/${s.slug}` })),
+    ],
+  },
+  {
+    title: "안내",
+    links: [
+      { label: "병원 소개", href: "/about" },
+      { label: "의료진 소개", href: "/doctors" },
+      { label: "진료비 안내", href: "/cost" },
+      { label: "예약 · 상담", href: "/reservation" },
+      { label: "오시는 길", href: "/directions" },
+    ],
+  },
+  {
+    title: "더 보기",
+    links: [
+      { label: "부위별 안내", href: "/part" },
+      { label: "치료 방법", href: "/treatment" },
+      { label: "원장 칼럼", href: "/column" },
+      ...AREAS.map((a) => ({ label: a.title, href: `/area/${a.slug}` })),
+    ],
+  },
+];
+
 export function SiteFooter() {
   return (
     <footer className="mt-20 border-t border-line">
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-14">
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+        {/* 가로로 늘어놓으면 어디까지가 한 묶음인지 읽히지 않는다.
+            제목 아래로 세로로 세워 묶음마다 경계를 만든다 */}
+        <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16">
           <div>
             <p className="text-xl font-bold">{CLINIC.name}</p>
-            <p className="kr mt-3 text-sm leading-7 text-muted">
-              {CLINIC.address} · {CLINIC.landmark}
-              <br />
-              {CLINIC.transit}
-              <br />
-              {CLINIC.phone}
-            </p>
+            <address className="kr mt-4 grid gap-1.5 text-sm not-italic leading-7 text-muted">
+              <span>{CLINIC.address}</span>
+              <span>{CLINIC.landmark}</span>
+              <span>{CLINIC.transit}</span>
+              <PhoneLink className="justify-self-start font-medium text-ink">
+                {CLINIC.phone}
+              </PhoneLink>
+            </address>
+
+            <dl className="mt-8 max-w-[26rem] text-sm">
+              {HOURS.map((h) => (
+                <div key={h.day} className="flex justify-between border-b border-line py-2.5">
+                  <dt className="text-muted">{h.day}</dt>
+                  <dd className="tabular-nums">
+                    {h.time}
+                    {h.note && <span className="ml-2 text-xs text-faint">{h.note}</span>}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
-          <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
-            {SYMPTOMS.map((s) => (
-              <Link key={s.slug} href={`/care/${s.slug}`} className="transition-colors hover:text-ink">
-                {s.name}
-              </Link>
+
+          <div className="grid gap-8 sm:grid-cols-3 md:gap-12">
+            {FOOTER_NAV.map((col) => (
+              <nav key={col.title} aria-label={col.title}>
+                <p className="kr text-[11px] font-medium uppercase tracking-[0.15em] text-faint">
+                  {col.title}
+                </p>
+                <ul className="mt-4 grid gap-2.5 text-sm">
+                  {col.links.map((l) => (
+                    <li key={l.href + l.label}>
+                      <Link href={l.href} className="text-muted transition-colors hover:text-ink">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
             ))}
-          </nav>
+          </div>
         </div>
-
-        <nav aria-label="더 보기" className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
-          <Link href="/care" className="transition-colors hover:text-ink">진료과목</Link>
-          <Link href="/part" className="transition-colors hover:text-ink">부위별 안내</Link>
-          <Link href="/treatment" className="transition-colors hover:text-ink">치료 방법</Link>
-          <Link href="/reservation" className="transition-colors hover:text-ink">예약·상담</Link>
-          <Link href="/cost" className="transition-colors hover:text-ink">진료비 안내</Link>
-          <Link href="/column" className="transition-colors hover:text-ink">원장 칼럼</Link>
-          <Link href="/directions" className="transition-colors hover:text-ink">오시는 길</Link>
-        </nav>
-
-        <nav aria-label="지역별 안내" className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
-          {AREAS.map((a) => (
-            <Link key={a.slug} href={`/area/${a.slug}`} className="transition-colors hover:text-ink">
-              {a.title}
-            </Link>
-          ))}
-        </nav>
-
-        <dl className="mt-8 grid gap-x-8 text-sm sm:grid-cols-2">
-          {CLINIC.hours.map((h) => (
-            <div key={h.day} className="flex justify-between border-b border-line py-2">
-              <dt className="text-muted">{h.day}</dt>
-              <dd className="tabular-nums">
-                {h.time}
-                {h.note && <span className="ml-2 text-xs text-faint">{h.note}</span>}
-              </dd>
-            </div>
-          ))}
-        </dl>
 
         <div className="mt-10 border-t border-line pt-8">
           <p className="kr max-w-[76ch] text-xs leading-6 text-faint">{CLINIC.legalNote}</p>

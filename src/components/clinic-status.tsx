@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CLINIC } from "@/content/clinic";
+import { scheduleFor, toMin } from "@/content/hours";
 
 /**
  * 지금 진료 중인지 표시한다.
@@ -39,22 +40,6 @@ function seoulNow() {
   return { y, m, d, date, dow, minutes: +get("hour") * 60 + +get("minute") };
 }
 
-const hm = (t: string) => {
-  const [h, m] = t.split(":").map(Number);
-  return h * 60 + m;
-};
-const fmt = (mins: number) =>
-  `${String(Math.floor(mins / 60)).padStart(2, "0")}:${String(mins % 60).padStart(2, "0")}`;
-
-/** 그날의 진료 시간대. 휴진이면 null */
-function scheduleFor(date: string, dow: number) {
-  if (CLINIC.holidays.closed.includes(date)) return null; // 설날·추석 당일
-  if (dow === 0) return null; // 일요일
-  // 공휴일·대체공휴일과 토요일은 15시 마감, 점심시간 없음
-  if (CLINIC.holidays.shortDay.includes(date) || dow === 6)
-    return { open: hm("09:30"), close: hm("15:00"), lunch: null };
-  return { open: hm("09:30"), close: hm("20:00"), lunch: { from: hm("13:00"), to: hm("14:00") } };
-}
 
 /** 다음 진료일. 최대 7일까지 찾는다 */
 function nextOpening(y: number, m: number, d: number) {
@@ -63,7 +48,7 @@ function nextOpening(y: number, m: number, d: number) {
     const date = dt.toISOString().slice(0, 10);
     const dow = dt.getUTCDay();
     const sc = scheduleFor(date, dow);
-    if (sc) return { label: i === 1 ? "내일" : `${WEEKDAY_KO[dow]}요일`, open: fmt(sc.open) };
+    if (sc) return { label: i === 1 ? "내일" : `${WEEKDAY_KO[dow]}요일`, open: sc.open };
   }
   return null;
 }
@@ -79,12 +64,14 @@ function computeStatus(): Status | null {
 
   if (!sc) return { kind: "closed", label: "휴진", detail: nextText };
 
-  if (now.minutes < sc.open) return { kind: "closed", label: "진료 전", detail: `오늘 ${fmt(sc.open)} 오픈` };
-  if (now.minutes >= sc.close) return { kind: "closed", label: "진료종료", detail: nextText };
-  if (sc.lunch && now.minutes >= sc.lunch.from && now.minutes < sc.lunch.to)
-    return { kind: "lunch", label: "점심시간", detail: `${fmt(sc.lunch.to)} 진료 재개` };
+  const open = toMin(sc.open);
+  const close = toMin(sc.close);
+  if (now.minutes < open) return { kind: "closed", label: "진료 전", detail: `오늘 ${sc.open} 오픈` };
+  if (now.minutes >= close) return { kind: "closed", label: "진료종료", detail: nextText };
+  if (sc.lunch && now.minutes >= toMin(sc.lunch.from) && now.minutes < toMin(sc.lunch.to))
+    return { kind: "lunch", label: "점심시간", detail: `${sc.lunch.to} 진료 재개` };
 
-  return { kind: "open", label: "진료중", detail: `${fmt(sc.close)}까지` };
+  return { kind: "open", label: "진료중", detail: `${sc.close}까지` };
 }
 
 /** 테두리와 진한 라벨로 대비를 준다. 배지가 흐리면 상태를 못 읽는다 */

@@ -1,4 +1,5 @@
 import { CLINIC, SITE_URL } from "@/content/clinic";
+import { HOURS } from "@/content/hours";
 import { SYMPTOMS } from "@/content/symptoms";
 import { AREAS } from "@/content/area";
 import { COLUMNS } from "@/content/column";
@@ -14,7 +15,7 @@ import { PARTS } from "@/content/part";
 export const dynamic = "force-static";
 
 export function GET() {
-  const hours = CLINIC.hours.map((h) => `${h.day} ${h.time}`).join(" / ");
+  const hours = HOURS.map((h) => `${h.day} ${h.time}`).join(" / ");
 
   const txt = `# ${CLINIC.name}
 

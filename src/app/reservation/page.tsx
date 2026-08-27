@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { HOURS } from "@/content/hours";
 import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
 import { BOOKING_FAQ } from "@/content/booking";
@@ -156,7 +157,7 @@ export default function Reservation() {
 
         <Section title="진료 시간" note="평일 13:00~14:00은 점심시간입니다. 일요일은 휴진합니다.">
           <dl className="grid gap-x-10 sm:grid-cols-2">
-            {CLINIC.hours.map((h) => (
+            {HOURS.map((h) => (
               <div
                 key={h.day}
                 className="flex items-baseline justify-between border-b border-line py-3.5"

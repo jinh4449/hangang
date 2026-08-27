@@ -443,3 +443,23 @@ a.tile-dark:hover {
 @media (prefers-reduced-motion: reduce) {
   .livedot::after { animation: none; }
 }
+
+/* ── 한 화면짜리 섹션 ─────────────────────────────────────────
+   메인의 각 섹션이 화면 하나를 채운다. 내용은 가운데 서고,
+   위아래 여백은 화면 높이를 따라가되 답답하지 않을 만큼만 준다.
+   짧은 섹션까지 억지로 늘이지 않도록 min-height 로만 잡는다. */
+.screen {
+  /* 헤더가 고정이라, 이 섹션으로 건너뛸 때 제목이 헤더 밑에 깔리지 않게 한다 */
+  scroll-margin-top: 5rem;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(3.5rem, 7vh, 6rem);
+}
+/* 화면이 낮은 기기(가로로 눕힌 휴대폰 등)에서는 높이를 강제하지 않는다 */
+@media (max-height: 34rem) {
+  .screen {
+    min-height: 0;
+  }
+}
