@@ -31,7 +31,7 @@ function PriceTable({ rows }: { rows: readonly PriceRow[] }) {
             {["항목", "본인부담"].map((h) => (
               <th
                 key={h}
-                className="border-b border-line px-5 py-3 text-left font-mono text-[10px] font-normal uppercase tracking-[0.1em] text-faint last:text-right"
+                className="border-b border-line px-5 py-3 text-left font-mono text-[11px] font-normal uppercase tracking-[0.1em] text-faint last:text-right"
               >
                 {h}
               </th>
@@ -43,7 +43,7 @@ function PriceTable({ rows }: { rows: readonly PriceRow[] }) {
             <tr key={r.item}>
               <td className="border-b border-line px-5 py-4 align-top last:border-0">
                 <span className="kr font-medium">{r.item}</span>
-                {r.note && <span className="kr mt-1 block text-xs leading-6 text-faint">{r.note}</span>}
+                {r.note && <span className="kr mt-1 block text-sm leading-6 text-faint">{r.note}</span>}
               </td>
               <td className="border-b border-line px-5 py-4 text-right align-top whitespace-nowrap">
                 <Price row={r} />
@@ -93,7 +93,7 @@ export default function CostIndexPage() {
               /* min-w-0가 없으면 그리드 자식이 표 너비만큼 부풀어 페이지를 밀어낸다 */
               <div key={g.title} className="min-w-0">
                 <h3 className="kr text-lg font-bold">{g.title}</h3>
-                {g.note && <p className="kr mt-1 text-sm leading-7 text-muted">{g.note}</p>}
+                {g.note && <p className="kr mt-1 text-[15px] leading-7 text-muted">{g.note}</p>}
                 <div className="mt-3">
                   <PriceTable rows={g.rows} />
                 </div>
@@ -103,7 +103,7 @@ export default function CostIndexPage() {
           <p className="kr mt-6 rounded-2xl border border-ochre-line bg-ochre-soft px-6 py-5 text-sm leading-7">
             비급여 진료비용은 의료법 제45조에 따라 원내에도 게시하고 있습니다. 표에 없는 항목이나
             정확한 금액은 {CLINIC.phone} 로 문의해 주세요.
-            <span className="mt-1 block text-xs text-muted">최종 확인 {PRICING.updated}</span>
+            <span className="mt-1 block text-sm text-muted">최종 확인 {PRICING.updated}</span>
           </p>
         </Section>
 
@@ -112,7 +112,7 @@ export default function CostIndexPage() {
             {PRICING.howWeDecide.map((h) => (
               <div key={h.title} className="border-b border-line py-6">
                 <h3 className="kr font-bold">{h.title}</h3>
-                <p className="kr mt-2 max-w-[56ch] text-[15px] leading-8 text-muted">{h.body}</p>
+                <p className="kr mt-2 max-w-[56ch] text-[16px] leading-8 text-muted">{h.body}</p>
               </div>
             ))}
           </div>

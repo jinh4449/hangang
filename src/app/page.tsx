@@ -59,7 +59,7 @@ function H2({
         )}
       </h2>
       {note && (
-        <p className="kr mx-auto mt-4 max-w-[52ch] text-base leading-8 text-muted xl:text-[17px] xl:leading-9">
+        <p className="kr mx-auto mt-4 max-w-[52ch] text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
           {(Array.isArray(note) ? note : [note]).map((line) => (
             <span key={line} className="block">
               {line}
@@ -127,12 +127,12 @@ function ReferralRing() {
         <span className="display kr text-4xl font-black text-herb sm:text-5xl">
           {CLINIC.whyHero.stat.value}
         </span>
-        <span className="kr mt-2 max-w-[9rem] text-sm leading-6 text-muted">
+        <span className="kr mt-2 max-w-[9rem] text-[15px] leading-6 text-muted">
           소개로 오십니다
         </span>
       </div>
 
-      <span className="absolute left-1/2 top-full -translate-x-1/2 pt-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-faint">
+      <span className="absolute left-1/2 top-full -translate-x-1/2 pt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
         여기가 절반
       </span>
     </div>
@@ -214,7 +214,7 @@ export default function Home() {
           </h1>
 
           <Enter d={520}>
-            <p className="kr mx-auto mt-7 max-w-[56ch] text-[17px] leading-8 text-muted xl:mt-9 xl:text-[19px] xl:leading-9">
+            <p className="kr mx-auto mt-7 max-w-[56ch] text-[18px] leading-8 text-muted xl:mt-9 xl:text-[20px] xl:leading-9">
               <Lines>
                 {[
                   "세 가지 다 물어보셔도 됩니다.",
@@ -230,45 +230,6 @@ export default function Home() {
       </section>
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.25rem,4vw,4rem)] py-16 xl:py-24">
-        {/* 의료진 — 사람 얼굴을 먼저 보여 준다. 처음 오는 분에게는 이게 제일 궁금하다 */}
-        <Reveal>
-          <section className="screen">
-            <H2 accent="함께 진료합니다" note="진료받기 편한 쪽을 고르실 수 있습니다.">
-              두 원장이
-            </H2>
-            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:gap-10">
-              {CLINIC.doctors.map((d) => (
-                <Link
-                  key={d.key}
-                  href="/doctors"
-                  className="tile group flex flex-col items-center bg-surface p-8 text-center"
-                >
-                  <div className="w-full max-w-[17rem] overflow-hidden rounded-[1.5rem] bg-surface-2">
-                    <Image
-                      src={d.photo}
-                      alt={`${CLINIC.name} ${d.name} ${d.role}`}
-                      width={900}
-                      height={1098}
-                      sizes="(min-width: 640px) 17rem, 80vw"
-                      className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <p className="mt-7 font-mono text-[11px] uppercase tracking-[0.15em] text-herb">
-                    {d.role}
-                  </p>
-                  <h3 className="kr mt-2 text-2xl font-bold">{d.name}</h3>
-                  <p className="kr mt-4 max-w-[28ch] text-[15px] leading-7 text-muted">
-                    {d.line}
-                  </p>
-                  <span className="tile-arrow mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                    의료진 소개 보기
-                    <Arrow />
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </section>
-        </Reveal>
 
         {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다 */}
         <Reveal>
@@ -282,7 +243,7 @@ export default function Home() {
                 <br />
                 <span className="grad">{CLINIC.whyHero.headline[1]}</span>
               </h2>
-              <p className="kr mt-5 text-[17px] leading-8 text-muted">
+              <p className="kr mt-5 text-[18px] leading-8 text-muted">
                 {CLINIC.whyHero.sub}
               </p>
             </div>
@@ -356,6 +317,60 @@ export default function Home() {
           </section>
         </Reveal>
 
+        {/* 의료진 — 두 사람을 양쪽에 세우고 하는 말은 가운데에 하나로 둔다.
+            소개를 둘로 쪼개면 누가 더 나은가를 고르는 화면이 된다 */}
+        <Reveal>
+          <section className="screen">
+            <H2 accent="함께 진료합니다">두 원장이</H2>
+
+            {/* 넓은 화면에서는 사람 사이에 말이 들어가고, 좁아지면 아래로 내려온다 */}
+            <div className="mx-auto mt-12 grid max-w-[72rem] grid-cols-2 items-end gap-6 sm:gap-10 lg:grid-cols-[1fr_minmax(0,22rem)_1fr] lg:gap-8">
+              {CLINIC.doctors.map((d, i) => (
+                <figure
+                  key={d.key}
+                  className={
+                    "flex flex-col items-center " + (i === 0 ? "lg:order-1" : "lg:order-3")
+                  }
+                >
+                  <Image
+                    src={d.photo}
+                    alt={`${CLINIC.name} ${d.name} ${d.role}`}
+                    width={900}
+                    height={1098}
+                    sizes="(min-width: 1024px) 20rem, 45vw"
+                    className="h-auto w-full max-w-[20rem]"
+                  />
+                  <figcaption className="mt-4 text-center">
+                    <span className="font-mono text-[12px] uppercase tracking-[0.15em] text-herb">
+                      {d.role}
+                    </span>
+                    <span className="kr mt-1.5 block text-2xl font-bold">{d.name}</span>
+                  </figcaption>
+                </figure>
+              ))}
+
+              <div className="col-span-2 text-center lg:order-2 lg:col-span-1 lg:pb-10">
+                <p className="kr text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
+                  <Lines>
+                    {[
+                      "두 원장이 차트를 함께 보며 진료합니다.",
+                      "편한 쪽을 고르실 수 있고,",
+                      "어려운 판단은 상의한 뒤 말씀드립니다.",
+                    ]}
+                  </Lines>
+                </p>
+                <Link
+                  href="/doctors"
+                  className="press mt-7 inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
+                >
+                  의료진 소개 보기
+                  <Arrow className="arw" />
+                </Link>
+              </div>
+            </div>
+          </section>
+        </Reveal>
+
         {/* 소개 비율 — 광고가 아니라 다녀간 사람이 데려온다는 이야기 */}
         <Reveal>
           <section className="screen">
@@ -371,15 +386,15 @@ export default function Home() {
             <div className="mt-12 grid items-center gap-10 md:grid-cols-2">
               <ReferralRing />
               <div className="mx-auto max-w-[34ch] text-center md:mx-0 md:text-left">
-                <p className="kr text-[17px] leading-8 text-muted">
+                <p className="kr text-[18px] leading-8 text-muted">
                   {CLINIC.whyHero.stat.label}입니다. 다녀가신 분이 가족이나
                   이웃을 데려오시는 경우가 많습니다.
                 </p>
-                <p className="kr mt-5 text-[15px] leading-7 text-muted">
+                <p className="kr mt-5 text-[16px] leading-7 text-muted">
                   치료가 끝나면 끝났다고 말씀드립니다. 그래서 다시 아플 때, 또
                   주변에 아픈 분이 생겼을 때 저희를 떠올리십니다.
                 </p>
-                <p className="kr mt-6 text-xs text-faint">
+                <p className="kr mt-6 text-sm text-faint">
                   ※ {CLINIC.whyHero.stat.basis}
                 </p>
               </div>
@@ -428,7 +443,7 @@ export default function Home() {
                     </h3>
                     <p
                       className={
-                        "mt-1 font-display text-xs " +
+                        "mt-1 font-display text-sm " +
                         (i === 0 ? "text-paper/60" : "text-faint")
                       }
                     >
@@ -450,7 +465,7 @@ export default function Home() {
                     )}
                     <p
                       className={
-                        "kr text-sm leading-7 " +
+                        "kr text-[15px] leading-7 " +
                         (i === 0 ? "text-paper/80" : "text-muted")
                       }
                     >
@@ -480,12 +495,12 @@ export default function Home() {
                   <h3 className="kr mt-4 text-xl font-bold leading-snug">
                     부위별로 찾기
                   </h3>
-                  <p className="mt-1 font-display text-xs text-faint">
+                  <p className="mt-1 font-display text-sm text-faint">
                     {PARTS.map((p) => p.name).join(" · ")}
                   </p>
                 </div>
                 <div className="mt-6">
-                  <p className="kr text-sm leading-7 text-muted">
+                  <p className="kr text-[15px] leading-7 text-muted">
                     아픈 곳이 어디인지로 찾으시면 해당 부위의 흔한 원인부터
                     보여드립니다.
                   </p>
@@ -517,7 +532,7 @@ export default function Home() {
                   추나요법
                 </p>
                 <h3 className="kr mt-4 text-xl font-bold">김포 추나치료</h3>
-                <p className="kr mt-3 text-[15px] leading-7 text-muted">
+                <p className="kr mt-3 text-[16px] leading-7 text-muted">
                   건강보험이 적용되는 추나요법입니다. 연 20회까지 급여로
                   인정됩니다.
                 </p>
@@ -532,7 +547,7 @@ export default function Home() {
                   통증치료
                 </p>
                 <h3 className="kr mt-4 text-xl font-bold">김포 통증치료</h3>
-                <p className="kr mt-3 text-[15px] leading-7 text-muted">
+                <p className="kr mt-3 text-[16px] leading-7 text-muted">
                   허리, 목, 어깨, 무릎. 참고 지내던 통증의 원인을 먼저 찾습니다.
                 </p>
                 <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
@@ -546,7 +561,7 @@ export default function Home() {
                   자동차보험
                 </p>
                 <h3 className="kr mt-4 text-xl font-bold">김포 교통사고</h3>
-                <p className="kr mt-3 text-[15px] leading-7 text-muted">
+                <p className="kr mt-3 text-[16px] leading-7 text-muted">
                   대인접수가 되면 본인부담금 없이 치료받으실 수 있습니다.
                 </p>
                 <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
@@ -557,7 +572,7 @@ export default function Home() {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
-              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
+              <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-faint">
                 동네별
               </span>
               {AREAS.map((a) => (
@@ -590,7 +605,7 @@ export default function Home() {
                   className="tile block bg-surface px-6 py-5"
                 >
                   <span className="kr font-semibold">{c.title}</span>
-                  <span className="kr mt-1 block text-sm text-muted">
+                  <span className="kr mt-1 block text-[15px] text-muted">
                     {c.question}
                   </span>
                 </Link>
@@ -615,7 +630,7 @@ export default function Home() {
                     <span className="kr font-semibold leading-snug">
                       {c.title}
                     </span>
-                    <span className="kr mt-1.5 block text-sm leading-7 text-muted">
+                    <span className="kr mt-1.5 block text-[15px] leading-7 text-muted">
                       {c.summary}
                     </span>
                   </Link>

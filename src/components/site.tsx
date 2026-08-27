@@ -56,7 +56,7 @@ export function SiteHeader() {
                 >
                   {entry.groups.map((g) => (
                     <div key={g.title}>
-                      <p className="px-3 font-mono text-[10px] uppercase tracking-[0.14em] text-faint">
+                      <p className="px-3 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
                         {g.title}
                       </p>
                       <ul className="mt-1.5">
@@ -138,7 +138,7 @@ export function PageHead({ eyebrow, title, lede }: { eyebrow: string; title: str
         ))}
       </h1>
       <p
-        className="enter kr mt-5 max-w-[52ch] text-[17px] leading-8 text-muted"
+        className="enter kr mt-5 max-w-[52ch] text-[18px] leading-8 text-muted"
         style={{ "--d": `${ledeDelay}ms` } as React.CSSProperties}
       >
         {lede}
@@ -159,7 +159,7 @@ export function Section({
   return (
     <section className="mt-14">
       <h2 className="display kr text-2xl sm:text-[1.7rem]">{title}</h2>
-      {note && <p className="kr mt-2 max-w-[58ch] text-[15px] leading-7 text-muted">{note}</p>}
+      {note && <p className="kr mt-2 max-w-[58ch] text-[16px] leading-7 text-muted">{note}</p>}
       <div className="mt-6">{children}</div>
     </section>
   );
@@ -227,7 +227,7 @@ export function MapPanel() {
   return (
     <div>
       <MapFrame />
-      <p className="kr mt-4 text-[15px] leading-7 text-muted">
+      <p className="kr mt-4 text-[16px] leading-7 text-muted">
         {CLINIC.address} · {CLINIC.landmark}
         <br />
         {CLINIC.transit}
@@ -243,7 +243,7 @@ export function Cta({ label = "진료 예약하기" }: { label?: string }) {
   return (
     <aside className="mt-14 rounded-[2rem] border border-herb/15 bg-tint p-8">
       <p className="kr text-xl font-bold">{label}</p>
-      <p className="kr mt-2 text-[15px] leading-7 text-muted">
+      <p className="kr mt-2 text-[16px] leading-7 text-muted">
         {HOURS[0].day} {HOURS[0].time} · {CLINIC.address}
       </p>
       <div className="mt-6 flex flex-wrap gap-2">
@@ -303,7 +303,7 @@ export function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-[minmax(0,1fr)_auto] md:gap-16">
           <div>
             <p className="text-xl font-bold">{CLINIC.name}</p>
-            <address className="kr mt-4 grid gap-1.5 text-sm not-italic leading-7 text-muted">
+            <address className="kr mt-4 grid gap-1.5 text-[15px] not-italic leading-7 text-muted">
               <span>{CLINIC.address}</span>
               <span>{CLINIC.landmark}</span>
               <span>{CLINIC.transit}</span>
@@ -318,7 +318,7 @@ export function SiteFooter() {
                   <dt className="text-muted">{h.day}</dt>
                   <dd className="tabular-nums">
                     {h.time}
-                    {h.note && <span className="ml-2 text-xs text-faint">{h.note}</span>}
+                    {h.note && <span className="ml-2 text-sm text-faint">{h.note}</span>}
                   </dd>
                 </div>
               ))}
@@ -328,7 +328,7 @@ export function SiteFooter() {
           <div className="grid gap-8 sm:grid-cols-3 md:gap-12">
             {FOOTER_NAV.map((col) => (
               <nav key={col.title} aria-label={col.title}>
-                <p className="kr text-[11px] font-medium uppercase tracking-[0.15em] text-faint">
+                <p className="kr text-[12px] font-medium uppercase tracking-[0.15em] text-faint">
                   {col.title}
                 </p>
                 <ul className="mt-4 grid gap-2.5 text-sm">
@@ -346,9 +346,9 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 border-t border-line pt-8">
-          <p className="kr max-w-[76ch] text-xs leading-6 text-faint">{CLINIC.legalNote}</p>
+          <p className="kr max-w-[76ch] text-sm leading-6 text-faint">{CLINIC.legalNote}</p>
           {/* TODO: 사업자 정보 실제 값으로 교체 (의료기관 표시 의무) */}
-          <div className="kr mt-6 border-t border-line pt-6 text-[11px] leading-6 text-faint">
+          <div className="kr mt-6 border-t border-line pt-6 text-[12px] leading-6 text-faint">
             <p>
               상호: {CLINIC.name} | 대표자: {CLINIC.business.owner} | 사업자등록번호: {CLINIC.business.regNo}
             </p>

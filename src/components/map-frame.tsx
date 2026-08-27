@@ -51,7 +51,7 @@ export function MapFrame() {
       <div className="flex h-[22rem] flex-col items-center justify-center px-8 text-center">
         <MapPinIcon className="h-9 w-9 text-herb" />
         <p className="kr mt-4 text-lg font-bold">{CLINIC.name}</p>
-        <p className="kr mt-2 max-w-[34ch] text-[15px] leading-7 text-muted">
+        <p className="kr mt-2 max-w-[34ch] text-[16px] leading-7 text-muted">
           지도를 불러오지 못했습니다. 아래 주소와 지도 앱 버튼으로 길을 찾으실 수
           있습니다.
         </p>

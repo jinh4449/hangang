@@ -105,7 +105,7 @@ export default function Reservation() {
             편리한 <span className="grad inline-block">상담 예약</span>
           </h1>
           <p
-            className="enter kr mx-auto mt-6 max-w-[46ch] text-[17px] leading-8 text-muted"
+            className="enter kr mx-auto mt-6 max-w-[46ch] text-[18px] leading-8 text-muted"
             style={{ "--d": "250ms" } as React.CSSProperties}
           >
             평일은 밤 8시까지, 토요일과 공휴일에도 진료합니다. 전화 한 통이면 가장 빠르게 시간을
@@ -142,7 +142,7 @@ export default function Reservation() {
                 </span>
                 <span className="kr mt-5 font-bold">{c.label}</span>
                 <span className="mt-1 text-lg font-bold text-herb">{c.value}</span>
-                <span className="kr mt-2 text-sm text-muted">{c.note}</span>
+                <span className="kr mt-2 text-[15px] text-muted">{c.note}</span>
               </Tag>
             );
           })}
@@ -150,7 +150,7 @@ export default function Reservation() {
 
         {/* 카카오톡 채널이 아직 없으면 카드 대신 이 줄만 나간다 */}
         {!CLINIC.booking.kakaoChatUrl && !CLINIC.booking.kakaoChannel && (
-          <p className="kr mt-3 text-center text-sm text-faint">
+          <p className="kr mt-3 text-center text-[15px] text-faint">
             카카오톡 상담은 준비 중입니다. 지금은 전화로 문의해 주세요.
           </p>
         )}
@@ -165,7 +165,7 @@ export default function Reservation() {
                 <dt className="text-muted">{h.day}</dt>
                 <dd className="font-display font-medium tabular-nums">
                   {h.time}
-                  {h.note && <span className="ml-2 text-xs text-faint">{h.note}</span>}
+                  {h.note && <span className="ml-2 text-sm text-faint">{h.note}</span>}
                 </dd>
               </div>
             ))}
@@ -194,13 +194,13 @@ export default function Reservation() {
                     </svg>
                   </span>
                 </summary>
-                <p className="kr border-t border-line px-6 py-5 text-[15px] leading-8 text-muted">
+                <p className="kr border-t border-line px-6 py-5 text-[16px] leading-8 text-muted">
                   {f.a}
                 </p>
               </details>
             ))}
           </div>
-          <p className="kr mt-4 text-sm text-muted">
+          <p className="kr mt-4 text-[15px] text-muted">
             여기에 없는 것은{" "}
             <PhoneLink className="font-semibold text-herb underline underline-offset-4">
               {CLINIC.phone}
@@ -224,7 +224,7 @@ export default function Reservation() {
               </div>
             ))}
           </div>
-          <p className="kr mt-3 text-center text-sm text-muted">주차는 세 곳 중 편하신 곳을 이용하시면 됩니다.</p>
+          <p className="kr mt-3 text-center text-[15px] text-muted">주차는 세 곳 중 편하신 곳을 이용하시면 됩니다.</p>
           <div className="mt-6 text-center">
             <Link
               href="/directions"

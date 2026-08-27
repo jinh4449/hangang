@@ -50,7 +50,7 @@ export default function Doctors() {
             <div key={d.key} className="rounded-[1.25rem] border border-line bg-surface p-8">
               <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">{d.role}</p>
               <h3 className="kr mt-3 text-2xl font-bold">{d.name}</h3>
-              <p className="kr mt-4 text-[15px] leading-7 text-muted">
+              <p className="kr mt-4 text-[16px] leading-7 text-muted">
                 {CLINIC.name}에서 진료하고 있습니다.
               </p>
             </div>
@@ -73,7 +73,7 @@ export default function Doctors() {
           {CO_CARE.map((c) => (
             <div key={c.title} className="border-b border-line py-7">
               <h3 className="kr text-lg font-bold leading-snug">{c.title}</h3>
-              <p className="kr mt-3 max-w-[56ch] text-[15px] leading-8 text-muted">{c.body}</p>
+              <p className="kr mt-3 max-w-[56ch] text-[16px] leading-8 text-muted">{c.body}</p>
             </div>
           ))}
         </div>
@@ -83,7 +83,7 @@ export default function Doctors() {
         <div className="grid gap-2 sm:grid-cols-2">
           <Link href="/about" className="tile block bg-surface px-6 py-5">
             <span className="kr font-semibold">병원 소개</span>
-            <span className="kr mt-1 block text-sm text-muted">진료 방침과 공간, 진료 시간</span>
+            <span className="kr mt-1 block text-[15px] text-muted">진료 방침과 공간, 진료 시간</span>
             <span className="tile-arrow mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
               보러 가기
               <Arrow />
@@ -91,7 +91,7 @@ export default function Doctors() {
           </Link>
           <Link href="/reservation" className="tile block bg-surface px-6 py-5">
             <span className="kr font-semibold">예약 · 상담</span>
-            <span className="kr mt-1 block text-sm text-muted">
+            <span className="kr mt-1 block text-[15px] text-muted">
               원장 지정 예약도 말씀해 주시면 됩니다.
             </span>
             <span className="tile-arrow mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-herb">

@@ -27,8 +27,8 @@ export default function PartIndex() {
               className="tile block bg-surface p-7"
             >
               <h2 className="kr text-xl font-bold">{p.name}</h2>
-              <p className="kr mt-2 text-[15px] leading-7 text-muted">{p.summary}</p>
-              <p className="kr mt-4 text-xs leading-6 text-faint">{p.conditions.join(" · ")}</p>
+              <p className="kr mt-2 text-[16px] leading-7 text-muted">{p.summary}</p>
+              <p className="kr mt-4 text-sm leading-6 text-faint">{p.conditions.join(" · ")}</p>
             </Link>
           ))}
         </div>

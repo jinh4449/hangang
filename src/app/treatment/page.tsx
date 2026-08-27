@@ -63,7 +63,7 @@ export default function TreatmentIndex() {
               <h2 className="kr mt-4 text-2xl font-bold">{a.treatment}</h2>
               <p
                 className={
-                  "kr mt-3 text-[15px] leading-7 " +
+                  "kr mt-3 text-[16px] leading-7 " +
                   (a.key === "pain" ? "text-paper/80" : "text-muted")
                 }
               >
@@ -80,7 +80,7 @@ export default function TreatmentIndex() {
           {TREATMENTS.map((t) => (
             <div key={t.slug} className="grid gap-2 border-b border-line py-7">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
                   {AXIS_LABEL[t.axis]}
                 </span>
                 {t.covered && (
@@ -92,7 +92,7 @@ export default function TreatmentIndex() {
               <h3 className="kr text-xl font-bold leading-snug ">
                 {t.fullName}
               </h3>
-              <p className="kr max-w-[56ch] text-[15px] leading-7 text-muted">{t.summary}</p>
+              <p className="kr max-w-[56ch] text-[16px] leading-7 text-muted">{t.summary}</p>
             </div>
           ))}
         </div>

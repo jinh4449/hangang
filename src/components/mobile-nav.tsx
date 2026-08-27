@@ -96,7 +96,7 @@ export function MobileNav() {
                           key={l.href + l.label}
                           href={l.href}
                           onClick={() => setOpen(false)}
-                          className="kr text-[15px] text-muted"
+                          className="kr text-[16px] text-muted"
                         >
                           {l.label}
                         </Link>
@@ -105,7 +105,7 @@ export function MobileNav() {
                 </div>
               ))}
             </nav>
-            <p className="kr mt-8 border-t border-line pt-5 text-sm text-muted">
+            <p className="kr mt-8 border-t border-line pt-5 text-[15px] text-muted">
               {CLINIC.address}
               <span className="block">{CLINIC.transit}</span>
             </p>

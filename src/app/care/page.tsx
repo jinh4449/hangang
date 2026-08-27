@@ -37,13 +37,13 @@ export default function CareIndex() {
               <Link key={s.slug} href={`/care/${s.slug}`} className="tile block bg-surface p-7">
                 {Icon ? <Icon className="h-8 w-8 text-herb" /> : null}
                 <h2 className="kr mt-4 text-xl font-bold">{s.name}</h2>
-                <p className="mt-1 font-display text-xs text-faint">{s.clinicalName}</p>
+                <p className="mt-1 font-display text-sm text-faint">{s.clinicalName}</p>
                 {s.highlight && (
                   <span className="mt-3 inline-block rounded-full bg-ochre-soft px-3 py-1 text-xs font-semibold text-ochre">
                     {s.highlight.label}
                   </span>
                 )}
-                <p className="kr mt-3 text-[15px] leading-7 text-muted">{s.summary}</p>
+                <p className="kr mt-3 text-[16px] leading-7 text-muted">{s.summary}</p>
                 <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
                   자세히 보기
                   <Arrow />

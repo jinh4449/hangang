@@ -52,7 +52,7 @@ export default function About() {
                 <span className="mt-0.5 shrink-0 text-herb">
                   {Icon ? <Icon className="h-5 w-5" /> : null}
                 </span>
-                <span className="kr text-[15px] leading-7 text-muted">
+                <span className="kr text-[16px] leading-7 text-muted">
                   <strong className="font-semibold text-ink">{pf.title}</strong> {pf.body}
                 </span>
               </li>
@@ -73,8 +73,8 @@ export default function About() {
                 <div className="text-herb">{Icon ? <Icon className="h-10 w-10" /> : null}</div>
                 <div>
                   <h3 className="kr text-xl font-bold leading-snug">{w.title}</h3>
-                  <p className="kr mt-3 max-w-[56ch] text-[15px] leading-8 text-muted">{w.body}</p>
-                  {w.basis && <p className="kr mt-3 text-xs text-faint">※ {w.basis}</p>}
+                  <p className="kr mt-3 max-w-[56ch] text-[16px] leading-8 text-muted">{w.body}</p>
+                  {w.basis && <p className="kr mt-3 text-sm text-faint">※ {w.basis}</p>}
                 </div>
               </div>
             );
@@ -127,7 +127,7 @@ export default function About() {
         <div className="grid gap-2 sm:grid-cols-2">
           <Link href="/doctors" className="tile block bg-surface px-6 py-5">
             <span className="kr font-semibold">의료진 소개</span>
-            <span className="kr mt-1 block text-sm text-muted">
+            <span className="kr mt-1 block text-[15px] text-muted">
               이진희 · 왕소정 원장이 함께 진료합니다.
             </span>
             <span className="tile-arrow mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
@@ -137,7 +137,7 @@ export default function About() {
           </Link>
           <Link href="/directions" className="tile block bg-surface px-6 py-5">
             <span className="kr font-semibold">오시는 길</span>
-            <span className="kr mt-1 block text-sm text-muted">{CLINIC.transit}</span>
+            <span className="kr mt-1 block text-[15px] text-muted">{CLINIC.transit}</span>
             <span className="tile-arrow mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
               보러 가기
               <Arrow />

@@ -48,7 +48,7 @@ export default function ColumnIndex() {
               href={`/column/${c.slug}`}
               className="group grid gap-2 border-b border-line py-7 transition-colors hover:bg-surface"
             >
-              <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-faint">
+              <div className="flex flex-wrap items-center gap-3 font-mono text-sm text-faint">
                 <time dateTime={c.date} className="tabular-nums">
                   {fmtDate(c.date)}
                 </time>
@@ -62,7 +62,7 @@ export default function ColumnIndex() {
               <h2 className="kr text-xl font-bold leading-snug transition-colors group-hover:text-herb">
                 {c.title}
               </h2>
-              <p className="kr max-w-[56ch] text-[15px] leading-7 text-muted">{c.summary}</p>
+              <p className="kr max-w-[56ch] text-[16px] leading-7 text-muted">{c.summary}</p>
             </Link>
           ))}
         </div>

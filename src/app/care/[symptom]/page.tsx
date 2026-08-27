@@ -120,7 +120,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h3 className="kr mt-3 text-[17px] font-bold leading-snug">{f.title}</h3>
-                  <p className="kr mt-2 text-[15px] leading-7 text-muted">{f.text}</p>
+                  <p className="kr mt-2 text-[16px] leading-7 text-muted">{f.text}</p>
                   {f.tag && (
                     <span className="kr mt-4 self-start rounded-full bg-tint px-3 py-1 text-xs font-medium text-herb">
                       {f.tag}
@@ -157,7 +157,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                     </span>
                   )}
                   <h3 className="kr text-[19px] font-bold leading-snug">{t.name}</h3>
-                  <p className="kr mt-3 text-[15px] leading-7 text-muted">{t.body}</p>
+                  <p className="kr mt-3 text-[16px] leading-7 text-muted">{t.body}</p>
                   {t.covered && (
                     <span className="kr mt-5 self-start rounded-full border border-herb-line bg-tint px-3 py-1 text-xs font-medium text-herb">
                       건강보험 적용
@@ -181,7 +181,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                 </span>
                 <div>
                   <h3 className="font-semibold">{st.label}</h3>
-                  <p className="mt-1.5 text-[15px] leading-7 text-muted">{st.detail}</p>
+                  <p className="mt-1.5 text-[16px] leading-7 text-muted">{st.detail}</p>
                 </div>
               </li>
             ))}
@@ -194,7 +194,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
               {sec.items.map((it) => (
                 <div key={it.title} className="rounded border border-line bg-surface p-5">
                   <h3 className="font-semibold">{it.title}</h3>
-                  <p className="mt-2 text-[15px] leading-7 text-muted">{it.body}</p>
+                  <p className="mt-2 text-[16px] leading-7 text-muted">{it.body}</p>
                 </div>
               ))}
             </div>
@@ -210,12 +210,12 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                     {f.q}
                     <span
                       aria-hidden="true"
-                      className="shrink-0 text-lg text-faint transition-transform group-open:rotate-45"
+                      className="shrink-0 text-[19px] text-faint transition-transform group-open:rotate-45"
                     >
                       +
                     </span>
                   </summary>
-                  <p className="kr pb-6 text-[15px] leading-8 text-muted">{f.a}</p>
+                  <p className="kr pb-6 text-[16px] leading-8 text-muted">{f.a}</p>
                 </details>
               ))}
             </div>
@@ -235,7 +235,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                     className="rounded border border-line bg-surface px-5 py-4 transition-colors hover:border-herb"
                   >
                     <span className="font-semibold">{c.title}</span>
-                    <span className="mt-1 block text-sm text-muted">{c.question}</span>
+                    <span className="mt-1 block text-[15px] text-muted">{c.question}</span>
                   </Link>
                 );
               })}

@@ -63,8 +63,8 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           <h1 className="kr text-3xl font-bold leading-tight tracking-tight text-balance sm:text-[2.4rem]">
             {c.title}
           </h1>
-          <p className="kr mt-5 max-w-[52ch] text-[17px] leading-8 text-muted">{c.summary}</p>
-          <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-xs text-faint">
+          <p className="kr mt-5 max-w-[52ch] text-[18px] leading-8 text-muted">{c.summary}</p>
+          <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-sm text-faint">
             <time dateTime={c.date} className="tabular-nums">
               {fmtDate(c.date)}
             </time>
@@ -90,7 +90,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
                     className="tile block bg-surface px-5 py-4"
                   >
                     <span className="kr font-semibold">{sym.name}</span>
-                    <span className="kr mt-1 block text-sm text-muted">{sym.summary}</span>
+                    <span className="kr mt-1 block text-[15px] text-muted">{sym.summary}</span>
                   </Link>
                 );
               })}
@@ -108,7 +108,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
                   className="tile block bg-surface px-5 py-4"
                 >
                   <span className="kr font-semibold">{o.title}</span>
-                  <span className="kr mt-1 block text-sm text-muted">{o.summary}</span>
+                  <span className="kr mt-1 block text-[15px] text-muted">{o.summary}</span>
                 </Link>
               ))}
             </div>

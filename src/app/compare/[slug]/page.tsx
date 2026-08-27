@@ -21,8 +21,8 @@ function Pane({ pane, tone }: { pane: ComparePane; tone: "a" | "b" }) {
   return (
     <div className={`rounded border p-6 ${accent}`}>
       <h3 className="font-serif text-xl font-bold">{pane.name}</h3>
-      <p className="mt-3 text-[15px] leading-7 text-muted">{pane.does}</p>
-      <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.1em] text-faint">
+      <p className="mt-3 text-[16px] leading-7 text-muted">{pane.does}</p>
+      <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.1em] text-faint">
         이런 상황이라면
       </p>
       <ul className="mt-2 grid gap-1.5">
@@ -91,7 +91,7 @@ export default async function ComparePage({ params }: PageProps<"/compare/[slug]
                   <span className="font-semibold">
                     {s.name} <span className="text-muted">({s.clinicalName})</span>
                   </span>
-                  <span className="mt-1 block text-sm text-muted">{s.summary}</span>
+                  <span className="mt-1 block text-[15px] text-muted">{s.summary}</span>
                 </Link>
               );
             })}

@@ -89,7 +89,7 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
                       </span>
                     )}
                   </div>
-                  <p className="kr mt-3 text-[15px] leading-8 text-muted">{a.role}</p>
+                  <p className="kr mt-3 text-[16px] leading-8 text-muted">{a.role}</p>
                 </div>
               );
             })}

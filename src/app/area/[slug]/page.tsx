@@ -47,12 +47,12 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
               {a.access.map((ac) => (
                 <div key={ac.label} className="grid gap-1 px-5 py-4 sm:grid-cols-[6rem_1fr] sm:gap-5">
                   <dt className="text-sm font-medium text-herb">{ac.label}</dt>
-                  <dd className="kr text-[15px] leading-7 text-muted">{ac.detail}</dd>
+                  <dd className="kr text-[16px] leading-7 text-muted">{ac.detail}</dd>
                 </div>
               ))}
             </dl>
           </Bezel>
-          <p className="kr mt-4 text-sm leading-7 text-muted">
+          <p className="kr mt-4 text-[15px] leading-7 text-muted">
             {CLINIC.address} · {CLINIC.landmark}
           </p>
           <div className="mt-5">
@@ -62,7 +62,7 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
 
         {a.local.map((l) => (
           <Section key={l.title} title={l.title}>
-            <p className="kr max-w-[58ch] text-[15px] leading-8 text-muted">{l.body}</p>
+            <p className="kr max-w-[58ch] text-[16px] leading-8 text-muted">{l.body}</p>
           </Section>
         ))}
 
@@ -78,7 +78,7 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
                   className="tile block bg-surface px-5 py-4"
                 >
                   <span className="kr font-semibold">{s.name}</span>
-                  <span className="kr mt-1 block text-sm text-muted">{s.summary}</span>
+                  <span className="kr mt-1 block text-[15px] text-muted">{s.summary}</span>
                 </Link>
               );
             })}
