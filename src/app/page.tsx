@@ -240,9 +240,8 @@ export default function Home() {
             <p className="kr mx-auto mt-7 max-w-[56ch] text-[18px] leading-8 text-muted xl:mt-9 xl:text-[20px] xl:leading-9">
               <Lines>
                 {[
-                  "세 가지 다 물어보셔도 됩니다.",
-                  "그리고 안 될 것 같으면 안 된다고 먼저 말씀드립니다.",
-                  "그 말을 할 수 있어야 맡기실 수 있다고 생각합니다.",
+                  "꼼꼼히 짚어보고, 충분히 듣고, 이해하기 쉽게 설명합니다.",
+                  "꼭 필요한 치료로 삶에 도움이 되는 진료를 합니다.",
                 ]}
               </Lines>
             </p>
