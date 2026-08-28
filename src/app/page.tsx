@@ -265,19 +265,19 @@ export default function Home() {
           <h1 className="display display-black kr mt-8 text-[2.15rem] leading-[1.26] sm:text-[3.1rem] lg:text-[3.8rem] xl:text-[4.5rem] 2xl:text-[5.2rem]">
             <span
               className="enter block"
-              style={{ "--d": "110ms" } as React.CSSProperties}
+              style={{ "--d": "180ms" } as React.CSSProperties}
             >
               내 증상, 이해해줄까?
             </span>
             <span
               className="enter block"
-              style={{ "--d": "250ms" } as React.CSSProperties}
+              style={{ "--d": "430ms" } as React.CSSProperties}
             >
               편하게 물어봐도 될까?
             </span>
             <span
               className="enter block"
-              style={{ "--d": "390ms" } as React.CSSProperties}
+              style={{ "--d": "680ms" } as React.CSSProperties}
             >
               {/* 세 번째 질문에만 표시가 남는다. 물음 뒤에 답이 오는 순서.
                   밑줄은 한글 받침을 뚫고 지나가므로 글자 뒤에 깔리는 쪽을 쓴다 */}
@@ -304,7 +304,7 @@ export default function Home() {
             </span>
           </h1>
 
-          <Enter d={520}>
+          <Enter d={980}>
             <p className="kr mx-auto mt-7 max-w-[56ch] text-[18px] leading-8 text-muted xl:mt-9 xl:text-[20px] xl:leading-9">
               <Lines>
                 {[

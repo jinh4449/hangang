@@ -500,7 +500,7 @@ a.tile-dark:hover {
 }
 @media (prefers-reduced-motion: no-preference) {
   .answer-mark path {
-    animation: answerDraw 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+    animation: answerDraw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.32s forwards;
   }
 }
 @media (prefers-reduced-motion: reduce) {

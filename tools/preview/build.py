@@ -188,6 +188,28 @@ JS = """
     if(!hit&&pages.length){pages[0].hidden=false;route=pages[0].dataset.route;}
     sel.value=route;
     window.scrollTo(0,0);
+    replayIntro();
+  }
+
+  /* 첫 화면 애니메이션은 문서가 열릴 때 한 번만 돈다. 여기는 30개 페이지가
+     한 파일에 쌓여 있어서, 보고 있지도 않은 사이에 다 끝나 버린다.
+     페이지를 바꿀 때마다 그 페이지 것만 다시 건다 */
+  function replayIntro(){
+    var live=pages.filter(function(el){return !el.hidden;})[0];
+    if(!live)return;
+    var els=live.querySelectorAll('.enter,.answer-mark path');
+    var i;
+    // 크롤러가 끝난 상태를 인라인으로 굳혀 담는다(opacity:1 등). 그대로 두면
+    // 애니메이션을 다시 걸어도 인라인 값이 이겨서 아무 일도 일어나지 않는다
+    var FROZEN=['opacity','filter','transform'];
+    for(i=0;i<els.length;i++){
+      for(var k=0;k<FROZEN.length;k++)els[i].style.removeProperty(FROZEN[k]);
+      els[i].style.animation='none';
+    }
+    // 끄기와 켜기 사이에 리플로우를 한 번만 강제한다. 하나씩 껐다 켜면
+    // 서로 다른 프레임에 다시 시작해 순서가 흐트러진다
+    if(els.length)els[0].getBoundingClientRect();  // SVG 에는 offsetWidth 가 없다
+    for(i=0;i<els.length;i++)els[i].style.animation='';
   }
   function fromHash(){
     var h=decodeURIComponent(location.hash.replace(/^#/,''))||'/';
