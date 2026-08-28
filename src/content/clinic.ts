@@ -52,8 +52,8 @@ export const CLINIC = {
     kakaoChannel: null as string | null,
     /** 카카오톡 채널 채팅 링크. 예: "http://pf.kakao.com/_xxxxx/chat" */
     kakaoChatUrl: null as string | null,
-    /** 네이버 예약 링크. 없으면 네이버 플레이스로 연결한다 — TODO: 네이버 예약 개설 후 입력 */
-    naverBookingUrl: null as string | null,
+    /** 네이버 예약 링크. 없으면 네이버 플레이스로 연결한다 */
+    naverBookingUrl: "https://booking.naver.com/booking/13/bizes/1623687" as string | null,
   },
 
   /**
