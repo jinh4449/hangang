@@ -36,7 +36,7 @@ function channels(): Channel[] {
       key: "phone",
       label: "전화 예약",
       value: CLINIC.phone,
-      note: "가장 빠릅니다",
+      note: `평일 ${CLINIC.schedule.weekday.open}-${CLINIC.schedule.weekday.close}`,
       href: CLINIC.phoneHref,
       tile: "bg-herb",
       glyph: "text-paper",
@@ -60,9 +60,9 @@ function channels(): Channel[] {
 
   list.push({
     key: "naver",
-    label: b.naverBookingUrl ? "네이버 예약" : "네이버 플레이스",
-    value: b.naverBookingUrl ? "간편 예약" : "위치 · 리뷰 확인",
-    note: b.naverBookingUrl ? "24시간 신청 가능" : "길찾기와 리뷰를 볼 수 있습니다",
+    label: "네이버 예약",
+    value: "간편예약",
+    note: "24시간 가능",
     href: b.naverBookingUrl ?? CLINIC.placeUrl,
     external: true,
     tile: "bg-[#03C75A]",
