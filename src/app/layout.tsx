@@ -96,6 +96,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="ko" className={`${outfit.variable} h-full`}>
       <body className="flex min-h-full flex-col font-sans">
         <JsonLd data={clinicJsonLd} />
+        {/* 스크립트를 끈 채로 스크롤 연동도 모르는 브라우저라면 떠오를 방법이 없다.
+            그 경우에만 처음부터 보이게 되돌린다 */}
+        <noscript>
+          <style>{`.rise{opacity:1!important;animation:none!important}`}</style>
+        </noscript>
         <SiteHeader />
         <main className="flex-1 pt-20">{children}</main>
         <SiteFooter />
