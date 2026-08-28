@@ -233,6 +233,12 @@ export default function Home() {
           }}
         />
 
+        {/* 세로 가운데 정렬이라, 아래에 빈 칸을 두면 그 절반만큼 글이 올라간다.
+            제목 한 줄만큼 올리려고 한 줄 높이의 두 배를 비워 둔다 */}
+        <div
+          aria-hidden="true"
+          className="order-last h-[calc(2*clamp(2.5rem,6vw,5.25rem))] shrink-0"
+        />
         <div className="relative mx-auto w-full max-w-[80rem] px-[clamp(1.5rem,6vw,7rem)] pb-14 pt-12 text-center sm:pt-16 xl:pb-20 xl:pt-24">
           <Enter d={0}>
             <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
