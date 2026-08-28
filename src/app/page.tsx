@@ -7,7 +7,19 @@ import { columnsByDate } from "@/content/column";
 import { PARTS } from "@/content/part";
 import { JsonLd, Arrow } from "@/components/site";
 import { Reveal } from "@/components/reveal";
-import { SYMPTOM_ICONS, MapPinIcon } from "@/components/icons";
+import {
+  SYMPTOM_ICONS,
+  MapPinIcon,
+  UltrasoundIcon,
+  CoDoctorIcon,
+  RedirectIcon,
+  ScaleIcon,
+  ChatIcon,
+  ShieldIcon,
+  DocIcon,
+  EyeIcon,
+  ClockIcon,
+} from "@/components/icons";
 
 const pain = getSymptom("pain")!;
 
@@ -69,6 +81,19 @@ function H2({
     </div>
   );
 }
+
+/** 우리 기준 칸의 아이콘. 키는 clinic.ts 의 icon 값 */
+const STANDARD_ICONS: Record<string, (p: { className?: string }) => React.JSX.Element> = {
+  ultrasound: UltrasoundIcon,
+  codoctor: CoDoctorIcon,
+  doc: DocIcon,
+  clock: ClockIcon,
+  scale: ScaleIcon,
+  shield: ShieldIcon,
+  chat: ChatIcon,
+  eye: EyeIcon,
+  redirect: RedirectIcon,
+};
 
 /**
  * 소개 비율 원.
@@ -261,9 +286,10 @@ export default function Home() {
               <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
                 {CLINIC.whyHero.eyebrow}
               </span>
-              <h2 className="display kr mt-5 text-[1.65rem] text-balance sm:text-[2.3rem]">
-                {CLINIC.whyHero.headline[0]}
-                <br />
+              {/* 다른 섹션 제목과 같은 크기로 세운다. 좁은 화면에서는 저절로 꺾이되
+                  넓은 화면에서는 한 줄로 붙잡아 둔다 */}
+              <h2 className="display kr mt-5 text-3xl text-balance sm:whitespace-nowrap sm:text-4xl xl:text-[2.75rem]">
+                {CLINIC.whyHero.headline[0]}{" "}
                 <span className="grad">{CLINIC.whyHero.headline[1]}</span>
               </h2>
               <p className="kr mt-4 text-[17px] leading-8 text-muted">
@@ -271,7 +297,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="relative mt-8 overflow-hidden rounded-[2rem] bg-ink p-7 text-paper md:p-10 xl:p-12">
+            {/* 약속과 그 약속을 지키는 방법. 자세는 이 판이 아니라 아래 칸이 맡는다 */}
+            <div className="relative mt-8 overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-11 xl:p-14">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full"
@@ -281,62 +308,69 @@ export default function Home() {
                 }}
               />
 
-              <div className="relative grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
-                <div>
-                  <p className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-[0.2em] text-paper/50">
-                    <span
-                      aria-hidden="true"
-                      className="h-px w-10 bg-paper/30"
-                    />
-                    {CLINIC.standards.eyebrow}
-                  </p>
-                  {/* 두 줄로 선다. 넓은 화면에서는 줄이 꺾이지 않게 붙잡아 둔다 */}
-                  <h3 className="kr mt-5 text-[1.5rem] font-bold leading-[1.35] tracking-[-0.03em] sm:text-[1.8rem] lg:whitespace-nowrap lg:text-[1.62rem] xl:text-[1.9rem] 2xl:text-[2.2rem]">
-                    {CLINIC.standards.headline[0]}
-                    <span className="text-herb-light">
-                      {CLINIC.standards.headline[1]}
-                    </span>
-                    <br />
-                    {CLINIC.standards.headline[2]}
-                  </h3>
-                </div>
+              <div className="relative">
+                <h3 className="kr text-[1.7rem] font-bold leading-[1.35] tracking-[-0.03em] sm:text-[2.1rem] xl:text-[2.4rem]">
+                  {CLINIC.standards.headline[0]}
+                  <span className="text-herb-light">{CLINIC.standards.headline[1]}</span>
+                  <br />
+                  {CLINIC.standards.headline[2]}
+                </h3>
+                <p className="kr mt-5 max-w-[56ch] text-[16.5px] leading-8 text-paper/70">
+                  {CLINIC.standards.sub}
+                </p>
+                <span className="mt-7 inline-flex items-center gap-2 rounded-full bg-paper/10 px-4 py-2 text-[14px] font-semibold">
+                  <ShieldIcon className="h-4 w-4 text-herb-light" />
+                  {CLINIC.standards.badge}
+                </span>
 
-                <div className="space-y-5">
-                  {CLINIC.standards.body.map((t) => (
-                    <p
-                      key={t}
-                      className="kr text-[14.5px] leading-7 text-paper/70 xl:text-[15px]"
-                    >
-                      {t}
-                    </p>
-                  ))}
-                </div>
+                <hr className="my-9 border-paper/12" />
+
+                <p className="kr text-[15.5px] text-paper/60">
+                  {CLINIC.standards.howLead}{" "}
+                  <strong className="font-semibold text-paper">
+                    {CLINIC.standards.howLeadStrong}
+                  </strong>
+                </p>
+                <ul className="mt-6 grid gap-x-12 gap-y-6 md:grid-cols-2">
+                  {CLINIC.standards.how.map((h) => {
+                    const Icon = STANDARD_ICONS[h.icon];
+                    return (
+                      <li key={h.title} className="flex gap-3.5">
+                        {Icon && <Icon className="mt-0.5 h-5 w-5 shrink-0 text-herb-light" />}
+                        <p className="kr text-[15.5px] leading-7 text-paper/65">
+                          <strong className="font-semibold text-paper">{h.title}.</strong>{" "}
+                          {h.body}
+                        </p>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
+            </div>
 
-              <ul className="relative mt-10 grid gap-2.5 md:grid-cols-2 lg:grid-cols-3">
-                {CLINIC.standards.values.map((v) => (
+            {/* 진료 자세 — 검은 판 밖으로 꺼내야 각각이 한 장으로 읽힌다 */}
+            <ul className="mt-3 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+              {CLINIC.standards.values.map((v) => {
+                const Icon = STANDARD_ICONS[v.icon];
+                return (
                   <li
                     key={v.no}
-                    className="rounded-[1.25rem] border border-paper/12 bg-paper/[0.04] p-6"
+                    className="flex flex-col rounded-[1.5rem] border border-line bg-surface p-7"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-[11px] tracking-[0.1em] text-herb-light">
-                        {v.no}
+                    {Icon && (
+                      <span className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-[0.9rem] bg-surface-2 text-herb">
+                        <Icon className="h-6 w-6" />
                       </span>
-                      <span className="kr rounded-full bg-paper/10 px-3 py-1 text-[11px] font-medium text-paper/70">
-                        핵심가치 · {v.tag}
-                      </span>
-                    </div>
-                    <h3 className="kr mt-4 text-[17px] font-bold leading-snug">
-                      {v.title}
-                    </h3>
-                    <p className="kr mt-2.5 text-[13.5px] leading-7 text-paper/60">
-                      {v.body}
-                    </p>
+                    )}
+                    <h3 className="kr text-[18px] font-bold leading-snug">{v.title}</h3>
+                    <p className="kr mt-3 grow text-[15.5px] leading-7 text-muted">{v.body}</p>
+                    <span className="kr mt-6 self-start rounded-full bg-tint px-3 py-1 text-[12px] font-medium text-herb">
+                      핵심가치 · {v.tag}
+                    </span>
                   </li>
-                ))}
-              </ul>
-            </div>
+                );
+              })}
+            </ul>
           </section>
         </Reveal>
 

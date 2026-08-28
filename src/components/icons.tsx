@@ -247,3 +247,44 @@ export const TREATMENT_ICONS: Record<string, (p: P) => React.JSX.Element> = {
   herb: HerbIcon,
   meal: MealIcon,
 };
+
+/** 지키는 것 — 방패 */
+export function ShieldIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path d="M12 3l7 2.6v5.6c0 4.2-2.9 7.6-7 8.8-4.1-1.2-7-4.6-7-8.8V5.6L12 3Z" {...stroke} />
+      <path d="m8.8 12 2.2 2.2 4.2-4.4" {...stroke} />
+    </svg>
+  );
+}
+
+/** 적어서 남긴다 — 문서 */
+export function DocIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path d="M6 3.5h7l5 5v12a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 5 20.5v-15A1.5 1.5 0 0 1 6.5 3.5Z" {...stroke} />
+      <path d="M13 3.5V9h5" {...stroke} />
+      <path d="M8.5 13h7M8.5 16.5h4.5" {...stroke} />
+    </svg>
+  );
+}
+
+/** 눈으로 확인한다 */
+export function EyeIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" {...stroke} />
+      <circle cx="12" cy="12" r="3" {...stroke} />
+    </svg>
+  );
+}
+
+/** 때가 되면 끝낸다 — 시계 */
+export function ClockIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="12" cy="12" r="8.5" {...stroke} />
+      <path d="M12 7v5.2l3.2 2" {...stroke} />
+    </svg>
+  );
+}
