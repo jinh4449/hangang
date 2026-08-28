@@ -82,6 +82,29 @@ function H2({
   );
 }
 
+/**
+ * 첫 화면 배경 — 한강.
+ *
+ * 흰 바탕에 글자만 있으면 비어 보인다. 그렇다고 무늬를 깔면 글자와 다툰다.
+ * 그래서 낮게 깔린 빛 한 겹만 둔다. 이름이 한강이니 물가의 새벽빛이다.
+ * 장식이 아니라 공기라서, 있는 줄 모르고 읽다가 없으면 허전한 정도로만 넣는다.
+ */
+function RiverGlow() {
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+      {/* 흐림을 걸어야 가장자리에 금이 보이지 않는다. 칸 밖으로 넉넉히 빼 둔다 */}
+      <div
+        className="absolute left-1/2 top-[62%] h-[46rem] w-[76rem] -translate-x-1/2 rounded-[50%] opacity-70 blur-[90px]"
+        style={{ background: "radial-gradient(closest-side, rgba(30,91,69,.20), transparent)" }}
+      />
+      <div
+        className="absolute right-[-14rem] top-[-16rem] h-[38rem] w-[38rem] rounded-full opacity-70 blur-[80px]"
+        style={{ background: "radial-gradient(closest-side, rgba(194,161,102,.24), transparent)" }}
+      />
+    </div>
+  );
+}
+
 /** 우리 기준 칸의 아이콘. 키는 clinic.ts 의 icon 값 */
 const STANDARD_ICONS: Record<string, (p: { className?: string }) => React.JSX.Element> = {
   ultrasound: UltrasoundIcon,
@@ -223,15 +246,8 @@ export default function Home() {
 
       {/* 히어로 — 환자가 속으로 던지는 세 가지 질문을 그대로 세운다.
           첫 화면은 이 세 줄만 보이게 화면을 통째로 쓴다 */}
-      <section className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden border-b border-line">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[-22rem] h-[44rem] w-[44rem] -translate-x-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(30,91,69,.09) 0%, rgba(30,91,69,0) 68%)",
-          }}
-        />
+      <section className="relative flex min-h-[calc(100svh-5rem)] flex-col justify-center overflow-hidden border-b border-line">
+        <RiverGlow />
 
         {/* 세로 가운데 정렬이라, 아래에 빈 칸을 두면 그 절반만큼 글이 올라간다.
             제목 한 줄만큼 올리려고 한 줄 높이의 두 배를 비워 둔다 */}
@@ -260,10 +276,31 @@ export default function Home() {
               편하게 물어봐도 될까?
             </span>
             <span
-              className="grad enter block"
+              className="enter block"
               style={{ "--d": "390ms" } as React.CSSProperties}
             >
-              믿고 맡겨도 될까?
+              {/* 세 번째 질문에만 표시가 남는다. 물음 뒤에 답이 오는 순서.
+                  밑줄은 한글 받침을 뚫고 지나가므로 글자 뒤에 깔리는 쪽을 쓴다 */}
+              <span className="relative inline-block">
+                <span className="grad">믿고 맡겨도 될까?</span>
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 300 10"
+                  preserveAspectRatio="none"
+                  className="answer-mark absolute left-0 top-full h-[0.16em] w-full overflow-visible"
+                >
+                  {/* pathLength 로 길이를 1로 맞춘다. 그래야 글자 폭이 바뀌어도
+                      선이 잘리지 않고 끝까지 그어진다 */}
+                  <path
+                    d="M2 6C64 2 168 1.5 298 4.5"
+                    pathLength={1}
+                    fill="none"
+                    stroke="var(--grad-b)"
+                    strokeWidth="3.4"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
             </span>
           </h1>
 
@@ -280,6 +317,13 @@ export default function Home() {
 
         </div>
 
+        <a
+          href="#why"
+          aria-label="아래로"
+          className="scroll-cue absolute bottom-7 left-1/2 hidden -translate-x-1/2 sm:block"
+        >
+          <span aria-hidden="true" className="scroll-cue-rail" />
+        </a>
       </section>
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.5rem,6vw,7rem)] py-16 xl:py-24">
@@ -287,7 +331,7 @@ export default function Home() {
         {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다.
             내용이 많아 한 화면을 넘기므로 여기만 글자와 여백을 한 단계 줄인다 */}
         <Reveal>
-          <section className="screen">
+          <section id="why" className="screen">
             <div className="mx-auto max-w-3xl text-center">
               <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
                 {CLINIC.whyHero.eyebrow}

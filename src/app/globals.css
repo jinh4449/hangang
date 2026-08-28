@@ -490,3 +490,56 @@ a.tile-dark:hover {
     min-height: 0;
   }
 }
+
+/* ── 첫 화면: 답이 남는 자리 ─────────────────────────────
+   세 질문 중 마지막에만 표시가 남는다. 글자가 앉은 뒤에 왼쪽에서 그어진다.
+   글줄 상자 아래에 붙여야 한글 받침을 뚫지 않는다. */
+.answer-mark path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .answer-mark path {
+    animation: answerDraw 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .answer-mark path {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes answerDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 아래가 더 있다는 표시 */
+.scroll-cue-rail {
+  display: block;
+  width: 1px;
+  height: 3rem;
+  background: linear-gradient(to bottom, transparent, var(--line));
+  position: relative;
+}
+.scroll-cue-rail::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 9999px;
+  background: var(--herb);
+  animation: cueFall 2.4s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+@keyframes cueFall {
+  0% { transform: translateY(0); opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { transform: translateY(2.6rem); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue-rail::after { animation: none; opacity: 0.6; }
+}
