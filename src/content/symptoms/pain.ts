@@ -6,9 +6,6 @@ export const pain: Symptom = {
   clinicalName: "척추·관절 통증",
   summary: "허리, 목, 어깨, 무릎. 참고 지내던 통증의 원인을 먼저 찾습니다.",
 
-  // TODO: 통증치료에 맞는 사진으로 교체할 것. 지금은 배치 확인용 임시 이미지다
-  heroImage: "/clinic-interior.jpg",
-
   care: {
     title: "통증치료",
     lede:

@@ -207,10 +207,6 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                 </div>
               ))}
             </div>
-            <p className="kr mt-4 rounded-[1rem] border border-ochre-line bg-ochre-soft px-6 py-5 text-[15.5px] leading-7">
-              비급여 항목은 치료를 시작하기 전에 금액을 말씀드립니다. 표에 없는 항목이나 정확한
-              금액은 {CLINIC.phone} 로 문의해 주세요.
-            </p>
           </Section>
         )}
 
