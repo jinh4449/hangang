@@ -1,6 +1,5 @@
 import { SYMPTOMS } from "./symptoms";
 import { PARTS } from "./part";
-import { AREAS } from "./area";
 import { COMPARES } from "./compare";
 
 /**
@@ -72,12 +71,11 @@ export const NAV: NavEntry[] = [
     href: "/directions",
     groups: [
       {
-        // 읽을거리는 콘텐츠로 옮겼다
+        // 읽을거리는 콘텐츠로, 동네별 안내는 푸터로 갔다
         title: "찾아오시는 길",
         links: [
           { label: "오시는 길", href: "/directions" },
           { label: "예약 · 상담", href: "/reservation" },
-          ...AREAS.map((a) => ({ label: a.name, href: `/area/${a.slug}` })),
         ],
       },
     ],
