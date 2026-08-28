@@ -114,7 +114,16 @@ export function Arrow({ className = "" }: { className?: string }) {
  * 스크롤을 기다리지 않고 로드와 동시에 어절 단위로 글자가 맺힌다.
  * 지연은 CSS 변수로만 넘기고 계산은 여기서 끝낸다.
  */
-export function PageHead({ eyebrow, title, lede }: { eyebrow: string; title: string; lede: string }) {
+export function PageHead({
+  eyebrow,
+  title,
+  lede,
+}: {
+  eyebrow: string;
+  title: string;
+  /** 없으면 제목만 세운다 */
+  lede?: string;
+}) {
   const words = title.split(" ");
   const ledeDelay = 220 + words.length * 70;
 
@@ -137,12 +146,14 @@ export function PageHead({ eyebrow, title, lede }: { eyebrow: string; title: str
           </span>
         ))}
       </h1>
-      <p
-        className="enter kr mt-5 max-w-[52ch] text-[18px] leading-8 text-muted"
-        style={{ "--d": `${ledeDelay}ms` } as React.CSSProperties}
-      >
-        {lede}
-      </p>
+      {lede && (
+        <p
+          className="enter kr mt-5 max-w-[52ch] text-[18px] leading-8 text-muted"
+          style={{ "--d": `${ledeDelay}ms` } as React.CSSProperties}
+        >
+          {lede}
+        </p>
+      )}
     </header>
   );
 }

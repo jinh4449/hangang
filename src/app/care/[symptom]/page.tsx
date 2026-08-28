@@ -4,7 +4,6 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { CLINIC } from "@/content/clinic";
-import { getCompare } from "@/content/compare";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
@@ -88,7 +87,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
               const Icon = SYMPTOM_ICONS[s.slug];
               return Icon ? <Icon className="mb-5 h-10 w-10 text-herb" /> : null;
             })()}
-            <PageHead eyebrow={s.clinicalName} title={care.title} lede={care.lede} />
+            <PageHead eyebrow={s.clinicalName} title={care.title} />
           </>
         )}
 
@@ -265,27 +264,6 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                   <p className="kr pb-6 text-[16.5px] leading-8 text-muted">{f.a}</p>
                 </details>
               ))}
-            </div>
-          </Section>
-        )}
-
-        {s.compareSlugs.length > 0 && (
-          <Section title="함께 보면 좋은 비교">
-            <div className="grid gap-2.5 sm:grid-cols-2">
-              {s.compareSlugs.map((cs) => {
-                const c = getCompare(cs);
-                if (!c) return null;
-                return (
-                  <Link
-                    key={cs}
-                    href={`/compare/${cs}`}
-                    className="rounded-[1rem] border border-line bg-surface px-6 py-5 transition-colors hover:border-herb"
-                  >
-                    <span className="kr text-[18px] font-bold leading-snug">{c.title}</span>
-                    <span className="kr mt-2 block text-[16px] leading-7 text-muted">{c.question}</span>
-                  </Link>
-                );
-              })}
             </div>
           </Section>
         )}
