@@ -45,8 +45,6 @@ export const indigestion: Symptom = {
       "기능성 소화불량은 첩약 건강보험 시범사업 대상 질환입니다. " +
       "조건에 해당하면 한약도 급여로 처방받으실 수 있습니다.",
     rows: [
-      { item: "침 · 뜸", coverage: "급여", price: "약 5,000 ~ 9,000원", note: "본인부담금 기준" },
-      { item: "한약 (첩약)", coverage: "급여", price: "시범사업 적용 시 본인부담 약 30~40%", note: "기능성 소화불량은 대상 질환" },
       { item: "한약 (비급여)", coverage: "비급여", price: "상담 후 안내", note: "시범사업 조건에 해당하지 않는 경우" },
     ],
     insurance: [

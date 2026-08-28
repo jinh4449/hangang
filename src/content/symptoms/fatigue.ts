@@ -45,7 +45,6 @@ export const fatigue: Symptom = {
       "침과 뜸은 건강보험이 적용됩니다. 한약은 비급여이며 처방 구성에 따라 달라지므로 " +
       "진찰 후 안내해 드립니다.",
     rows: [
-      { item: "침 · 뜸", coverage: "급여", price: "약 5,000 ~ 9,000원", note: "본인부담금 기준" },
       { item: "한약", coverage: "비급여", price: "상담 후 안내", note: "처방 구성에 따라 상이" },
       { item: "약침", coverage: "비급여", price: "회당 약 20,000 ~ 40,000원" },
     ],
