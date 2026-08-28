@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { CLINIC } from "@/content/clinic";
-import { AREAS } from "@/content/area";
 import { PageHead, Section, Bezel, Cta, MapPanel, JsonLd } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
 
@@ -39,20 +37,6 @@ export default function Directions() {
             </li>
           ))}
         </ul>
-      </Section>
-
-      <Section title="지역별 안내">
-        <div className="grid gap-2">
-          {AREAS.map((a) => (
-            <Link
-              key={a.slug}
-              href={`/area/${a.slug}`}
-              className="tile block bg-surface px-5 py-4"
-            >
-              <span className="kr font-semibold">{a.title}</span>
-            </Link>
-          ))}
-        </div>
       </Section>
 
       {/* TODO: 도메인 확정 후 네이버 지도 JS API 로 네이버 지도도 삽입 (Client ID 발급 시 도메인 등록 필요) */}

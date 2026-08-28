@@ -2,7 +2,6 @@ import Link from "next/link";
 import { HOURS } from "@/content/hours";
 import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
-import { AREAS } from "@/content/area";
 import { NAV } from "@/content/nav";
 import { ClinicStatus } from "./clinic-status";
 import { PhoneLink } from "./phone-link";
@@ -299,7 +298,6 @@ const FOOTER_NAV = [
       { label: "부위별 안내", href: "/part" },
       { label: "치료 방법", href: "/treatment" },
       { label: "원장 칼럼", href: "/column" },
-      ...AREAS.map((a) => ({ label: a.title, href: `/area/${a.slug}` })),
     ],
   },
 ];

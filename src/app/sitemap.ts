@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SYMPTOMS } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
-import { AREAS } from "@/content/area";
 import { COLUMNS } from "@/content/column";
 import { PARTS } from "@/content/part";
 import { SITE_URL } from "@/content/clinic";
@@ -24,14 +23,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.9,
-    });
-  }
-  for (const a of AREAS) {
-    entries.push({
-      url: `${SITE_URL}/area/${a.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.85,
     });
   }
   entries.push({

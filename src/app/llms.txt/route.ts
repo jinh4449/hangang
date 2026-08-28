@@ -1,7 +1,6 @@
 import { CLINIC, SITE_URL } from "@/content/clinic";
 import { HOURS } from "@/content/hours";
 import { SYMPTOMS } from "@/content/symptoms";
-import { AREAS } from "@/content/area";
 import { COLUMNS } from "@/content/column";
 import { COMPARES } from "@/content/compare";
 import { TREATMENTS, AXIS_STORY } from "@/content/treatment";
@@ -70,10 +69,6 @@ ${SYMPTOMS.map((s) => `- [${s.name}](${SITE_URL}/care/${s.slug}) — ${s.summary
 ## 비교
 
 ${COMPARES.map((c) => `- [${c.title}](${SITE_URL}/compare/${c.slug}) — ${c.question}`).join("\n")}
-
-## 지역 안내
-
-${AREAS.map((a) => `- [${a.title}](${SITE_URL}/area/${a.slug})`).join("\n")}
 
 ## 원장 칼럼
 
