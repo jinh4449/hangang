@@ -4,7 +4,7 @@ export const SITE_URL = "https://example.com";
 /** 진료시간·주차 등 미확정 항목은 TODO 로 표시했다. 확정되면 이 파일만 고치면 전 페이지에 반영된다. */
 export const CLINIC = {
   name: "김포한강한의원",
-  tagline: "김포 한강신도시 · 통증치료 중점 진료",
+  tagline: "김포한의원, 통증·한약 중점진료",
   phone: "031-8049-7541",
   phoneHref: "tel:031-8049-7541",
   address: "경기도 김포시 김포한강4로 110 일신프라자 202호",
@@ -32,6 +32,14 @@ export const CLINIC = {
     /** 일요일은 휴진 */
     sunday: null,
   },
+  /** 첫 화면 문구 아래 한 줄. 처음 오는 분이 가장 먼저 확인하는 것만 넣는다 */
+  heroMarks: [
+    { icon: "codoctor", label: "남녀 2인 한의사" },
+    { icon: "calendar", label: "토요일 · 공휴일 진료" },
+    { icon: "clock", label: "평일 야간 20시" },
+    { icon: "mappin", label: "김포 장기동" },
+  ],
+
   badges: ["장기역 도보 1분", "평일 밤 8시까지", "공휴일 진료", "추나 건강보험 적용"],
 
   /**

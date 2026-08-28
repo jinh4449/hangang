@@ -44,6 +44,7 @@
   --color-tint: var(--tint);
   --color-herb-light: var(--herb-light);
   --color-live: var(--live);
+  --color-grad-b: var(--grad-b);
   --color-ochre: var(--ochre);
   --color-ochre-soft: var(--ochre-soft);
   --color-ochre-line: var(--ochre-line);
@@ -500,7 +501,7 @@ a.tile-dark:hover {
 }
 @media (prefers-reduced-motion: no-preference) {
   .answer-mark path {
-    animation: answerDraw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.32s forwards;
+    animation: answerDraw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 2.05s forwards;
   }
 }
 @media (prefers-reduced-motion: reduce) {

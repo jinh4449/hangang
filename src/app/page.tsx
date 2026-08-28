@@ -10,6 +10,7 @@ import { Reveal } from "@/components/reveal";
 import {
   SYMPTOM_ICONS,
   MapPinIcon,
+  CalendarIcon,
   UltrasoundIcon,
   CoDoctorIcon,
   RedirectIcon,
@@ -104,6 +105,14 @@ function RiverGlow() {
     </div>
   );
 }
+
+/** 첫 화면 표시줄 아이콘. 키는 clinic.ts 의 heroMarks[].icon */
+const MARK_ICONS: Record<string, (p: { className?: string }) => React.JSX.Element> = {
+  codoctor: CoDoctorIcon,
+  calendar: CalendarIcon,
+  clock: ClockIcon,
+  mappin: MapPinIcon,
+};
 
 /** 우리 기준 칸의 아이콘. 키는 clinic.ts 의 icon 값 */
 const STANDARD_ICONS: Record<string, (p: { className?: string }) => React.JSX.Element> = {
@@ -304,7 +313,7 @@ export default function Home() {
             </span>
           </h1>
 
-          <Enter d={980}>
+          <Enter d={900}>
             <p className="kr mx-auto mt-7 max-w-[56ch] text-[18px] leading-8 text-muted xl:mt-9 xl:text-[20px] xl:leading-9">
               <Lines>
                 {[
@@ -313,6 +322,41 @@ export default function Home() {
                 ]}
               </Lines>
             </p>
+          </Enter>
+
+          {/* 처음 오는 분이 가장 먼저 확인하는 네 가지. 한 줄로 세우고 점으로 끊는다 */}
+          <Enter d={1080}>
+            <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-3 xl:mt-10">
+              {CLINIC.heroMarks.map((m, i) => {
+                const Icon = MARK_ICONS[m.icon];
+                return (
+                  <li key={m.label} className="flex items-center">
+                    <span className="kr flex items-center gap-2 text-[15px] font-semibold sm:text-[16px]">
+                      {Icon && <Icon className="h-[1.15em] w-[1.15em] shrink-0 text-grad-b" />}
+                      {m.label}
+                    </span>
+                    {/* 구분점은 뒤에 붙인다. 앞에 두면 줄이 바뀔 때 점으로 시작한다 */}
+                    {i < CLINIC.heroMarks.length - 1 && (
+                      <span aria-hidden="true" className="px-2.5 text-[13px] text-faint sm:px-3.5">
+                        ·
+                      </span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </Enter>
+
+          <Enter d={1240}>
+            <div className="mt-9 xl:mt-11">
+              <Link
+                href="/reservation"
+                className="press inline-flex items-center gap-2.5 rounded-full bg-herb px-8 py-4 text-[17px] font-semibold text-paper shadow-[var(--shadow-ambient)]"
+              >
+                진료 예약하기
+                <Arrow className="arw" />
+              </Link>
+            </div>
           </Enter>
 
         </div>
