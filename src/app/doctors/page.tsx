@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { CoDoctorIcon } from "@/components/icons";
@@ -44,19 +45,41 @@ export default function Doctors() {
         lede="이진희 원장과 왕소정 원장이 함께 봅니다. 진료받기 편한 쪽을 고르실 수 있고, 판단이 어려운 경우에는 두 사람이 상의해 방향을 정합니다."
       />
 
-      <Section title="원장">
-        <div className="grid gap-3 sm:grid-cols-2">
-          {CLINIC.doctors.map((d) => (
-            <div key={d.key} className="rounded-[1.25rem] border border-line bg-surface p-8">
-              <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-herb">{d.role}</p>
-              <h3 className="kr mt-3 text-2xl font-bold">{d.name}</h3>
-              <p className="kr mt-4 text-[16px] leading-7 text-muted">
-                {CLINIC.name}에서 진료하고 있습니다.
-              </p>
+      {/* 이력은 줄글로 늘어놓으면 눈이 미끄러진다. 사진 옆에 묶음별로 세운다 */}
+      {CLINIC.doctors.map((d) => (
+        <Section key={d.key} title={`${d.name} ${d.role}`}>
+          <div className="grid gap-8 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-10">
+            <div className="self-start overflow-hidden rounded-[1.5rem] bg-surface-2">
+              <Image
+                src={d.photo.src}
+                alt={`${CLINIC.name} ${d.name} ${d.role}`}
+                width={d.photo.w}
+                height={d.photo.h}
+                sizes="13rem"
+                className="block h-auto w-full mix-blend-multiply"
+              />
             </div>
-          ))}
-        </div>
-      </Section>
+            <div className="grid gap-6">
+              <p className="kr text-[17px] leading-8">{d.line}</p>
+              {Object.entries(d.career).map(([group, items]: [string, string[]]) => (
+                <div key={group} className="rounded-[1.25rem] border border-line bg-surface p-6">
+                  <p className="kr text-[12px] font-medium uppercase tracking-[0.12em] text-faint">
+                    {group}
+                  </p>
+                  <ul className="mt-3 grid gap-2">
+                    {items.map((it) => (
+                      <li key={it} className="kr flex gap-2.5 text-[16px] leading-7">
+                        <span aria-hidden="true" className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-herb" />
+                        {it}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Section>
+      ))}
 
       <Section
         title="함께 진료한다는 것"

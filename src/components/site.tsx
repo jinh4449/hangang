@@ -278,7 +278,6 @@ const FOOTER_NAV = [
     links: [
       { label: "병원 소개", href: "/about" },
       { label: "의료진 소개", href: "/doctors" },
-      { label: "진료비 안내", href: "/cost" },
       { label: "예약 · 상담", href: "/reservation" },
       { label: "오시는 길", href: "/directions" },
     ],

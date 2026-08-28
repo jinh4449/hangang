@@ -68,19 +68,6 @@ export const NAV: NavEntry[] = [
     ],
   },
   {
-    label: "진료비",
-    href: "/cost",
-    groups: [
-      {
-        title: "전체 안내",
-        links: [
-          { label: "진료비 안내", href: "/cost" },
-          { label: "예약 · 상담", href: "/reservation" },
-        ],
-      },
-    ],
-  },
-  {
     label: "병원 안내",
     href: "/directions",
     groups: [
@@ -89,6 +76,7 @@ export const NAV: NavEntry[] = [
         title: "찾아오시는 길",
         links: [
           { label: "오시는 길", href: "/directions" },
+          { label: "예약 · 상담", href: "/reservation" },
           ...AREAS.map((a) => ({ label: a.name, href: `/area/${a.slug}` })),
         ],
       },

@@ -81,7 +81,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         </section>
       )}
 
-      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
+      <article className="mx-auto w-full max-w-[80rem] px-[clamp(1.25rem,3vw,2.5rem)] py-12">
         {!s.heroImage && (
           <>
             {(() => {
@@ -119,8 +119,8 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                   <span className="font-mono text-[11px] tracking-[0.1em] text-herb">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="kr mt-3 text-[17px] font-bold leading-snug">{f.title}</h3>
-                  <p className="kr mt-2 text-[16px] leading-7 text-muted">{f.text}</p>
+                  <h3 className="kr mt-3 text-[18px] font-bold leading-snug">{f.title}</h3>
+                  <p className="kr mt-2 text-[16.5px] leading-7 text-muted">{f.text}</p>
                   {f.tag && (
                     <span className="kr mt-4 self-start rounded-full bg-tint px-3 py-1 text-xs font-medium text-herb">
                       {f.tag}
@@ -133,9 +133,18 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         )}
 
         <Section title="이런 증상이 있다면" note="아래 항목 중 여러 개에 해당한다면 진찰을 권합니다.">
-          <ul className="readlist sm:grid-cols-2 sm:gap-x-10">
+          <ul className="grid gap-2.5 sm:grid-cols-2">
             {care.signs.map((sign) => (
-              <li key={sign} className="kr text-[15.5px]">
+              <li
+                key={sign}
+                className="kr flex items-start gap-3 rounded-[1rem] border border-line bg-surface px-5 py-4 text-[17px] leading-7"
+              >
+                <span
+                  aria-hidden="true"
+                  className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-tint text-[13px] font-bold text-herb"
+                >
+                  ✓
+                </span>
                 {sign}
               </li>
             ))}
@@ -156,8 +165,8 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                       <Icon className="h-7 w-7" />
                     </span>
                   )}
-                  <h3 className="kr text-[19px] font-bold leading-snug">{t.name}</h3>
-                  <p className="kr mt-3 text-[16px] leading-7 text-muted">{t.body}</p>
+                  <h3 className="kr text-[20px] font-bold leading-snug">{t.name}</h3>
+                  <p className="kr mt-3 text-[16.5px] leading-7 text-muted">{t.body}</p>
                   {t.covered && (
                     <span className="kr mt-5 self-start rounded-full border border-herb-line bg-tint px-3 py-1 text-xs font-medium text-herb">
                       건강보험 적용
@@ -169,19 +178,58 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </div>
         </Section>
 
+        {/* 치료 비용 — 물어보기 전에 먼저 꺼낸다. 표로 세워야 항목과 금액이 한눈에 붙는다 */}
+        {s.cost.rows.length > 0 && (
+          <Section title="치료 비용" note={s.cost.lede}>
+            <div className="grid gap-2.5">
+              {s.cost.rows.map((r) => (
+                <div
+                  key={r.item}
+                  className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 rounded-[1rem] border border-line bg-surface px-6 py-5"
+                >
+                  <div className="min-w-0">
+                    <span className="kr text-[18px] font-bold">{r.item}</span>
+                    <span
+                      className={
+                        "kr ml-3 inline-block rounded-full px-2.5 py-0.5 text-[12px] font-medium " +
+                        (r.coverage === "급여"
+                          ? "border border-herb-line bg-tint text-herb"
+                          : "border border-ochre-line bg-ochre-soft text-ochre")
+                      }
+                    >
+                      {r.coverage}
+                    </span>
+                    {r.note && (
+                      <span className="kr mt-2 block text-[15px] leading-7 text-muted">{r.note}</span>
+                    )}
+                  </div>
+                  <span className="kr shrink-0 text-[18px] font-bold tabular-nums">{r.price}</span>
+                </div>
+              ))}
+            </div>
+            <p className="kr mt-4 rounded-[1rem] border border-ochre-line bg-ochre-soft px-6 py-5 text-[15.5px] leading-7">
+              비급여 항목은 치료를 시작하기 전에 금액을 말씀드립니다. 표에 없는 항목이나 정확한
+              금액은 {CLINIC.phone} 로 문의해 주세요.
+            </p>
+          </Section>
+        )}
+
         <Section
           title="치료 과정"
           note="첫 내원부터 마무리까지 어떤 순서로 진행되는지 미리 알려 드립니다."
         >
-          <ol className="border-t border-line">
+          <ol className="grid gap-2.5">
             {care.stages.map((st, i) => (
-              <li key={st.label} className="grid grid-cols-[2.5rem_1fr] gap-5 border-b border-line py-5">
-                <span className="pt-0.5 font-mono text-xs tabular-nums text-herb">
+              <li
+                key={st.label}
+                className="grid grid-cols-[3rem_minmax(0,1fr)] items-start gap-4 rounded-[1rem] border border-line bg-surface px-5 py-5 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6"
+              >
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-tint font-mono text-[15px] font-bold tabular-nums text-herb">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <div>
-                  <h3 className="font-semibold">{st.label}</h3>
-                  <p className="mt-1.5 text-[16px] leading-7 text-muted">{st.detail}</p>
+                  <h3 className="kr text-[18px] font-bold leading-snug">{st.label}</h3>
+                  <p className="kr mt-2 text-[16.5px] leading-7 text-muted">{st.detail}</p>
                 </div>
               </li>
             ))}
@@ -190,11 +238,14 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
 
         {care.extraSections?.map((sec) => (
           <Section key={sec.title} title={sec.title} note={sec.note}>
-            <div className="grid gap-3">
+            <div className="grid gap-2.5 sm:grid-cols-2">
               {sec.items.map((it) => (
-                <div key={it.title} className="rounded border border-line bg-surface p-5">
-                  <h3 className="font-semibold">{it.title}</h3>
-                  <p className="mt-2 text-[16px] leading-7 text-muted">{it.body}</p>
+                <div
+                  key={it.title}
+                  className="rounded-[1rem] border border-line bg-surface px-6 py-5"
+                >
+                  <h3 className="kr text-[18px] font-bold leading-snug">{it.title}</h3>
+                  <p className="kr mt-2 text-[16.5px] leading-7 text-muted">{it.body}</p>
                 </div>
               ))}
             </div>
@@ -206,7 +257,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
             <div className="border-t border-line">
               {s.faq.map((f) => (
                 <details key={f.q} className="group border-b border-line">
-                  <summary className="kr flex cursor-pointer list-none items-center justify-between gap-5 py-5 font-semibold [&::-webkit-details-marker]:hidden">
+                  <summary className="kr flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-[18px] font-bold [&::-webkit-details-marker]:hidden">
                     {f.q}
                     <span
                       aria-hidden="true"
@@ -215,7 +266,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                       +
                     </span>
                   </summary>
-                  <p className="kr pb-6 text-[16px] leading-8 text-muted">{f.a}</p>
+                  <p className="kr pb-6 text-[16.5px] leading-8 text-muted">{f.a}</p>
                 </details>
               ))}
             </div>
@@ -224,7 +275,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
 
         {s.compareSlugs.length > 0 && (
           <Section title="함께 보면 좋은 비교">
-            <div className="grid gap-2">
+            <div className="grid gap-2.5 sm:grid-cols-2">
               {s.compareSlugs.map((cs) => {
                 const c = getCompare(cs);
                 if (!c) return null;
@@ -232,10 +283,10 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                   <Link
                     key={cs}
                     href={`/compare/${cs}`}
-                    className="rounded border border-line bg-surface px-5 py-4 transition-colors hover:border-herb"
+                    className="rounded-[1rem] border border-line bg-surface px-6 py-5 transition-colors hover:border-herb"
                   >
-                    <span className="font-semibold">{c.title}</span>
-                    <span className="mt-1 block text-[15px] text-muted">{c.question}</span>
+                    <span className="kr text-[18px] font-bold leading-snug">{c.title}</span>
+                    <span className="kr mt-2 block text-[16px] leading-7 text-muted">{c.question}</span>
                   </Link>
                 );
               })}
