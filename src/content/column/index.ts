@@ -1,4 +1,5 @@
 import type { Column } from "../types";
+import { QUESTION_COLUMNS } from "./questions";
 
 /** 새 칼럼은 파일 하나를 추가하고 COLUMNS 에 넣으면 목록·사이트맵·RSS 에 자동 반영된다 */
 
@@ -171,7 +172,15 @@ const ultrasoundWhat: Column = {
   ],
 };
 
-export const COLUMNS: Column[] = [ultrasoundWhat, herbLiver, howManySessions, nextDayPain];
+export const COLUMNS: Column[] = [
+  ...QUESTION_COLUMNS,
+  ultrasoundWhat,
+  herbLiver,
+  howManySessions,
+  nextDayPain,
+];
+
+export { QUESTION_COLUMNS };
 
 export const getColumn = (slug: string) => COLUMNS.find((c) => c.slug === slug);
 

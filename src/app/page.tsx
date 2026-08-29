@@ -2,8 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
-import { COMPARES } from "@/content/compare";
-import { columnsByDate } from "@/content/column";
+import { QUESTION_COLUMNS } from "@/content/column";
 import { PARTS } from "@/content/part";
 import { JsonLd, Arrow } from "@/components/site";
 import { RiseInit } from "@/components/rise";
@@ -259,24 +258,21 @@ function Enter({
 
 /**
  * 메인에 세우는 질문 목록.
- * 비교 페이지와 칼럼은 만든 사람에게나 다른 것이지, 묻는 사람에게는 둘 다 질문이다.
- * 그래서 한 줄로 세운다. 갈 곳이 어디든 물음표로 시작하는 것만 모은다.
+ *
+ * 진료실에서 실제로 받는 말 그대로 적는다. 「통증 치료 안내」 같은 제목은
+ * 아픈 사람이 검색창에 치는 말이 아니다. 물어본 말이 그대로 제목이어야
+ * 자기 이야기인 줄 알고 누른다.
  */
-const QA = [
-  ...COMPARES.map((c) => ({
-    question: c.question,
-    summary: c.lede,
-    href: `/compare/${c.slug}`,
-  })),
-  // 칼럼의 question 은 검색어라 물음표가 없다. Q 뒤에는 제목이 붙어야 질문으로 읽힌다
-  ...columnsByDate()
-    .slice(0, 4)
-    .map((c) => ({
-      question: c.title.endsWith("?") ? c.title : `${c.title}?`,
-      summary: c.summary,
-      href: `/column/${c.slug}`,
-    })),
-];
+const QA = QUESTION_COLUMNS.map((c) => ({
+  question: c.question,
+  summary: c.summary,
+  href: `/column/${c.slug}`,
+  date: c.date,
+  image: c.image,
+}));
+
+/** 2026-06-12 → 2026.06.12 */
+const dotted = (iso: string) => iso.replaceAll("-", ".");
 
 export default function Home() {
   return (
@@ -727,22 +723,47 @@ export default function Home() {
           <H2 accent="자주 묻는 질문" note="진료실에서 실제로 받는 질문들입니다.">
             Q&amp;A
           </H2>
-          <div className="mt-10 grid gap-2 md:grid-cols-2">
+          {/* 삽화가 위, 질문이 아래. 그림이 먼저 눈에 들어와야 여섯 장이
+              글자 덩어리로 뭉치지 않는다 */}
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {QA.map((q) => (
               <Rise key={q.href} fill>
-                <Link href={q.href} className="tile block h-full bg-surface px-6 py-5">
-                <span className="flex gap-3">
-                  <span
-                    aria-hidden="true"
-                    className="font-display text-lg font-bold leading-none text-herb"
-                  >
-                    Q
-                  </span>
-                  <span className="kr font-semibold leading-snug">{q.question}</span>
-                </span>
-                <span className="kr mt-2 block pl-7 text-[15px] leading-7 text-muted">
-                  {q.summary}
-                </span>
+                <Link
+                  href={q.href}
+                  className="tile flex h-full flex-col overflow-hidden bg-surface"
+                >
+                  {q.image && (
+                    <Image
+                      src={q.image.src}
+                      alt={q.image.alt}
+                      width={q.image.w}
+                      height={q.image.h}
+                      className="block aspect-[8/5] w-full object-cover"
+                    />
+                  )}
+                  <div className="flex grow flex-col p-6">
+                    <span className="flex gap-2.5">
+                      <span
+                        aria-hidden="true"
+                        className="font-display text-lg font-bold leading-none text-herb"
+                      >
+                        Q
+                      </span>
+                      <span className="kr font-semibold leading-snug">{q.question}</span>
+                    </span>
+                    <span className="kr mt-2.5 block grow pl-7 text-[15px] leading-7 text-muted">
+                      {q.summary}
+                    </span>
+                    <span className="mt-5 flex items-center justify-between pl-7">
+                      <time dateTime={q.date} className="font-mono text-[12px] text-faint">
+                        {dotted(q.date)}
+                      </time>
+                      <span className="tile-arrow inline-flex items-center gap-1.5 text-sm font-medium text-herb">
+                        읽어보기
+                        <Arrow />
+                      </span>
+                    </span>
+                  </div>
                 </Link>
               </Rise>
             ))}

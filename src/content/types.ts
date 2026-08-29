@@ -146,6 +146,8 @@ export type Column = {
   updated?: string;
   /** 관련 진료과목 slug */
   symptomSlugs: string[];
+  /** 목록에 카드로 세울 때 쓰는 삽화. 없으면 글자만으로 세운다 */
+  image?: { src: string; w: number; h: number; alt: string };
   body: Block[];
 };
 
