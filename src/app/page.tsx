@@ -587,9 +587,7 @@ export default function Home() {
             어떻게
           </H2>
           <div className="mt-12 grid items-center gap-10 md:grid-cols-2">
-            <Rise>
-              <ReferralRing />
-            </Rise>
+            <ReferralRing />
             <div className="mx-auto max-w-[34ch] text-center md:mx-0 md:text-left">
               <p className="kr text-[18px] leading-8 text-muted">
                 <RiseLine>

@@ -5,16 +5,34 @@ import { useEffect } from "react";
 /**
  * 솟아오르는 요소들을 켠다.
  *
- * 화면에 들어오면 표시를 붙이고 관찰을 뗀다. 재생은 CSS 가 스스로 하고
- * 한 번 올라온 것은 다시 내려가지 않는다.
+ * 재생은 CSS 가 스크롤 위치에 물려서 한다. 여기서는 두 가지만 맡는다.
  *
- * 스크롤 위치에 재생을 물리는 방법도 있지만 쓰지 않는다. 그러면 스크롤을
- * 멈춘 자리에 따라 글자가 반쯤 가려진 채로 남는다.
+ * 하나, 화면보다 큰 덩어리를 골라 둔다. 그런 것은 가리개를 쓰면 끝까지
+ * 올라오지 못해 반쯤 가려진 채로 남는다.
  *
- * 원 그래픽도 같은 방식으로 화면에 들어올 때 한 번 돈다.
+ * 둘, 스크롤 연동을 모르는 브라우저를 위해 표시를 붙여 둔다. 어느 쪽을
+ * 쓸지는 여기서 고르지 않는다. 표시는 늘 붙이고 CSS 가 덮어쓴다.
+ *
+ * 원 그래픽은 스크롤에 물리지 않는다. 원을 그리는 것 자체가 등장 동작이라
+ * 화면에 들어올 때 한 번 돌면 된다.
  */
 export function RiseInit() {
   useEffect(() => {
+    /* 화면보다 큰 덩어리를 골라 둔다. 제 높이만큼 밀어 두면 화면 안에서는
+       끝까지 올라올 수가 없어, 스크롤이 끝나도 반쯤 가려진 채로 남는다.
+       그런 것들은 가리지 않고 살짝 들어 올리기만 한다. 창 크기가 바뀌면
+       기준도 바뀌므로 다시 센다 */
+    const markTall = () => {
+      // 화면 절반을 넘는 것부터. 큰 칸일수록 올라올 거리가 길어 늦게 끝나는데,
+      // 늦게 끝나면 읽는 자리에 들어와서까지 반쯤 가려져 있다
+      const limit = window.innerHeight * 0.55;
+      document.querySelectorAll<HTMLElement>(".rise").forEach((el) => {
+        el.classList.toggle("rise-tall", el.getBoundingClientRect().height > limit);
+      });
+    };
+    markTall();
+    window.addEventListener("resize", markTall);
+
     const observers: IntersectionObserver[] = [];
     const watch = (selector: string, cls: string, stagger = false) => {
       const els = document.querySelectorAll(selector);
@@ -22,7 +40,8 @@ export function RiseInit() {
       const io = new IntersectionObserver(
         (entries) => {
           // 같이 들어온 것들끼리는 위에서 아래로, 왼쪽에서 오른쪽으로 차례를 준다.
-          // 한 줄에 놓인 칸 여섯이 동시에 뜨면 움직임이 아니라 화면 전환으로 보인다
+          // 스크롤에 물리는 브라우저에서는 스크롤 위치가 이미 차례를 정하므로
+          // 이 지연은 무시된다. 관찰자로 도는 브라우저에서만 쓰인다
           const hits = entries
             .filter((e) => e.isIntersecting)
             .sort(
@@ -32,7 +51,6 @@ export function RiseInit() {
             );
           hits.forEach((e, i) => {
             if (stagger) {
-              // 한 묶음이 길어도 기다림이 늘어지지 않게 여섯 번째에서 멈춘다
               const el = e.target as HTMLElement;
               el.style.setProperty("--d", `${Math.min(i, 5) * 90}ms`);
             }
@@ -40,12 +58,7 @@ export function RiseInit() {
             io.unobserve(e.target);
           });
         },
-        // 화면 밑단이 아니라 아래에서 4분의 1쯤 올라온 자리에서 켠다.
-        // 가장자리에서 켜면 눈에 띄지 않는 곳에서 재생이 끝나 버려,
-        // 정작 읽는 자리에 왔을 때는 이미 다 떠 있다.
-        // 비율은 크기가 아니라 위치에만 쓴다. 칸 크기로 걸면 큰 칸이
-        // 화면에 들어왔는데도 기준을 못 넘겨 빈 자리로 남는다
-        { threshold: 0, rootMargin: "0px 0px -24% 0px" },
+        { threshold: 0, rootMargin: "0px 0px -12% 0px" },
       );
       els.forEach((el) => io.observe(el));
       observers.push(io);
@@ -54,7 +67,10 @@ export function RiseInit() {
     watch(".rise", "on", true);
     watch(".ring-host", "ring-go");
 
-    return () => observers.forEach((o) => o.disconnect());
+    return () => {
+      window.removeEventListener("resize", markTall);
+      observers.forEach((o) => o.disconnect());
+    };
   }, []);
 
   return null;
