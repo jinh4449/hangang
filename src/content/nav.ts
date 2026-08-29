@@ -1,5 +1,4 @@
 import { SYMPTOMS } from "./symptoms";
-import { COMPARES } from "./compare";
 
 /**
  * 헤더 메뉴.
@@ -49,11 +48,10 @@ export const NAV: NavEntry[] = [
     href: "/column",
     groups: [
       {
+        // 비교글은 메뉴에 늘어놓지 않는다. 제목이 길어 메뉴가 글 목록처럼 되고,
+        // 메인의 Q&A 에서 질문을 보고 들어가는 편이 찾기 쉽다
         title: "칼럼",
-        links: [
-          { label: "원장 칼럼", href: "/column" },
-          ...COMPARES.map((c) => ({ label: c.title, href: `/compare/${c.slug}` })),
-        ],
+        links: [{ label: "원장 칼럼", href: "/column" }],
       },
       {
         // 부위 여섯 곳은 통증·근골격 페이지 안에 있다. 여기까지 펼치면
