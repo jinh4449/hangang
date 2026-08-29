@@ -50,8 +50,9 @@ export function RiseInit() {
                 a.boundingClientRect.left - b.boundingClientRect.left,
             );
           hits.forEach((e, i) => {
-            if (stagger) {
-              const el = e.target as HTMLElement;
+            const el = e.target as HTMLElement;
+            // 화면에서 이미 차례를 정해 둔 것은 그대로 둔다
+            if (stagger && !el.style.getPropertyValue("--d")) {
               el.style.setProperty("--d", `${Math.min(i, 5) * 90}ms`);
             }
             e.target.classList.add(cls);
@@ -65,6 +66,7 @@ export function RiseInit() {
     };
 
     watch(".rise", "on", true);
+    watch(".seq", "on");
     watch(".ring-host", "ring-go");
 
     return () => {

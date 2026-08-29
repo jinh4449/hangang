@@ -42,6 +42,11 @@ export type Symptom = {
       kicker: string;
       /** 환자가 쓰는 말로 적은 사례 */
       cases: string[];
+      /**
+       * row  — 「담 결림」 처럼 짧은 말. 한 줄에 늘어놓고 크게 세운다
+       * stack — 「침을 맞아도 그때뿐이었다」 처럼 문장. 줄로 쌓는다
+       */
+      caseLayout?: "row" | "stack";
       /** 이 갈래의 답. 크게 세우는 한 줄이라 짧아야 한다 */
       headline: string;
       body: string;

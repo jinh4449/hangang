@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { SiteHeader, SiteFooter, JsonLd } from "@/components/site";
+import { RiseInit } from "@/components/rise";
 import { CLINIC, SITE_URL } from "@/content/clinic";
 import { withJosa } from "@/content/josa";
 import { SYMPTOMS } from "@/content/symptoms";
@@ -99,8 +100,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {/* 스크립트를 끈 채로 스크롤 연동도 모르는 브라우저라면 떠오를 방법이 없다.
             그 경우에만 처음부터 보이게 되돌린다 */}
         <noscript>
-          <style>{`.rise{clip-path:none!important}.rise>.rise-in{transform:none!important}`}</style>
+          <style>{`.rise,.seq{clip-path:none!important}.rise>.rise-in,.seq>.seq-in{transform:none!important}`}</style>
         </noscript>
+        <RiseInit />
         <SiteHeader />
         <main className="flex-1 pt-20">{children}</main>
         <SiteFooter />

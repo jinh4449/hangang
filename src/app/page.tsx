@@ -5,7 +5,6 @@ import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { QUESTION_COLUMNS } from "@/content/column";
 import { PARTS } from "@/content/part";
 import { JsonLd, Arrow } from "@/components/site";
-import { RiseInit } from "@/components/rise";
 import {
   SYMPTOM_ICONS,
   MapPinIcon,
@@ -405,8 +404,6 @@ export default function Home() {
           <span aria-hidden="true" className="scroll-cue-rail" />
         </a>
       </section>
-
-      <RiseInit />
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.5rem,6vw,7rem)] py-16 xl:py-24">
 

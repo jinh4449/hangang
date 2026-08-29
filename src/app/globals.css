@@ -268,6 +268,36 @@ a.tile-dark:hover {
   }
 }
 
+/* 차례로 뜨기.
+   .rise 는 스크롤 위치에 물려 있어 같은 높이에 있는 것들이 함께 뜬다.
+   여기는 그러면 안 된다. 네 단어가 하나씩 놓인 뒤에 문장이 뒤따라야
+   「이런 경우 → 이렇게 됩니다」 순서로 읽힌다. 그래서 시간으로 세운다.
+   가리개와 알맹이는 .rise 와 같은 방식이다 */
+.seq {
+  display: block;
+  clip-path: inset(-100% -100% 0 -100%);
+}
+.seq > .seq-in {
+  display: block;
+  transform: translateY(110%);
+}
+.seq.on {
+  animation: maskFree 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
+}
+.seq.on > .seq-in {
+  animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .seq {
+    clip-path: none !important;
+    animation: none !important;
+  }
+  .seq > .seq-in {
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .rise {
     clip-path: none !important;

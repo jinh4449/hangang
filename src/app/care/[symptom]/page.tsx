@@ -9,6 +9,31 @@ import { breadcrumb } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
 import { PhoneLink } from "@/components/phone-link";
 
+/**
+ * 차례로 솟아오르는 한 줄.
+ *
+ * 바깥이 가리개, 안쪽이 움직인다. 차례는 화면에서 정하고 관찰자는 건드리지 않는다.
+ * 스크롤 위치가 아니라 시간으로 세워야 「이런 경우 → 이렇게 됩니다」 순서로 읽힌다.
+ */
+function Seq({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <span
+      className={`seq ${className}`}
+      style={delay ? ({ "--d": `${delay}ms` } as React.CSSProperties) : undefined}
+    >
+      <span className="seq-in">{children}</span>
+    </span>
+  );
+}
+
 export const generateStaticParams = () => SYMPTOMS.map((s) => ({ symptom: s.slug }));
 
 export async function generateMetadata({ params }: PageProps<"/care/[symptom]">): Promise<Metadata> {
@@ -104,87 +129,107 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         )}
 
         {/* 갈림길 — 온 사람이 자기가 어느 쪽인지부터 가리게 한다.
-            페이지에서 가장 큰 글자를 여기에 쓴다. 아래 내용은 전부 이 두 갈래의 각주다 */}
+            좌우로 두면 둘 중 하나를 고르는 화면이 되는데, 이건 고르는 게 아니라
+            자기 경우를 찾는 것이다. 그래서 위아래로 세운다.
+
+            사례가 먼저 하나씩 놓이고 그 뒤에 답이 뒤따른다. 순서가 곧 문장이다 */}
         {care.tracks && (
-          <div className="mt-9 grid gap-4 lg:grid-cols-2">
-            {care.tracks.map((tr) => (
-              <section
-                key={tr.headline}
-                className={
-                  "flex flex-col rounded-[1.75rem] p-8 md:p-10 " +
-                  (tr.accent
-                    ? "bg-herb text-paper"
-                    : "border border-line bg-surface")
-                }
-              >
-                <p
+          <div className="mt-9 grid gap-4">
+            {care.tracks.map((tr) => {
+              const row = tr.caseLayout === "row";
+              // 사례가 다 놓인 뒤에 답이 온다. 사이를 한 박자 벌린다
+              const after = tr.cases.length * 130 + 260;
+              return (
+                <section
+                  key={tr.headline}
                   className={
-                    "kr text-[15px] font-medium " +
-                    (tr.accent ? "text-paper/70" : "text-herb")
+                    "rounded-[1.75rem] px-8 py-10 md:px-12 md:py-14 " +
+                    (tr.accent ? "bg-herb text-paper" : "border border-line bg-surface")
                   }
                 >
-                  {tr.kicker}
-                </p>
-
-                {/* 사례는 환자가 쓰는 말 그대로. 자기 경우를 여기서 찾는다 */}
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {tr.cases.map((c) => (
-                    <li
-                      key={c}
-                      className={
-                        "kr rounded-full px-3.5 py-1.5 text-[14.5px] " +
-                        (tr.accent
-                          ? "bg-paper/12 text-paper"
-                          : "bg-surface-2 text-muted")
-                      }
-                    >
-                      {c}
-                    </li>
-                  ))}
-                </ul>
-
-                <h2
-                  className={
-                    "display kr mt-7 text-[1.6rem] leading-[1.32] tracking-[-0.02em] sm:text-[2rem] xl:text-[2.25rem] " +
-                    (tr.accent ? "" : "text-ink")
-                  }
-                >
-                  {tr.headline}
-                </h2>
-                <p
-                  className={
-                    "kr mt-4 grow text-[16.5px] leading-8 " +
-                    (tr.accent ? "text-paper/75" : "text-muted")
-                  }
-                >
-                  {tr.body}
-                </p>
-
-                {tr.tag && (
-                  <span
+                  <Seq
                     className={
-                      "kr mt-7 self-start rounded-full px-4 py-2 text-[13.5px] font-medium " +
-                      (tr.accent
-                        ? "bg-paper/12 text-paper"
-                        : "border border-herb-line bg-tint text-herb")
+                      "kr text-[15px] font-medium " +
+                      (tr.accent ? "text-paper/70" : "text-herb")
                     }
                   >
-                    {tr.tag}
-                  </span>
-                )}
-                {/* 수치를 적었으면 근거도 같이 적는다 (의료법 제56조 ②항) */}
-                {tr.basis && (
-                  <p
+                    {tr.kicker}
+                  </Seq>
+
+                  {/* 사례 — 하나씩 차례로 놓인다 */}
+                  <ul
                     className={
-                      "kr mt-4 text-[13.5px] leading-6 " +
-                      (tr.accent ? "text-paper/55" : "text-faint")
+                      row
+                        ? "mt-7 flex flex-wrap items-baseline gap-x-[clamp(1.25rem,3.5vw,3rem)] gap-y-2"
+                        : "mt-7 grid gap-1.5"
                     }
                   >
-                    ※ {tr.basis}
-                  </p>
-                )}
-              </section>
-            ))}
+                    {tr.cases.map((c, i) => (
+                      <li key={c}>
+                        <Seq
+                          delay={i * 130}
+                          className={
+                            row
+                              ? "display kr text-[clamp(1.65rem,5.4vw,2.7rem)] leading-[1.24] tracking-[-0.02em]"
+                              : "kr text-[clamp(1.05rem,3.6vw,1.4rem)] leading-[1.5] " +
+                                (tr.accent ? "text-paper/80" : "text-muted")
+                          }
+                        >
+                          {c}
+                        </Seq>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* 답 — 사례가 다 놓인 뒤에 올라온다 */}
+                  <Seq
+                    delay={after}
+                    className={
+                      "display kr mt-11 text-[clamp(1.5rem,4.6vw,2.3rem)] leading-[1.3] tracking-[-0.02em] " +
+                      (tr.accent ? "" : "text-herb")
+                    }
+                  >
+                    {tr.headline}
+                  </Seq>
+
+                  <Seq
+                    delay={after + 160}
+                    className={
+                      "kr mt-5 max-w-[62ch] text-[16.5px] leading-8 " +
+                      (tr.accent ? "text-paper/75" : "text-muted")
+                    }
+                  >
+                    {tr.body}
+                  </Seq>
+
+                  <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
+                    {tr.tag && (
+                      <span
+                        className={
+                          "kr rounded-full px-4 py-2 text-[13.5px] font-medium " +
+                          (tr.accent
+                            ? "bg-paper/12 text-paper"
+                            : "border border-herb-line bg-tint text-herb")
+                        }
+                      >
+                        {tr.tag}
+                      </span>
+                    )}
+                    {/* 수치를 적었으면 근거도 같이 적는다 (의료법 제56조 ②항) */}
+                    {tr.basis && (
+                      <p
+                        className={
+                          "kr text-[13.5px] leading-6 " +
+                          (tr.accent ? "text-paper/55" : "text-faint")
+                        }
+                      >
+                        ※ {tr.basis}
+                      </p>
+                    )}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         )}
 
