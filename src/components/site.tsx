@@ -46,13 +46,9 @@ export function SiteHeader() {
               </Link>
 
               <div className="navpanel">
-                {/* 두 줄짜리 메뉴는 칸이 좁으면 제목이 서너 줄로 쪼개진다. 폭을 미리 벌려 둔다 */}
-                <div
-                  className={
-                    "navcard grid gap-x-6 gap-y-5 " +
-                    (entry.groups.length > 1 ? "min-w-[32rem] grid-cols-2" : "min-w-[16rem] grid-cols-1")
-                  }
-                >
+                {/* 묶음이 둘이어도 옆으로 벌리지 않는다. 배너 아래로 한 줄만
+                    내려와야 눈이 위에서 아래로 한 번만 훑고 고를 수 있다 */}
+                <div className="navcard grid min-w-[17rem] grid-cols-1 gap-y-5">
                   {entry.groups.map((g) => (
                     <div key={g.title}>
                       <p className="px-3 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
@@ -295,7 +291,7 @@ const FOOTER_NAV = [
   {
     title: "더 보기",
     links: [
-      { label: "부위별 안내", href: "/part" },
+      { label: "통증 · 근골격", href: "/part" },
       { label: "치료 방법", href: "/treatment" },
       { label: "원장 칼럼", href: "/column" },
     ],

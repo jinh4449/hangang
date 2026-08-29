@@ -1,5 +1,4 @@
 import { SYMPTOMS } from "./symptoms";
-import { PARTS } from "./part";
 import { COMPARES } from "./compare";
 
 /**
@@ -50,18 +49,19 @@ export const NAV: NavEntry[] = [
     href: "/column",
     groups: [
       {
-        title: "읽을거리",
+        title: "칼럼",
         links: [
           { label: "원장 칼럼", href: "/column" },
           ...COMPARES.map((c) => ({ label: c.title, href: `/compare/${c.slug}` })),
         ],
       },
       {
-        // 치료 방법 목록도 여기 둔다. 빼면 헤더에서 닿을 곳이 없어진다
-        title: "치료 안내",
+        // 부위 여섯 곳은 통증·근골격 페이지 안에 있다. 여기까지 펼치면
+        // 메뉴가 열 줄을 넘겨, 고르는 화면이 아니라 읽는 화면이 된다
+        title: "질환별 의학정보",
         links: [
+          { label: "통증 · 근골격", href: "/part" },
           { label: "치료 방법", href: "/treatment" },
-          ...PARTS.map((p) => ({ label: p.name, href: `/part/${p.slug}` })),
         ],
       },
     ],

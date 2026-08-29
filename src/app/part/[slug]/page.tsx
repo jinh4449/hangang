@@ -39,13 +39,13 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
       />
       <JsonLd
         data={breadcrumb([
-          { name: "부위별 안내", path: "/part" },
+          { name: "통증 · 근골격", path: "/part" },
           { name: p.name, path: `/part/${p.slug}` },
         ])}
       />
       <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
         <Link href="/part" className="font-mono text-xs text-herb hover:underline">
-          ← 부위별 안내
+          ← 통증 · 근골격
         </Link>
         <div className="mt-6">
           <PageHead eyebrow={p.conditions.join(" · ")} title={`${p.name} 통증`} lede={p.lede} />

@@ -55,7 +55,7 @@ export function GET() {
 
 ${TREATMENTS.map((t) => `- ${t.fullName} — ${t.summary}${t.covered ? " (건강보험 급여)" : ""}`).join("\n")}
 
-## 부위별 안내
+## 통증 · 근골격 (부위별)
 
 ${PARTS.map((p) => `- [${p.name} 통증](${SITE_URL}/part/${p.slug}) — ${p.conditions.join(", ")}`).join("\n")}
 
