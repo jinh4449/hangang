@@ -201,10 +201,10 @@ a.tile-dark:hover {
 
 /* 화면에 들어오면 관찰자가 .on 을 붙인다. 한 번 붙으면 떼지 않는다 */
 .rise.on {
-  animation: maskFree 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: maskFree 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
 }
 .rise.on > .rise-in {
-  animation: riseUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: riseUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

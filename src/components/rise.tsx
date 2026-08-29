@@ -16,26 +16,42 @@ import { useEffect } from "react";
 export function RiseInit() {
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
-    const watch = (selector: string, cls: string) => {
+    const watch = (selector: string, cls: string, stagger = false) => {
       const els = document.querySelectorAll(selector);
       if (!els.length) return;
       const io = new IntersectionObserver(
         (entries) => {
-          for (const e of entries) {
-            if (!e.isIntersecting) continue;
+          // 같이 들어온 것들끼리는 위에서 아래로, 왼쪽에서 오른쪽으로 차례를 준다.
+          // 한 줄에 놓인 칸 여섯이 동시에 뜨면 움직임이 아니라 화면 전환으로 보인다
+          const hits = entries
+            .filter((e) => e.isIntersecting)
+            .sort(
+              (a, b) =>
+                a.boundingClientRect.top - b.boundingClientRect.top ||
+                a.boundingClientRect.left - b.boundingClientRect.left,
+            );
+          hits.forEach((e, i) => {
+            if (stagger) {
+              // 한 묶음이 길어도 기다림이 늘어지지 않게 여섯 번째에서 멈춘다
+              const el = e.target as HTMLElement;
+              el.style.setProperty("--d", `${Math.min(i, 5) * 90}ms`);
+            }
             e.target.classList.add(cls);
             io.unobserve(e.target);
-          }
+          });
         },
-        // 화면에 조금이라도 걸치면 바로 켠다. 비율로 걸어 두면 큰 칸이
+        // 화면 밑단이 아니라 아래에서 4분의 1쯤 올라온 자리에서 켠다.
+        // 가장자리에서 켜면 눈에 띄지 않는 곳에서 재생이 끝나 버려,
+        // 정작 읽는 자리에 왔을 때는 이미 다 떠 있다.
+        // 비율은 크기가 아니라 위치에만 쓴다. 칸 크기로 걸면 큰 칸이
         // 화면에 들어왔는데도 기준을 못 넘겨 빈 자리로 남는다
-        { threshold: 0, rootMargin: "0px 0px -40px 0px" },
+        { threshold: 0, rootMargin: "0px 0px -24% 0px" },
       );
       els.forEach((el) => io.observe(el));
       observers.push(io);
     };
 
-    watch(".rise", "on");
+    watch(".rise", "on", true);
     watch(".ring-host", "ring-go");
 
     return () => observers.forEach((o) => o.disconnect());
