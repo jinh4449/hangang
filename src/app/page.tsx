@@ -29,11 +29,48 @@ function Lines({ children }: { children: string[] }) {
   return (
     <>
       {children.map((line) => (
-        <span key={line} className="block">
-          {line}
-        </span>
+        <RiseLine key={line}>{line}</RiseLine>
       ))}
     </>
+  );
+}
+
+/**
+ * 솟아오르는 한 줄.
+ *
+ * 바깥이 가리개고 안쪽이 움직인다. 가리개가 자기 아래를 자르고 있어서
+ * 글자는 제 자리 바로 밑에 숨어 있다가 자기 줄로 올라온다.
+ * 두 겹이 필요하다. 한 겹으로는 자기가 움직이면 자르는 자리도 같이 움직인다.
+ */
+function RiseLine({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <span className={`rise ${className}`}>
+      <span className="rise-in">{children}</span>
+    </span>
+  );
+}
+
+/** 솟아오르는 한 덩어리. 칸이나 사진처럼 줄이 아닌 것에 쓴다 */
+function Rise({
+  children,
+  className = "",
+  fill = false,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  /** 격자 칸처럼 옆칸과 키를 맞춰야 하면 켠다 */
+  fill?: boolean;
+}) {
+  return (
+    <div className={`rise ${fill ? "h-full" : ""} ${className}`}>
+      <div className={`rise-in ${fill ? "h-full" : ""}`}>{children}</div>
+    </div>
   );
 }
 
@@ -65,20 +102,20 @@ function H2({
             : "text-3xl sm:text-4xl xl:text-[2.75rem]")
         }
       >
-        {children}
-        {accent && (
-          <>
-            {" "}
-            <span className="grad">{accent}</span>
-          </>
-        )}
+        <RiseLine>
+          {children}
+          {accent && (
+            <>
+              {" "}
+              <span className="grad">{accent}</span>
+            </>
+          )}
+        </RiseLine>
       </h2>
       {note && (
         <p className="kr mx-auto mt-4 max-w-[52ch] text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
           {(Array.isArray(note) ? note : [note]).map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
+            <RiseLine key={line}>{line}</RiseLine>
           ))}
         </p>
       )}
@@ -144,7 +181,7 @@ function ReferralRing() {
   const STOP = 0.56; // 눈금(0.5)을 지난 것이 보일 만큼만
 
   return (
-    <div className="ring-host rise relative mx-auto aspect-square w-[17rem] sm:w-[20rem]">
+    <div className="ring-host relative mx-auto aspect-square w-[17rem] sm:w-[20rem]">
       <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
         {/* 안쪽을 채우는 판. 테두리가 돌아가는 동안 같이 차오른다 */}
         <circle className="ring-fill" cx="100" cy="100" r={R - 8} fill="var(--tint)" />
@@ -380,23 +417,28 @@ export default function Home() {
         {/* 우리 기준 — 주장을 크게 세우고 오른쪽에서 풀고 아래에서 쪼갠다.
             내용이 많아 한 화면을 넘기므로 여기만 글자와 여백을 한 단계 줄인다 */}
         <section id="why" className="screen">
-          <div className="rise mx-auto max-w-3xl text-center">
-            <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
-              {CLINIC.whyHero.eyebrow}
-            </span>
+          <div className="mx-auto max-w-3xl text-center">
+            <RiseLine>
+              <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
+                {CLINIC.whyHero.eyebrow}
+              </span>
+            </RiseLine>
             {/* 다른 섹션 제목과 같은 크기로 세운다. 좁은 화면에서는 저절로 꺾이되
                 넓은 화면에서는 한 줄로 붙잡아 둔다 */}
             <h2 className="display kr mt-5 text-3xl text-balance sm:whitespace-nowrap sm:text-4xl xl:text-[2.75rem]">
-              {CLINIC.whyHero.headline[0]}{" "}
-              <span className="grad">{CLINIC.whyHero.headline[1]}</span>
+              <RiseLine>
+                {CLINIC.whyHero.headline[0]}{" "}
+                <span className="grad">{CLINIC.whyHero.headline[1]}</span>
+              </RiseLine>
             </h2>
             <p className="kr mt-4 text-[17px] leading-8 text-muted">
-              {CLINIC.whyHero.sub}
+              <RiseLine>{CLINIC.whyHero.sub}</RiseLine>
             </p>
           </div>
 
           {/* 약속과 그 약속을 지키는 방법. 자세는 이 판이 아니라 아래 칸이 맡는다 */}
-          <div className="rise relative mt-8 overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-11 xl:p-14">
+          <Rise className="mt-8">
+          <div className="relative overflow-hidden rounded-[2rem] bg-ink p-8 text-paper md:p-11 xl:p-14">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full"
@@ -445,16 +487,15 @@ export default function Home() {
               </ul>
             </div>
           </div>
+          </Rise>
 
           {/* 진료 자세 — 검은 판 밖으로 꺼내야 각각이 한 장으로 읽힌다 */}
           <ul className="mt-3 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {CLINIC.standards.values.map((v) => {
               const Icon = STANDARD_ICONS[v.icon];
               return (
-                <li
-                  key={v.no}
-                  className="rise flex flex-col rounded-[1.5rem] border border-line bg-surface p-7"
-                >
+                <li key={v.no} className="rise h-full">
+                  <div className="rise-in flex h-full flex-col rounded-[1.5rem] border border-line bg-surface p-7">
                   {Icon && (
                     <span className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-[0.9rem] bg-surface-2 text-herb">
                       <Icon className="h-6 w-6" />
@@ -465,6 +506,7 @@ export default function Home() {
                   <span className="kr mt-6 self-start rounded-full bg-tint px-3 py-1 text-[12px] font-medium text-herb">
                     핵심가치 · {v.tag}
                   </span>
+                  </div>
                 </li>
               );
             })}
@@ -474,7 +516,7 @@ export default function Home() {
         {/* 의료진 — 두 사람을 양쪽에 세우고 하는 말은 가운데에 하나로 둔다.
             소개를 둘로 쪼개면 누가 더 나은가를 고르는 화면이 된다 */}
         <section className="screen">
-          <H2 className="rise" accent="함께 진료합니다">두 원장이</H2>
+          <H2 accent="함께 진료합니다">두 원장이</H2>
 
           {/* 넓은 화면에서는 사람 사이에 말이 들어가고, 좁아지면 아래로 내려온다 */}
           <div className="mx-auto mt-12 grid max-w-[72rem] grid-cols-2 items-end gap-6 sm:gap-10 lg:grid-cols-[1fr_minmax(0,22rem)_1fr] lg:gap-8">
@@ -482,33 +524,35 @@ export default function Home() {
               <figure
                 key={d.key}
                 className={
-                  "rise flex flex-col items-center " + (i === 0 ? "lg:order-1" : "lg:order-3")
+                  "flex flex-col items-center " + (i === 0 ? "lg:order-1" : "lg:order-3")
                 }
               >
                 {/* 사진은 사람에 딱 맞춰 잘라 두었다. 틀이 사진을 감싸기만 하면
                     둘 사이에 빈 곳이 생기지 않는다.
                     키를 맞추고 폭은 사진이 정하게 둬야 두 사람이 같은 크기로 선다.
                     배경이 흰색이라 회색 판 위에 곱하기로 겹친다 */}
-                <div className="overflow-hidden rounded-[1.5rem] bg-surface-2">
-                  <Image
-                    src={d.photo.src}
-                    alt={`${CLINIC.name} ${d.name} ${d.role}`}
-                    width={d.photo.w}
-                    height={d.photo.h}
-                    sizes="(min-width: 1024px) 18rem, 42vw"
-                    className="block h-[clamp(13rem,32vh,22rem)] w-auto mix-blend-multiply"
-                  />
-                </div>
+                <Rise>
+                  <div className="overflow-hidden rounded-[1.5rem] bg-surface-2">
+                    <Image
+                      src={d.photo.src}
+                      alt={`${CLINIC.name} ${d.name} ${d.role}`}
+                      width={d.photo.w}
+                      height={d.photo.h}
+                      sizes="(min-width: 1024px) 18rem, 42vw"
+                      className="block h-[clamp(13rem,32vh,22rem)] w-auto mix-blend-multiply"
+                    />
+                  </div>
+                </Rise>
                 <figcaption className="mt-4 text-center">
-                  <span className="font-mono text-[12px] uppercase tracking-[0.15em] text-herb">
+                  <RiseLine className="font-mono text-[12px] uppercase tracking-[0.15em] text-herb">
                     {d.role}
-                  </span>
-                  <span className="kr mt-1.5 block text-xl font-bold">{d.name}</span>
+                  </RiseLine>
+                  <RiseLine className="kr mt-1.5 text-xl font-bold">{d.name}</RiseLine>
                 </figcaption>
               </figure>
             ))}
 
-            <div className="rise col-span-2 text-center lg:order-2 lg:col-span-1 lg:pb-10">
+            <div className="col-span-2 text-center lg:order-2 lg:col-span-1 lg:pb-10">
               <p className="kr text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
                 <Lines>
                   {[
@@ -518,13 +562,15 @@ export default function Home() {
                   ]}
                 </Lines>
               </p>
-              <Link
-                href="/doctors"
-                className="press mt-7 inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
-              >
-                의료진 소개 보기
-                <Arrow className="arw" />
-              </Link>
+              <Rise className="mt-7">
+                <Link
+                  href="/doctors"
+                  className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
+                >
+                  의료진 소개 보기
+                  <Arrow className="arw" />
+                </Link>
+              </Rise>
             </div>
           </div>
         </section>
@@ -532,7 +578,6 @@ export default function Home() {
         {/* 소개 비율 — 광고가 아니라 다녀간 사람이 데려온다는 이야기 */}
         <section className="screen">
           <H2
-            className="rise"
             accent="알고 오시나요?"
             note={[
               "처음 오시는 분께 어떻게 알고 오셨는지 여쭤봅니다.",
@@ -542,18 +587,24 @@ export default function Home() {
             어떻게
           </H2>
           <div className="mt-12 grid items-center gap-10 md:grid-cols-2">
-            <ReferralRing />
-            <div className="rise mx-auto max-w-[34ch] text-center md:mx-0 md:text-left">
+            <Rise>
+              <ReferralRing />
+            </Rise>
+            <div className="mx-auto max-w-[34ch] text-center md:mx-0 md:text-left">
               <p className="kr text-[18px] leading-8 text-muted">
-                {CLINIC.whyHero.stat.label}입니다. 다녀가신 분이 가족이나
-                이웃을 데려오시는 경우가 많습니다.
+                <RiseLine>
+                  {CLINIC.whyHero.stat.label}입니다. 다녀가신 분이 가족이나
+                  이웃을 데려오시는 경우가 많습니다.
+                </RiseLine>
               </p>
               <p className="kr mt-5 text-[16px] leading-7 text-muted">
-                치료가 끝나면 끝났다고 말씀드립니다. 그래서 다시 아플 때, 또
-                주변에 아픈 분이 생겼을 때 저희를 떠올리십니다.
+                <RiseLine>
+                  치료가 끝나면 끝났다고 말씀드립니다. 그래서 다시 아플 때, 또
+                  주변에 아픈 분이 생겼을 때 저희를 떠올리십니다.
+                </RiseLine>
               </p>
               <p className="kr mt-6 text-sm text-faint">
-                ※ {CLINIC.whyHero.stat.basis}
+                <RiseLine>※ {CLINIC.whyHero.stat.basis}</RiseLine>
               </p>
             </div>
           </div>
@@ -562,7 +613,6 @@ export default function Home() {
         {/* 진료과목 — 같은 크기 격자 */}
         <section className="band screen">
           <H2
-            className="rise"
             accent="필요하신가요?"
             note={[
               "과목마다 치료 방법과 예상 기간이 다릅니다.",
@@ -574,14 +624,14 @@ export default function Home() {
           {/* 칸을 모두 같은 크기로 세운다. 첫 칸만 색으로 눌러 무게를 준다 */}
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SYMPTOMS.map((s, i) => (
-              <Link
-                key={s.slug}
-                href={`/care/${s.slug}`}
-                className={
-                  "rise tile flex min-h-[15rem] flex-col justify-between p-8 " +
-                  (i === 0 ? "tile-dark bg-herb text-paper" : "bg-surface")
-                }
-              >
+              <Rise key={s.slug} fill>
+                <Link
+                  href={`/care/${s.slug}`}
+                  className={
+                    "tile flex h-full min-h-[15rem] flex-col justify-between p-8 " +
+                    (i === 0 ? "tile-dark bg-herb text-paper" : "bg-surface")
+                  }
+                >
                 <div>
                   {(() => {
                     const Icon = SYMPTOM_ICONS[s.slug];
@@ -638,15 +688,17 @@ export default function Home() {
                     <Arrow />
                   </span>
                 </div>
-              </Link>
+                </Link>
+              </Rise>
             ))}
 
             {/* 진료과목이 5개라 3열 격자에 한 칸이 빈다. 없는 과목을 지어내는 대신
                 이미 있는 부위별 페이지로 채운다 */}
-            <Link
-              href="/part"
-              className="rise tile flex min-h-[15rem] flex-col justify-between bg-surface p-8"
-            >
+            <Rise fill>
+              <Link
+                href="/part"
+                className="tile flex h-full min-h-[15rem] flex-col justify-between bg-surface p-8"
+              >
               <div>
                 <MapPinIcon className="h-8 w-8 text-herb" />
                 <h3 className="kr mt-4 text-xl font-bold leading-snug">
@@ -666,19 +718,21 @@ export default function Home() {
                   <Arrow />
                 </span>
               </div>
-            </Link>
+              </Link>
+            </Rise>
           </div>
         </section>
 
         {/* Q&A — 진료실에서 실제로 받는 질문과, 어디로 가야 할지 헷갈리는 질문을
             한 자리에 모은다. 물어보는 사람 입장에서는 둘이 같은 종류다 */}
         <section className="screen">
-          <H2 className="rise" accent="자주 묻는 질문" note="진료실에서 실제로 받는 질문들입니다.">
+          <H2 accent="자주 묻는 질문" note="진료실에서 실제로 받는 질문들입니다.">
             Q&amp;A
           </H2>
           <div className="mt-10 grid gap-2 md:grid-cols-2">
             {QA.map((q) => (
-              <Link key={q.href} href={q.href} className="rise tile block bg-surface px-6 py-5">
+              <Rise key={q.href} fill>
+                <Link href={q.href} className="tile block h-full bg-surface px-6 py-5">
                 <span className="flex gap-3">
                   <span
                     aria-hidden="true"
@@ -691,19 +745,20 @@ export default function Home() {
                 <span className="kr mt-2 block pl-7 text-[15px] leading-7 text-muted">
                   {q.summary}
                 </span>
-              </Link>
+                </Link>
+              </Rise>
             ))}
           </div>
-          <div className="rise mt-6 text-center">
+          <Rise className="mt-6 text-center">
             <Link href="/column" className="text-[15px] font-medium text-herb hover:underline">
               칼럼 전체 보기
             </Link>
-          </div>
+          </Rise>
         </section>
 
         {/* 리뷰 — 페이지에 심지 않고 외부로 내보낸다 (의료법 56조②) */}
         <section className="screen">
-          <div className="rise rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
+          <div className="rounded-[2rem] bg-surface p-8 text-center ring-1 ring-line md:p-12">
           <H2 accent="직접 확인해 보세요">리뷰를</H2>
           <p className="kr mx-auto mt-4 max-w-[46ch] leading-8 text-muted">
             <Lines>
@@ -713,7 +768,8 @@ export default function Home() {
               ]}
             </Lines>
           </p>
-          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+          <Rise className="mt-8">
+          <div className="flex flex-col justify-center gap-3 sm:flex-row">
             <a
               href={`https://map.naver.com/p/search/${encodeURIComponent(CLINIC.name)}`}
               target="_blank"
@@ -731,13 +787,13 @@ export default function Home() {
               구글 지도에서 보기
             </a>
           </div>
+          </Rise>
           </div>
         </section>
 
         {/* 공간 — 처음 오는 사람은 문 열기 전이 가장 망설여진다 */}
         <section className="screen">
           <H2
-            className="rise"
             accent="미리 만나보세요"
             note={[
               "접수 데스크와 대기 공간입니다.",
@@ -746,7 +802,8 @@ export default function Home() {
           >
             오시기 전에
           </H2>
-          <figure className="rise mt-10 overflow-hidden rounded-[2rem] ring-1 ring-line">
+          <Rise className="mt-10">
+          <figure className="overflow-hidden rounded-[2rem] ring-1 ring-line">
             <Image
               src="/clinic-interior.jpg"
               alt="김포한강한의원 접수 데스크와 대기 공간"
@@ -757,7 +814,8 @@ export default function Home() {
               priority={false}
             />
           </figure>
-          <div className="rise mt-8 text-center">
+          </Rise>
+          <Rise className="mt-8 text-center">
             <Link
               href="/directions"
               className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
@@ -765,7 +823,7 @@ export default function Home() {
               오시는 길 보기
               <Arrow className="arw" />
             </Link>
-          </div>
+          </Rise>
         </section>
       </div>
     </>
