@@ -32,8 +32,29 @@ export type Symptom = {
     signs: string[];
     /** 진료 흐름. 문장으로 늘어놓지 않고 번호 붙은 칸으로 세운다 */
     flow?: { title: string; text: string; tag?: string }[];
+    /**
+     * 갈림길. 온 사람이 자기가 어느 쪽인지 먼저 가려야 할 때 쓴다.
+     * 「막 삐끗한 사람」 과 「몇 달째 안 낫는 사람」 은 같은 페이지를 봐도
+     * 필요한 답이 다르다. 페이지 맨 앞에서 갈라 주면 자기 이야기부터 읽는다.
+     */
+    tracks?: {
+      /** 「이런 경우라면」 에 해당하는 짧은 말 */
+      kicker: string;
+      /** 환자가 쓰는 말로 적은 사례 */
+      cases: string[];
+      /** 이 갈래의 답. 크게 세우는 한 줄이라 짧아야 한다 */
+      headline: string;
+      body: string;
+      tag?: string;
+      /** 수치를 쓸 때의 산출 근거 (의료법 제56조 ②항) */
+      basis?: string;
+      /** 하나만 색으로 눌러 무게를 준다 */
+      accent?: boolean;
+    }[];
     /** icon 은 TREATMENT_ICONS 의 키. 없으면 아이콘 없이 선다 */
     treatments: { name: string; body: string; covered: boolean; icon?: string }[];
+    /** 치료 칸 아래에 한 줄로 덧붙이는 단서 */
+    treatmentsNote?: string;
     stages: Stage[];
     /** 지체하면 위험한 신호. 환자를 다른 과로 보내야 하는 경우 */
     /** 공통 틀에 없는 증상별 추가 섹션. 교통사고의 보험 접수 절차 같은 것 */

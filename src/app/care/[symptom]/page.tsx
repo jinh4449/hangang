@@ -103,6 +103,91 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </aside>
         )}
 
+        {/* 갈림길 — 온 사람이 자기가 어느 쪽인지부터 가리게 한다.
+            페이지에서 가장 큰 글자를 여기에 쓴다. 아래 내용은 전부 이 두 갈래의 각주다 */}
+        {care.tracks && (
+          <div className="mt-9 grid gap-4 lg:grid-cols-2">
+            {care.tracks.map((tr) => (
+              <section
+                key={tr.headline}
+                className={
+                  "flex flex-col rounded-[1.75rem] p-8 md:p-10 " +
+                  (tr.accent
+                    ? "bg-herb text-paper"
+                    : "border border-line bg-surface")
+                }
+              >
+                <p
+                  className={
+                    "kr text-[15px] font-medium " +
+                    (tr.accent ? "text-paper/70" : "text-herb")
+                  }
+                >
+                  {tr.kicker}
+                </p>
+
+                {/* 사례는 환자가 쓰는 말 그대로. 자기 경우를 여기서 찾는다 */}
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {tr.cases.map((c) => (
+                    <li
+                      key={c}
+                      className={
+                        "kr rounded-full px-3.5 py-1.5 text-[14.5px] " +
+                        (tr.accent
+                          ? "bg-paper/12 text-paper"
+                          : "bg-surface-2 text-muted")
+                      }
+                    >
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+
+                <h2
+                  className={
+                    "display kr mt-7 text-[1.6rem] leading-[1.32] tracking-[-0.02em] sm:text-[2rem] xl:text-[2.25rem] " +
+                    (tr.accent ? "" : "text-ink")
+                  }
+                >
+                  {tr.headline}
+                </h2>
+                <p
+                  className={
+                    "kr mt-4 grow text-[16.5px] leading-8 " +
+                    (tr.accent ? "text-paper/75" : "text-muted")
+                  }
+                >
+                  {tr.body}
+                </p>
+
+                {tr.tag && (
+                  <span
+                    className={
+                      "kr mt-7 self-start rounded-full px-4 py-2 text-[13.5px] font-medium " +
+                      (tr.accent
+                        ? "bg-paper/12 text-paper"
+                        : "border border-herb-line bg-tint text-herb")
+                    }
+                  >
+                    {tr.tag}
+                  </span>
+                )}
+                {/* 수치를 적었으면 근거도 같이 적는다 (의료법 제56조 ②항) */}
+                {tr.basis && (
+                  <p
+                    className={
+                      "kr mt-4 text-[13.5px] leading-6 " +
+                      (tr.accent ? "text-paper/55" : "text-faint")
+                    }
+                  >
+                    ※ {tr.basis}
+                  </p>
+                )}
+              </section>
+            ))}
+          </div>
+        )}
+
         {/* 진료 흐름 — 순서가 곧 내용이라 번호를 붙여 칸으로 세운다 */}
         {care.flow && (
           <Section
@@ -175,6 +260,11 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
               );
             })}
           </div>
+          {care.treatmentsNote && (
+            <p className="kr mt-4 rounded-[1rem] border border-line bg-surface-2 px-6 py-5 text-[16.5px] leading-7 text-muted">
+              {care.treatmentsNote}
+            </p>
+          )}
         </Section>
 
         {/* 치료 비용 — 물어보기 전에 먼저 꺼낸다. 표로 세워야 항목과 금액이 한눈에 붙는다 */}
