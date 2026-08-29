@@ -53,8 +53,13 @@ export type Symptom = {
       tag?: string;
       /** 수치를 쓸 때의 산출 근거 (의료법 제56조 ②항) */
       basis?: string;
-      /** 하나만 색으로 눌러 무게를 준다 */
-      accent?: boolean;
+      /**
+       * 칸의 바탕. 둘 다 무게가 있어야 아래 칸이 곁다리로 읽히지 않는다.
+       *   herb — 짙은 녹색. 「금방 끝납니다」 쪽
+       *   ink  — 짙은 먹색. 안을 들여다보는 쪽이라 화면에 가깝게
+       * 비워 두면 흰 판으로 선다
+       */
+      tone?: "herb" | "ink";
     }[];
     /** icon 은 TREATMENT_ICONS 의 키. 없으면 아이콘 없이 선다 */
     treatments: { name: string; body: string; covered: boolean; icon?: string }[];

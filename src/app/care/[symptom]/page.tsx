@@ -132,25 +132,47 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
             좌우로 두면 둘 중 하나를 고르는 화면이 되는데, 이건 고르는 게 아니라
             자기 경우를 찾는 것이다. 그래서 위아래로 세운다.
 
+            두 칸 모두 짙은 바탕으로 세운다. 하나만 색을 넣으면 나머지는
+            곁다리로 읽혀, 아래 칸에 온 사람은 자기 이야기를 못 찾는다.
+            위는 녹색, 아래는 먹색. 안을 들여다보는 쪽이라 화면에 가깝게 둔다.
+
             사례가 먼저 하나씩 놓이고 그 뒤에 답이 뒤따른다. 순서가 곧 문장이다 */}
         {care.tracks && (
           <div className="mt-9 grid gap-4">
             {care.tracks.map((tr) => {
               const row = tr.caseLayout === "row";
+              const dark = tr.tone === "herb" || tr.tone === "ink";
+              const ink = tr.tone === "ink";
               // 사례가 다 놓인 뒤에 답이 온다. 사이를 한 박자 벌린다
               const after = tr.cases.length * 130 + 260;
               return (
                 <section
                   key={tr.headline}
                   className={
-                    "rounded-[1.75rem] px-8 py-10 md:px-12 md:py-14 " +
-                    (tr.accent ? "bg-herb text-paper" : "border border-line bg-surface")
+                    "relative isolate overflow-hidden rounded-[1.75rem] px-8 py-10 md:px-12 md:py-14 " +
+                    (ink
+                      ? "bg-ink text-paper"
+                      : tr.tone === "herb"
+                        ? "bg-herb text-paper"
+                        : "border border-line bg-surface")
                   }
                 >
+                  {/* 먹색 판은 그대로 두면 구멍처럼 보인다. 옅은 빛을 한 겹 깔아 둔다 */}
+                  {ink && (
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -right-24 -top-24 -z-10 h-80 w-80 rounded-full"
+                      style={{
+                        background:
+                          "radial-gradient(circle, rgba(132,194,167,.18) 0%, rgba(132,194,167,0) 70%)",
+                      }}
+                    />
+                  )}
+
                   <Seq
                     className={
                       "kr text-[15px] font-medium " +
-                      (tr.accent ? "text-paper/70" : "text-herb")
+                      (ink ? "text-herb-light" : dark ? "text-paper/70" : "text-herb")
                     }
                   >
                     {tr.kicker}
@@ -160,8 +182,8 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                   <ul
                     className={
                       row
-                        ? "mt-7 flex flex-wrap items-baseline gap-x-[clamp(1.25rem,3.5vw,3rem)] gap-y-2"
-                        : "mt-7 grid gap-1.5"
+                        ? "mt-7 flex flex-wrap items-baseline gap-x-[clamp(1.25rem,3.5vw,3rem)] gap-y-3"
+                        : "mt-7 grid gap-2.5"
                     }
                   >
                     {tr.cases.map((c, i) => (
@@ -170,12 +192,13 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                           delay={i * 130}
                           className={
                             row
-                              ? "display kr text-[clamp(1.65rem,5.4vw,2.7rem)] leading-[1.24] tracking-[-0.02em]"
-                              : "kr text-[clamp(1.05rem,3.6vw,1.4rem)] leading-[1.5] " +
-                                (tr.accent ? "text-paper/80" : "text-muted")
+                              ? "display kr text-[clamp(1.65rem,5.4vw,2.7rem)] leading-[1.3] tracking-[-0.02em]"
+                              : "kr text-[clamp(1.05rem,3.6vw,1.4rem)] leading-[1.6] " +
+                                (dark ? "text-paper/85" : "text-muted")
                           }
                         >
-                          {c}
+                          {/* 짧은 말은 형광펜으로 눌러 준다. 문장에 치면 줄이 어지럽다 */}
+                          {row ? <span className="mark-hl">{c}</span> : c}
                         </Seq>
                       </li>
                     ))}
@@ -186,7 +209,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                     delay={after}
                     className={
                       "display kr mt-11 text-[clamp(1.5rem,4.6vw,2.3rem)] leading-[1.3] tracking-[-0.02em] " +
-                      (tr.accent ? "" : "text-herb")
+                      (ink ? "text-herb-light" : dark ? "" : "text-herb")
                     }
                   >
                     {tr.headline}
@@ -196,7 +219,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                     delay={after + 160}
                     className={
                       "kr mt-5 max-w-[62ch] text-[16.5px] leading-8 " +
-                      (tr.accent ? "text-paper/75" : "text-muted")
+                      (dark ? "text-paper/75" : "text-muted")
                     }
                   >
                     {tr.body}
@@ -207,7 +230,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                       <span
                         className={
                           "kr rounded-full px-4 py-2 text-[13.5px] font-medium " +
-                          (tr.accent
+                          (dark
                             ? "bg-paper/12 text-paper"
                             : "border border-herb-line bg-tint text-herb")
                         }
@@ -220,7 +243,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                       <p
                         className={
                           "kr text-[13.5px] leading-6 " +
-                          (tr.accent ? "text-paper/55" : "text-faint")
+                          (dark ? "text-paper/55" : "text-faint")
                         }
                       >
                         ※ {tr.basis}
