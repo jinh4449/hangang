@@ -6,6 +6,9 @@ import { PARTS } from "@/content/part";
 import { SITE_URL } from "@/content/clinic";
 
 /** 진료과목을 추가하면 사이트맵도 자동으로 늘어난다. 손으로 관리하지 않는다. */
+// 정적 내보내기에서는 빌드 때 한 번만 만든다고 알려 줘야 한다
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const entries: MetadataRoute.Sitemap = [

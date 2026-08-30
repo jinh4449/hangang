@@ -1,0 +1,21 @@
+# Netlify 빌드 설정.
+# 저장소를 연결해 두면 push 할 때마다 여기 적힌 대로 다시 빌드해서 올린다.
+
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# 만들어진 파일은 내용이 바뀌면 이름도 바뀐다. 오래 캐시해도 안전하다
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML 은 매번 확인하게 둔다. 내용을 고쳤는데 옛 화면이 남으면 안 된다
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

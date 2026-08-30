@@ -3,6 +3,9 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { CLINIC } from "@/content/clinic";
 
+// 정적 내보내기에서는 빌드 때 한 번만 그린다고 알려 줘야 한다
+export const dynamic = "force-static";
+
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = `${CLINIC.name} — ${CLINIC.tagline}`;

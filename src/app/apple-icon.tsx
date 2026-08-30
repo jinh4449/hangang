@@ -1,6 +1,9 @@
 import { ImageResponse } from "next/og";
 
 /** apple-icon 은 SVG 를 지원하지 않아 PNG 로 생성한다 */
+// 정적 내보내기에서는 빌드 때 한 번만 그린다고 알려 줘야 한다
+export const dynamic = "force-static";
+
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
