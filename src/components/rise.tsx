@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * 솟아오르는 요소들을 켠다.
@@ -15,8 +16,15 @@ import { useEffect } from "react";
  *
  * 원 그래픽은 스크롤에 물리지 않는다. 원을 그리는 것 자체가 등장 동작이라
  * 화면에 들어올 때 한 번 돌면 된다.
+ *
+ * 페이지를 옮길 때마다 다시 세운다. 이건 레이아웃에 있어서 링크로 이동해도
+ * 다시 마운트되지 않는다. 한 번만 세우면 처음 연 페이지의 글자만 켜지고,
+ * 그 뒤에 링크로 들어간 페이지의 글자는 아무도 켜 주지 않아 숨은 채로 남는다.
  */
 export function RiseInit() {
+  // 주소가 바뀌면 그 페이지의 요소를 새로 찾아 관찰한다
+  const pathname = usePathname();
+
   useEffect(() => {
     /* 화면보다 큰 덩어리를 골라 둔다. 제 높이만큼 밀어 두면 화면 안에서는
        끝까지 올라올 수가 없어, 스크롤이 끝나도 반쯤 가려진 채로 남는다.
@@ -73,7 +81,7 @@ export function RiseInit() {
       window.removeEventListener("resize", markTall);
       observers.forEach((o) => o.disconnect());
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }
