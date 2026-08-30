@@ -8,14 +8,23 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# 만들어진 파일은 내용이 바뀌면 이름도 바뀐다. 오래 캐시해도 안전하다
+# 기본은 「매번 확인」 이다.
+#
+# 앞서 /*.html 로만 걸어 두었더니 첫 화면에 규칙이 걸리지 않았다.
+# 사람이 들어올 때의 경로는 「/」 이지 「/index.html」 이 아니기 때문이다.
+# 링크로 이동할 때 읽는 .txt 에도 규칙이 없었다.
+#
+# 그래서 옛 첫 화면을 들고 있는 브라우저는, 주소를 직접 치면 새 페이지가
+# 나오는데 링크로 눌러 들어가면 옛 내용이 나왔다. 두 경로가 서로 다른
+# 파일을 읽기 때문이다.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# 이름에 해시가 붙어 있어 내용이 바뀌면 이름도 바뀐다. 여기만 오래 캐시한다.
+# 위의 /* 보다 뒤에 두어야 이 규칙이 이긴다
 [[headers]]
   for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
-# HTML 은 매번 확인하게 둔다. 내용을 고쳤는데 옛 화면이 남으면 안 된다
-[[headers]]
-  for = "/*.html"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
