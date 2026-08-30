@@ -37,7 +37,16 @@ find . -mindepth 1 -maxdepth 1 \
   ! -name '.git' ! -name 'README.md' ! -name 'netlify.toml' ! -name '.nojekyll' \
   -exec rm -rf {} +
 cp -r "${OUT}/." .
+
+# 지금 올라간 것이 어느 판인지 사이트에서 바로 확인할 수 있게 표식을 남긴다.
+# 「고쳤는데 왜 그대로냐」 를 물을 때, 주소 하나로 답이 나온다
+{
+  echo "commit  $(git -C "${SRC}" rev-parse --short HEAD)"
+  echo "built   $(date -u '+%Y-%m-%d %H:%M UTC')"
+  echo "note    ${MSG}"
+} > version.txt
 echo "   HTML $(find . -name '*.html' -not -path './.git/*' | wc -l | tr -d ' ')개 · $(du -sh --exclude=.git . | cut -f1)"
+echo "   표식: /version.txt"
 
 step "3/4  원본 저장소 커밋·푸시"
 cd "${SRC}"
