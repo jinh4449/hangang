@@ -7,7 +7,7 @@ import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
   title: "의료진 소개",
-  description: `${CLINIC.name} 이진희·왕소정 원장. 두 원장이 함께 진료하며, 판단이 어려운 경우에는 함께 상의해 방향을 정합니다.`,
+  description: `${CLINIC.name} 이진희·왕소정 원장이 함께 진료합니다.`,
 };
 
 export default function Doctors() {
@@ -25,7 +25,7 @@ export default function Doctors() {
       <PageHead
         eyebrow="의료진 소개"
         title="두 원장이 함께 진료합니다"
-        lede="이진희 원장과 왕소정 원장이 함께 봅니다. 진료받기 편한 쪽을 고르실 수 있고, 판단이 어려운 경우에는 두 사람이 상의해 방향을 정합니다."
+        lede="이진희 원장과 왕소정 원장이 함께 봅니다."
       />
 
       {/* 이력은 줄글로 늘어놓으면 눈이 미끄러진다. 사진 옆에 묶음별로 세운다 */}
