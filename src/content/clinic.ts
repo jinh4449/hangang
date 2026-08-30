@@ -1,5 +1,13 @@
-// TODO: 실제 도메인으로 교체
-export const SITE_URL = "https://example.com";
+/**
+ * 사이트 주소.
+ *
+ * 이 한 줄이 사이트맵, 구조화 데이터, 카카오·검색 미리보기의 이미지 주소를
+ * 모두 정한다. 가짜 주소로 두면 카카오에 링크를 보낼 때 그림 자리가
+ * 검게 비는데, 그림이 없어서가 아니라 그림을 어디서 가져올지 몰라서다.
+ *
+ * TODO: 도메인을 사시면 그 주소로 바꿀 것 (예: https://gimpohangang.com)
+ */
+export const SITE_URL = "https://chipper-cascaron-1f6010.netlify.app";
 
 /** 진료시간·주차 등 미확정 항목은 TODO 로 표시했다. 확정되면 이 파일만 고치면 전 페이지에 반영된다. */
 export const CLINIC = {
