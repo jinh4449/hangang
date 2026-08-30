@@ -49,7 +49,8 @@ export default function Doctors() {
       {CLINIC.doctors.map((d) => (
         <Section key={d.key} title={`${d.name} ${d.role}`}>
           <div className="grid gap-8 sm:grid-cols-[13rem_minmax(0,1fr)] sm:gap-10">
-            <div className="self-start overflow-hidden rounded-[1.5rem] bg-surface-2">
+            {/* 회색 판은 사진보다 옆으로 넓게. 아래는 붙여 둔다 */}
+            <div className="self-start overflow-hidden rounded-[1.5rem] bg-surface-2 px-5">
               <Image
                 src={d.photo.src}
                 alt={`${CLINIC.name} ${d.name} ${d.role}`}

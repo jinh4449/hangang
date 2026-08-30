@@ -520,12 +520,16 @@ export default function Home() {
                   "flex flex-col items-center " + (i === 0 ? "lg:order-1" : "lg:order-3")
                 }
               >
-                {/* 사진은 사람에 딱 맞춰 잘라 두었다. 틀이 사진을 감싸기만 하면
-                    둘 사이에 빈 곳이 생기지 않는다.
-                    키를 맞추고 폭은 사진이 정하게 둬야 두 사람이 같은 크기로 선다.
-                    배경이 흰색이라 회색 판 위에 곱하기로 겹친다 */}
+                {/* 사진은 사람에 딱 맞춰 잘라 두었다. 키를 맞추고 폭은 사진이
+                    정하게 둬야 두 사람이 같은 크기로 선다.
+                    배경이 흰색이라 회색 판 위에 곱하기로 겹친다.
+
+                    회색 판은 사진보다 옆으로 넓게 둔다. 사진에 딱 맞추면 판이
+                    사람의 윤곽을 따라가, 팔을 벌린 쪽과 붙인 쪽의 판 넓이가
+                    달라 보인다. 아래는 띄우지 않는다. 서 있는 바닥이 뜨면
+                    사람이 공중에 있는 것처럼 보인다 */}
                 <Rise>
-                  <div className="overflow-hidden rounded-[1.5rem] bg-surface-2">
+                  <div className="overflow-hidden rounded-[1.5rem] bg-surface-2 px-[clamp(1rem,3.5vw,2.75rem)]">
                     <Image
                       src={d.photo.src}
                       alt={`${CLINIC.name} ${d.name} ${d.role}`}
