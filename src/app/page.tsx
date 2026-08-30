@@ -551,13 +551,7 @@ export default function Home() {
 
             <div className="col-span-2 text-center lg:order-2 lg:col-span-1 lg:pb-10">
               <p className="kr text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
-                <Lines>
-                  {[
-                    "두 원장이 차트를 함께 보며 진료합니다.",
-                    "편한 쪽을 고르실 수 있고,",
-                    "어려운 판단은 상의한 뒤 말씀드립니다.",
-                  ]}
-                </Lines>
+                <Lines>{["두 원장이 차트를 함께 보며 진료합니다."]}</Lines>
               </p>
               <Rise className="mt-7">
                 <Link
