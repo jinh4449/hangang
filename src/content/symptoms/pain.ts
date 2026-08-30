@@ -101,7 +101,7 @@ export const pain: Symptom = {
     rows: [
       { item: "추나요법 — 단순", coverage: "급여", price: "3만원대", note: "건강보험 적용 · 연 20회 한도" },
       { item: "추나요법 — 복잡", coverage: "급여", price: "5만원대", note: "건강보험 적용 · 연 20회 한도에 합산" },
-      { item: "약침", coverage: "비급여", price: "회당 약 20,000 ~ 40,000원" },
+      { item: "약침", coverage: "비급여", price: "회당 10,000 ~ 30,000원" },
     ],
     insurance: [
       {
