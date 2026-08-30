@@ -3,29 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
-import { CoDoctorIcon } from "@/components/icons";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
   title: "의료진 소개",
   description: `${CLINIC.name} 이진희·왕소정 원장. 두 원장이 함께 진료하며, 판단이 어려운 경우에는 함께 상의해 방향을 정합니다.`,
 };
-
-/** 협진이 어떤 자리에서 도움이 되는지. 진료실에서 실제로 나오는 상황만 적는다 */
-const CO_CARE = [
-  {
-    title: "편한 쪽을 고르실 수 있습니다",
-    body: "산후나 갱년기, 다이어트처럼 이야기 꺼내기 조심스러운 진료에서는 원장을 지정해 예약하실 수 있습니다. 예약하실 때 말씀해 주세요.",
-  },
-  {
-    title: "판단이 어려우면 함께 봅니다",
-    body: "한 사람의 생각으로 치료 방향을 정하지 않습니다. 애매한 경우에는 두 원장이 상의한 뒤에 말씀드립니다.",
-  },
-  {
-    title: "치료 중에 바뀌어도 이어집니다",
-    body: "차트를 함께 보기 때문에 담당이 바뀌어도 처음부터 다시 설명하지 않으셔도 됩니다.",
-  },
-];
 
 export default function Doctors() {
   return (
@@ -81,27 +64,6 @@ export default function Doctors() {
           </div>
         </Section>
       ))}
-
-      <Section
-        title="함께 진료한다는 것"
-        note="원장이 둘이라는 사실보다, 그래서 무엇이 달라지는지가 중요합니다."
-      >
-        <div className="rounded-[2rem] bg-tint p-8 ring-1 ring-herb/15 md:p-10">
-          <CoDoctorIcon className="h-10 w-10 text-herb" />
-          <p className="kr mt-5 text-xl font-bold leading-snug">
-            한 사람의 생각으로 치료 방향을 정하지 않습니다
-          </p>
-        </div>
-
-        <div className="mt-6 border-t border-line">
-          {CO_CARE.map((c) => (
-            <div key={c.title} className="border-b border-line py-7">
-              <h3 className="kr text-lg font-bold leading-snug">{c.title}</h3>
-              <p className="kr mt-3 max-w-[56ch] text-[16px] leading-8 text-muted">{c.body}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
 
       <Section title="더 보기">
         <div className="grid gap-2 sm:grid-cols-2">
