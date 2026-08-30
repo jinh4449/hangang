@@ -592,12 +592,6 @@ export default function Home() {
                   이웃을 데려오시는 경우가 많습니다.
                 </RiseLine>
               </p>
-              <p className="kr mt-5 text-[16px] leading-7 text-muted">
-                <RiseLine>
-                  치료가 끝나면 끝났다고 말씀드립니다. 그래서 다시 아플 때, 또
-                  주변에 아픈 분이 생겼을 때 저희를 떠올리십니다.
-                </RiseLine>
-              </p>
               <p className="kr mt-6 text-sm text-faint">
                 <RiseLine>※ {CLINIC.whyHero.stat.basis}</RiseLine>
               </p>
