@@ -126,12 +126,6 @@ export const carAccident: Symptom = {
         note: "진료수가 기준 범위 내",
       },
       { item: "물리치료", coverage: "자동차보험", price: "0원" },
-      {
-        item: "입원 (필요시)",
-        coverage: "자동차보험",
-        price: "0원",
-        note: "진찰 후 필요한 경우에만",
-      },
     ],
 
     insurance: [
