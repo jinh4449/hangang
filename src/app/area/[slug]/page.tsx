@@ -1,11 +1,8 @@
 import { notFound } from "next/navigation";
-import Link from "next/link";
 import type { Metadata } from "next";
 import { AREAS, getArea } from "@/content/area";
-import { getSymptom } from "@/content/symptoms";
 import { CLINIC, SITE_URL } from "@/content/clinic";
-import { PageHead, Section, Cta, Bezel, JsonLd, MapLinks, Arrow } from "@/components/site";
-import { AreaChips } from "@/components/area";
+import { PageHead, Section, Cta, Bezel, JsonLd, MapPanel } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
 
 export const generateStaticParams = () => AREAS.map((a) => ({ slug: a.slug }));
@@ -21,6 +18,16 @@ export async function generateMetadata({ params }: PageProps<"/area/[slug]">): P
   };
 }
 
+/**
+ * 동네별 안내.
+ *
+ * 이 페이지에 온 사람은 하나만 궁금하다 — 우리 동네에서 얼마나 걸리나.
+ * 그래서 걸리는 시간, 지도, 예약 세 가지만 둔다. 그 밖의 이야기는
+ * 답을 찾는 길을 늘릴 뿐이다.
+ *
+ * ⚠ 동네마다 다른 문단(local)과 많이 찾는 진료(focusSlugs)는 데이터에는
+ *   남아 있지만 지금은 화면에 그리지 않는다. 다시 붙일 때를 위해 지우지 않았다.
+ */
 export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
   const a = getArea((await params).slug);
   if (!a) notFound();
@@ -38,8 +45,16 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
           url: `${SITE_URL}/area/${a.slug}`,
           inLanguage: "ko",
           provider: { "@id": `${SITE_URL}/#clinic` },
-          about: { "@type": "Place", name: `김포시 ${a.name}`, address: { "@type": "PostalAddress", addressLocality: "김포시", addressRegion: "경기도", addressCountry: "KR" } },
-          significantLink: a.focusSlugs.map((f) => `${SITE_URL}/care/${f}`),
+          about: {
+            "@type": "Place",
+            name: `김포시 ${a.name}`,
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "김포시",
+              addressRegion: "경기도",
+              addressCountry: "KR",
+            },
+          },
         }}
       />
       <JsonLd
@@ -50,11 +65,17 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
       />
 
       <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
-        <PageHead eyebrow={`김포시 ${a.name}`} title={a.title} titleSub={CLINIC.name} lede={a.lede} />
+        <PageHead
+          eyebrow={`김포시 ${a.name}`}
+          title={a.title}
+          titleSub={CLINIC.name}
+          lede={a.lede}
+        />
 
-        {/* 이 페이지에 온 이유는 하나다 — 얼마나 걸리는지.
-            그래서 다른 것보다 먼저, 크게 둔다 */}
-        <Section title={`${a.name}에서 여기까지`} note="평시 기준이며, 시간대와 교통 상황에 따라 달라집니다.">
+        <Section
+          title={`${a.name}에서 여기까지`}
+          note="평시 기준이며, 시간대와 교통 상황에 따라 달라집니다."
+        >
           <Bezel>
             <dl className="divide-y divide-line p-2">
               {a.routes.map((r) => (
@@ -68,41 +89,10 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
               ))}
             </dl>
           </Bezel>
-          <p className="kr mt-4 text-[15px] leading-7 text-muted">
-            {CLINIC.address} · {CLINIC.landmark}
-          </p>
-          <div className="mt-5">
-            <MapLinks />
-          </div>
         </Section>
 
-        {a.local.map((l) => (
-          <Section key={l.title} title={l.title}>
-            <p className="kr max-w-[58ch] text-[16px] leading-8 text-muted">{l.body}</p>
-          </Section>
-        ))}
-
-        <Section title={`${a.name}에서 많이 찾는 진료`}>
-          <div className="grid gap-2">
-            {a.focusSlugs.map((fs) => {
-              const s = getSymptom(fs);
-              if (!s) return null;
-              return (
-                <Link key={fs} href={`/care/${fs}`} className="tile block bg-surface px-5 py-4">
-                  <span className="kr font-semibold">{s.name}</span>
-                  <span className="kr mt-1 block text-[15px] text-muted">{s.summary}</span>
-                  <span className="tile-arrow mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                    보러 가기
-                    <Arrow />
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </Section>
-
-        <Section title="다른 동네에서 오신다면" note="김포 안 어디에서 오셔도 걸리는 시간을 적어 두었습니다.">
-          <AreaChips exclude={a.slug} />
+        <Section title="지도와 길찾기" note="네이버 지도, 카카오맵, 구글 지도 중 쓰시는 앱으로 여실 수 있습니다.">
+          <MapPanel />
         </Section>
 
         <Cta />

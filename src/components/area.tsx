@@ -1,41 +1,32 @@
 import Link from "next/link";
-import { AREAS, AREA_GROUPS, areasIn } from "@/content/area";
+import { AREAS } from "@/content/area";
+
+/** 가까운 곳부터. 자기 동네를 위쪽에서 찾게 된다 */
+const NEAR_FIRST = [...AREAS].sort((a, b) => a.minutes - b.minutes);
 
 /**
  * 동네 목록.
  *
- * 「어느 동네에서 오시나요?」에 답을 고르는 자리다. 이름만 늘어놓으면
- * 어디를 눌러야 할지는 알아도 얼마나 걸리는지는 들어가 봐야 안다.
- * 그래서 칩에 소요 시간을 같이 찍는다. 누르기 전에 답이 보이게 한다.
+ * 「어느 동네에서 오시나요?」에 답을 고르는 자리다. 권역으로 나누거나
+ * 소요 시간을 같이 적으면 고르기 전에 읽을 것이 늘어난다. 여기서는
+ * 이름만 늘어놓고, 시간은 들어간 페이지에서 크게 보여 준다.
  *
  * @param exclude 지금 보고 있는 동네. 자기 자신으로 가는 링크는 빼둔다
  */
 export function AreaChips({ exclude }: { exclude?: string }) {
   return (
-    <div className="grid gap-7">
-      {AREA_GROUPS.map((g) => {
-        const list = areasIn(g).filter((a) => a.slug !== exclude);
-        if (!list.length) return null;
-        return (
-          <div key={g}>
-            <p className="kr text-[12px] font-medium uppercase tracking-[0.15em] text-faint">{g}</p>
-            <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-              {list.map((a) => (
-                <li key={a.slug}>
-                  <Link
-                    href={`/area/${a.slug}`}
-                    className="tile flex items-baseline justify-between gap-2 bg-surface px-4 py-3.5"
-                  >
-                    <span className="kr text-[15px] font-semibold">{a.name}</span>
-                    <span className="kr shrink-0 text-[13px] text-faint">{a.chip}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        );
-      })}
-    </div>
+    <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+      {NEAR_FIRST.filter((a) => a.slug !== exclude).map((a) => (
+        <li key={a.slug}>
+          <Link
+            href={`/area/${a.slug}`}
+            className="tile block bg-surface px-4 py-3.5 text-center"
+          >
+            <span className="kr text-[15px] font-semibold">{a.name}</span>
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }
 
