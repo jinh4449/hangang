@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Section, Bezel, Cta, MapPanel, JsonLd } from "@/components/site";
+import { AreaChips } from "@/components/area";
 import { breadcrumb } from "@/content/schema";
 
 export const metadata: Metadata = {
@@ -37,6 +38,13 @@ export default function Directions() {
             </li>
           ))}
         </ul>
+      </Section>
+
+      <Section
+        title="어느 동네에서 오시나요?"
+        note="사시는 동네를 누르시면 여기까지 걸리는 시간과 오는 길이 나옵니다."
+      >
+        <AreaChips />
       </Section>
 
       {/* TODO: 도메인 확정 후 네이버 지도 JS API 로 네이버 지도도 삽입 (Client ID 발급 시 도메인 등록 필요) */}

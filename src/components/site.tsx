@@ -112,10 +112,13 @@ export function Arrow({ className = "" }: { className?: string }) {
 export function PageHead({
   eyebrow,
   title,
+  titleSub,
   lede,
 }: {
   eyebrow: string;
   title: string;
+  /** 제목 아래 한 줄. 지역 페이지에서 「여기가 어느 병원인지」를 붙이는 자리 */
+  titleSub?: string;
   /** 없으면 제목만 세운다 */
   lede?: string;
 }) {
@@ -141,6 +144,14 @@ export function PageHead({
           </span>
         ))}
       </h1>
+      {titleSub && (
+        <p
+          className="enter display kr mt-1 text-3xl text-herb sm:text-[2.6rem]"
+          style={{ "--d": `${140 + words.length * 70}ms` } as React.CSSProperties}
+        >
+          {titleSub}
+        </p>
+      )}
       {lede && (
         <p
           className="enter kr mt-5 max-w-[52ch] text-[18px] leading-8 text-muted"
@@ -286,6 +297,7 @@ const FOOTER_NAV = [
       { label: "의료진 소개", href: "/doctors" },
       { label: "예약 · 상담", href: "/reservation" },
       { label: "오시는 길", href: "/directions" },
+      { label: "동네별 오시는 길", href: "/area" },
     ],
   },
   {

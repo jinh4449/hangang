@@ -137,14 +137,22 @@ export type ComparePane = {
  * 지역 페이지. 지역명만 바꾼 복사본은 구글이 doorway page 로 보고 불이익을 준다.
  * 그래서 access 와 local 은 페이지마다 반드시 달라야 한다. 채울 내용이 없으면 페이지를 만들지 않는다.
  */
+/** 김포시 동네별 안내 페이지 하나 */
 export type Area = {
   slug: string;
-  /** 검색어 그대로 */
-  title: string;
+  /** 동네 이름. 예: "장기동" */
   name: string;
+  /** 목록에서 묶는 권역 */
+  group: string;
+  /** 검색어 그대로. 예: "김포 장기동 한의원" */
+  title: string;
+  /** 목록 칩에 찍는 짧은 소요 시간. 예: "차 10분" */
+  chip: string;
+  /** 정렬용. 차로 걸리는 분 */
+  minutes: number;
   lede: string;
-  /** 이 지역에서 오는 실제 경로. 페이지마다 다르다 */
-  access: { label: string; detail: string }[];
+  /** 이 동네에서 오는 길과 걸리는 시간. 이 페이지의 본론이다 */
+  routes: { by: string; time: string; detail: string }[];
   /** 이 페이지에만 있는 문단 */
   local: { title: string; body: string }[];
   /** 이 지역에서 특히 많이 찾는 진료과목 */

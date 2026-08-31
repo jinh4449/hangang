@@ -3,6 +3,7 @@ import { SYMPTOMS } from "@/content/symptoms";
 import { COMPARES } from "@/content/compare";
 import { COLUMNS } from "@/content/column";
 import { PARTS } from "@/content/part";
+import { AREAS } from "@/content/area";
 import { SITE_URL } from "@/content/clinic";
 
 /** 진료과목을 추가하면 사이트맵도 자동으로 늘어난다. 손으로 관리하지 않는다. */
@@ -45,6 +46,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly",
         priority: pr,
       });
+  }
+  // 동네별 안내. 지역 검색으로 들어오는 길목이라 색인에서 빠지면 안 된다
+  entries.push({
+    url: `${SITE_URL}/area`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  });
+  for (const a of AREAS) {
+    entries.push({
+      url: `${SITE_URL}/area/${a.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    });
   }
   entries.push({
     url: `${SITE_URL}/column`,
