@@ -526,10 +526,12 @@ export default function Home() {
 
                     회색 판은 사진보다 옆으로 넓게 둔다. 사진에 딱 맞추면 판이
                     사람의 윤곽을 따라가, 팔을 벌린 쪽과 붙인 쪽의 판 넓이가
-                    달라 보인다. 아래는 띄우지 않는다. 서 있는 바닥이 뜨면
+                    달라 보인다. 머리 위도 띄운다. 사진이 사람에 딱 맞게
+                    잘려 있어, 그대로 두면 정수리가 판의 끝에 닿는다.
+                    아래는 띄우지 않는다. 서 있는 바닥이 뜨면
                     사람이 공중에 있는 것처럼 보인다 */}
                 <Rise>
-                  <div className="overflow-hidden rounded-[1.5rem] bg-surface-2 px-[clamp(1rem,3.5vw,2.75rem)]">
+                  <div className="overflow-hidden rounded-[1.5rem] bg-surface-2 px-[clamp(1rem,3.5vw,2.75rem)] pt-[clamp(1.5rem,4vh,3rem)]">
                     <Image
                       src={d.photo.src}
                       alt={`${CLINIC.name} ${d.name} ${d.role}`}
