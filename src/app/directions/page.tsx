@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Section, Bezel, Cta, MapPanel, JsonLd } from "@/components/site";
 import { AreaChips } from "@/components/area";
-import { breadcrumb } from "@/content/schema";
+import { webPage, breadcrumb } from "@/content/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/directions" },
   title: "오시는 길",
   description: `${CLINIC.name}. ${CLINIC.transit}. ${CLINIC.address}. 주차 ${CLINIC.parkingList.length}곳.`,
 };
@@ -12,6 +13,13 @@ export const metadata: Metadata = {
 export default function Directions() {
   return (
     <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
+      <JsonLd
+        data={webPage({
+          name: `${CLINIC.name} 오시는 길`,
+          description: `${CLINIC.transit}. ${CLINIC.address}.`,
+          path: "/directions",
+        })}
+      />
       <JsonLd data={breadcrumb([{ name: "오시는 길", path: "/directions" }])} />
       <PageHead
         eyebrow="오시는 길"

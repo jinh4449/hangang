@@ -23,6 +23,19 @@ export const CLINIC = {
   transit: "김포골드라인 장기역 3·4번 출구 도보 1분",
   landmark: "다이소 맞은편",
   placeUrl: "https://naver.me/G7NPJIyh",
+  /**
+   * 다른 곳에 있는 우리 병원 계정·프로필.
+   *
+   * 검색엔진은 이 목록을 보고 「여기저기 흩어진 이 이름들이 같은 병원이다」를
+   * 확인한다. 하나뿐이면 확인할 것이 없어 그냥 넘어간다.
+   *
+   * TODO: 블로그·인스타그램·유튜브를 만드시면 여기에 줄만 더하면 된다.
+   *       확실히 우리 것인 주소만 넣는다. 남의 계정을 적으면 오히려 해가 된다.
+   */
+  sameAs: [
+    "https://naver.me/G7NPJIyh",
+    "https://booking.naver.com/booking/13/bizes/1623687",
+  ],
   parking: "건물 옥상주차장 · 장기1공영주차장 · 장기2공영주차장",
   parkingList: ["건물 옥상주차장", "장기1공영주차장", "장기2공영주차장"],
   /**
@@ -73,7 +86,7 @@ export const CLINIC = {
       key: "wang",
       name: "왕소정",
       role: "대표원장",
-      photo: { src: "/doctor-a.jpg", w: 528, h: 1000 },
+      photo: { src: "/doctor-a.webp", w: 528, h: 1000 },
       line: "묻기 어려운 이야기까지 편하게 꺼내실 수 있도록 듣는 데 시간을 씁니다.",
       career: {
         학력: ["원광대학교 한의과대학 졸업"],
@@ -98,7 +111,7 @@ export const CLINIC = {
       key: "lee",
       name: "이진희",
       role: "대표원장",
-      photo: { src: "/doctor-b.jpg", w: 545, h: 1000 },
+      photo: { src: "/doctor-b.webp", w: 545, h: 1000 },
       line: "초음파로 상태를 함께 보면서, 지금 치료가 필요한 이유부터 설명드립니다.",
       career: {
         학력: ["원광대학교 한의과대학 졸업"],

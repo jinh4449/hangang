@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { CLINIC } from "@/content/clinic";
+import { CLINIC, SITE_URL } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { QUESTION_COLUMNS } from "@/content/column";
 import { PARTS } from "@/content/part";
 import { JsonLd, Arrow } from "@/components/site";
+import { webPage, breadcrumb } from "@/content/schema";
 import {
   SYMPTOM_ICONS,
   MapPinIcon,
@@ -276,10 +277,23 @@ const dotted = (iso: string) => iso.replaceAll("-", ".");
 export default function Home() {
   return (
     <>
+      {/* 이 화면 자체 */}
+      <JsonLd
+        data={webPage({
+          name: `${CLINIC.name} — ${CLINIC.tagline}`,
+          description: `${CLINIC.address}. ${CLINIC.badges.join(" · ")}.`,
+          path: "/",
+        })}
+      />
+      {/* 첫 화면은 위가 없어 칸이 하나뿐이다. 그래도 두는 이유는,
+          이동경로가 아예 없으면 검사 도구가 「사이트 안에서의 자리를 알 수 없다」로 읽기 때문 */}
+      <JsonLd data={breadcrumb([], "/")} />
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "FAQPage",
+          "@id": `${SITE_URL}/#faq`,
+          isPartOf: { "@id": `${SITE_URL}/#website` },
           mainEntity: pain.faq.slice(0, 4).map((f) => ({
             "@type": "Question",
             name: f.q,
@@ -815,7 +829,7 @@ export default function Home() {
           <Rise className="mt-10">
           <figure className="overflow-hidden rounded-[2rem] ring-1 ring-line">
             <Image
-              src="/clinic-interior.jpg"
+              src="/clinic-interior.webp"
               alt="김포한강한의원 접수 데스크와 대기 공간"
               width={2000}
               height={1333}

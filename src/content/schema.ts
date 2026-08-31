@@ -7,11 +7,65 @@ import { CLINIC, SITE_URL } from "./clinic";
  */
 
 const CLINIC_REF = { "@id": `${SITE_URL}/#clinic` };
+const SITE_REF = { "@id": `${SITE_URL}/#website` };
 
-export function breadcrumb(trail: { name: string; path: string }[]) {
+/**
+ * 사이트 자체를 가리키는 엔티티. 레이아웃에 한 번만 둔다.
+ *
+ * 병원(MedicalClinic)과 사이트(WebSite)는 다른 것이다. 병원만 적어 두면
+ * 검색엔진이 「이 글들을 누가 어디에 내놓았는가」를 병원 주소로만 짐작한다.
+ * 사이트를 따로 세우고 발행 주체를 병원으로 걸어 두면 그 관계가 분명해진다.
+ */
+export const webSite = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  url: SITE_URL,
+  name: CLINIC.name,
+  inLanguage: "ko",
+  publisher: CLINIC_REF,
+};
+
+/** 화면 하나를 가리키는 엔티티. 어느 페이지에나 하나씩 있어야 한다 */
+export function webPage({
+  name,
+  description,
+  path,
+  hasBreadcrumb = true,
+}: {
+  name: string;
+  description: string;
+  path: string;
+  /** 첫 화면처럼 위가 없는 곳은 이동경로를 걸지 않는다 */
+  hasBreadcrumb?: boolean;
+}) {
+  const url = `${SITE_URL}${path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name,
+    description,
+    inLanguage: "ko",
+    isPartOf: SITE_REF,
+    about: CLINIC_REF,
+    ...(hasBreadcrumb ? { breadcrumb: { "@id": `${url}#breadcrumb` } } : {}),
+  };
+}
+
+/**
+ * 이동경로. 페이지가 사이트의 어디쯤인지 알린다.
+ *
+ * @param path 이 이동경로가 붙는 페이지 주소. @id 를 만들 때 쓴다.
+ *             넘기지 않으면 마지막 칸의 주소를 쓴다.
+ */
+export function breadcrumb(trail: { name: string; path: string }[], path?: string) {
+  const here = path ?? trail[trail.length - 1]?.path ?? "/";
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${SITE_URL}${here}#breadcrumb`,
     itemListElement: [{ name: "홈", path: "/" }, ...trail].map((t, i) => ({
       "@type": "ListItem",
       position: i + 1,
@@ -33,13 +87,17 @@ export function medicalWebPage({
   condition?: string;
   path: string;
 }) {
+  const url = `${SITE_URL}${path}`;
   return {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
+    "@id": `${url}#webpage`,
     name,
     description,
-    url: `${SITE_URL}${path}`,
+    url,
     inLanguage: "ko",
+    isPartOf: SITE_REF,
+    breadcrumb: { "@id": `${url}#breadcrumb` },
     ...(condition ? { about: { "@type": "MedicalCondition", name: condition } } : {}),
     audience: { "@type": "MedicalAudience", audienceType: "환자" },
     publisher: CLINIC_REF,
@@ -47,10 +105,12 @@ export function medicalWebPage({
   };
 }
 
-export function faqPage(pairs: { q: string; a: string }[]) {
+export function faqPage(pairs: { q: string; a: string }[], path = "/") {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": `${SITE_URL}${path}#faq`,
+    isPartOf: SITE_REF,
     mainEntity: pairs.map((p) => ({
       "@type": "Question",
       name: p.q,
@@ -74,9 +134,11 @@ export function costSchema({
   return {
     "@context": "https://schema.org",
     "@type": "MedicalWebPage",
+    "@id": `${SITE_URL}${path}#cost`,
     name,
     url: `${SITE_URL}${path}`,
     inLanguage: "ko",
+    isPartOf: SITE_REF,
     about: { "@type": "MedicalCondition", name: condition },
     provider: CLINIC_REF,
     mainEntity: {

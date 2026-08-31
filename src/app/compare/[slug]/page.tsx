@@ -12,7 +12,11 @@ export const generateStaticParams = () => COMPARES.map((c) => ({ slug: c.slug })
 export async function generateMetadata({ params }: PageProps<"/compare/[slug]">): Promise<Metadata> {
   const c = getCompare((await params).slug);
   if (!c) return {};
-  return { title: c.title, description: c.lede.slice(0, 150) };
+  return {
+    title: c.title,
+    description: c.lede.slice(0, 150),
+    alternates: { canonical: `/compare/${c.slug}` },
+  };
 }
 
 function Pane({ pane, tone }: { pane: ComparePane; tone: "a" | "b" }) {

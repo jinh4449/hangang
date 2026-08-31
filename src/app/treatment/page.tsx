@@ -3,9 +3,10 @@ import type { Metadata } from "next";
 import { TREATMENTS, AXIS_STORY } from "@/content/treatment";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Cta, JsonLd } from "@/components/site";
-import { breadcrumb, SITE_URL } from "@/content/schema";
+import { webPage, breadcrumb, SITE_URL } from "@/content/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/treatment" },
   title: "치료 방법",
   description: "초음파 유도 약침으로 통증과 염증을, 추나요법으로 틀어진 구조를 다룹니다.",
 };
@@ -19,11 +20,19 @@ const AXIS_LABEL: Record<string, string> = {
 export default function TreatmentIndex() {
   return (
     <>
+      <JsonLd
+        data={webPage({
+          name: `${CLINIC.name} 치료 방법`,
+          description: "초음파 유도 약침과 추나요법.",
+          path: "/treatment",
+        })}
+      />
       <JsonLd data={breadcrumb([{ name: "치료 방법", path: "/treatment" }])} />
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "ItemList",
+          "@id": `${SITE_URL}/treatment#list`,
           name: `${CLINIC.name} 치료 방법`,
           itemListElement: TREATMENTS.map((t, i) => ({
             "@type": "ListItem",

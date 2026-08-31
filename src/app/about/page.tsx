@@ -8,6 +8,7 @@ import { WHY_ICONS, UltrasoundIcon } from "@/components/icons";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/about" },
   title: "병원 소개",
   description: `${CLINIC.name}. ${CLINIC.tagline}. ${CLINIC.address}. ${CLINIC.transit}.`,
 };
@@ -85,7 +86,7 @@ export default function About() {
       <Section title="공간" note="접수 데스크와 대기 공간입니다. 물리치료실은 안쪽에 따로 있습니다.">
         <figure className="overflow-hidden rounded-[2rem] ring-1 ring-line">
           <Image
-            src="/clinic-interior.jpg"
+            src="/clinic-interior.webp"
             alt={`${CLINIC.name} 접수 데스크와 대기 공간`}
             width={2000}
             height={1333}

@@ -40,10 +40,13 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
         data={{
           "@context": "https://schema.org",
           "@type": "MedicalWebPage",
+          "@id": `${SITE_URL}/area/${a.slug}#webpage`,
           name: a.title,
           description: a.lede,
           url: `${SITE_URL}/area/${a.slug}`,
           inLanguage: "ko",
+          isPartOf: { "@id": `${SITE_URL}/#website` },
+          breadcrumb: { "@id": `${SITE_URL}/area/${a.slug}#breadcrumb` },
           provider: { "@id": `${SITE_URL}/#clinic` },
           about: {
             "@type": "Place",

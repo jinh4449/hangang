@@ -12,7 +12,11 @@ export const generateStaticParams = () => PARTS.map((p) => ({ slug: p.slug }));
 export async function generateMetadata({ params }: PageProps<"/part/[slug]">): Promise<Metadata> {
   const p = getPart((await params).slug);
   if (!p) return {};
-  return { title: `${p.name} 통증 — ${p.conditions[0]} 등`, description: p.lede.slice(0, 150) };
+  return {
+    title: `${p.name} 통증 — ${p.conditions[0]} 등`,
+    description: p.lede.slice(0, 150),
+    alternates: { canonical: `/part/${p.slug}` },
+  };
 }
 
 export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
@@ -25,10 +29,13 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
         data={{
           "@context": "https://schema.org",
           "@type": "MedicalWebPage",
+          "@id": `${SITE_URL}/part/${p.slug}#webpage`,
           name: `${p.name} 통증 치료`,
           description: p.lede,
           url: `${SITE_URL}/part/${p.slug}`,
           inLanguage: "ko",
+          isPartOf: { "@id": `${SITE_URL}/#website` },
+          breadcrumb: { "@id": `${SITE_URL}/part/${p.slug}#breadcrumb` },
           provider: { "@id": `${SITE_URL}/#clinic` },
           about: p.conditions.map((c) => ({ "@type": "MedicalCondition", name: c })),
           mentions: p.approach.map((a) => {

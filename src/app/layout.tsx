@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import { SiteHeader, SiteFooter, JsonLd } from "@/components/site";
+import { webSite } from "@/content/schema";
 import { RiseInit } from "@/components/rise";
 import { CLINIC, SITE_URL } from "@/content/clinic";
 import { withJosa } from "@/content/josa";
@@ -15,6 +16,9 @@ export const metadata: Metadata = {
   description: `${CLINIC.name}. ${CLINIC.tagline}. ${CLINIC.badges.join(" · ")}. ${CLINIC.address}`,
   robots: { index: true, follow: true },
   alternates: {
+    // 첫 화면 몫이다. 하위 페이지는 각자 적는다. 여기에만 적으면 물려받아
+    // 모든 페이지가 첫 화면을 가리키고, 그러면 나머지가 색인에서 빠진다
+    canonical: "/",
     types: { "application/rss+xml": [{ url: "/feed.xml", title: `${CLINIC.name} 원장 칼럼` }] },
   },
   openGraph: {
@@ -90,6 +94,8 @@ const clinicJsonLd = {
     worksFor: { "@id": `${SITE_URL}/#clinic` },
   })),
   numberOfEmployees: { "@type": "QuantitativeValue", value: CLINIC.doctors.length, unitText: "원장" },
+  // 다른 곳에 있는 같은 병원. 흩어진 이름을 하나로 묶어 준다
+  sameAs: CLINIC.sameAs,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -97,6 +103,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="ko" className={`${outfit.variable} h-full`}>
       <body className="flex min-h-full flex-col font-sans">
         <JsonLd data={clinicJsonLd} />
+        {/* 사이트 자체. 어느 페이지에서든 같은 @id 를 가리키므로 한 번만 둔다 */}
+        <JsonLd data={webSite} />
         {/* 스크립트를 끈 채로 스크롤 연동도 모르는 브라우저라면 떠오를 방법이 없다.
             그 경우에만 처음부터 보이게 되돌린다 */}
         <noscript>

@@ -2,9 +2,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { PARTS } from "@/content/part";
 import { PageHead, Cta, JsonLd } from "@/components/site";
-import { breadcrumb } from "@/content/schema";
+import { webPage, breadcrumb } from "@/content/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/part" },
   title: "통증 · 근골격",
   description:
     "어깨, 목, 허리, 무릎, 팔꿈치, 발목. 부위마다 문제가 생기는 조직이 다르고 쓰는 치료가 다릅니다.",
@@ -13,6 +14,13 @@ export const metadata: Metadata = {
 export default function PartIndex() {
   return (
     <>
+      <JsonLd
+        data={webPage({
+          name: "통증 · 근골격",
+          description: "어깨, 목, 허리, 무릎, 팔꿈치, 발목. 부위마다 쓰는 치료가 다릅니다.",
+          path: "/part",
+        })}
+      />
       <JsonLd data={breadcrumb([{ name: "통증 · 근골격", path: "/part" }])} />
       <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
         <PageHead

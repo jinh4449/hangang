@@ -7,6 +7,7 @@ import { SYMPTOM_ICONS } from "@/components/icons";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/care" },
   title: "진료과목",
   description: `${CLINIC.name} 진료과목. ${SYMPTOMS.map((s) => s.name).join(", ")}. 과목마다 치료 방법과 예상 기간이 다릅니다.`,
 };

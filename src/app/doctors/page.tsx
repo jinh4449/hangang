@@ -6,6 +6,7 @@ import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/doctors" },
   title: "의료진 소개",
   description: `${CLINIC.name} 이진희·왕소정 원장이 함께 진료합니다.`,
 };

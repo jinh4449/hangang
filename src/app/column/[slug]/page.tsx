@@ -16,6 +16,7 @@ export async function generateMetadata({ params }: PageProps<"/column/[slug]">):
   return {
     title: c.title,
     description: c.summary,
+    alternates: { canonical: `/column/${c.slug}` },
     openGraph: { type: "article", publishedTime: c.date },
   };
 }
@@ -34,6 +35,8 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
         data={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",
+          "@id": `${SITE_URL}/column/${c.slug}#article`,
+          isPartOf: { "@id": `${SITE_URL}/#website` },
           headline: c.title,
           description: c.summary,
           url: `${SITE_URL}/column/${c.slug}`,

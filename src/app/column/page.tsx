@@ -4,9 +4,10 @@ import { columnsByDate } from "@/content/column";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Cta, JsonLd } from "@/components/site";
 import { readingMinutes } from "@/components/blocks";
-import { breadcrumb, SITE_URL } from "@/content/schema";
+import { webPage, breadcrumb, SITE_URL } from "@/content/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/column" },
   title: "원장 칼럼",
   description: `${CLINIC.name} 진료실에서 자주 받는 질문에 답합니다.`,
 };
@@ -17,11 +18,20 @@ export default function ColumnIndex() {
   const list = columnsByDate();
   return (
     <>
+      <JsonLd
+        data={webPage({
+          name: `${CLINIC.name} 원장 칼럼`,
+          description: "진료실에서 자주 받는 질문에 답합니다.",
+          path: "/column",
+        })}
+      />
       <JsonLd data={breadcrumb([{ name: "원장 칼럼", path: "/column" }])} />
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "Blog",
+          "@id": `${SITE_URL}/column#blog`,
+          isPartOf: { "@id": `${SITE_URL}/#website` },
           name: `${CLINIC.name} 원장 칼럼`,
           url: `${SITE_URL}/column`,
           inLanguage: "ko",

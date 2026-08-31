@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
-import { CLINIC } from "@/content/clinic";
+import { CLINIC, SITE_URL } from "@/content/clinic";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
@@ -42,6 +42,7 @@ export async function generateMetadata({ params }: PageProps<"/care/[symptom]">)
   return {
     title: `${s.name} 한방치료 — ${s.clinicalName}`,
     description: s.care.lede.slice(0, 150),
+    alternates: { canonical: `/care/${s.slug}` },
   };
 }
 
@@ -56,7 +57,13 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         data={{
           "@context": "https://schema.org",
           "@type": "MedicalWebPage",
+          "@id": `${SITE_URL}/care/${s.slug}#webpage`,
+          url: `${SITE_URL}/care/${s.slug}`,
           name: care.title,
+          inLanguage: "ko",
+          isPartOf: { "@id": `${SITE_URL}/#website` },
+          breadcrumb: { "@id": `${SITE_URL}/care/${s.slug}#breadcrumb` },
+          provider: { "@id": `${SITE_URL}/#clinic` },
           about: { "@type": "MedicalCondition", name: s.clinicalName },
         }}
       />

@@ -10,6 +10,7 @@ import { PhoneIcon, ChatIcon, CalendarIcon } from "@/components/icons";
 import { breadcrumb, faqPage, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/reservation" },
   title: "예약 · 상담",
   description:
     `${CLINIC.name} 예약 안내. 전화 ${CLINIC.phone}. ` +
