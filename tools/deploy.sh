@@ -30,7 +30,18 @@ HTML=$(find "${OUT}" -name '*.html' | wc -l | tr -d ' ')
 [ "${HTML}" -gt 0 ] || { echo "HTML 이 만들어지지 않았습니다"; exit 1; }
 echo "   HTML ${HTML}개"
 
-step "2/4  배포 저장소 채우기"
+step "2/4  원본 저장소 커밋·푸시"
+# 채우기보다 먼저 한다. 그래야 version.txt 에 이번 판의 커밋 번호가 찍힌다
+cd "${SRC}"
+if [ -n "$(git status --porcelain)" ]; then
+  git add -A && git commit -q -m "${MSG}"
+  git push -q -u origin "$(git branch --show-current)"
+  echo "   $(git log --oneline -1)"
+else
+  echo "   바뀐 것 없음 — 건너뜀"
+fi
+
+step "3/4  배포 저장소 채우기"
 cd "${DEPLOY}"
 # .git 과 저장소에만 두는 파일은 남기고 나머지를 비운다
 find . -mindepth 1 -maxdepth 1 \
@@ -47,16 +58,6 @@ cp -r "${OUT}/." .
 } > version.txt
 echo "   HTML $(find . -name '*.html' -not -path './.git/*' | wc -l | tr -d ' ')개 · $(du -sh --exclude=.git . | cut -f1)"
 echo "   표식: /version.txt"
-
-step "3/4  원본 저장소 커밋·푸시"
-cd "${SRC}"
-if [ -n "$(git status --porcelain)" ]; then
-  git add -A && git commit -q -m "${MSG}"
-  git push -q -u origin "$(git branch --show-current)"
-  echo "   $(git log --oneline -1)"
-else
-  echo "   바뀐 것 없음 — 건너뜀"
-fi
 
 step "4/4  배포 저장소 커밋·푸시"
 cd "${DEPLOY}"
