@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Section, Bezel, Cta, MapPanel, JsonLd } from "@/components/site";
 import { AreaChips } from "@/components/area";
+import { ParkingList } from "@/components/parking";
 import { webPage, breadcrumb } from "@/content/schema";
 
 export const metadata: Metadata = {
@@ -38,14 +39,8 @@ export default function Directions() {
         </Bezel>
       </Section>
 
-      <Section title="주차" note="세 곳 중 편하신 곳을 이용하시면 됩니다.">
-        <ul className="grid gap-2 sm:grid-cols-3">
-          {CLINIC.parkingList.map((pk) => (
-            <li key={pk} className="kr rounded-2xl bg-surface px-5 py-4 text-center text-[15px] ring-1 ring-line">
-              {pk}
-            </li>
-          ))}
-        </ul>
+      <Section title="주차" note="세 곳 중 편하신 곳을 이용하시면 됩니다. 주소를 누르시면 복사됩니다.">
+        <ParkingList />
       </Section>
 
       <Section title="어느 동네에서 오시나요?">

@@ -45,7 +45,7 @@ export const BOOKING_FAQ: { q: string; a: string }[] = [
   {
     q: "주차가 가능한가요?",
     a:
-      `${CLINIC.parkingList.join(", ")} 세 곳을 이용하실 수 있습니다. ` +
+      `${CLINIC.parkingList.map((p) => p.name).join(", ")} 세 곳을 이용하실 수 있습니다. ` +
       `${CLINIC.transit}이라 지하철로 오시는 것도 편합니다. ${CLINIC.landmark} 건물 202호입니다.`,
   },
   {

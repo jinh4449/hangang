@@ -25,7 +25,7 @@ export function GET() {
 - 주소: ${CLINIC.address} (${CLINIC.landmark})
 - 전화: ${CLINIC.phone}
 - 교통: ${CLINIC.transit}
-- 주차: ${CLINIC.parkingList.join(", ")}
+- 주차: ${CLINIC.parkingList.map((p) => p.name).join(", ")}
 - 진료시간: ${hours}
 - 공휴일과 대체공휴일은 09:30-15:00 진료하며, 설날 당일과 추석 당일은 휴진합니다.
 - 의료진: ${CLINIC.doctors.map((d) => `${d.name} ${d.role}`).join(", ")}

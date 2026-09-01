@@ -37,7 +37,20 @@ export const CLINIC = {
     "https://booking.naver.com/booking/13/bizes/1623687",
   ],
   parking: "건물 옥상주차장 · 장기1공영주차장 · 장기2공영주차장",
-  parkingList: ["건물 옥상주차장", "장기1공영주차장", "장기2공영주차장"],
+  /**
+   * 주차할 수 있는 곳.
+   *
+   * 주소는 화면에서 눌러 복사할 수 있게 그대로 내보낸다. 그래서 틀리면
+   * 그 주소가 그대로 내비게이션에 찍힌다. 확인된 것만 적는다.
+   *
+   * TODO: 장기1·2공영주차장의 도로명주소를 확인해 address 에 채울 것.
+   *       비워 두면 주소 대신 「지도에서 보기」가 나온다.
+   */
+  parkingList: [
+    { name: "건물 옥상주차장", address: "경기도 김포시 김포한강4로 110" },
+    { name: "장기1공영주차장", address: null },
+    { name: "장기2공영주차장", address: null },
+  ] as { name: string; address: string | null }[],
   /**
    * 진료 시간의 원본.
    *

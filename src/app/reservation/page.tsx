@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HOURS } from "@/content/hours";
 import Link from "next/link";
+import { ParkingList } from "@/components/parking";
 import { CLINIC } from "@/content/clinic";
 import { BOOKING_FAQ } from "@/content/booking";
 import { Section, MapPanel, JsonLd, Arrow } from "@/components/site";
@@ -215,17 +216,12 @@ export default function Reservation() {
           note="네이버 지도, 카카오맵, 구글 지도 중 쓰시는 앱으로 바로 길을 찾으실 수 있습니다."
         >
           <MapPanel />
-          <div className="mt-4 grid gap-2 sm:grid-cols-3">
-            {CLINIC.parkingList.map((pk) => (
-              <div
-                key={pk}
-                className="kr rounded-2xl bg-surface px-5 py-4 text-center text-[15px] ring-1 ring-line"
-              >
-                {pk}
-              </div>
-            ))}
+          <div className="mt-4">
+            <ParkingList />
           </div>
-          <p className="kr mt-3 text-center text-[15px] text-muted">주차는 세 곳 중 편하신 곳을 이용하시면 됩니다.</p>
+          <p className="kr mt-3 text-center text-[15px] text-muted">
+            주차는 세 곳 중 편하신 곳을 이용하시면 됩니다. 주소를 누르시면 복사됩니다.
+          </p>
           <div className="mt-6 text-center">
             <Link
               href="/directions"
