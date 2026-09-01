@@ -48,10 +48,7 @@ export default function Directions() {
         </ul>
       </Section>
 
-      <Section
-        title="어느 동네에서 오시나요?"
-        note="사시는 동네를 누르시면 여기까지 걸리는 시간과 오는 길이 나옵니다."
-      >
+      <Section title="어느 동네에서 오시나요?">
         <AreaChips />
       </Section>
 
