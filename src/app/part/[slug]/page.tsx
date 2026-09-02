@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { PARTS, getPart } from "@/content/part";
 import { getTreatment } from "@/content/treatment";
 import { PageHead, Section, Cta, JsonLd } from "@/components/site";
-import { breadcrumb, SITE_URL } from "@/content/schema";
+import { breadcrumb, faqPage, SITE_URL } from "@/content/schema";
 import { withJosa } from "@/content/josa";
 
 export const generateStaticParams = () => PARTS.map((p) => ({ slug: p.slug }));
@@ -45,6 +45,9 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
           }),
         }}
       />
+      {p.faq && p.faq.length > 0 && (
+        <JsonLd data={faqPage(p.faq, `/part/${p.slug}`)} />
+      )}
       <JsonLd
         data={breadcrumb([
           { name: "통증 · 근골격", path: "/part" },
@@ -109,6 +112,27 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
             {p.span} 개인차가 있어 진찰 후에 다시 잡습니다.
           </p>
         </Section>
+
+        {p.faq && p.faq.length > 0 && (
+          <Section title="자주 묻는 질문" note="진료실에서 실제로 많이 받는 질문입니다.">
+            <div className="border-t border-line">
+              {p.faq.map((f) => (
+                <details key={f.q} className="group border-b border-line">
+                  <summary className="kr flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-[18px] font-bold [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 text-[19px] text-faint transition-transform group-open:rotate-45"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <p className="kr pb-6 text-[16.5px] leading-8 text-muted">{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </Section>
+        )}
 
         <Section title="함께 보기">
           <div className="flex flex-wrap gap-2">

@@ -22,11 +22,15 @@ export async function generateMetadata({ params }: PageProps<"/area/[slug]">): P
  * 동네별 안내.
  *
  * 이 페이지에 온 사람은 하나만 궁금하다 — 우리 동네에서 얼마나 걸리나.
- * 그래서 걸리는 시간, 지도, 예약 세 가지만 둔다. 그 밖의 이야기는
- * 답을 찾는 길을 늘릴 뿐이다.
+ * 그래서 걸리는 시간, 지도, 예약을 앞에 둔다.
  *
- * ⚠ 동네마다 다른 문단(local)과 많이 찾는 진료(focusSlugs)는 데이터에는
- *   남아 있지만 지금은 화면에 그리지 않는다. 다시 붙일 때를 위해 지우지 않았다.
+ * 그 아래 짧은 글 두 편은 검색 때문에 필요하다. 시간과 지도만 두었더니
+ * 16개 페이지의 본문이 평균 85% 같아졌다. 그 정도면 검색엔진이
+ * 「지역 이름만 바꿔 찍어낸 페이지」로 보고 한두 개만 남긴 채 나머지를
+ * 걸러낸다. 동네마다 다른 이야기가 실제로 있어야 16곳이 다 산다.
+ *
+ * 크게 벌이지 않는다. 제목 없이 조용한 덩어리로 두어, 답을 찾는 길을
+ * 가리지 않게 한다.
  */
 export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
   const a = getArea((await params).slug);
@@ -93,6 +97,17 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
             </dl>
           </Bezel>
         </Section>
+
+        {a.local.length > 0 && (
+          <div className="mt-12 grid gap-7 border-t border-line pt-9">
+            {a.local.map((l) => (
+              <div key={l.title}>
+                <h2 className="kr text-[17px] font-bold leading-snug">{l.title}</h2>
+                <p className="kr mt-2 max-w-[58ch] text-[16px] leading-8 text-muted">{l.body}</p>
+              </div>
+            ))}
+          </div>
+        )}
 
         <Section title="지도와 길찾기" note="네이버 지도, 카카오맵, 구글 지도 중 쓰시는 앱으로 여실 수 있습니다.">
           <MapPanel />

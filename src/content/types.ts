@@ -228,4 +228,12 @@ export type BodyPart = {
   approach: { treatmentSlug: string; role: string }[];
   span: string;
   redFlags: string[];
+  /**
+   * 그 부위에서 실제로 받는 질문.
+   *
+   * 「어깨 통증에 대하여」로 검색하는 사람은 없고 「오십견 저절로 낫나요」로
+   * 검색한다. 그래서 묻는 말을 그대로 제목에 쓴다. 네이버와 AI 검색이
+   * 이 형태를 답으로 집어간다.
+   */
+  faq?: { q: string; a: string }[];
 };
