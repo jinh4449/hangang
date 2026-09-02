@@ -35,7 +35,7 @@ export const CLINIC = {
    */
   verification: {
     /** 네이버 서치어드바이저 → 사이트 등록 → HTML 태그 방식의 content 값 */
-    naver: null as string | null,
+    naver: "e22372b39e9795abfe0a184578bade36565d7936" as string | null,
     /** 구글 서치콘솔 → 소유권 확인 → HTML 태그 방식의 content 값 */
     google: null as string | null,
   },
