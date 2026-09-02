@@ -2,12 +2,12 @@
  * 사이트 주소.
  *
  * 이 한 줄이 사이트맵, 구조화 데이터, 카카오·검색 미리보기의 이미지 주소를
- * 모두 정한다. 가짜 주소로 두면 카카오에 링크를 보낼 때 그림 자리가
- * 검게 비는데, 그림이 없어서가 아니라 그림을 어디서 가져올지 몰라서다.
+ * 모두 정한다. 실제로 열리는 주소여야 한다. 안 열리는 주소를 정본으로
+ * 걸어 두면 검색엔진이 접속 실패로 읽고 색인에서 빼 버린다.
  *
- * TODO: 도메인을 사시면 그 주소로 바꿀 것 (예: https://gimpohangang.com)
+ * www 가 아니라 이 형태가 정본이다. Cloudflare 에서 www 는 여기로 넘긴다.
  */
-export const SITE_URL = "https://chipper-cascaron-1f6010.netlify.app";
+export const SITE_URL = "https://gimpohangang.com";
 
 /** 진료시간·주차 등 미확정 항목은 TODO 로 표시했다. 확정되면 이 파일만 고치면 전 페이지에 반영된다. */
 export const CLINIC = {
