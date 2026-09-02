@@ -36,6 +36,17 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     siteName: CLINIC.name,
     url: SITE_URL,
+    // 카카오톡·네이버·페이스북에 링크를 보낼 때 뜨는 그림.
+    // webp 는 미리보기에서 못 읽는 곳이 있어 jpg 로 둔다.
+    // 1200×630 이 카카오톡이 자르지 않고 그대로 쓰는 비율이다
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${CLINIC.name} 접수 공간`,
+      },
+    ],
   },
   // 값이 있을 때만 태그가 나간다. 빈 값으로 태그를 내보내면
   // 검색엔진이 소유확인 실패로 읽는다

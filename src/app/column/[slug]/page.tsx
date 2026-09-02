@@ -17,7 +17,17 @@ export async function generateMetadata({ params }: PageProps<"/column/[slug]">):
     title: c.title,
     description: `${c.summary} 김포 장기동 김포한강한의원 원장 칼럼입니다.`,
     alternates: { canonical: `/column/${c.slug}` },
-    openGraph: { type: "article", publishedTime: c.date },
+    // openGraph 는 통째로 갈아 끼워진다. 여기서 type 만 적으면 레이아웃에 둔
+    // 그림과 사이트 이름이 함께 사라진다. 그래서 다시 적어 준다
+    openGraph: {
+      type: "article",
+      locale: "ko_KR",
+      siteName: CLINIC.name,
+      url: `${SITE_URL}/column/${c.slug}`,
+      publishedTime: c.date,
+      modifiedTime: c.updated ?? c.date,
+      images: [{ url: "/og.jpg", width: 1200, height: 630, alt: `${CLINIC.name} 접수 공간` }],
+    },
   };
 }
 
