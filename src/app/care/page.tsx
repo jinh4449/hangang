@@ -8,8 +8,9 @@ import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/care" },
-  title: "진료과목",
-  description: `${CLINIC.name} 진료과목. ${SYMPTOMS.map((s) => s.name).join(", ")}. 과목마다 치료 방법과 예상 기간이 다릅니다.`,
+  title: "진료과목 — 통증·교통사고·다이어트·소화불량·만성피로",
+  description:
+    "김포한강한의원 진료과목 — 통증치료, 교통사고 후유증, 다이어트, 소화불량, 만성피로. 과목마다 쓰는 치료와 예상 기간, 비용을 미리 확인하실 수 있습니다. 김포 장기역 도보 1분.",
 };
 
 export default function CareIndex() {

@@ -8,8 +8,9 @@ import { webPage, breadcrumb, SITE_URL } from "@/content/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/column" },
-  title: "원장 칼럼",
-  description: `${CLINIC.name} 진료실에서 자주 받는 질문에 답합니다.`,
+  title: "원장 칼럼 — 진료실에서 자주 받는 질문",
+  description:
+    "김포한강한의원 원장 칼럼. 진료실에서 자주 받는 질문에 답합니다. 엑스레이가 정상인데 아픈 이유, 치료 횟수, 교통사고 합의 시점 같은 것들을 정리했습니다.",
 };
 
 const fmtDate = (d: string) => d.replaceAll("-", ".");

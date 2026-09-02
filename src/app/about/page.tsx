@@ -9,8 +9,9 @@ import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/about" },
-  title: "병원 소개",
-  description: `${CLINIC.name}. ${CLINIC.tagline}. ${CLINIC.address}. ${CLINIC.transit}.`,
+  title: "병원 소개 — 김포 장기역 앞 한의원",
+  description:
+    "김포 장기동 김포한강한의원의 진료 방침과 공간, 진료 시간을 안내합니다. 남녀 원장 두 명이 함께 진료하며, 초음파로 통증 부위를 보면서 설명드립니다. 장기역 3·4번 출구 도보 1분.",
 };
 
 export default function About() {

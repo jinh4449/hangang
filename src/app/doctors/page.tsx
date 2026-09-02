@@ -7,8 +7,9 @@ import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/doctors" },
-  title: "의료진 소개",
-  description: `${CLINIC.name} 이진희·왕소정 원장이 함께 진료합니다.`,
+  title: "의료진 소개 — 이진희·왕소정 원장",
+  description:
+    "김포한강한의원 이진희·왕소정 원장. 남녀 원장 두 명이 차트를 함께 보며 진료합니다. 원장을 지정해 예약하실 수 있고, 판단이 어려운 경우에는 두 사람이 상의해 방향을 정합니다.",
 };
 
 export default function Doctors() {

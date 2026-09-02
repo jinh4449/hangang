@@ -7,8 +7,9 @@ import { webPage, breadcrumb } from "@/content/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/directions" },
-  title: "오시는 길",
-  description: `${CLINIC.name}. ${CLINIC.transit}. ${CLINIC.address}. 주차 ${CLINIC.parkingList.length}곳.`,
+  title: "오시는 길 — 장기역 3·4번 출구 도보 1분, 주차 3곳",
+  description:
+    "김포한강한의원 오시는 길. 김포골드라인 장기역 3·4번 출구 도보 1분, 다이소 맞은편 일신프라자 202호. 주차는 건물 옥상과 장기1·2공영주차장 세 곳. 김포 16개 동네에서 걸리는 시간도 정리했습니다.",
 };
 
 export default function Directions() {

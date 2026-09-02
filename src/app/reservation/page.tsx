@@ -12,7 +12,7 @@ import { breadcrumb, faqPage, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/reservation" },
-  title: "예약 · 상담",
+  title: "예약 · 상담 — 평일 밤 8시, 토요일·공휴일 진료",
   description:
     `${CLINIC.name} 예약 안내. 전화 ${CLINIC.phone}. ` +
     "평일 09:30~20:00, 토요일과 공휴일 09:30~15:00 진료합니다. 당일 예약, 준비물, 주차 안내.",

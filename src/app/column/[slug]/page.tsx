@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: PageProps<"/column/[slug]">):
   if (!c) return {};
   return {
     title: c.title,
-    description: c.summary,
+    description: `${c.summary} 김포 장기동 김포한강한의원 원장 칼럼입니다.`,
     alternates: { canonical: `/column/${c.slug}` },
     openGraph: { type: "article", publishedTime: c.date },
   };
@@ -38,7 +38,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           "@id": `${SITE_URL}/column/${c.slug}#article`,
           isPartOf: { "@id": `${SITE_URL}/#website` },
           headline: c.title,
-          description: c.summary,
+          description: `${c.summary} 김포 장기동 김포한강한의원 원장 칼럼입니다.`,
           url: `${SITE_URL}/column/${c.slug}`,
           inLanguage: "ko",
           datePublished: c.date,

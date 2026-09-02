@@ -6,9 +6,9 @@ import { webPage, breadcrumb } from "@/content/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/part" },
-  title: "통증 · 근골격",
+  title: "김포 통증·근골격 한의원 — 어깨·목·허리·무릎",
   description:
-    "어깨, 목, 허리, 무릎, 팔꿈치, 발목. 부위마다 문제가 생기는 조직이 다르고 쓰는 치료가 다릅니다.",
+    "김포한강한의원 통증·근골격. 어깨, 목, 허리, 무릎, 팔꿈치, 발·발목 여섯 부위. 부위마다 문제가 생기는 조직이 다르고 쓰는 치료가 다릅니다. 초음파로 확인한 뒤 방향을 정합니다.",
 };
 
 export default function PartIndex() {

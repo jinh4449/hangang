@@ -40,7 +40,8 @@ export async function generateMetadata({ params }: PageProps<"/care/[symptom]">)
   const s = getSymptom((await params).symptom);
   if (!s) return {};
   return {
-    title: `${s.name} 한방치료 — ${s.clinicalName}`,
+    // 「소화불량 한방치료」로 검색하는 사람은 없다. 「김포 소화불량 한의원」이다
+    title: `김포 ${s.name} 한의원 — ${s.clinicalName}`,
     description: s.care.lede.slice(0, 150),
     alternates: { canonical: `/care/${s.slug}` },
   };

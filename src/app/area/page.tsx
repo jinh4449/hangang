@@ -5,8 +5,9 @@ import { AreaChips, AREA_COUNT } from "@/components/area";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
-  title: "동네별 오시는 길",
-  description: `장기동·풍무동·구래동 등 김포시 ${AREA_COUNT}개 동네에서 ${CLINIC.name}까지 걸리는 시간과 오는 방법.`,
+  title: "김포 동네별 오시는 길 — 16곳에서 걸리는 시간",
+  description:
+    "김포 16개 동네에서 김포한강한의원까지 걸리는 시간과 오는 길. 장기동·마산동·구래동·운양동·풍무동·사우동을 비롯해 읍·면까지 정리했습니다. 장기역 3·4번 출구 도보 1분.",
   alternates: { canonical: `${SITE_URL}/area` },
 };
 

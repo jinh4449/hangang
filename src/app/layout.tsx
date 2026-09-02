@@ -12,8 +12,18 @@ const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"], display: 
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: `${CLINIC.name} — ${CLINIC.tagline}`, template: `%s | ${CLINIC.name}` },
-  description: `${CLINIC.name}. ${CLINIC.tagline}. ${CLINIC.badges.join(" · ")}. ${CLINIC.address}`,
+  /**
+   * 제목은 「사람이 실제로 치는 검색어」를 앞에 둔다.
+   * 병원 이름은 이미 아는 사람만 치므로 뒤로 보낸다.
+   * 네이버 검색결과는 공백 포함 40자 안팎까지 보여 준다.
+   */
+  title: {
+    default: `김포 한의원 · ${CLINIC.name} — 장기역 도보 1분, 밤 8시까지`,
+    template: `%s | ${CLINIC.name}`,
+  },
+  description:
+    `김포 장기동 ${CLINIC.name}. 통증·교통사고 후유증·다이어트·소화불량·만성피로를 진료합니다. ` +
+    "김포골드라인 장기역 3·4번 출구 도보 1분, 평일 밤 8시까지·토요일·공휴일 진료, 주차 3곳.",
   robots: { index: true, follow: true },
   alternates: {
     // 첫 화면 몫이다. 하위 페이지는 각자 적는다. 여기에만 적으면 물려받아

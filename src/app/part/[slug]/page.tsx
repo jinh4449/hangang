@@ -13,8 +13,9 @@ export async function generateMetadata({ params }: PageProps<"/part/[slug]">): P
   const p = getPart((await params).slug);
   if (!p) return {};
   return {
-    title: `${p.name} 통증 — ${p.conditions[0]} 등`,
-    description: p.lede.slice(0, 150),
+    title: `김포 ${p.name} 통증 한의원 — ${p.conditions[0]}`,
+    // 부위 소개글이 짧아 설명문이 50자에 그친다. 어디서 보는 진료인지를 덧붙인다
+    description: `${p.lede} 김포 장기역 도보 1분, 김포한강한의원.`,
     alternates: { canonical: `/part/${p.slug}` },
   };
 }
