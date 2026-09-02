@@ -4,6 +4,7 @@ import { CLINIC } from "@/content/clinic";
 import { SYMPTOMS } from "@/content/symptoms";
 import { NAV } from "@/content/nav";
 import { ClinicStatus } from "./clinic-status";
+import { LogoMark } from "./logo";
 import { PhoneLink } from "./phone-link";
 import { MapPinIcon } from "./icons";
 import { MapFrame } from "./map-frame";
@@ -23,8 +24,12 @@ export function SiteHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-ink/[0.07] bg-surface/70 backdrop-blur-xl">
       <nav className="mx-auto flex w-full max-w-[90rem] items-center gap-3 px-[clamp(1.5rem,6vw,7rem)] py-2.5">
-        <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
-          {CLINIC.name}
+        {/* 마크만 앞에 세운다. 이름은 지금 글자 그대로 둔다 —
+            로고 파일의 글자체를 쓰면 이 줄만 다른 서체가 되어 겉돈다.
+            마크 색은 홈페이지 초록. 원본 청록을 그대로 쓰면 두 초록이 부딪힌다 */}
+        <Link href="/" className="flex shrink-0 items-center gap-2">
+          <LogoMark className="h-[1.6rem] w-[1.6rem] text-herb" />
+          <span className="text-lg font-bold tracking-tight">{CLINIC.name}</span>
         </Link>
         {/* 메뉴가 다섯 개라 1024px 부근에서는 상태 배지까지 들어갈 자리가 없다.
             메뉴를 줄이는 대신 배지를 넓은 화면에서만 띄운다 */}
