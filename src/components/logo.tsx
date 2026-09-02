@@ -7,14 +7,27 @@
  *
  * 색은 정하지 않고 글자색(currentColor)을 따라간다. 그래야 헤더에서든
  * 어두운 배경에서든 주변과 같은 색으로 선다.
+ *
+ * @param weight 획을 굵게 만드는 값. 마크는 선이 아니라 채운 도형이라
+ *   굵기 값이 따로 없다. 같은 색 테두리를 덧대 바깥으로 불려서 굵게 만든다.
+ *   0 이 원본 그대로이고, 3 을 넘기면 「ㅎ」의 빈 곳이 메워져 뭉갠다.
  */
-export function LogoMark({ className = "" }: { className?: string }) {
+export function LogoMark({
+  className = "",
+  weight = 0,
+}: {
+  className?: string;
+  weight?: number;
+}) {
   return (
     <svg
       viewBox="0 0 100 100"
       className={className}
       fill="currentColor"
       fillRule="evenodd"
+      {...(weight
+        ? { stroke: "currentColor", strokeWidth: weight, strokeLinejoin: "round" as const }
+        : {})}
       aria-hidden="true"
     >
       <path d="M50.0 8.81C22.43 8.81 0.0 31.24 0.0 58.81C0.0 68.5 2.78 77.55 7.57 85.22L15.17 85.22C9.58 77.87 6.22 68.74 6.22 58.81C6.22 34.67 25.86 15.03 50.0 15.03C74.14 15.03 93.78 34.67 93.78 58.81C93.78 68.74 90.42 77.87 84.83 85.22L92.43 85.22C97.22 77.55 100.0 68.5 100.0 58.81C100.0 31.24 77.57 8.81 50.0 8.81Z" />

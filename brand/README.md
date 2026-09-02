@@ -40,3 +40,14 @@ paths = [g for g in p.get_drawings() if box.contains(g["rect"])]
 
 심벌은 채움(fill) 도형 5개로 되어 있고 선(stroke)은 없다.
 고리 모양인 바깥 원 때문에 `fill-rule="evenodd"` 가 필요하다.
+
+## 획을 굵게 하고 싶으면
+
+마크는 선이 아니라 **채운 도형**이라 굵기 값이 따로 없다.
+`LogoMark` 의 `weight` 로 같은 색 테두리를 덧대 바깥으로 불린다.
+
+```tsx
+<LogoMark weight={2} />   // 헤더에서 쓰는 값
+```
+
+0 이 원본 그대로다. 3 을 넘기면 「ㅎ」의 빈 곳이 메워져 뭉갠다.
