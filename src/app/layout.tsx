@@ -27,6 +27,14 @@ export const metadata: Metadata = {
     siteName: CLINIC.name,
     url: SITE_URL,
   },
+  // 값이 있을 때만 태그가 나간다. 빈 값으로 태그를 내보내면
+  // 검색엔진이 소유확인 실패로 읽는다
+  verification: {
+    ...(CLINIC.verification.google ? { google: CLINIC.verification.google } : {}),
+    ...(CLINIC.verification.naver
+      ? { other: { "naver-site-verification": CLINIC.verification.naver } }
+      : {}),
+  },
   other: {
     "geo.region": "KR-41",
     "geo.placename": `${CLINIC.locality}, ${CLINIC.region}`,
