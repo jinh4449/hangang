@@ -1,4 +1,4 @@
-import re, os, base64, json, html
+import re, os, base64, json, html, subprocess, datetime
 
 SRC = '/home/user/hangang/docs/manual'
 DOCS = [
@@ -9,6 +9,21 @@ DOCS = [
     ('admin',   'admin.md',          '원무 · 정산', '원무 · 정산 · 재고 매뉴얼'),
 ]
 FILE2KEY = {f: k for k, f, _, _ in DOCS}
+
+def last_changed():
+    """매뉴얼을 마지막으로 고친 날. git 기록이 있으면 그것을, 없으면 파일 시각을 쓴다."""
+    try:
+        out = subprocess.run(
+            ['git', '-C', SRC, 'log', '-1', '--format=%cs', '--', '.'],
+            capture_output=True, text=True, timeout=5)
+        if out.returncode == 0 and out.stdout.strip():
+            return out.stdout.strip()
+    except Exception:
+        pass
+    newest = max(os.path.getmtime(os.path.join(SRC, f)) for _, f, _, _ in DOCS)
+    return datetime.date.fromtimestamp(newest).isoformat()
+
+CHANGED = last_changed()
 
 imgs = {}
 for fn in sorted(os.listdir(os.path.join(SRC, 'images'))):
@@ -391,6 +406,13 @@ dialog.lb button{
   max-width:1180px; margin:0 auto; padding:26px 20px 60px; color:var(--ink-3);
   font-size:.82rem; border-top:1px solid var(--line);
 }
+.foot p{margin:0 0 8px}
+.stamp{
+  display:inline-flex; gap:7px; align-items:baseline; color:var(--ink-2);
+  background:var(--raise); border:1px solid var(--line); border-radius:99px;
+  padding:4px 12px; font-size:.78rem;
+}
+.stamp time{font-weight:600; font-variant-numeric:tabular-nums; color:var(--ink)}
 @media (max-width:640px){
   :root{--bar-h:140px}
   .brand{padding:9px 0 7px}
@@ -517,8 +539,9 @@ page = f'''<title>김포한강한의원 업무 매뉴얼</title>
 </main>
 
 <footer class="foot">
-  실제로 하는 일과 다르면 문서가 틀린 것입니다. 고칠 부분은 원장님께 알려주세요.<br>
-  「※ 확인 필요」라고 적힌 곳은 아직 정해지지 않은 부분입니다.
+  <p class="stamp">마지막으로 고친 날 <time datetime="{CHANGED}">{CHANGED.replace('-','. ')}</time></p>
+  <p>실제로 하는 일과 다르면 문서가 틀린 것입니다. 고칠 부분은 원장님께 알려주세요.<br>
+  「※ 확인 필요」라고 적힌 곳은 아직 정해지지 않은 부분입니다.</p>
 </footer>
 
 <dialog class="lb" id="lb"><button type="button" onclick="document.getElementById('lb').close()">닫기</button><img src="" alt=""></dialog>
