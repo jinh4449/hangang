@@ -6,7 +6,7 @@ import { NAV } from "@/content/nav";
 import { ClinicStatus } from "./clinic-status";
 import { LogoMark } from "./logo";
 import { PhoneLink } from "./phone-link";
-import { MapPinIcon } from "./icons";
+import { CalendarIcon, MapPinIcon } from "./icons";
 import { MapFrame } from "./map-frame";
 import { MobileNav } from "./mobile-nav";
 
@@ -84,8 +84,11 @@ export function SiteHeader() {
         <div className="ml-auto flex shrink-0 items-center gap-2">
           <Link
             href="/reservation"
-            className="press inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-herb py-2.5 pl-5 pr-2 text-[15px] font-semibold text-paper"
+            className="press inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-herb py-2.5 pl-4 pr-2 text-[15px] font-semibold text-paper"
           >
+            {/* 달력 하나로 「날짜를 잡는 일」이라는 것이 먼저 읽힌다.
+                글자보다 조금 작게 잡아 글자가 주인공으로 남게 한다 */}
+            <CalendarIcon className="h-[1.1rem] w-[1.1rem] shrink-0 opacity-90" />
             {/* 좁은 화면에서는 메뉴 단추와 나란히 서야 해서 글자를 줄인다 */}
             <span className="hidden sm:inline">편리한 상담예약</span>
             <span className="sm:hidden">상담예약</span>
