@@ -28,7 +28,9 @@ export function SiteHeader() {
             로고 파일의 글자체를 쓰면 이 줄만 다른 서체가 되어 겉돈다.
             마크 색은 홈페이지 초록. 원본 청록을 그대로 쓰면 두 초록이 부딪힌다 */}
         <Link href="/" className="flex shrink-0 items-center gap-2">
-          <LogoMark weight={2} className="h-[1.6rem] w-[1.6rem] text-herb" />
+          {/* 1.6rem 에서는 안쪽 「한」이 뭉갠다. 글자(18px)보다 크되
+                누르지 않는 선이 1.9rem 이다 */}
+            <LogoMark weight={2} className="h-[1.9rem] w-[1.9rem] text-herb" />
           <span className="text-lg font-bold tracking-tight">{CLINIC.name}</span>
         </Link>
         {/* 메뉴가 다섯 개라 1024px 부근에서는 상태 배지까지 들어갈 자리가 없다.

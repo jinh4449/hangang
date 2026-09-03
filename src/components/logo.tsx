@@ -19,9 +19,13 @@ export function LogoMark({
   className?: string;
   weight?: number;
 }) {
+  // 마크가 x=0 과 x=100 에 정확히 닿아 있다. 테두리는 그 선을 가운데 두고
+  // 절반이 바깥으로 나가므로, 그만큼 viewBox 를 넓히지 않으면 좌우가 잘린다.
+  // (위아래는 여백이 8.8 있어 잘리지 않는다 — 그래서 좌우만 잘려 보였다)
+  const pad = weight / 2;
   return (
     <svg
-      viewBox="0 0 100 100"
+      viewBox={`${-pad} ${-pad} ${100 + pad * 2} ${100 + pad * 2}`}
       className={className}
       fill="currentColor"
       fillRule="evenodd"
