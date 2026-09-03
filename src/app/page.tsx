@@ -179,6 +179,9 @@ function ReferralRing() {
   const CIRC = 2 * Math.PI * R;
   const STOP = 0.56; // 눈금(0.5)을 지난 것이 보일 만큼만
 
+  // 테두리가 그려진 길이도, 안쪽 부채꼴이 열린 각도도 --ring-p 하나에서
+  // 나온다. 둘을 따로 돌리면 시작 시각이 어긋날 수 있다.
+  //
   // 가운데 글자는 두 벌을 겹쳐 둔다. 밑에 깔린 초록 글자 위로 흰 글자를
   // 부채꼴로 덮으면, 초록이 지나간 자리만 글자가 흰색으로 바뀐다.
   // 한 벌을 두고 색만 바꾸는 방법은 없다 — 글자 한 자 안에서도 색이 갈린다
@@ -198,7 +201,7 @@ function ReferralRing() {
   return (
     <div
       className="ring-host relative mx-auto aspect-square w-[17rem] sm:w-[20rem]"
-      style={{ "--stop": `${STOP * 100}%` } as React.CSSProperties}
+      style={{ "--stop": STOP } as React.CSSProperties}
     >
       <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
         {/* 아직 차지 않은 안쪽 */}
@@ -234,12 +237,7 @@ function ReferralRing() {
           stroke="var(--herb)"
           strokeWidth="16"
           strokeLinecap="butt"
-          style={
-            {
-              "--circ": CIRC,
-              "--target": CIRC * (1 - STOP),
-            } as React.CSSProperties
-          }
+          style={{ "--circ": CIRC } as React.CSSProperties}
         />
       </svg>
 
