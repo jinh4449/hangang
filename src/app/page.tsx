@@ -221,6 +221,10 @@ function ReferralRing() {
           strokeWidth="3"
           strokeLinecap="round"
         />
+        {/* 끝을 둥글리지 않는다. 둥근 끝은 획 굵기의 절반(8)만큼 밖으로
+            더 나가, 반지름 80 에서 앞뒤로 5.7도씩 총 11.4도를 더 그린다.
+            안쪽 부채꼴은 곧은 반지름으로 끊기므로 그만큼 끝선이 어긋나고,
+            그 사이에 안 채워진 색이 낀 것처럼 보였다 */}
         <circle
           className="ring-arc"
           cx="100"
@@ -229,7 +233,7 @@ function ReferralRing() {
           fill="none"
           stroke="var(--herb)"
           strokeWidth="16"
-          strokeLinecap="round"
+          strokeLinecap="butt"
           style={
             {
               "--circ": CIRC,
@@ -240,10 +244,12 @@ function ReferralRing() {
       </svg>
 
       {/* 안쪽 판. 테두리가 지나간 만큼만 초록이 된다.
-          지름이 안쪽 원(r=72)과 같도록 200 기준 14% 를 물린다 */}
+          안쪽 원의 끝(r=72)에 딱 맞추면 그 자리에 밝은 실선이 한 줄 남는다.
+          테두리 획의 안쪽 가장자리가 같은 자리에서 연한 바탕과 섞이기 때문이다.
+          판을 r=74(200 기준 13%)까지 키워 그 줄을 덮는다 */}
       <div
         aria-hidden="true"
-        className="ring-wedge absolute inset-[14%] rounded-full bg-herb"
+        className="ring-wedge absolute inset-[13%] rounded-full bg-herb"
       />
 
       <div className={`${innerBox} text-herb`}>{inner}</div>
