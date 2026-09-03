@@ -182,8 +182,8 @@ function ReferralRing() {
   return (
     <div className="ring-host relative mx-auto aspect-square w-[17rem] sm:w-[20rem]">
       <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
-        {/* 안쪽을 채우는 판. 테두리가 돌아가는 동안 같이 차오른다 */}
-        <circle className="ring-fill" cx="100" cy="100" r={R - 8} fill="var(--tint)" />
+        {/* 안쪽을 채우는 판. 테두리가 돌아가는 동안 테두리색으로 같이 차오른다 */}
+        <circle className="ring-fill" cx="100" cy="100" r={R - 8} fill="var(--herb)" />
         <circle
           cx="100"
           cy="100"
@@ -221,10 +221,11 @@ function ReferralRing() {
       </svg>
 
       <div className="ring-label absolute inset-0 flex flex-col items-center justify-center text-center">
-        <span className="display kr text-4xl font-black text-herb sm:text-5xl">
+        {/* 판이 짙은 초록으로 찼으니 안쪽 글씨는 반전된다 */}
+        <span className="display kr text-4xl font-black text-white sm:text-5xl">
           {CLINIC.whyHero.stat.value}
         </span>
-        <span className="kr mt-2 max-w-[9rem] text-[15px] leading-6 text-muted">
+        <span className="kr mt-2 max-w-[9rem] text-[15px] leading-6 text-white/85">
           소개로 오십니다
         </span>
       </div>
@@ -529,12 +530,12 @@ export default function Home() {
               회색 판은 사람마다 하나씩 두지 않고 뒤에 한 장으로 깐다. 판이 둘이면
               각자 칸에 갇혀 보인다. 판의 아래끝은 사진의 발끝과 같은 높이여야 해서
               높이를 사진 상자와 같은 식으로 적어 둔다(위 여백 + 사진 높이) */}
-          <div className="relative mx-auto mt-12 max-w-[72rem]">
+          <div className="relative mx-auto mt-12 max-w-[72rem] [--photo-top:clamp(1.5rem,4vh,3rem)] [--photo:clamp(12rem,min(33vh,70vw),22rem)] lg:[--photo:clamp(16rem,min(42vh,calc(69vw_-_382px)),26rem)]">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-x-0 top-0 h-[calc(clamp(1.5rem,4vh,3rem)+clamp(13rem,32vh,22rem))] rounded-[2rem] bg-surface-2"
+              className="pointer-events-none absolute inset-x-0 top-0 h-[calc(var(--photo-top)+var(--photo))] rounded-[2rem] bg-surface-2"
             />
-            <div className="relative grid grid-cols-2 items-end gap-6 sm:gap-10 lg:grid-cols-[1fr_minmax(0,22rem)_1fr] lg:gap-8">
+            <div className="relative grid grid-cols-2 items-end gap-3 sm:gap-10 lg:grid-cols-[1fr_minmax(0,22rem)_1fr] lg:gap-8">
               {CLINIC.doctors.map((d, i) => (
                 <figure
                   key={d.key}
@@ -546,12 +547,20 @@ export default function Home() {
                       정하게 둬야 두 사람이 같은 크기로 선다.
                       배경이 흰색이라 회색 판 위에 곱하기로 겹친다.
 
-                      회색 판은 사진보다 옆으로 넓게 둔다. 사진에 딱 맞추면 판이
-                      사람의 윤곽을 따라가, 팔을 벌린 쪽과 붙인 쪽의 판 넓이가
-                      달라 보인다. 머리 위도 띄운다. 사진이 사람에 딱 맞게
-                      잘려 있어, 그대로 두면 정수리가 판의 끝에 닿는다.
+                      섹션이 세로 flex 라 mx-auto 가 늘어나기를 끄고, 판의 폭은
+                      내용이 정한다. 그래서 상자의 옆 여백은 사진을 줄이지 않고
+                      판을 넓힌다. 다만 좁은 화면에서는 넓힐 자리가 없어,
+                      여백을 두면 그만큼 사진이 줄어든다. 그쪽은 사람이 판의
+                      끝에 닿지 않을 만큼만 둔다.
+                      머리 위는 띄운다. 사진이 사람에 딱 맞게 잘려 있어,
+                      그대로 두면 정수리가 판의 끝에 닿는다.
                       아래는 띄우지 않는다. 서 있는 바닥이 뜨면
                       사람이 공중에 있는 것처럼 보인다.
+
+                      키를 vh 로만 잡으면 세로로 긴 화면에서 사진이 칸보다
+                      넓어진다. 그때 max-width 가 폭만 눌러 사람이 홀쭉해지므로
+                      vw 로도 함께 묶는다. 넓은 화면 쪽 식은 가운데 칸(22rem)과
+                      칸 사이(2rem), 상자 여백(3vw)을 뺀 나머지의 절반이다.
 
                       뒤에 깔린 판과 색이 같아 상자는 눈에 띄지 않는다. 그래도
                       상자에 색을 남겨 둔다. Rise 가 clip-path 로 층을 나눠서,
@@ -560,14 +569,14 @@ export default function Home() {
                       두는 것도 같은 이유다. 좁은 화면에서는 상자의 바깥
                       모서리가 판의 모서리와 겹쳐, 여기가 각지면 판이 각져 보인다 */}
                   <Rise>
-                    <div className="overflow-hidden rounded-[2rem] bg-surface-2 px-[clamp(1rem,3.5vw,2.75rem)] pt-[clamp(1.5rem,4vh,3rem)]">
+                    <div className="overflow-hidden rounded-[2rem] bg-surface-2 px-1.5 pt-[var(--photo-top)] sm:px-[clamp(1rem,3vw,2.75rem)]">
                       <Image
                         src={d.photo.src}
                         alt={`${CLINIC.name} ${d.name} ${d.role}`}
                         width={d.photo.w}
                         height={d.photo.h}
-                        sizes="(min-width: 1024px) 18rem, 42vw"
-                        className="block h-[clamp(13rem,32vh,22rem)] w-auto mix-blend-multiply"
+                        sizes="(min-width: 1024px) 15rem, 42vw"
+                        className="block h-[var(--photo)] w-auto mix-blend-multiply"
                       />
                     </div>
                   </Rise>
