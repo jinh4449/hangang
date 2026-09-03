@@ -1,6 +1,15 @@
-import re, os, base64, json, html, subprocess, datetime
+import re, os, sys, shutil, base64, json, html, subprocess, datetime
 
-SRC = '/home/user/hangang/docs/manual'
+# 두 곳에 올린다.
+#   artifact — 아티팩트로 게시할 판. 그림을 페이지 안에 담아 파일 하나로 끝난다.
+#   site     — 병원 사이트(public/manual/)에 넣을 판. 그림은 파일로 따로 두고,
+#              검색에 잡히지 않게 noindex 를 붙인 온전한 HTML 문서로 낸다.
+MODE = sys.argv[1] if len(sys.argv) > 1 else 'artifact'
+if MODE not in ('artifact', 'site'):
+    raise SystemExit("쓰는 법: python3 tools/manual/build.py [artifact|site]")
+ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'docs', 'manual')
 DOCS = [
     ('home',    'README.md',         '첫 장',      '김포한강한의원 업무 매뉴얼'),
     ('desk',    'desk.md',           '데스크',     '데스크 매뉴얼'),
@@ -46,7 +55,8 @@ def inline(t, key):
         out.append(esc(t[i:m.start()]))
         if m.group(2) is not None:                      # image
             src = m.group(2).split('/')[-1]
-            out.append(f'<figure class="shot"><img src="{imgs.get(src,"")}" alt="{esc(m.group(1))}" loading="lazy"><figcaption>{esc(m.group(1))}</figcaption></figure>')
+            ref = imgs.get(src, '') if MODE == 'artifact' else f'img/{src}'
+            out.append(f'<figure class="shot"><img src="{ref}" alt="{esc(m.group(1))}" loading="lazy"><figcaption>{esc(m.group(1))}</figcaption></figure>')
         elif m.group(4) is not None:                    # link
             href, label = m.group(4), esc(m.group(3))
             if href.startswith('./') and '.md' in href:
@@ -549,6 +559,31 @@ page = f'''<title>김포한강한의원 업무 매뉴얼</title>
 <script>{JS.replace("__NAV__", nav_json)}</script>
 '''
 
-out = '/tmp/claude-0/-home-user-hangang/ae04bd92-914f-5ef1-b1a8-20c7cacfebd6/scratchpad/site/manual.html'
-open(out, 'w', encoding='utf-8').write(page)
-print('절', len(nav), '· 그림', len(imgs), '· 용량', round(len(page.encode())/1024/1024, 2), 'MB')
+if MODE == 'site':
+    dest = os.path.join(ROOT, 'public', 'manual')
+    shutil.rmtree(os.path.join(dest, 'img'), ignore_errors=True)
+    os.makedirs(os.path.join(dest, 'img'), exist_ok=True)
+    for fn in os.listdir(os.path.join(SRC, 'images')):
+        if fn.endswith('.png'):
+            shutil.copy2(os.path.join(SRC, 'images', fn), os.path.join(dest, 'img', fn))
+    page = ('<!doctype html>\n<html lang="ko">\n<head>\n'
+            '<meta charset="utf-8">\n'
+            '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
+            # 원내용 문서다. 검색 결과에 나오면 안 된다
+            '<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">\n'
+            '<meta name="color-scheme" content="light dark">\n'
+            + page.replace('<title>', '<title>', 1)
+            + '\n</head>\n<body>\n</body>\n</html>\n')
+    # <style> 와 본문이 head 안에 섞이지 않도록 body 로 옮긴다
+    head, _, rest = page.partition('</style>')
+    page = head + '</style>\n</head>\n<body>\n' + rest.replace('\n</head>\n<body>\n</body>\n</html>\n', '') + '\n</body>\n</html>\n'
+    out = os.path.join(dest, 'index.html')
+    open(out, 'w', encoding='utf-8').write(page)
+    print('사이트 판 →', out, '· 절', len(nav), '· 그림', len(imgs),
+          '· 용량', round(len(page.encode())/1024, 1), 'KB + 그림', round(sum(len(v) for v in imgs.values())*3/4/1024/1024, 2), 'MB')
+else:
+    out = os.path.join(ROOT, 'tools', 'manual', '.out', 'manual.html')
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    open(out, 'w', encoding='utf-8').write(page)
+    print('아티팩트 판 →', out, '· 절', len(nav), '· 그림', len(imgs),
+          '· 용량', round(len(page.encode())/1024/1024, 2), 'MB')

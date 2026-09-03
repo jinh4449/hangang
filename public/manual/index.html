@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="color-scheme" content="light dark">
+<title>김포한강한의원 업무 매뉴얼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400&family=Nanum+Myeongjo:wght@700&display=swap">
+<style>
+:root{
+  --ground:#FAFAF8; --surface:#FFFFFF; --raise:#F3F5F2;
+  --ink:#1C211E; --ink-2:#4C554F; --ink-3:#7C867F;
+  --line:#E1E5E0; --line-2:#EDF0EC;
+  --accent:#2E6A4E; --accent-ink:#245840; --accent-soft:#E9F1EC;
+  --mark:#9C4A23; --mark-soft:#F8EEE8;
+  --shadow:0 1px 2px rgba(28,33,30,.05), 0 8px 24px -16px rgba(28,33,30,.25);
+  --measure:64ch; --bar-h:152px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#111512; --surface:#181D19; --raise:#1E241F;
+    --ink:#E5EAE5; --ink-2:#AAB4AD; --ink-3:#7F8A83;
+    --line:#2A312C; --line-2:#222822;
+    --accent:#7EBA97; --accent-ink:#9BD0B1; --accent-soft:#1B2A21;
+    --mark:#DB9068; --mark-soft:#2B2019;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#111512; --surface:#181D19; --raise:#1E241F;
+  --ink:#E5EAE5; --ink-2:#AAB4AD; --ink-3:#7F8A83;
+  --line:#2A312C; --line-2:#222822;
+  --accent:#7EBA97; --accent-ink:#9BD0B1; --accent-soft:#1B2A21;
+  --mark:#DB9068; --mark-soft:#2B2019;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:'IBM Plex Sans KR','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  font-size:16px; line-height:1.75; -webkit-text-size-adjust:100%;
+}
+a{color:var(--accent-ink); text-underline-offset:.18em; text-decoration-thickness:.06em}
+:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:3px}
+
+/* ── 상단 막대 ── */
+.bar{
+  position:sticky; top:0; z-index:20; background:var(--surface);
+  border-bottom:1px solid var(--line);
+}
+.bar-in{max-width:1180px; margin:0 auto; padding:0 20px}
+.brand{display:flex; align-items:center; gap:10px; padding:12px 0 10px}
+.leaf{width:20px;height:20px;flex:none;color:var(--accent)}
+.brand b{font-weight:600; font-size:.94rem; letter-spacing:-.01em}
+.brand span{color:var(--ink-3); font-size:.8rem; margin-left:auto; font-variant-numeric:tabular-nums}
+.tabs{display:flex; gap:2px; overflow-x:auto; scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  appearance:none; border:0; background:none; cursor:pointer; white-space:nowrap;
+  font:inherit; font-size:.9rem; font-weight:500; color:var(--ink-3);
+  padding:9px 12px 11px; border-bottom:2px solid transparent; border-radius:4px 4px 0 0;
+}
+.tab:hover{color:var(--ink-2); background:var(--raise)}
+.tab[aria-selected="true"]{color:var(--accent-ink); border-bottom-color:var(--accent)}
+
+/* ── 찾기 ── */
+.find{padding:10px 0 12px; position:relative}
+.find input{
+  width:100%; font:inherit; font-size:.92rem; color:var(--ink);
+  background:var(--raise); border:1px solid var(--line); border-radius:9px;
+  padding:9px 12px 9px 34px;
+}
+.find input::placeholder{color:var(--ink-3)}
+.find svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); width:15px;height:15px; color:var(--ink-3)}
+.hits{
+  position:absolute; z-index:30; left:0; right:0; top:calc(100% - 4px);
+  background:var(--surface); border:1px solid var(--line); border-radius:11px;
+  box-shadow:var(--shadow); padding:6px; margin:0; list-style:none;
+  max-height:min(60vh,420px); overflow:auto;
+}
+.hits li a{display:flex; gap:10px; align-items:baseline; padding:8px 10px; border-radius:7px; text-decoration:none; color:var(--ink)}
+.hits li a:hover,.hits li a:focus-visible{background:var(--accent-soft)}
+.hits .in{color:var(--ink-3); font-size:.78rem; margin-left:auto; white-space:nowrap}
+.hits .none{padding:10px; color:var(--ink-3); font-size:.9rem}
+
+/* ── 문서 ── */
+.doc-head{max-width:1180px; margin:0 auto; padding:34px 20px 0}
+.eyebrow{
+  margin:0 0 6px; font-size:.72rem; font-weight:600; letter-spacing:.14em;
+  color:var(--accent); text-transform:uppercase;
+}
+.doc-head h1{
+  font-family:'Nanum Myeongjo',serif; font-weight:700; letter-spacing:-.02em;
+  font-size:clamp(1.7rem,5vw,2.3rem); line-height:1.25; margin:0; text-wrap:balance;
+}
+.doc-body{max-width:1180px; margin:0 auto; padding:0 20px 80px; display:grid; gap:26px}
+@media (min-width:1000px){
+  .doc-body{grid-template-columns:230px minmax(0,1fr); gap:48px; align-items:start; padding-top:8px}
+  .toc{position:sticky; top:calc(var(--bar-h) + 20px); max-height:calc(100vh - var(--bar-h) - 40px); overflow-y:auto}
+}
+
+/* 목차 */
+.toc{padding-top:22px}
+.toc details{border:1px solid var(--line); border-radius:12px; background:var(--surface); overflow:hidden}
+.toc summary{
+  cursor:pointer; list-style:none; padding:11px 14px; font-size:.86rem; font-weight:600;
+  color:var(--ink-2); display:flex; align-items:center; gap:8px;
+}
+.toc summary::-webkit-details-marker{display:none}
+.toc summary::after{content:'▾'; margin-left:auto; color:var(--ink-3); transition:transform .15s}
+.toc details[open] summary::after{transform:rotate(180deg)}
+.cnt{
+  font-size:.72rem; font-weight:600; color:var(--accent-ink); background:var(--accent-soft);
+  border-radius:99px; padding:1px 7px; font-variant-numeric:tabular-nums;
+}
+.toc-list{margin:0; padding:2px 8px 10px; list-style:none; counter-reset:t}
+.toc-list li{counter-increment:t}
+.toc-list a{
+  display:flex; gap:9px; padding:5px 8px; border-radius:7px; font-size:.86rem;
+  color:var(--ink-2); text-decoration:none; line-height:1.45;
+}
+.toc-list a::before{
+  content:counter(t,decimal-leading-zero); color:var(--ink-3); font-size:.74rem;
+  font-variant-numeric:tabular-nums; padding-top:.18em;
+}
+.toc-list a:hover{background:var(--raise); color:var(--ink)}
+.toc-list a.on{background:var(--accent-soft); color:var(--accent-ink); font-weight:600}
+@media (min-width:1000px){
+  .toc summary{display:none}
+  .toc details{border:0; background:none}
+  .toc-list{padding:0}
+}
+
+/* ── 본문 ── */
+.prose{max-width:var(--measure); min-width:0}
+.prose h2{
+  scroll-margin-top:calc(var(--bar-h) + 14px);
+  font-size:1.3rem; font-weight:600; letter-spacing:-.015em; line-height:1.35;
+  margin:56px 0 4px; padding-top:20px; border-top:1px solid var(--line); text-wrap:balance;
+}
+.prose h2:first-child{margin-top:22px; border-top:0; padding-top:0}
+.hlink{color:inherit; text-decoration:none}
+.hlink:hover{color:var(--accent-ink)}
+.prose h3{
+  scroll-margin-top:calc(var(--bar-h) + 14px);
+  font-size:1.02rem; font-weight:600; color:var(--accent-ink);
+  margin:34px 0 2px; letter-spacing:-.01em;
+}
+.prose p{margin:14px 0}
+.prose ul,.prose ol{margin:14px 0; padding-left:1.35em}
+.prose li{margin:7px 0}
+.prose li::marker{color:var(--ink-3)}
+.prose li span{display:block; color:var(--ink-2); font-size:.95em}
+.prose li span.sub-note{color:var(--mark)}
+.prose strong{font-weight:600}
+code{
+  font-family:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:.86em; background:var(--raise); border:1px solid var(--line-2);
+  border-radius:5px; padding:.1em .35em;
+}
+
+/* 멘트 — 환자분께 그대로 하는 말 */
+.ment{
+  margin:16px 0; padding:13px 16px 13px 17px; background:var(--surface);
+  border-left:3px solid var(--accent); border-radius:0 10px 10px 0; box-shadow:var(--shadow);
+}
+.ment-tag{
+  display:inline-block; font-size:.68rem; font-weight:600; letter-spacing:.12em;
+  color:var(--accent); margin-bottom:3px;
+}
+.ment p{margin:0; font-size:1.02rem; line-height:1.7}
+
+/* ※ 짚고 갈 것 */
+.note{
+  margin:16px 0; padding:11px 14px; background:var(--mark-soft);
+  border-radius:10px; color:var(--ink-2); font-size:.95rem;
+}
+.note p{margin:0}
+.note.tip{background:var(--accent-soft); color:var(--ink-2)}
+
+/* Q · A */
+.qa{margin:14px 0; padding-left:14px; border-left:2px solid var(--line)}
+.qa p{margin:0; font-size:.96rem}
+
+/* 표 */
+.tw{overflow-x:auto; margin:18px 0; border:1px solid var(--line); border-radius:11px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; font-size:.92rem; font-variant-numeric:tabular-nums}
+th,td{padding:9px 13px; text-align:left; border-bottom:1px solid var(--line-2); vertical-align:top}
+th{font-weight:600; color:var(--ink-2); font-size:.82rem; letter-spacing:.02em; background:var(--raise); white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+
+/* 화면 그림 */
+.shot{margin:18px 0; display:block}
+.shot img{
+  display:block; max-width:100%; height:auto; border:1px solid var(--line);
+  border-radius:9px; background:var(--surface); cursor:zoom-in;
+}
+.shot figcaption{margin-top:7px; font-size:.8rem; color:var(--ink-3)}
+dialog.lb{border:0; padding:0; background:none; max-width:96vw; max-height:96vh}
+dialog.lb::backdrop{background:rgba(10,14,11,.86)}
+dialog.lb img{max-width:96vw; max-height:92vh; border-radius:10px; display:block}
+dialog.lb button{
+  position:fixed; top:14px; right:16px; font:inherit; font-size:.85rem; cursor:pointer;
+  background:var(--surface); color:var(--ink); border:1px solid var(--line);
+  border-radius:8px; padding:6px 12px;
+}
+
+.foot{
+  max-width:1180px; margin:0 auto; padding:26px 20px 60px; color:var(--ink-3);
+  font-size:.82rem; border-top:1px solid var(--line);
+}
+.foot p{margin:0 0 8px}
+.stamp{
+  display:inline-flex; gap:7px; align-items:baseline; color:var(--ink-2);
+  background:var(--raise); border:1px solid var(--line); border-radius:99px;
+  padding:4px 12px; font-size:.78rem;
+}
+.stamp time{font-weight:600; font-variant-numeric:tabular-nums; color:var(--ink)}
+@media (max-width:640px){
+  :root{--bar-h:140px}
+  .brand{padding:9px 0 7px}
+  .brand b{font-size:.88rem}
+  .find{padding:6px 0 9px}
+}
+@media print{
+  .bar,.toc,.foot{display:none}
+  .doc[hidden]{display:block !important}
+  .prose{max-width:none}
+  .shot img{border-color:#ccc}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+</style>
+</head>
+<body>
+
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand">
+      <svg class="leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+      </svg>
+      <b>김포한강한의원 업무 매뉴얼</b>
+      <span>031-8049-7541</span>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="매뉴얼"><button class="tab" data-doc="home" role="tab" aria-selected="true">첫 장</button><button class="tab" data-doc="desk" role="tab" aria-selected="false">데스크</button><button class="tab" data-doc="room" role="tab" aria-selected="false">치료실</button><button class="tab" data-doc="herbal" role="tab" aria-selected="false">한약 · 탕전</button><button class="tab" data-doc="admin" role="tab" aria-selected="false">원무 · 정산</button></nav>
+    <div class="find">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="q" type="search" placeholder="찾기 — 자보, 탕전, 수납, 예약…" autocomplete="off" aria-label="항목 찾기">
+      <ul class="hits" id="hits" hidden></ul>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="doc" id="home">
+  <header class="doc-head">
+    <p class="eyebrow">김포한강한의원</p>
+    <h1>김포한강한의원 업무 매뉴얼</h1>
+  </header>
+  <div class="doc-body">
+    <nav class="toc" aria-label="김포한강한의원 업무 매뉴얼 목차">
+      <details id="toc-home">
+        <summary>이 문서의 목차 <span class="cnt">7</span></summary>
+        <ol class="toc-list"><li><a href="#home--매뉴얼">매뉴얼</a></li><li><a href="#home--이-매뉴얼을-고치는-방법">이 매뉴얼을 고치는 방법</a></li><li><a href="#home--병원-기본-정보">병원 기본 정보</a></li><li><a href="#home--데스크-keyword--관심">데스크 Keyword : 관심</a></li><li><a href="#home--치료실-keyword--성의">치료실 Keyword : 성의</a></li><li><a href="#home--모두에게-해당하는-세-가지">모두에게 해당하는 세 가지</a></li><li><a href="#home--개정-이력">개정 이력</a></li></ol>
+      </details>
+    </nav>
+    <article class="prose"><p>데스크와 치료실에서 매일 하는 일을 적어놓은 문서입니다.<br>새로 오신 분이 이것만 보고 하루를 돌릴 수 있게 하는 것이 목표입니다.</p>
+<h2 id="home--매뉴얼"><a class="hlink" href="#home--매뉴얼">매뉴얼</a></h2>
+<ul><li><a class="xref" href="#desk">데스크 매뉴얼</a> — 출근, 접수, 검사실, 예약, 치료 후, 수납, CS</li><li><a class="xref" href="#room">치료실 매뉴얼</a> — 안내·환복, 물리치료, 침·부항 제거, 베드정리</li><li><a class="xref" href="#herbal">한약 · 탕전 매뉴얼</a> — 상담 후 안내, 탕전, 포장, 수령, 택배, 복용법, 비용</li><li><a class="xref" href="#admin">원무 · 정산 · 재고 매뉴얼</a> — 영수증, 서류, 마감정산, 물품, 재고, 비급여가격</li></ul>
+<p>각 매뉴얼을 열면 맨 위에 그 문서의 목차가 있습니다. 찾는 항목을 눌러 바로 가시면 됩니다.</p>
+<h2 id="home--이-매뉴얼을-고치는-방법"><a class="hlink" href="#home--이-매뉴얼을-고치는-방법">이 매뉴얼을 고치는 방법</a></h2>
+<ul><li>실제로 하는 일과 문서가 다르면 문서가 틀린 것입니다. 고치고 개정 이력에 한 줄 남겨주세요.</li><li>「※ 확인 필요」라고 적힌 곳은 아직 정해지지 않은 부분입니다. 정해지면 그 자리에 적습니다.</li><li>금액은 표 한 곳에서만 관리합니다. 같은 숫자를 여러 문서에 적어두면 한쪽만 고쳐집니다.</li><li>비밀번호나 계정 정보는 적지 않습니다. 어디에 보관돼 있는지만 적습니다.</li><li>화면 그림은 <code>docs/manual/images/</code> 에 넣고 겁니다.</li></ul>
+<h2 id="home--병원-기본-정보"><a class="hlink" href="#home--병원-기본-정보">병원 기본 정보</a></h2>
+<ul><li>병원명 : 김포한강한의원</li><li>대표전화 : 031-8049-7541</li><li>주소 : 경기도 김포시 김포한강4로 110 일신프라자 202호</li><li>오시는 길 : 김포골드라인 장기역 3·4번 출구 도보 1분. 다이소 맞은편</li><li>주차 : 건물 옥상주차장, 장기1공영주차장, 장기2공영주차장</li><li>원장 : 이진희 대표원장, 왕소정 대표원장</li><li>홈페이지 : https://gimpohangang.com</li><li>네이버 예약 : https://booking.naver.com/booking/13/bizes/1623687</li></ul>
+<h3 id="home--진료시간">진료시간</h3>
+<div class="tw"><table><thead><tr><th>요일</th><th>시간</th></tr></thead><tbody><tr><td>평일</td><td>09:30 – 20:00 (점심 13:00 – 14:00)</td></tr><tr><td>토요일</td><td>09:30 – 15:00</td></tr><tr><td>공휴일 · 대체공휴일</td><td>09:30 – 15:00</td></tr><tr><td>일요일</td><td>휴진</td></tr><tr><td>설날 당일 · 추석 당일</td><td>휴진</td></tr></tbody></table></div>
+<aside class="note"><p>※ 진료시간이나 공휴일이 바뀌면 홈페이지도 함께 고쳐야 합니다.<br>원본은 <code>src/content/clinic.ts</code> 의 <code>schedule</code> 과 <code>holidays</code> 한 곳에 있습니다.</p></aside>
+<h2 id="home--데스크-keyword--관심"><a class="hlink" href="#home--데스크-keyword--관심">데스크 Keyword : 관심</a></h2>
+<p>데스크 선생님은 환자에게 항상 관심을 갖고 있어야 합니다.<br>환자가 한의원에 들어왔을 때 기다리고 있다가 자리에서 일어나 반갑게 맞아 주는 것을 시작으로,<br>환자를 기억하고 성향을 파악하고 '내가 너에게 관심이 있다'는 것을 표현해주세요.</p>
+<p>데스크를 지켜주는 것은 환자와의 약속을 지키는 것입니다.<br>자리를 비울 일이 있으면 미리 커버를 요청해주세요.</p>
+<p>환자와의 소통 내용은 메신저를 통해 모든 스텝과 공유해주세요.</p>
+<h2 id="home--치료실-keyword--성의"><a class="hlink" href="#home--치료실-keyword--성의">치료실 Keyword : 성의</a></h2>
+<p>발침과 소독은 환자의 몸에 직접 닿는 중요한 과정입니다.<br>바쁘다고 급하게 하면 환자가 바로 느낄 수 있으니, 바쁘더라도 성의 있게 진행해야<br>환자가 안심하고 치료를 이어 나갈 수 있습니다.</p>
+<h2 id="home--모두에게-해당하는-세-가지"><a class="hlink" href="#home--모두에게-해당하는-세-가지">모두에게 해당하는 세 가지</a></h2>
+<ol><li>환자분 정보는 병원 밖으로 나가지 않습니다.<span>대기실에서 이름 외의 정보를 크게 부르지 않습니다.</span></li><li>효과를 약속하지 않습니다. 치료 효과와 경과에 대한 설명은 원장님 몫입니다. (의료법 제56조)</li><li>판단은 원장님이 합니다. 직원이 진단하거나 치료 방향을 답하지 않습니다.</li></ol>
+<h2 id="home--개정-이력"><a class="hlink" href="#home--개정-이력">개정 이력</a></h2>
+<div class="tw"><table><thead><tr><th>날짜</th><th>내용</th><th>고친 사람</th></tr></thead><tbody><tr><td>2026-09-03</td><td>기존 「데스크 매뉴얼」과 「치료실 가이드」를 마크다운으로 옮김</td><td></td></tr></tbody></table></div></article>
+  </div>
+</section><section class="doc" id="desk" hidden>
+  <header class="doc-head">
+    <p class="eyebrow">김포한강한의원</p>
+    <h1>데스크 매뉴얼</h1>
+  </header>
+  <div class="doc-body">
+    <nav class="toc" aria-label="데스크 매뉴얼 목차">
+      <details id="toc-desk">
+        <summary>이 문서의 목차 <span class="cnt">15</span></summary>
+        <ol class="toc-list"><li><a href="#desk--keyword--관심">Keyword : 관심</a></li><li><a href="#desk--출근">출근</a></li><li><a href="#desk--초진-접수">초진 접수</a></li><li><a href="#desk--재진-접수">재진 접수</a></li><li><a href="#desk--자동차-보험">자동차 보험</a></li><li><a href="#desk--다이어트-환자">다이어트 환자</a></li><li><a href="#desk--검사실">검사실</a></li><li><a href="#desk--치료가-끝나고-나온-후">치료가 끝나고 나온 후</a></li><li><a href="#desk--수납">수납</a></li><li><a href="#desk--예약관련-추가">예약관련 추가</a></li><li><a href="#desk--웰컴-경옥고">웰컴 경옥고</a></li><li><a href="#desk--소개환자-관리">소개환자 관리</a></li><li><a href="#desk--네이버-영수증-리뷰">네이버 영수증 리뷰</a></li><li><a href="#desk--항의-응대">항의 응대</a></li><li><a href="#desk--하지-않는-일">하지 않는 일</a></li></ol>
+      </details>
+    </nav>
+    <article class="prose"><h2 id="desk--keyword--관심"><a class="hlink" href="#desk--keyword--관심">Keyword : 관심</a></h2>
+<p>데스크 선생님은 환자에게 항상 관심을 갖고 있어야 합니다.</p>
+<p>환자가 한의원에 들어왔을 때 기다리고 있다가 자리에서 일어나 반갑게 맞아 주는 것을 시작으로,<br>환자를 기억하고 성향을 파악하고 '내가 너에게 관심이 있다'는 것을 표현해주세요.<br>지난 차트 기록에서 아픈 부위나 다친 스토리도 읽어보고, 내원 횟수나 빈도도 파악하려고 노력해주세요.</p>
+<p>환자는 한의원에 들어오면서 당연히 데스크에 사람이 있을 거라고 생각하고 있습니다.<br>데스크를 지켜주는 것은 환자와의 약속을 지키는 것입니다.<br>탕전 하러 갈 때, 검사실 갈 때 등 데스크를 비울 일이 있으면 미리 커버를 요청해주세요.</p>
+<p>데스크에서 이루어지는 환자와의 소통 내용(대면, 전화 등)은 메신저를 통해 모든 스텝과 공유해주세요.</p>
+<h2 id="desk--출근"><a class="hlink" href="#desk--출근">출근</a></h2>
+<h3 id="desk--스위치-on">스위치 ON</h3>
+<ul><li>모든 등 켜기 (예외. 탕전실과 검사실은 위 스위치만 켬)</li><li>에어컨, 히터, TV</li><li>원장실 컴퓨터, 데스크 컴퓨터</li><li>인바디, 혈압계</li></ul>
+<h3 id="desk--데스크-컴퓨터에서-해놓을-작업">데스크 컴퓨터에서 해놓을 작업</h3>
+<ul><li>차트 프로그램 켜기 (본인 이름으로 로그인)</li><li>바탕화면에 '주차' 창 켜놓기</li><li>음악 켜기</li><li>메신저 켜기</li></ul>
+<aside class="note"><p>※ 로그인 정보는 이 문서에 적지 않습니다. 보관 위치만 적어두고, 바뀌면 그곳만 고칩니다.</p></aside>
+<aside class="note tip"><p>TIP) 바탕화면 오른쪽 위, 번호 순서대로 켠다고 기억하시면 됩니다.<br>① 네이버예약 ② 유튜브 ③ 주차권 ④ 하모니주차권</p></aside>
+<h3 id="desk--예약현황-체크">예약현황 체크</h3>
+<p>바탕화면에 '네이버예약' 더블클릭 → 이름, 이용 일시 확인 →<br>한의원 접수실 프로그램 '예약플래너'에 추가 → 네이버예약에서 확정</p>
+<p><strong>상황 1) '예약플래너'를 보니, 이미 예약이 꽉 차 있는 경우?</strong></p>
+<p>전화번호로 연락드려서 다른 시간으로 유도하기.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"안녕하세요. 김포한강한의원입니다. 예약 신청하신 거 보고 전화 드립니다.<br>어떤 불편감으로 내원하시려고 하시는지 여쭤봐도 될까요?<br>(환자대답 예. 허리가 아프다) 아~ 허리가 아프시군요.<br>첫 진료 시에는 상담 때문에 시간이 좀 걸리는데, 신청하신 시간에 예약환자가 많아서<br>대기시간이 좀 발생할 수 있습니다.<br>한 시간 뒤로 예약하시면 좀 더 진료받기 편하실 것 같은데 혹시 괜찮으실까요?"</p></blockquote>
+<p><strong>상황 1-1) 예약 시간 바꾸도록 유도하는 거에 대해 환자가 불만을 갖는다면?</strong></p>
+<p>원하는 대로 해드리고, 메모 잘 해서 상황 공유하기.</p>
+<h3 id="desk--일일장부-엑셀-파일-켜기">일일장부 엑셀 파일 켜기</h3>
+<ol><li>바탕화면 '일일수납장부' 엑셀 파일 → 우클릭 → '복사' 클릭</li><li>바탕화면 '일일수납장부' 폴더 → 더블클릭해서 들어가기</li><li>년, 월 폴더 → 더블클릭</li><li>빈 공간에 우클릭 → 붙여넣기</li><li>'일일수납장부' 복사된 파일 → 우클릭 → 이름바꾸기 클릭</li><li>'년, 월, 일'을 당일 날짜로 바꾸고 엔터</li><li>방금 이름 바꾼 파일 더블클릭</li></ol>
+<h3 id="desk--그-외">그 외</h3>
+<ul><li>예약환자 차트 꺼내놓기</li><li>먼지 쌓이기 쉬운 곳 닦기. 아침뿐만 아니고 하루 중에서 시간 나면 수시로 먼지 없도록 신경써주세요.<span>손이 많이 닿는 곳은 소독액 뿌리고 닦기. 가까이서 뿌리고 닦는 식으로 수시로 소독합니다.</span><span>(접수대, 소파, 자동문 버튼, 테이블, 정수기 주변 등)</span><span class="sub-note">※ 소독액은 공기 중에 분무하지 않도록 합니다. 흡입되면 인체에 해롭습니다.</span></li><li>원장실 수건 2장 교체, 텀블러 세척</li><li>원장실 '차트장'이라고 써져있는 파일꽂이에 있는 차트 수거 (하루 중에도 수시로)</li><li>정수기 옆 티백 채워놓기</li><li>다이어트 복용법(탕비실), 각종 차트(데스크), 인바디 용지(검사실) 부족하지 않게 복사해놓기</li></ul>
+<h2 id="desk--초진-접수"><a class="hlink" href="#desk--초진-접수">초진 접수</a></h2>
+<p>증상에 맞는 종이차트를 작성하신 뒤, 종이차트를 수거하여 차트에 등록합니다.</p>
+<p>초진 종이차트(문진표) 종류</p>
+<ul><li>기본 : 종이차트</li><li>다이어트 : 다이어트 문진표</li><li>약상담 시 : 예비 문진표</li></ul>
+<h3 id="desk--신환등록">신환등록</h3>
+<p>① 신환 ② 차트번호 '추천' ③ 이름 입력 ④ 주소 입력 ⑤ 휴대폰번호 입력<br>⑥ '동의'로 선택 후 마지막에 서명받기 ⑦ 공단자격조회, 인증서 비밀번호 입력 ⑧ 저장</p>
+<p><figure class="shot"><img src="img/desk-new-patient.png" alt="신환등록 화면" loading="lazy"><figcaption>신환등록 화면</figcaption></figure></p>
+<h3 id="desk--소개자-가족-등록">소개자, 가족 등록</h3>
+<p>종이차트에 소개로 내원했다고 체크되어 있을 경우,<br>부담 주지 않는 선에서 가볍게 소개자분 성함을 여쭤봅니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>(지인소개 체크한 걸 가리키면서) "저희 한의원 소개 받고 오셨어요? 혹시 소개자분 성함이...?"</p></blockquote>
+<ul><li>가족이라면 '가족관리'에서 가족구성원으로 추가</li><li>그냥 지인이라면 '소개자선택'에서 소개자분 이름 추가</li></ul>
+<p><figure class="shot"><img src="img/desk-referrer-select.png" alt="소개자선택 위치" loading="lazy"><figcaption>소개자선택 위치</figcaption></figure></p>
+<p><figure class="shot"><img src="img/desk-referrer-family.png" alt="가족관리 · 소개자선택" loading="lazy"><figcaption>가족관리 · 소개자선택</figcaption></figure></p>
+<p>이후 응대는 <a class="xref" href="#desk--소개환자-관리">소개환자 관리</a>를 봐주세요.</p>
+<h3 id="desk--환자유형">환자유형</h3>
+<ul><li>초진 : 처음 온 환자</li><li>재진</li><li>재초진 : 초진비 13,900원 수납. 90일 이상 지나서 내원했을 때가 기준입니다.</li></ul>
+<p>ㅊ + F3 : 현주증상 체크</p>
+<h2 id="desk--재진-접수"><a class="hlink" href="#desk--재진-접수">재진 접수</a></h2>
+<h3 id="desk--기본적인-경우">기본적인 경우</h3>
+<ul><li>성함 여쭤보기. 동명이인일 경우 생년월일로 재확인</li><li>환자분 치료실로 안내</li></ul>
+<h3 id="desk--다이어트-환자의-경우">다이어트 환자의 경우</h3>
+<ul><li>성함 여쭤보기. 동명이인일 경우 생년월일로 재확인</li><li>차트번호로 종이차트 찾기</li><li>검사실로 함께 이동하여 인바디 측정</li><li>인바디 결과지 인쇄되면 종이차트에 끼워놓기</li><li>차트와 함께 진료실로 안내</li></ul>
+<h2 id="desk--자동차-보험"><a class="hlink" href="#desk--자동차-보험">자동차 보험</a></h2>
+<h3 id="desk--접수">접수</h3>
+<p>환자에게 보험사와 사고접수번호를 적어달라고 요청합니다.</p>
+<p>→ 해당 보험사 콜센터로 전화해서 사고접수번호 말해주고 '지불보증서' 요청하여 한의원 팩스로 받기<br>→ 접수실 프로그램에서 자보 등록</p>
+<p><figure class="shot"><img src="img/desk-auto-ins-tab.png" alt="자보/산재 탭" loading="lazy"><figcaption>자보/산재 탭</figcaption></figure></p>
+<p>→ '추가' → 빨간 네모칸에 있는 내용은 필수적으로 입력 → 기타 부분은 입력하면 좋음</p>
+<ul><li>사고날짜</li><li>보상담당자 이름</li><li>보상담당자 전화번호</li></ul>
+<p><figure class="shot"><img src="img/desk-auto-ins-add.png" alt="자보 등록 화면" loading="lazy"><figcaption>자보 등록 화면</figcaption></figure></p>
+<p>구글 스프레드시트에 수상일 넣으면 자보 치료 횟수를 계산할 수 있습니다. 그걸 보고,</p>
+<ol><li>간호사메모에 치료 기간, 가능 횟수 적기. 예) ~26.03.10 / 매일</li><li>자보안내문에 "(몇 월 며칠까지) (예. 매일) 치료 가능하십니다." 적기</li></ol>
+<p>약봉투에 안내문이랑 파스 1장 넣어드리면서 안내합니다. (파스는 처음 온 날에만 드리기)</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"귀가해서 불편한 곳 있으면 붙이세요.<br>파스 붙였는데 가렵거나 따가우면 바로 제거하시고, 괜찮으시면 2시간 붙이고 계시다가 떼세요."</p></blockquote>
+<h3 id="desk--자보안내문에-들어가는-내용">자보안내문에 들어가는 내용</h3>
+<aside class="note"><p>※ 아래는 원본 매뉴얼의 안내문 내용입니다.<br>우리 병원 이름·전화번호·진료시간으로 다시 만들어 인쇄해두고, 만든 뒤 이 자리에 최종본을 적습니다.</p></aside>
+<p>침치료 주의 사항</p>
+<ul><li>샤워는 치료 받으시고 1시간 후에 가능합니다. 당일 목욕탕, 찜질방, 수영장은 피해주세요.</li><li>약침을 맞으신 경우, 약침 액이 흡수되는 동안 시술 부위가 부을 수 있습니다.<span>기다리면 깨끗하게 흡수되니 걱정하지 마세요.</span></li></ul>
+<p>자동차보험 치료는 사고일 기준으로</p>
+<ul><li>3주까지는 매일</li><li>4~11주까지는 주 3회</li><li>12주~6개월까지는 주 2회</li><li>6개월 이후 주 1회로 치료 가능합니다.</li></ul>
+<p>자동차보험 탕약 복용법</p>
+<ul><li>직사광선을 피해 보관해주세요.</li><li>1일 2회 아침, 저녁으로 식사 관계없이 복용해주세요.</li></ul>
+<h3 id="desk--자보-치료-종료">자보 치료 종료</h3>
+<p>자동차 합의가 이루어지면, 보험사에서 한의원으로 지급보증중지 안내문을 팩스로 보냅니다.</p>
+<p>→ 해당 환자 검색 → '자보/산재' → '수정' → 적용종료 날짜 입력(지불보증중지 안내문 참고) → 저장<br>→ 전자차트에 검색해서 간호사메모에 '지급보증중지' 적어놓기</p>
+<aside class="note"><p>※ 치료종료일이 남았을 때는 메모 남겨두기. 예) 26.04.11 종료</p></aside>
+<p><figure class="shot"><img src="img/desk-auto-ins-end.png" alt="자보 적용종료 처리" loading="lazy"><figcaption>자보 적용종료 처리</figcaption></figure></p>
+<h3 id="desk--자보-관련-qna">자보 관련 QnA</h3>
+<div class="qa"><p>Q. 한약 무슨 효과인가요?<br>A. 사고 이후로 생긴 긴장 풀어주는 한약입니다. 붓기 빼주고 조직 재생시켜주는 효과도 있어서<br>피로감도 개선됩니다.</p></div>
+<h2 id="desk--다이어트-환자"><a class="hlink" href="#desk--다이어트-환자">다이어트 환자</a></h2>
+<h3 id="desk--초진">초진</h3>
+<p>차트 작성 → 접수실 프로그램에 등록 → 1차 검사 → 상담 → (중간 검사 → 상담) → 수납 및 예약</p>
+<p>1차 검사 : 혈압 → 인바디 → 환복 → 3D → 환복</p>
+<ul><li>혈압 : 수축기·이완기 수치뿐만 아니라 맥박 수까지 기록합니다.</li><li>인바디 : 몸에 금속이 없도록 제거 후 측정. 측정 시 겨드랑이가 떨어지도록 양팔을 벌립니다.<span>(붙이면 근육량 오차)</span></li><li>원장 오더에 따라 필요 시 혈액검사(간기능). 간수치 AST, ALT 측정.<span>결과 나오면 진료실에 전달하기.</span></li></ul>
+<p>포스트잇에 검사 내용 적어서 종이차트 앞 장에 붙여놓습니다. (날짜, 혈압, 혈액검사 수치)<br>인바디 검사지는 종이차트와 함께 엘자파일에 보관합니다.</p>
+<h3 id="desk--재진">재진</h3>
+<p>매번 내원 시 인바디를 측정합니다.</p>
+<h2 id="desk--검사실"><a class="hlink" href="#desk--검사실">검사실</a></h2>
+<h3 id="desk--인바디-검사">인바디 검사</h3>
+<p>시계나 액세서리 등 금속이 몸에 남지 않도록 한 상태로,<br>움직이지 말고 맨발로 올라가서 발 맞추고, 손잡이 잡고, 양팔 편 상태로 살짝 양쪽으로 벌립니다.</p>
+<p>ID = 차트번호 입력.</p>
+<aside class="note"><p>※ 같은 번호가 연달아 있을 때는 오른쪽 화살표를 한 번 누르고 입력합니다.<br>예를 들어 6227일 때 62까지 누르고 화살표(→) 누르고 27 마저 입력.</p></aside>
+<p>프린터에 초록색 불 들어온 거 확인 후 인바디 기계 Enter.<br>검사 다 끝나고 프린트 종이 끼워놓기.</p>
+<h3 id="desk--다이어트-종류">다이어트 종류</h3>
+<div class="tw"><table><thead><tr><th>종류</th><th>금액</th></tr></thead><tbody><tr><td>환제</td><td>1달 14만원 / 3개월 39만원</td></tr><tr><td>탕약</td><td>20일 1제 24만원 / 80일(3+1) 72만원</td></tr><tr><td>탕약</td><td>1달 33만원 / 3개월 89만원</td></tr><tr><td>날씬주사</td><td>1회 4.9만원 / 10+2 49만원</td></tr><tr><td>패키지</td><td>탕약 3개월 + 날씬주사 12회 = 109만원</td></tr></tbody></table></div>
+<aside class="note"><p>※ 탕약이 두 줄인 것은 원본 그대로입니다. 각각 어떤 처방인지 확인해서 이름을 붙여두면 헷갈리지 않습니다.</p></aside>
+<h2 id="desk--치료가-끝나고-나온-후"><a class="hlink" href="#desk--치료가-끝나고-나온-후">치료가 끝나고 나온 후</a></h2>
+<p>치료하고 나온 환자에 대해서 데스크에서 먼저 대화를 시작하며 리드해야 합니다.</p>
+<p>필수내용 4가지 : 치료 만족도 체크, 진료비 내역 안내, 예약, 주차 확인</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"진료 잘 받으셨어요? 오늘 약침치료 포함해서 진료비 얼마입니다.<br>내일도 같은 시간으로 오시겠어요? 주차 하셨나요? 차량번호가 어떻게 되세요?"</p></blockquote>
+<h3 id="desk--초진재초진-환자-예약-잡기">초진(재초진) 환자 예약 잡기</h3>
+<p><strong>1. 예약 진료의 근본적인 목표 : 진료의 질 향상</strong></p>
+<p>약속된 진료에 대해 미리 고민하고 준비하게 됩니다. 체계적인 치료가 가능해지고,<br>결국 환자에게 도움이 되는 방향입니다.<br>붐비는 상황을 예방함으로써 조급한 상황을 미연에 방지합니다.</p>
+<p><strong>2. 예약은 초기 3회가 중요합니다.</strong></p>
+<p>처음에 예약 잡고 오게 하는 인식을 심어주면 이후로는 예약이 자연스러워집니다.</p>
+<p><strong>3. 멘트</strong> (예약을 잡는 게 당연한 분위기로 언급)</p>
+<p>예약 시간은 원장이 환자와 먼저 이야기한 뒤 메시지로 보내드립니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"오늘 치료 받으신 거 내일 경과 확인해 드릴 건데 오늘이랑 같은 시간으로 오시겠어요?"</p></blockquote>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"내일 오시기로 원장님과 얘기 나누셨죠? 시간은 언제가 괜찮으실까요?" (약속내용 백트래킹)</p></blockquote>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"원장님께서 수요일에 오시라고 하시네요~ 시간은 언제가 괜찮으실까요?"</p></blockquote>
+<p>혹 안 된다고 할 경우,</p>
+<ul><li>잘못된 질문 : "예약 도와드릴 건데, 언제 오시겠어요?"<span>부정적인 선택지를 고를 수 있도록 질문하면 안 됩니다.</span></li><li>멘트 "초반 치료기간에는 가깝게 내원하시는 게 좋은데, 그럼 화요일이나 수요일쯤은 가능하세요?"</li></ul>
+<p><strong>Point</strong> — 환자분이 예약을 잡고 가는 게 무조건 좋습니다.<br>반드시 예약을 언급하되, 불편해하면 원장 핑계를 한번 대고,<br>그래도 불편해하면 부담 주지 말고 마무리해주세요.</p>
+<p>마지막 멘트 "지금 예약 잡기가 곤란하시면, 일정 보시고 가까운 날로 또 내원해주세요.<br>주말에 오시게 되면 미리 연락 한번 부탁드립니다."<br>→ 진료시간과 전화번호 적혀있는 명함 드리면서 마무리.</p>
+<h3 id="desk--재진-환자-예약-잡기">재진 환자 예약 잡기</h3>
+<p>지난 내원일을 미리 확인 후 참고하여 예약일을 정합니다.</p>
+<ul><li>어제 오고 이어서 오신 분 : "통증치료는 자주 받으시면 빨리 좋아지세요.<span>내일도 이 시간으로 예약해드릴까요?"</span></li><li>3일 만에 내원하신 분 : "이틀 전에 오시고 오늘 오셨네요.<span>원장님이 주 3회 오시도록 예약 잡아드리라는데, 다음 내원은 ㅇ요일쯤으로 잡아드릴까요?"</span></li><li>지난주에 오고 일주일 만에 오신 분 : "지난주에도 ㅇ요일에 오셨었는데, ㅇ요일이 내원하시기 편하신가요?<span>다음 내원도 다음주 ㅇ요일로 잡아드릴까요?"</span></li></ul>
+<h2 id="desk--수납"><a class="hlink" href="#desk--수납">수납</a></h2>
+<p>'본인부담금 + 비급여'로 구성됩니다. 합산 금액을 아래 금액으로 약속합니다.</p>
+<div class="tw"><table><thead><tr><th>구분</th><th>초진</th><th>재진</th></tr></thead><tbody><tr><td>65세 이하</td><td>13,900원</td><td>11,000원</td></tr><tr><td>65세 이상</td><td>5,900원</td><td>2,400원</td></tr></tbody></table></div>
+<ul><li>초음파 약침 + 추나 : 진료비 27,000원 + 비급여 1만원 (PDRN 2만원)</li><li>추나 없이 약침 치료만 할 시 : 기본 진료비 + 비급여 20,000원 (PDRN 4만원)</li></ul>
+<aside class="note"><p>※ 금액은 이 표에서만 관리합니다. 바뀌면 여기를 고치고 <a class="xref" href="#home--개정-이력">개정 이력</a>에 한 줄 남깁니다.</p></aside>
+<h3 id="desk--결제-처리">결제 처리</h3>
+<p>접수실 프로그램에서 수납처리 후, 엑셀에도 기록합니다.</p>
+<p>현금 수납 시 현금영수증을 발행합니다.</p>
+<aside class="note"><p>※ 현금영수증은 단말기로만 발행합니다. 컴퓨터에서는 '아니오'.</p></aside>
+<ul><li>환자분이 현금영수증 원할 시 → 환자분 번호로 발행</li><li>원하지 않을 시 → 010-000-1234 로 발행</li></ul>
+<p>영수증(카드, 현금)에 이름을 적습니다.</p>
+<h3 id="desk--수납-후-엑셀파일-적기">수납 후 엑셀파일 적기</h3>
+<ol><li>차팅 체크된 환자분 성함 더블클릭 후 확인</li><li>수납현황 확인</li><li>카드, 현금 (완료)</li><li>현금일 경우, 현금영수증 관련 내용에서는 '아니오'</li></ol>
+<aside class="note"><p>※ 현금영수증은 단말기에서만 발급합니다. 차트 프로그램에서 중복 발급되지 않도록 주의해주세요.</p></aside>
+<p><figure class="shot"><img src="img/desk-payment-check.png" alt="수납현황 확인" loading="lazy"><figcaption>수납현황 확인</figcaption></figure></p>
+<h3 id="desk--약-수납-시">약 수납 시</h3>
+<p>약 가격표를 참고합니다. → <a class="xref" href="#herbal--한약-비용표">한약 비용표</a></p>
+<aside class="note"><p>※ 산정특례(암환자, 임산부), 의료보호 환자의 경우 원장에게 차팅 요청하고, 금액 확인 후 수납합니다.</p></aside>
+<p>의료보호 환자 (1종, 2종 등)</p>
+<ul><li>'보호환자승인요청' 후 건강생활의료비 잔액 확인.<span>잔액이 남아있다면 차감하고 환자에게 직접 수납은 안 합니다.</span></li><li>잔액이 없다면 환자가 직접 수납. (약 있으면 1,500원, 약 없으면 1,000원)</li><li>수납형태에 따라서 '건생비' 혹은 '현금'으로 최종 수납처리합니다.</li></ul>
+<aside class="note"><p>※ 그 외 수납에서 막히는 부분 있으면 원장 콜.</p></aside>
+<h3 id="desk--진료비-수납-안-하는-경우">진료비 수납 안 하는 경우</h3>
+<ul><li>자동차보험</li><li>산업재해 (산재보험)</li><li>지방분해침 치료 : 다이어트 패키지에 금액이 미리 포함되어 있습니다.<span>('지방분해침 + 통증치료'일 경우에는 수납)</span></li><li>한약 드시고 있는 분의 중간상담 (치료실에서 침 치료도 하면 수납)</li></ul>
+<h3 id="desk--차량-등록">차량 등록</h3>
+<ul><li>김포 공영주차장 포털</li><li>숫자로 된 4자리 부분 입력해서 조회</li><li>시간은 1시간 30분까지</li></ul>
+<h3 id="desk--추가-사항">추가 사항</h3>
+<ul><li>네이버 영수증 리뷰 작성 부탁</li><li>초진의 경우 웰컴소화제 선물</li></ul>
+<aside class="note"><p>※ 원본 매뉴얼에는 초진 선물이 「웰컴 소화제」로, 별도 항목에는 「웰컴 경옥고」로 적혀 있습니다.<br>지금 무엇을 드리는지 확인해서 한쪽으로 정리해주세요.</p></aside>
+<h2 id="desk--예약관련-추가"><a class="hlink" href="#desk--예약관련-추가">예약관련 추가</a></h2>
+<ul><li>예약시간 = 접수시간입니다. (진료시간이 아닙니다)<span>예) 11시에 예약이면 11시에 접수가 되는 것. 앞에 진료가 늦어진다면 기다리는 상황이 발생할 수 있습니다.</span><span>환자들은 이런 개념을 모르기 때문에 친절하게 설명하고 이해를 구해야 합니다.</span></li><li>목표 : 기약 없이 기다리는 상황 예방, 환자들끼리 마주치는 일 최소화,<span>의료진들의 조급함 예방과 여유를 위해서입니다.</span></li><li>이왕이면 정각 단위로 예약 받기 (필요하다면 삼십분 단위까지 받음)<span>예) 10시(○), 11시 30분(○), 10시 25분(✕)</span></li><li>한 시간에 최대 8명까지만 예약 가능</li><li>당일 전화 예약도 받습니다. (예약 보드 보고 빈 시간으로 넣어드리기)</li><li>예약 시간보다 15분 이상 늦으면 일단 취소. 대기환자 있다면 그 자리로 넣어드립니다.<span>그 이후에 예약환자가 온다면, 상황 설명 드리고 대기시간 안내드리기.</span><span>(안타깝다는 뉘앙스, 하지만 배려해서 최대한 앞으로 넣어드리겠다는 느낌이 전해지도록)</span></li><li>점심시간에 대기인 명단 작성 (예약 명단도 미리 기입해둡니다. 괄호 안에 '예약'이라고 함께 기록)</li><li>초진, 추나, 통원약침의 경우 진료시간을 1시간으로 계산합니다.</li><li>재진의 경우 진료시간을 40분으로 계산합니다.</li><li>대기실, 치료실 상황은 메신저를 통해서 꾸준히 공유합니다.</li><li>메신저 통해서 데스크에서 지휘하기.<span>예) 지금 흐름대로 진료하면 11시 예약 환자가 들어갈 베드 없다. 치료실에선 타이머 조금씩 줄여달라.</span><span>예) 상담 2명 대기. 1명당 5분 안에 상담 끝내라.</span></li><li>데스크에서 대기실 환자들 감정 살피기.<span>예) 오래 기다리시는 분들에게 지속적으로 말 걸기, 경옥고 드리기, 한약 드리기, 안에 상황 설명 드리기.</span><span>끝까지 기분 나빠 보이면 수납하면서 사과하면서 파스 챙겨주기.</span></li></ul>
+<h3 id="desk--연습-상황">연습 상황</h3>
+<p><strong>상황 1.</strong> 10시 통증환자 7명 예약, 11시에 통증환자 6명 예약, 12시에 통증환자 2명 예약되어 있는 상황.</p>
+<div class="qa"><p>Q. 10시 10분에 예약 없이 재진환자가 내원. 대처는?<br>A. 치료실로 안내. (8베드 중에 한 베드 비어있으므로)</p></div>
+<div class="qa"><p>Q. 이어서 10시 11분에 초진 한 분 내원함. 대처는?<br>A. 11시에 진료 가능하다고 안내. (정중하고 죄송스럽다는 마음이 전해지도록)</p></div>
+<div class="qa"><p>Q. 11시에 부부가 예약 없이 초진 내원. 대처는?<br>A. 12시에 진료 가능하다고 안내. (11시에 한 자리 남아있는 상황이므로, 2명 진료는 12시에 가능)</p></div>
+<p><strong>상황 2.</strong> "11시 예약 시간에 맞춰 왔는데, 왜 내가 기다려야 하느냐! 이럴 거면 예약 왜 하냐"고 불만일 경우</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"지금 10시에 들어간 환자분들 치료가 좀 늦어져서, 자리 나오면 바로 안내 도와드릴게요.<br>접수는 예약 하신 시간에 맞춰서 넣어 놨으니까 금방 들어가실 거예요."<br>(치료실 상황 확인해서 대기시간 안내까지)</p></blockquote>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"원장님이 자세히 상담하느라고 10시 환자분들이 조금씩 딜레이 됐습니다.<br>환자분도 원장님께 신경 써서 봐주시라고 전달해 놓을게요.<br>자리 나오면 금방 안내해드리겠습니다. 기다리게 해드려 죄송합니다."</p></blockquote>
+<h3 id="desk--예약보드">예약보드</h3>
+<p>당일 예약취소는 예약플래너 → 예약환자관리에서 취소칸에 체크(√) → 자동 취소됩니다.</p>
+<p><figure class="shot"><img src="img/desk-reservation-cancel.png" alt="예약 취소 체크" loading="lazy"><figcaption>예약 취소 체크</figcaption></figure></p>
+<h3 id="desk--점심시간-대기명단-예시">점심시간 대기명단 예시</h3>
+<div class="tw"><table><thead><tr><th>순서</th><th>성함</th><th>생년월일</th></tr></thead><tbody><tr><td>1</td><td>김철수 (예약)</td><td></td></tr><tr><td>2</td><td>김영희 (예약)</td><td>1977.01.01</td></tr><tr><td>3</td><td>장동건</td><td>1976.02.02</td></tr></tbody></table></div>
+<ul><li>김철수와 김영희는 예약 환자로, 데스크에서 미리 기입해 놓은 것입니다.</li><li>김영희는 실제로 내원했으므로 생년월일을 적었습니다.</li><li>김철수는 실제로 안 온 건지, 왔는데 안 적은 건지 한 번 더 체크해볼 필요가 있습니다.</li><li>장동건은 예약 없이 점심시간 중에 와서 명단 작성하고 대기하고 있는 상황입니다.</li></ul>
+<p><figure class="shot"><img src="img/desk-lunch-waitlist.png" alt="점심시간 대기명단 서식" loading="lazy"><figcaption>점심시간 대기명단 서식</figcaption></figure></p>
+<h2 id="desk--웰컴-경옥고"><a class="hlink" href="#desk--웰컴-경옥고">웰컴 경옥고</a></h2>
+<p>'실버스틱 경옥고'를 '웰컴 경옥고'로 활용합니다.</p>
+<ul><li>치료 끝나고 데스크에서 수납하면서, 소개환에게<span>"오늘 치료 잘 받으셨어요?" 여쭤보면서 경옥고 스틱 하나 드리기</span></li><li>소개자도 같이 있다면 "소개해주셔서 감사합니다" 하면서 경옥고 스틱 하나 드리기</li></ul>
+<aside class="note"><p>※ 대기실에 있는 다른 환자가 '자기는 왜 안 주냐'면서 소외받는 느낌이 들지 않도록<br>주변 눈치도 확인하면서 해주세요.</p></aside>
+<p>기타 — 데스크 재량으로, 초진 환자와의 라포 형성에 도움이 되겠다 싶으면<br>분위기 보고 경옥고 스틱 하나씩 드려도 됩니다. 매번 필수는 아닙니다.</p>
+<h2 id="desk--소개환자-관리"><a class="hlink" href="#desk--소개환자-관리">소개환자 관리</a></h2>
+<p><strong>목표</strong> — 지역 사회 내에서 우리 한의원에 대한 긍정적인 인식과 경험의 공유</p>
+<p><strong>장점</strong></p>
+<ul><li>소개자를 통해 관계가 연결됨으로써 기본적인 친밀도가 확보되어 있습니다.</li><li>긍정적인 경험이 공유되어 있기 때문에 미리 신뢰가 쌓여 있습니다.</li><li>치료에 대한 순응도가 높습니다.</li><li>소개환이 늘수록 외부 변수에 의한 간섭이 적은 안정적인 초진 유입이 확보됩니다.</li></ul>
+<p><strong>CS 행동 기준</strong></p>
+<ol><li>데스크 초진 접수 시, 유입경로가 '소개'로 체크되어 있으면 스몰토킹 진행 (소개자 성함, 관계, 근황 등)</li><li>차트 메모란의 예진을 기록하면서 '기타'에 대화 내용 공유</li><li>소개자에게 감사 문자 전송 (OK차트 기능 활용)</li><li>치료 종료 이후에 웰컴 경옥고 드리면서 마무리 인사</li><li>소개자 다음 내원 시 감사 인사 하면서 웰컴 경옥고 드리기 (접수 시 차트에 알림창이 뜹니다)</li></ol>
+<p>예시</p>
+<ol><li>"△△△님 소개로 오셨어요? 실례지만 어떤 관계신지...? 아~ △△△님은 요즘 잘 지내시나요?"</li><li>유입경로 : 소개(△△△님 직장동료) / 기타 : 두통 치료받고 나아서 소개</li><li>OK차트 기능 활용</li><li>"오늘 치료 잘 받으셨어요? 소개받고 오신 만큼 효과 보실 수 있도록 저희가 더 신경 쓰겠습니다."</li><li>"안녕하세요. 저번에 ○○○님 직장동료분 내원하셨어요. 소개해주셔서 감사합니다."</li></ol>
+<h2 id="desk--네이버-영수증-리뷰"><a class="hlink" href="#desk--네이버-영수증-리뷰">네이버 영수증 리뷰</a></h2>
+<p>수납하면서 리뷰 작성을 부탁드립니다.</p>
+<aside class="note"><p>※ 우리 병원에서 쓰는 멘트를 정해서 여기에 적어주세요.</p></aside>
+<h2 id="desk--항의-응대"><a class="hlink" href="#desk--항의-응대">항의 응대</a></h2>
+<aside class="note"><p>※ 아직 정해지지 않았습니다. 아래를 참고해서 우리 병원 기준을 적어주세요.</p></aside>
+<ul><li>끝까지 듣고, "불편하셨겠습니다"로 먼저 받습니다.</li><li>대기실에서 계속되면 조용한 자리로 모십니다.</li><li>비용·치료 내용에 대한 항의는 원장님께 넘깁니다. 임의로 깎거나 약속하지 않습니다.</li></ul>
+<h2 id="desk--하지-않는-일"><a class="hlink" href="#desk--하지-않는-일">하지 않는 일</a></h2>
+<ul><li>증상을 듣고 어떤 치료가 필요한지 답하지 않습니다.</li><li>효과를 약속하지 않습니다. "이거 맞으면 낫습니다"는 하면 안 되는 말입니다. (의료법 제56조)</li><li>다른 병원이나 다른 치료를 깎아내리지 않습니다.</li><li>환자분 정보를 다른 환자·가족·지인에게 말하지 않습니다.</li><li>원장님 확인 없이 비용을 깎거나 서비스를 약속하지 않습니다.</li><li>대기실에서 환자분 이름 외의 정보를 크게 부르지 않습니다.</li></ul></article>
+  </div>
+</section><section class="doc" id="room" hidden>
+  <header class="doc-head">
+    <p class="eyebrow">김포한강한의원</p>
+    <h1>치료실 매뉴얼</h1>
+  </header>
+  <div class="doc-body">
+    <nav class="toc" aria-label="치료실 매뉴얼 목차">
+      <details id="toc-room">
+        <summary>이 문서의 목차 <span class="cnt">9</span></summary>
+        <ol class="toc-list"><li><a href="#room--1-환자-안내-및-환복">1. 환자 안내 및 환복</a></li><li><a href="#room--2-물리치료-부착-및-제거">2. 물리치료 부착 및 제거</a></li><li><a href="#room--3-침--부항-제거">3. 침 · 부항 제거</a></li><li><a href="#room--4-베드-정리">4. 베드 정리</a></li><li><a href="#room--치료별-목적-및-효과">치료별 목적 및 효과</a></li><li><a href="#room--안전">안전</a></li><li><a href="#room--감염관리--소모품">감염관리 · 소모품</a></li><li><a href="#room--개원-전--마감">개원 전 / 마감</a></li><li><a href="#room--환자분께-하는-말-하지-않는-말">환자분께 하는 말, 하지 않는 말</a></li></ol>
+      </details>
+    </nav>
+    <article class="prose"><h2 id="room--1-환자-안내-및-환복"><a class="hlink" href="#room--1-환자-안내-및-환복">1. 환자 안내 및 환복</a></h2>
+<h3 id="room--환자-동선">환자 동선</h3>
+<p>초진 — 원장님과 상담 후 진료카드를 가지고 나오십니다.<br>재진 — 바로 치료실로 모십니다. (따로 상담을 원하시는 경우 제외)</p>
+<h3 id="room--1-치료부위--자세-확인">1) 치료부위 / 자세 확인</h3>
+<p>초진 : 원장님 설명과 진료카드를 참고합니다.<br>재진 : OK차트 상 추가된 치료부위가 있는지와 간호사메모에서 치료부위를 확인합니다.</p>
+<h3 id="room--2-환자분-모시기">2) 환자분 모시기</h3>
+<p>환자복이 필요한 경우에 미리 챙겨서 대기실로 가서 모십니다.<br>개인 짐 챙겨서 모실 수 있도록 해주세요.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"ooo님 안녕하세요, 치료실로 모실게요~"</p></blockquote>
+<h3 id="room--3-환자-환복">3) 환자 환복</h3>
+<p>베드로 안내한 뒤 환자복을 드립니다. 상의의 경우,</p>
+<ul><li>목·어깨 치료 시 — "지퍼가 뒤로 가게 갈아입어 주시고 호출버튼을 눌러주세요."</li><li>앞쪽 치료 시 — "지퍼가 앞으로 오게 갈아입어 주시고 호출버튼을 눌러주세요."</li></ul>
+<p>옷은 옷걸이에, 짐은 베드 밑 바구니에 보관하도록 안내합니다.<br>옷을 갈아입을 필요가 없다면, 바로 치료자세를 잡아주시고 침 또는 물리치료를 시행합니다.</p>
+<h3 id="room--차팅">차팅</h3>
+<ol><li>대기실에서 환자 이름 오른쪽 클릭 후 치료실 맞는 베드번호로 이동시킵니다. (치료실 베드에 배정)</li><li>추가된 치료부위가 있다면 간호사메모에 치료부위 / 자세를 정확히 적어주세요.</li></ol>
+<p>예) 왼목/좌측와위, 우허리/우측와위, 우발가락/똑바로(앙와위), 허리/엎드려서(복와위)</p>
+<h2 id="room--2-물리치료-부착-및-제거"><a class="hlink" href="#room--2-물리치료-부착-및-제거">2. 물리치료 부착 및 제거</a></h2>
+<h3 id="room--1-물리치료-부착">1) 물리치료 부착</h3>
+<p>부착 전 알콜분무기로 패드를 소독합니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"물리치료 먼저 할게요~"</p></blockquote>
+<p>위치는 매뉴얼에 따르나, 환자가 원하는 곳이 있으면 원하는 곳에 붙여주세요.</p>
+<aside class="note"><p>※ 물리치료 위치 자료 첨부 필요 — <code>docs/manual/images/</code> 에 넣고 여기에 겁니다.</p></aside>
+<p>천천히 올려 강도를 조절합니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"찌릿찌릿한 느낌이 들면 말씀해 주세요."</p></blockquote>
+<p>IR도 켜드립니다. IR은 온열효과로 혈액순환을 도와 통증 완화에 도움이 된다고 설명드립니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"물리치료 15분 진행할 거예요. 불편한 것 있으시면 언제든 호출벨 눌러주세요~"</p></blockquote>
+<p><strong>차팅</strong> — 치료실에서 ICT 타이머를 클릭합니다.</p>
+<h3 id="room--2-물리치료-제거-및-침치료-준비">2) 물리치료 제거 및 침치료 준비</h3>
+<p>환자 상태(피부, 불편감)를 확인합니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"강도 괜찮으셨어요?"</p></blockquote>
+<p>침치료 전 안내를 드립니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"이제 침치료 하실 거예요."</p></blockquote>
+<p>치료에 필요한 카트와 의자를 준비해 놓습니다.</p>
+<aside class="note"><p>※ 대기가 있을 경우 — "원장님 진료로 인해서 대기하셔야 하는데, 물리치료 한 번 더 해드릴까요? 아니면 쉬고 계시겠어요?"</p></aside>
+<p><strong>차팅</strong></p>
+<ol><li>치료실 타이머 '완료' 누르기</li><li>메시지 — "ㅇ원장님, ㅇ번 ㅇㅇㅇ님 침치료 있습니다~"</li></ol>
+<aside class="note"><p>※ 물리치료 연장의 경우 — "대기 오래 걸려 물리치료 한 번 더 해드렸습니다"</p></aside>
+<h2 id="room--3-침--부항-제거"><a class="hlink" href="#room--3-침--부항-제거">3. 침 · 부항 제거</a></h2>
+<p>발침과 소독 또한 환자의 몸에 직접 닿는 중요한 과정입니다.<br>바쁘다고 급하게 하면 환자가 바로 느낄 수 있으니, 바쁘더라도 성의 있게 진행해야<br>환자가 안심하고 치료를 이어 나갈 수 있습니다.</p>
+<h3 id="room--1-침-제거">1) 침 제거</h3>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"침 빼드릴게요."</p></blockquote>
+<p>천천히, 아프지 않게 빼주세요.<br>깊이 놓인 침은 피부를 잡고 한 번에 하나씩 발침해주세요.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"목과 허리, 머리 맞으신 것 맞으시죠~ 다른 곳 더 맞은 곳은 없으세요?"</p></blockquote>
+<h3 id="room--2-환부-소독">2) 환부 소독</h3>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"소독해 드릴게요."</p></blockquote>
+<p>몸 살살 다루기.<br>침 맞은 부위 출혈이 있을 시 솜으로 지그시 10초간 압박해주세요.</p>
+<h3 id="room--3-치료-후-안내">3) 치료 후 안내</h3>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"다 끝나셨어요~ 옷 갈아입고 나오시면 되세요~"</p></blockquote>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"고생하셨어요, 일어날 때 어지러울 수 있으니 천천히 일어나세요."</p></blockquote>
+<p>추가 치료가 있을 경우,</p>
+<ul><li>"진료실에서 추나 / 약침치료 진행하실 거예요~ 안내해 드릴게요."</li><li>"추나 / 약침 치료 있으신데, 원장님이 진료 중이셔서 (옷 갈아입으시고) 잠시 기다리실게요."</li></ul>
+<p>전체메시지 — "ㅇㅇㅇ님 추나 대기중입니다."</p>
+<p><strong>차팅</strong></p>
+<ol><li>치료실 타이머 '완료' 버튼 누르기 (※ 환자가 나가기 전엔 지우지 말아주세요)</li><li>차트 상 베드번호 999로 바꾸기</li></ol>
+<h2 id="room--4-베드-정리"><a class="hlink" href="#room--4-베드-정리">4. 베드 정리</a></h2>
+<ul><li>ICT, 전침선 꼬이지 않게 정리</li><li>베드커버, 안면커버 교체</li><li>쿠션 제자리에</li><li>편백수 뿌리기</li></ul>
+<p>베드 정리 후 돌아와서 치료실 차트에서 환자분을 지워주시면 됩니다.</p>
+<h2 id="room--치료별-목적-및-효과"><a class="hlink" href="#room--치료별-목적-및-효과">치료별 목적 및 효과</a></h2>
+<p>환자분이 "이건 뭐예요?" 하고 물으실 때 답하는 한 줄입니다.<br>효과를 보장하는 말로 바꾸지 않습니다.</p>
+<ul><li><strong>ICT</strong> : 근육이완 / 저주파를 이용해 심부 조직을 자극해 근육통 완화</li><li><strong>IR</strong> : 온열효과 / 혈액순환을 도와 통증 완화에 도움</li><li><strong>습부항</strong> : 피를 뽑아서 순환을 좋게 함, 조직 염증 완화</li><li><strong>전자뜸</strong> : 혈자리에 열자극을 줘서 효과</li><li><strong>약침</strong> : 한약재 추출 성분 주사. 통증·염증 완화, 근육 영양 등의 효과</li><li><strong>추나</strong> : 단순추나는 근막을 풀어줘 근육통 완화. 복잡추나는 교정치료</li><li><strong>충격파</strong> : 손상된 조직을 자극해 회복 도움</li><li><strong>스피드 슬림</strong> : 코어근육 강화(허리·복부) / 소화불량·설사·변비(위장·소장·대장) / 다이어트(복부운동)</li></ul>
+<h2 id="room--안전"><a class="hlink" href="#room--안전">안전</a></h2>
+<aside class="note"><p>※ 원본 「치료실 가이드」에는 없던 항목입니다. 실제로 하고 있는 대로 채워주세요.</p></aside>
+<ul><li>침 맞다 어지러워하실 때(훈침) — 원장님을 부르고, 지시에 따라 발침합니다. 이후 순서 확인 필요</li><li>낙상 — 베드 오르내리실 때, 오래 누워 계셨다 일어나실 때 옆에 서 있어주세요</li><li>화상 — 전자뜸, IR. 감각이 둔하신 분(당뇨 등)은 더 자주 확인합니다</li><li>전침 — 심장박동기 쓰시는 분은 원장님께 알립니다</li><li>출혈 경향이 있거나 항응고제를 드시는 경우 — 원장님께 알립니다</li><li>임신 중이신 분 — 반드시 원장님께 먼저 알립니다</li></ul>
+<p>응급 상황(의식 저하, 호흡곤란, 흉통)에서는 혼자 판단하지 않고 원장님을 부릅니다.<br>119가 필요하면 이렇게 말합니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"김포시 김포한강4로 110 일신프라자 202호 김포한강한의원입니다. 장기역 근처입니다."</p></blockquote>
+<h2 id="room--감염관리--소모품"><a class="hlink" href="#room--감염관리--소모품">감염관리 · 소모품</a></h2>
+<aside class="note"><p>※ 원본 「치료실 가이드」에는 없던 항목입니다. 실제로 하고 있는 대로 채워주세요.</p></aside>
+<ul><li>손위생 시점 — 확인 필요</li><li>1회용 침 취급 — 확인 필요</li><li>손상성폐기물(침통) 교체 기준 — 확인 필요</li><li>부항컵·기구 소독 방법과 주기 — 확인 필요</li><li>베드커버·안면커버 교체 주기 — 확인 필요</li><li>편백수, 알콜분무기 관리 — 확인 필요</li></ul>
+<p>치료실 물품은 치료실 직원이 한 주씩 번갈아 가면서 '재고관리표'를 작성합니다.<br>자세한 기준은 <a class="xref" href="#admin--재고관리">원무 · 정산 · 재고 매뉴얼</a>을 봐주세요.</p>
+<h2 id="room--개원-전--마감"><a class="hlink" href="#room--개원-전--마감">개원 전 / 마감</a></h2>
+<aside class="note"><p>※ 원본 「치료실 가이드」에는 없던 항목입니다. 실제로 하고 있는 대로 채워주세요.</p></aside>
+<p><strong>개원 전</strong> — 치료실 조명·온도·환기 / 베드 세팅과 커버 상태 / 소모품 확인(침, 알코올솜, 부항컵, 뜸, 환자복, 담요) / 장비 확인(ICT, IR, 전침, 초음파, 충격파, 스피드 슬림) / 손상성폐기물 용기 잔량 / 호출벨 동작</p>
+<p><strong>마감</strong> — 베드와 커버 정리 / 기구 소독·정리 / 폐기물 처리 / 장비 전원 차단과 전자뜸 완전 소화 확인 / 부족한 소모품은 그날 적어 두기</p>
+<h2 id="room--환자분께-하는-말-하지-않는-말"><a class="hlink" href="#room--환자분께-하는-말-하지-않는-말">환자분께 하는 말, 하지 않는 말</a></h2>
+<p>해도 되는 말 — 치료 과정 안내, 흔한 반응 안내(부항 자국, 하루 이틀 뻐근함), 불편한 곳을 묻는 말</p>
+<p>하지 않는 말</p>
+<ul><li>"이거 맞으면 낫습니다" — 효과를 약속하지 않습니다. (의료법 제56조)</li><li>"몇 번 오시면 됩니다" — 치료 횟수는 원장님이 정하십니다.</li><li>"○○인 것 같은데요" — 진단하지 않습니다.</li><li>다른 환자분 이야기 — 누가 왔었다는 것조차 말하지 않습니다.</li></ul></article>
+  </div>
+</section><section class="doc" id="herbal" hidden>
+  <header class="doc-head">
+    <p class="eyebrow">김포한강한의원</p>
+    <h1>한약 · 탕전 매뉴얼</h1>
+  </header>
+  <div class="doc-body">
+    <nav class="toc" aria-label="한약 · 탕전 매뉴얼 목차">
+      <details id="toc-herbal">
+        <summary>이 문서의 목차 <span class="cnt">11</span></summary>
+        <ol class="toc-list"><li><a href="#herbal--상담-후-데스크에서-안내할-사항">상담 후 데스크에서 안내할 사항</a></li><li><a href="#herbal--탕전-순서">탕전 순서</a></li><li><a href="#herbal--포장">포장</a></li><li><a href="#herbal--포장기-청소">포장기 청소</a></li><li><a href="#herbal--한약-수령-직접수령-또는-택배">한약 수령 (직접수령 또는 택배)</a></li><li><a href="#herbal--한약이-한의원을-떠난-후-할-일">한약이 한의원을 떠난 후 할 일</a></li><li><a href="#herbal--택배-월말-정산">택배 월말 정산</a></li><li><a href="#herbal--이터널-미니처방-내원콜관리">이터널 미니처방 내원콜관리</a></li><li><a href="#herbal--복용법">복용법</a></li><li><a href="#herbal--첩약보험-생리통">첩약보험 (생리통)</a></li><li><a href="#herbal--한약-비용표">한약 비용표</a></li></ol>
+      </details>
+    </nav>
+    <article class="prose"><h2 id="herbal--상담-후-데스크에서-안내할-사항"><a class="hlink" href="#herbal--상담-후-데스크에서-안내할-사항">상담 후 데스크에서 안내할 사항</a></h2>
+<p>순서대로 빠뜨리지 않고 안내하고, 마지막에 주차까지 확인하고 마칩니다.</p>
+<ol><li>기간 + 금액 안내 : 모든 한약은 3달이 기본. 한 달 결제하는 환자에게는<span>두 달 또는 세 달 할인을 소개해드릴 것.</span></li><li>침치료 예약 : 지속적인 경과 확인과 생활관리 티칭을 위해서는<span>정기적인 침 치료를 병행하는 게 좋음.</span></li><li>보름처방 설명 : 약 주고 땡이 아니고 지속적으로 관심 갖고<span>처방은 매번 보완해서 나간다는 점 안내.</span></li><li>약 언제 나올지 대략적으로 안내 + 수령방법(택배 또는 직접수령) 확인.<span>(택배면 하루 더 걸리는 점)</span></li></ol>
+<h3 id="herbal--1-기간--금액-안내">1) 기간 + 금액 안내</h3>
+<p>반드시 2달, 3달 금액도 함께 안내합니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"한 달 한약은 ㅇㅇ인데, 두 달(세 달) 하시면 5%(10%) 할인해드려요.<br>원장님은 ㅇ달 추천하시던데 어떻게 결제해드릴까요?"</p></blockquote>
+<h3 id="herbal--2-침치료-예약">2) 침치료 예약</h3>
+<p>침치료 = 한약효과 up + 생활관리</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"그리고 일주일에 한 번씩은 침치료 오시는 게 좋은데 무슨 요일이 좋으세요?"</p></blockquote>
+<p>침치료를 못 오실 경우, 한 달 뒤에는 내원해서 경과 확인하도록 상담 예약을 잡습니다.</p>
+<div class="qa"><p>Q. 침 맞아야 돼요?<br>A. 오늘 상담하신 증상에 도움되는 혈자리로 침치료 하는 거라서 맞으면 더 빨리 좋아지실 수 있어요.</p></div>
+<div class="qa"><p>Q. 침 어디에 맞아요?<br>A. 보통 손발 혈자리에 놓는데 자세한 건 원장님이 처음 침치료 하면서 설명해주실 거예요.</p></div>
+<div class="qa"><p>Q. 시간이 안 되는데 꼭 침 맞으러 와야 되나요?<br>A. 침은 보조적인 거니까 약 열심히 드시는 게 더 중요하긴 해요.<br>그래도 중간에 시간되시면 한 번씩 맞으러 오세요.</p></div>
+<h3 id="herbal--3-보름처방-설명">3) 보름처방 설명</h3>
+<p>15일치씩 나눠서 나가는 것, 원장이 직접 경과 확인하는 것을 안내합니다.</p>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"이번에 받으실 약은 15일치고, 다 드실 때쯤 처방 더 보완해서 이어서 드릴 거예요."</p></blockquote>
+<h3 id="herbal--4-수령방법-확인">4) 수령방법 확인</h3>
+<blockquote class="ment"><span class="ment-tag">멘트</span><p>"약은 이번주 ㅇ요일쯤 나올 것 같은데 직접 수령하러 오실 수 있으세요?"</p></blockquote>
+<p>네 → "그럼 약 준비되는 대로 문자 드리도록 하겠습니다."<br>아니요 → "그럼 택배로 받으실 주소 한번 확인해주세요.<br>약은 준비해서 택배발송하고 문자 드리도록 하겠습니다."</p>
+<p>환자가 데스크에서 한약을 결제할 때, 직접수령 할지 택배로 수령할지 확인하여 차트에 기록해 놓습니다.</p>
+<ul><li>직접수령일 경우 : '직수 = 문자 = 문자 후 직수' 등으로 기록.<span>환자에게 "약이 준비되면 문자로 알려드리겠다"고 안내.</span></li><li>택배일 경우 : '택배'라고 기록. 환자에게 "약이 발송되면 문자드리겠다"고 안내. 하루 이틀 걸립니다.</li><li>기록이 없다면 원장에게 확인합니다.</li></ul>
+<h2 id="herbal--탕전-순서"><a class="hlink" href="#herbal--탕전-순서">탕전 순서</a></h2>
+<p>탕전기 전원 켜기 → 약재 보자기 넣기 → 물 cc 맞춰서 넣기 →<br>대각선 순서로 뚜껑 잠그기 → '운전' 누르기 (120분 확인)</p>
+<aside class="note"><p>※ 물 cc는 확인 필요.</p></aside>
+<p>몸통 부분 / 뚜껑 부분</p>
+<p><figure class="shot"><img src="img/herbal-boil-body-before.png" alt="탕전 전 몸통" loading="lazy"><figcaption>탕전 전 몸통</figcaption></figure></p>
+<p><figure class="shot"><img src="img/herbal-boil-lid-before.png" alt="탕전 전 뚜껑" loading="lazy"><figcaption>탕전 전 뚜껑</figcaption></figure></p>
+<p>탕전 완료되면, 몸통 부분 / 뚜껑 부분</p>
+<p><figure class="shot"><img src="img/herbal-boil-body-after.png" alt="탕전 후 몸통" loading="lazy"><figcaption>탕전 후 몸통</figcaption></figure></p>
+<p><figure class="shot"><img src="img/herbal-boil-lid-after.png" alt="탕전 후 뚜껑" loading="lazy"><figcaption>탕전 후 뚜껑</figcaption></figure></p>
+<h2 id="herbal--포장"><a class="hlink" href="#herbal--포장">포장</a></h2>
+<p>포장기</p>
+<p><figure class="shot"><img src="img/herbal-packer.png" alt="포장기" loading="lazy"><figcaption>포장기</figcaption></figure></p>
+<p>→ '압축' → 약이 탕전기에서 포장기로 넘어감 → 압력계에 0.1기압까지 상승되면 압축 멈춤 →<br>포장기에서 파우칭</p>
+<p>뚜껑 부분</p>
+<p><figure class="shot"><img src="img/herbal-packer-lid.png" alt="파우칭 뚜껑" loading="lazy"><figcaption>파우칭 뚜껑</figcaption></figure></p>
+<p>바람빼기 (놀랄 수 있으니 천천히). 몸통 부분</p>
+<p><figure class="shot"><img src="img/herbal-air-release.png" alt="바람 빼기" loading="lazy"><figcaption>바람 빼기</figcaption></figure></p>
+<p>약탕기 청소.</p>
+<h2 id="herbal--포장기-청소"><a class="hlink" href="#herbal--포장기-청소">포장기 청소</a></h2>
+<p>물 빠져나가게 밸브를 열고 청소합니다.</p>
+<p><figure class="shot"><img src="img/herbal-packer-clean.png" alt="포장기 청소 밸브" loading="lazy"><figcaption>포장기 청소 밸브</figcaption></figure></p>
+<ul><li>청소할 때마다 구석구석 닦기. 용기는 물론, 호스에 찌꺼기가 끼지 않도록.</li><li>물을 받아 처음 닦아서 내릴 시 '세척' 버튼도 같이.</li><li>마지막 탕전 끝나고 청소할 때는 구멍청소까지. (포장기 밑에 순서가 있습니다)</li></ul>
+<aside class="note"><p>※ 솔을 넣어 청소할 때는 정해진 구멍으로 넣도록 합니다. 안에서 호스가 찢어질 수 있습니다.</p></aside>
+<h2 id="herbal--한약-수령-직접수령-또는-택배"><a class="hlink" href="#herbal--한약-수령-직접수령-또는-택배">한약 수령 (직접수령 또는 택배)</a></h2>
+<h3 id="herbal--직접-수령일-경우">직접 수령일 경우</h3>
+<p>포장까지 완료 후 문자를 보냅니다.</p>
+<p>① 치료실 프로그램에서 환자이름으로 검색 ② 'SMS메세지' 클릭 ③ '현재 환자에게 SMS 보내기' 클릭<br>④ '직접수령안내' 더블클릭 ⑤ 'LMS' 클릭 ⑥ '문자 전송하기' 클릭</p>
+<aside class="note"><p>※ 다이어트 환(이터널)으로 드시는 분들에게 전송할 경우 '정성들여 달인 한약'을 지우고<br>'다이어트 환'으로 내용 변경 후 '메시지 적용'을 누르고 'LMS'를 클릭합니다.<br>다른 내용도 변경하는 게 있으면 '메시지 적용'을 눌러야 바뀐 내용이 반영됩니다.</p></aside>
+<h3 id="herbal--택배로-보낼-경우">택배로 보낼 경우</h3>
+<p>오후 3시 전에 택배 기사님께 전화로 수거 요청합니다.</p>
+<p><strong>택배 송장 인쇄</strong></p>
+<p>바탕화면 'CNPLUS'</p>
+<p>예약 → '기업고객건별접수' 클릭 → 받는 분 전화번호 입력 → 이름 입력 →<br>주소(돋보기) 누르고 입력 → F5 저장 → 아래 '출력'에 체크된 거 확인하고 OZ 출력<br>→ 표준 A4 운송장(3단) → 프린터 → 확인</p>
+<aside class="note"><p>※ 한 달에 한 번씩 비밀번호 바꾸라고 안내가 나옵니다. 바꾼 뒤 공유하는 곳은 확인 필요.<br>비밀번호 자체는 이 문서에 적지 않습니다.</p></aside>
+<h2 id="herbal--한약이-한의원을-떠난-후-할-일"><a class="hlink" href="#herbal--한약이-한의원을-떠난-후-할-일">한약이 한의원을 떠난 후 할 일</a></h2>
+<p>직접 수령 후 또는 택배 수거 요청 전화 후에 처리합니다.</p>
+<p>접수실 프로그램 → 예약플래너 → 한약복용 내원콜관리 → 이름 적고 '검색'</p>
+<p><figure class="shot"><img src="img/herbal-planner-icon.png" alt="예약플래너" loading="lazy"><figcaption>예약플래너</figcaption></figure></p>
+<p><figure class="shot"><img src="img/herbal-callmgmt-tab.png" alt="내원콜관리 탭" loading="lazy"><figcaption>내원콜관리 탭</figcaption></figure></p>
+<p>① '수령완료'로 바꾸기 ② '발송예정일'을 오늘 날짜로 변경<br>③ 택배 수거 시 '택배문자전송' 클릭 / 직접 수령 시 완료 옆 네모칸 직접 클릭<br>④ 'SMS예약전송' 클릭 ⑤ '수정' 클릭</p>
+<p><figure class="shot"><img src="img/herbal-callmgmt.png" alt="내원콜관리 화면" loading="lazy"><figcaption>내원콜관리 화면</figcaption></figure></p>
+<p>종이 차트에 빨간색으로 오늘 날짜를 적습니다.</p>
+<h2 id="herbal--택배-월말-정산"><a class="hlink" href="#herbal--택배-월말-정산">택배 월말 정산</a></h2>
+<p>매달 첫째 근무일에 전달 택배 수량과 비용을 원장에게 전달합니다.</p>
+<p>CNPLUS 프로그램에서 '고객실적' → '기업고객 정산현황' → '총 수량'과 '기본운임 합계' 확인<br>→ 원장실로 메시지</p>
+<h2 id="herbal--이터널-미니처방-내원콜관리"><a class="hlink" href="#herbal--이터널-미니처방-내원콜관리">이터널 미니처방 내원콜관리</a></h2>
+<ol><li>진행상태는 '수령완료'로</li><li>택배문자전송 옆에 완료에 체크 (택배문자전송을 누르는 게 아닙니다)</li><li>내원콜 왼쪽 체크 없애기</li><li>기타콜 체크</li><li>현재일 + 3일로 선택. (예. 오늘이 11일이면 14일로 선택)</li><li>'SMS 예약 전송' 누르기</li><li>기타콜 날짜 옆에 완료에 체크 생겼는지 확인</li></ol>
+<p><figure class="shot"><img src="img/herbal-eternal-mini.png" alt="이터널 미니처방 처리" loading="lazy"><figcaption>이터널 미니처방 처리</figcaption></figure></p>
+<ul><li>미니처방 받고 귀가하시는 분들께는 3일 뒤로 예약 잡기.</li><li>미니처방 복용 이후 정규과정으로 이어서 진행할 시, 전화 상담만으로도 처방 가능합니다.</li></ul>
+<p><strong>기타콜 문자 내용</strong></p>
+<aside class="note"><p>※ 원본 매뉴얼의 문구입니다. 우리 병원 이름과 전화번호로 바꿔서 등록해두고,<br>등록한 뒤 이 자리에 최종본을 적어주세요.</p></aside>
+<p>"[이름]님, 안녕하세요? 김포한강한의원입니다.<br>미니처방 복용은 괜찮으셨는지요? 불편 없으셨다면 이어서 정규 프로그램 진행하시는 것을 추천드립니다.<br>전화로도 연장 처방 가능하오니 편하게 연락주시기 바랍니다. 감사합니다.<br>회신번호 031-8049-7541"</p>
+<h2 id="herbal--복용법"><a class="hlink" href="#herbal--복용법">복용법</a></h2>
+<p>복용법 파일에 이름과 며칠 치인지 입력하여 출력합니다. (종료 시 '저장안함')</p>
+<ul><li>일반한약 : 15일분, 하루 2번 복용 (식전·식후 관계없이 오전에 한 번, 저녁에 한 번)</li><li>다이어트 한약 : 20일분, 하루 2번 식전 복용</li><li>자보한약 : 10일분, 하루 2번 복용 (총 21일치까지 처방 가능)</li></ul>
+<div class="qa"><p>Q. 자동차보험 한약 무슨 한약인가요?<br>A. 교통사고는 살짝 부딪쳐도 몸이 많이 놀라게 됩니다.<br>안정시켜주고, 어혈을 없애주고, 근육을 풀어주고, 붓기도 빼주는 한약이니까,<br>잘 회복하시도록 꼬박꼬박 챙겨 드시는 게 좋습니다.<br>식전 식후, 차갑게 뜨겁게 관계없습니다. 하루 2번 복약만 잘 해주세요.</p></div>
+<h2 id="herbal--첩약보험-생리통"><a class="hlink" href="#herbal--첩약보험-생리통">첩약보험 (생리통)</a></h2>
+<aside class="note"><p>※ 원본 매뉴얼에 목차만 있고 내용이 비어 있던 항목입니다.<br>대상 질환, 적용 조건, 접수·청구 절차, 본인부담금을 여기에 적어주세요.</p></aside>
+<h2 id="herbal--한약-비용표"><a class="hlink" href="#herbal--한약-비용표">한약 비용표</a></h2>
+<aside class="note"><p>※ 금액은 이 표에서만 관리합니다. 바뀌면 여기를 고치고<br><a class="xref" href="#home--개정-이력">개정 이력</a>에 한 줄 남깁니다.</p></aside>
+<p>성인 기준</p>
+<div class="tw"><table><thead><tr><th>기간</th><th>한약</th><th>녹용한약</th></tr></thead><tbody><tr><td>15일</td><td>25만원</td><td>35만원</td></tr><tr><td>한 달 (30일)</td><td>45만원</td><td>63만원</td></tr><tr><td>두 달 (60일) 5% dc</td><td>85만원</td><td>114만원</td></tr><tr><td>세 달 (90일) 10% dc</td><td>120만원</td><td>162만원</td></tr></tbody></table></div>
+<p>소아</p>
+<div class="tw"><table><thead><tr><th>체중</th><th>적용</th></tr></thead><tbody><tr><td>35 – 50 kg</td><td>80%</td></tr><tr><td>25 – 35 kg</td><td>65%</td></tr><tr><td>25 kg 이하</td><td>50%</td></tr></tbody></table></div>
+<aside class="note"><p>※ 원본에는 「80% 할인 / 65% 할인 / 50% 할인」으로 적혀 있습니다.<br>문자 그대로 읽으면 체중이 큰 쪽이 더 많이 깎이는 셈이라 앞뒤가 맞지 않아서,<br>성인 금액의 80%, 65%, 50%를 받는 것으로 읽었습니다. 어느 쪽이 맞는지 확인해서 확정해주세요.</p></aside>
+<p>녹용 등급 — 뉴질랜드 50, 러시아 전지 60, 러시아 분골 70</p>
+<aside class="note"><p>※ 원본에 단위가 없습니다. 가산 금액인지 다른 뜻인지 확인해서 채워주세요.</p></aside>
+<p>다이어트</p>
+<div class="tw"><table><thead><tr><th>종류</th><th>금액</th></tr></thead><tbody><tr><td>환제</td><td>1달 14만원 / 3개월 39만원</td></tr><tr><td>탕약</td><td>20일 1제 24만원 / 80일(3+1) 72만원</td></tr><tr><td>탕약</td><td>1달 33만원 / 3개월 89만원</td></tr><tr><td>날씬주사</td><td>1회 4.9만원 / 10+2 49만원</td></tr><tr><td>패키지</td><td>탕약 3개월 + 날씬주사 12회 = 109만원</td></tr></tbody></table></div>
+<p>그 외 비급여는 <a class="xref" href="#admin--비급여-가격">원무 · 정산 · 재고 매뉴얼</a>을 봐주세요.</p></article>
+  </div>
+</section><section class="doc" id="admin" hidden>
+  <header class="doc-head">
+    <p class="eyebrow">김포한강한의원</p>
+    <h1>원무 · 정산 · 재고 매뉴얼</h1>
+  </header>
+  <div class="doc-body">
+    <nav class="toc" aria-label="원무 · 정산 · 재고 매뉴얼 목차">
+      <details id="toc-admin">
+        <summary>이 문서의 목차 <span class="cnt">7</span></summary>
+        <ol class="toc-list"><li><a href="#admin--진료비-영수증-발급">진료비 영수증 발급</a></li><li><a href="#admin--현금영수증">현금영수증</a></li><li><a href="#admin--마감-정산">마감 정산</a></li><li><a href="#admin--물품-수령">물품 수령</a></li><li><a href="#admin--재고관리">재고관리</a></li><li><a href="#admin--비급여-가격">비급여 가격</a></li><li><a href="#admin--약침-수납-가이드">약침 수납 가이드</a></li></ol>
+      </details>
+    </nav>
+    <article class="prose"><h2 id="admin--진료비-영수증-발급"><a class="hlink" href="#admin--진료비-영수증-발급">진료비 영수증 발급</a></h2>
+<h3 id="admin--당일-치료에-대한-영수증-발급">당일 치료에 대한 영수증 발급</h3>
+<p>원장실 차팅이 끝나고, 접수실 프로그램에서 수납까지 완료한 후 영수증을 출력합니다.</p>
+<p>이름 검색 후 선택 → ① 우측 상단에 '계산서 출력' → ② '진료비계산서' → ③ '...' 선택 후<br>→ ④ 해당 날짜 선택</p>
+<p>(진료비 계산서 = 영수증)</p>
+<p><figure class="shot"><img src="img/admin-receipt-menu.png" alt="계산서 출력 메뉴" loading="lazy"><figcaption>계산서 출력 메뉴</figcaption></figure></p>
+<p>→ '요양기관 임의활용공간' 삭제</p>
+<p><figure class="shot"><img src="img/admin-receipt-erase.png" alt="요양기관 임의활용공간 삭제" loading="lazy"><figcaption>요양기관 임의활용공간 삭제</figcaption></figure></p>
+<p>→ '저장' → '프린터출력'</p>
+<h3 id="admin--여러-날짜에-대한-영수증-발급">여러 날짜에 대한 영수증 발급</h3>
+<p>'진료비계산서'와 '진료비납입확인서'를 같이 출력해드립니다.</p>
+<ul><li>'진료비계산서'에는 총금액이 나와 있습니다.</li><li>'진료비납입확인서'에는 날짜별 금액이 나와 있습니다.</li></ul>
+<p>'진료비계산서'는 당일 치료에 대한 영수증 발급하듯이 똑같이 진행합니다.<br>날짜 선택만 기간으로 선택해서 출력합니다.</p>
+<p>'진료비납입확인서'는 우측 상단에서 선택 → 시작과 끝 날짜 선택 → '저장' → '프린터출력'</p>
+<p><figure class="shot"><img src="img/admin-payment-cert-menu.png" alt="진료비납입확인서 메뉴" loading="lazy"><figcaption>진료비납입확인서 메뉴</figcaption></figure></p>
+<aside class="note"><p>※ 모든 영수증에는 '한의원 도장' 찍고, 봉투에 넣어서 드립니다.</p></aside>
+<aside class="note"><p>※ 모든 영수증은 무료 발급입니다.</p></aside>
+<aside class="note"><p>※ 진단서, 진료확인서는 원장실에서 작성하여 원장이 직접 출력합니다.</p></aside>
+<h3 id="admin--진료비-세부내역서">진료비 세부내역서</h3>
+<ul><li>세부내역서는 발행 전에 원장에게 미리 알려줍니다.</li><li>원장이 검토 후 발급해드리도록 다시 오더를 줍니다.</li><li>원장이 바빠서 소통이 불가능한 경우, 발급해드리고 내용 공유합니다. (선조치 후보고)</li></ul>
+<h3 id="admin--서류-비용">서류 비용</h3>
+<ul><li>진단서 2만원</li><li>소견서 1만원</li><li>진료확인서 1천원</li><li>초진기록지 1천원</li></ul>
+<aside class="note"><p>※ 원본 매뉴얼 안에서 진료확인서 금액이 두 군데에 다르게 적혀 있습니다.<br>영수증 발급 항목에는 3천원, 비급여 가격표에는 1천원입니다.<br>위에는 가격표 쪽 금액을 적어두었으니 어느 쪽이 맞는지 확인해서 확정해주세요.</p></aside>
+<h2 id="admin--현금영수증"><a class="hlink" href="#admin--현금영수증">현금영수증</a></h2>
+<p>현금영수증은 단말기로만 발행합니다.<br>차트 프로그램에서 중복 발급되지 않도록, 컴퓨터에서는 '아니오'를 선택합니다.</p>
+<ul><li>환자분이 원할 시 : 환자분 번호로 발행</li><li>원하지 않을 시 : 단말기에서 010 0000 1234 누르고 금액 입력</li></ul>
+<h2 id="admin--마감-정산"><a class="hlink" href="#admin--마감-정산">마감 정산</a></h2>
+<h3 id="admin--본인부담금-장부-엑셀">본인부담금 장부 (엑셀)</h3>
+<ul><li>실제로 들어온 금액을 입력합니다.</li><li>인쇄 후 카드 정산 용지 출력된 것을 위로 해서 묶습니다.</li></ul>
+<h3 id="admin--카드기-정산">카드기 정산</h3>
+<ul><li>카드정산용지 출력 순서 : 집계 → 2 → 1 → 입력</li><li>엑셀의 카드 총금액과 일치하는지 확인합니다.</li></ul>
+<h3 id="admin--시재-정산">시재 정산</h3>
+<ul><li>10만원으로 맞춥니다.</li><li>나머지 금액은 마감 결재 시 원장에게 전달합니다.</li></ul>
+<h3 id="admin--영수증">영수증</h3>
+<p>카드영수증 위에 현금영수증을 놓고 묶어서 보관합니다.</p>
+<h2 id="admin--물품-수령"><a class="hlink" href="#admin--물품-수령">물품 수령</a></h2>
+<p>한의원으로 택배가 오면 수령한 사람이 '물품수령방'에 택배 내용을 공유합니다.</p>
+<p>수령한 사람이 '택배 사진' + '물품명'을 올려주세요.</p>
+<ul><li>택배사진 : 오픈해서 물품 나오게 찍기</li><li>물품명 : 영수증에서 물품 리스트 부분만 찍어서 올려도 되고, 직접 타이핑해서 올려주셔도 됩니다.</li></ul>
+<p><figure class="shot"><img src="img/admin-goods-photo.png" alt="물품 사진 예시" loading="lazy"><figcaption>물품 사진 예시</figcaption></figure></p>
+<p>물품의 종류나 개수가 영수증 내용과 맞는지 확인 후, 영수증은 원장실로 전해주세요.</p>
+<h2 id="admin--재고관리"><a class="hlink" href="#admin--재고관리">재고관리</a></h2>
+<h3 id="admin--치료실-탕전실-공통">치료실, 탕전실 공통</h3>
+<ul><li>재고확인 빈도 : 주 1회. (주 초반, 월~수 중)</li><li>재고확인 후 확인한 사람 이름 서명</li><li>기준 : 개봉하지 않고 남은 새것의 개수를 기입</li><li>작성은 작성대로 하고, 시켜야 할 물품과 수량은 원장에게 따로 보고. (포스트잇에 적어주세요)</li></ul>
+<p><figure class="shot"><img src="img/admin-stock-storage.png" alt="개봉 · 재고 구분 보관" loading="lazy"><figcaption>개봉 · 재고 구분 보관</figcaption></figure></p>
+<h3 id="admin--약재-탕전용품">약재, 탕전용품</h3>
+<ul><li>담당 : 데스크 직원이 한 주씩 번갈아 가면서 '재고관리표' 작성</li><li>단위 : 약재는 봉지 단위. 탕전용품은 물품마다 따로 체크</li></ul>
+<h3 id="admin--치료실-물품">치료실 물품</h3>
+<ul><li>담당 : 치료실 직원이 한 주씩 번갈아 가면서 '재고관리표' 작성</li><li>물품마다 단위까지 함께 기록</li></ul>
+<h3 id="admin--재고관리표">재고관리표</h3>
+<aside class="note"><p>※ 재고관리표 위치(파일 또는 인쇄물)와 품목 목록을 여기에 적어주세요.</p></aside>
+<h2 id="admin--비급여-가격"><a class="hlink" href="#admin--비급여-가격">비급여 가격</a></h2>
+<aside class="note"><p>※ 금액은 이 표에서만 관리합니다. 바뀌면 여기를 고치고<br><a class="xref" href="#home--개정-이력">개정 이력</a>에 한 줄 남깁니다.<br>한약·다이어트 금액은 <a class="xref" href="#herbal--한약-비용표">한약 비용표</a>에 있습니다.</p></aside>
+<h3 id="admin--처방-한약">처방 한약</h3>
+<div class="tw"><table><thead><tr><th>품목</th><th>구성</th><th>금액</th></tr></thead><tbody><tr><td>사향원방</td><td>사향 0.06</td><td>확인 필요</td></tr><tr><td>치료한약</td><td></td><td>확인 필요</td></tr><tr><td>녹용한약</td><td>사향 0.04</td><td>확인 필요</td></tr><tr><td>총명공진단</td><td></td><td>확인 필요</td></tr><tr><td>원방경옥고</td><td></td><td>확인 필요</td></tr><tr><td>녹용경옥고</td><td></td><td>확인 필요</td></tr><tr><td>감비탕</td><td>20일</td><td>24만원</td></tr><tr><td>감비환</td><td>1달</td><td>14만원</td></tr></tbody></table></div>
+<aside class="note"><p>※ 원본 가격표에서 위 여섯 품목은 금액이 비어 있었습니다. 확인해서 채워주세요.</p></aside>
+<h3 id="admin--상비--소포장">상비 · 소포장</h3>
+<div class="tw"><table><thead><tr><th>품목</th><th>구성</th><th>금액</th></tr></thead><tbody><tr><td>소아젤리 (입맛, 면역, 성장)</td><td>20포</td><td>6만원</td></tr><tr><td>목향</td><td></td><td>2만원</td></tr><tr><td>쌍화탕</td><td>1박스(15포)</td><td>7만원</td></tr><tr><td>쌍패탕</td><td>2포</td><td>1만원</td></tr><tr><td>상비한약 A</td><td>2포</td><td>1만원</td></tr><tr><td>상비한약 B</td><td>2포</td><td>7천원</td></tr><tr><td>향성파적환</td><td>1set(30개)</td><td>12만원</td></tr><tr><td>숙취해소제</td><td>1포</td><td>2천원</td></tr><tr><td>한방 파스</td><td>1팩</td><td>7천원</td></tr><tr><td>자운고</td><td></td><td>1만원</td></tr><tr><td>변비환</td><td>3포</td><td>4,500원</td></tr></tbody></table></div>
+<p>상비한약 : 은교산, 맥문동탕, 위령탕, 쌍패탕 / 작감탕, 계지가갈근탕 / 반하산급탕</p>
+<h2 id="admin--약침-수납-가이드"><a class="hlink" href="#admin--약침-수납-가이드">약침 수납 가이드</a></h2>
+<aside class="note"><p>※ 원본 매뉴얼에 목차만 있고 내용이 비어 있던 항목입니다.<br>약침 종류별 수납 방법과 주의사항을 여기에 적어주세요.</p></aside>
+<p>진료비 금액은 <a class="xref" href="#desk--수납">데스크 매뉴얼 · 수납</a>에 있습니다.</p></article>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <p class="stamp">마지막으로 고친 날 <time datetime="2026-09-03">2026. 09. 03</time></p>
+  <p>실제로 하는 일과 다르면 문서가 틀린 것입니다. 고칠 부분은 원장님께 알려주세요.<br>
+  「※ 확인 필요」라고 적힌 곳은 아직 정해지지 않은 부분입니다.</p>
+</footer>
+
+<dialog class="lb" id="lb"><button type="button" onclick="document.getElementById('lb').close()">닫기</button><img src="" alt=""></dialog>
+
+<script>
+const SECTIONS = [{"doc": "home", "tab": "첫 장", "title": "매뉴얼", "anchor": "home--매뉴얼"}, {"doc": "home", "tab": "첫 장", "title": "이 매뉴얼을 고치는 방법", "anchor": "home--이-매뉴얼을-고치는-방법"}, {"doc": "home", "tab": "첫 장", "title": "병원 기본 정보", "anchor": "home--병원-기본-정보"}, {"doc": "home", "tab": "첫 장", "title": "데스크 Keyword : 관심", "anchor": "home--데스크-keyword--관심"}, {"doc": "home", "tab": "첫 장", "title": "치료실 Keyword : 성의", "anchor": "home--치료실-keyword--성의"}, {"doc": "home", "tab": "첫 장", "title": "모두에게 해당하는 세 가지", "anchor": "home--모두에게-해당하는-세-가지"}, {"doc": "home", "tab": "첫 장", "title": "개정 이력", "anchor": "home--개정-이력"}, {"doc": "desk", "tab": "데스크", "title": "Keyword : 관심", "anchor": "desk--keyword--관심"}, {"doc": "desk", "tab": "데스크", "title": "출근", "anchor": "desk--출근"}, {"doc": "desk", "tab": "데스크", "title": "초진 접수", "anchor": "desk--초진-접수"}, {"doc": "desk", "tab": "데스크", "title": "재진 접수", "anchor": "desk--재진-접수"}, {"doc": "desk", "tab": "데스크", "title": "자동차 보험", "anchor": "desk--자동차-보험"}, {"doc": "desk", "tab": "데스크", "title": "다이어트 환자", "anchor": "desk--다이어트-환자"}, {"doc": "desk", "tab": "데스크", "title": "검사실", "anchor": "desk--검사실"}, {"doc": "desk", "tab": "데스크", "title": "치료가 끝나고 나온 후", "anchor": "desk--치료가-끝나고-나온-후"}, {"doc": "desk", "tab": "데스크", "title": "수납", "anchor": "desk--수납"}, {"doc": "desk", "tab": "데스크", "title": "예약관련 추가", "anchor": "desk--예약관련-추가"}, {"doc": "desk", "tab": "데스크", "title": "웰컴 경옥고", "anchor": "desk--웰컴-경옥고"}, {"doc": "desk", "tab": "데스크", "title": "소개환자 관리", "anchor": "desk--소개환자-관리"}, {"doc": "desk", "tab": "데스크", "title": "네이버 영수증 리뷰", "anchor": "desk--네이버-영수증-리뷰"}, {"doc": "desk", "tab": "데스크", "title": "항의 응대", "anchor": "desk--항의-응대"}, {"doc": "desk", "tab": "데스크", "title": "하지 않는 일", "anchor": "desk--하지-않는-일"}, {"doc": "room", "tab": "치료실", "title": "1. 환자 안내 및 환복", "anchor": "room--1-환자-안내-및-환복"}, {"doc": "room", "tab": "치료실", "title": "2. 물리치료 부착 및 제거", "anchor": "room--2-물리치료-부착-및-제거"}, {"doc": "room", "tab": "치료실", "title": "3. 침 · 부항 제거", "anchor": "room--3-침--부항-제거"}, {"doc": "room", "tab": "치료실", "title": "4. 베드 정리", "anchor": "room--4-베드-정리"}, {"doc": "room", "tab": "치료실", "title": "치료별 목적 및 효과", "anchor": "room--치료별-목적-및-효과"}, {"doc": "room", "tab": "치료실", "title": "안전", "anchor": "room--안전"}, {"doc": "room", "tab": "치료실", "title": "감염관리 · 소모품", "anchor": "room--감염관리--소모품"}, {"doc": "room", "tab": "치료실", "title": "개원 전 / 마감", "anchor": "room--개원-전--마감"}, {"doc": "room", "tab": "치료실", "title": "환자분께 하는 말, 하지 않는 말", "anchor": "room--환자분께-하는-말-하지-않는-말"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "상담 후 데스크에서 안내할 사항", "anchor": "herbal--상담-후-데스크에서-안내할-사항"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "탕전 순서", "anchor": "herbal--탕전-순서"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "포장", "anchor": "herbal--포장"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "포장기 청소", "anchor": "herbal--포장기-청소"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "한약 수령 (직접수령 또는 택배)", "anchor": "herbal--한약-수령-직접수령-또는-택배"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "한약이 한의원을 떠난 후 할 일", "anchor": "herbal--한약이-한의원을-떠난-후-할-일"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "택배 월말 정산", "anchor": "herbal--택배-월말-정산"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "이터널 미니처방 내원콜관리", "anchor": "herbal--이터널-미니처방-내원콜관리"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "복용법", "anchor": "herbal--복용법"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "첩약보험 (생리통)", "anchor": "herbal--첩약보험-생리통"}, {"doc": "herbal", "tab": "한약 · 탕전", "title": "한약 비용표", "anchor": "herbal--한약-비용표"}, {"doc": "admin", "tab": "원무 · 정산", "title": "진료비 영수증 발급", "anchor": "admin--진료비-영수증-발급"}, {"doc": "admin", "tab": "원무 · 정산", "title": "현금영수증", "anchor": "admin--현금영수증"}, {"doc": "admin", "tab": "원무 · 정산", "title": "마감 정산", "anchor": "admin--마감-정산"}, {"doc": "admin", "tab": "원무 · 정산", "title": "물품 수령", "anchor": "admin--물품-수령"}, {"doc": "admin", "tab": "원무 · 정산", "title": "재고관리", "anchor": "admin--재고관리"}, {"doc": "admin", "tab": "원무 · 정산", "title": "비급여 가격", "anchor": "admin--비급여-가격"}, {"doc": "admin", "tab": "원무 · 정산", "title": "약침 수납 가이드", "anchor": "admin--약침-수납-가이드"}];
+const docs = [...document.querySelectorAll('.doc')];
+const tabs = [...document.querySelectorAll('.tab')];
+
+function show(key, anchor){
+  docs.forEach(d => d.hidden = d.id !== key);
+  tabs.forEach(t => t.setAttribute('aria-selected', String(t.dataset.doc === key)));
+  syncToc();
+  if(anchor){
+    const el = document.getElementById(anchor);
+    if(el){ el.scrollIntoView({block:'start'}); return; }
+  }
+  window.scrollTo(0,0);
+}
+function route(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  if(!h) return show('home');
+  const key = h.split('--')[0];
+  if(docs.some(d => d.id === key)) show(key, h.includes('--') ? h : null);
+}
+tabs.forEach(t => t.addEventListener('click', () => { location.hash = t.dataset.doc; route(); }));
+window.addEventListener('hashchange', route);
+
+/* 목차: 넓은 화면에서는 늘 펼쳐 둔다 */
+function syncToc(){
+  const wide = window.matchMedia('(min-width:1000px)').matches;
+  document.querySelectorAll('.toc details').forEach(d => { if(wide) d.open = true; });
+}
+window.addEventListener('resize', syncToc);
+
+/* 찾기 */
+const box = document.getElementById('q');
+const hits = document.getElementById('hits');
+function render(list){
+  if(!list.length){ hits.innerHTML = '<li class="none">찾는 항목이 없습니다.</li>'; hits.hidden = false; return; }
+  hits.innerHTML = list.slice(0,12).map(s =>
+    `<li><a href="#${s.anchor}">${s.title}<span class="in">${s.tab}</span></a></li>`).join('');
+  hits.hidden = false;
+}
+box.addEventListener('input', () => {
+  const q = box.value.trim();
+  if(!q){ hits.hidden = true; return; }
+  render(SECTIONS.filter(s => s.title.includes(q) || s.tab.includes(q)));
+});
+box.addEventListener('focus', () => { if(box.value.trim()) hits.hidden = false; });
+hits.addEventListener('click', e => {
+  if(e.target.closest('a')){ hits.hidden = true; box.value = ''; box.blur(); }
+});
+document.addEventListener('click', e => {
+  if(!e.target.closest('.find')) hits.hidden = true;
+});
+box.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){ box.value=''; hits.hidden = true; box.blur(); }
+  if(e.key === 'Enter'){ const a = hits.querySelector('a'); if(a && !hits.hidden) a.click(); }
+});
+
+/* 읽고 있는 절을 목차에서 표시 */
+const seen = new Map();
+const io = new IntersectionObserver(es => {
+  es.forEach(en => seen.set(en.target.id, en.isIntersecting));
+  document.querySelectorAll('.toc-list a').forEach(a => {
+    a.classList.toggle('on', seen.get(a.getAttribute('href').slice(1)) === true);
+  });
+}, {rootMargin:'-160px 0px -70% 0px'});
+document.querySelectorAll('.prose h2[id]').forEach(h => io.observe(h));
+
+/* 화면 그림 크게 보기 */
+const lb = document.getElementById('lb');
+const lbImg = lb.querySelector('img');
+document.addEventListener('click', e => {
+  const img = e.target.closest('.shot img');
+  if(img){ lbImg.src = img.src; lbImg.alt = img.alt; lb.showModal(); }
+});
+lb.addEventListener('click', e => { if(e.target !== lbImg) lb.close(); });
+
+route();
+syncToc();
+</script>
+
+</body>
+</html>

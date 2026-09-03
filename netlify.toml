@@ -28,3 +28,11 @@
   for = "/_next/static/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# 직원용 업무 매뉴얼. 검색 결과에 나오면 안 된다.
+# robots.txt 로 이미 막았지만, 로봇이 그것을 무시하고 읽어 가더라도
+# 이 헤더를 보면 색인에서 뺀다
+[[headers]]
+  for = "/manual/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow, noarchive, nosnippet"
