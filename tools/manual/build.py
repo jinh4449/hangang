@@ -1,6 +1,9 @@
 import re, os, base64, json, html, subprocess, datetime
 
-SRC = '/home/user/hangang/docs/manual'
+HERE = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
+
+SRC = os.path.join(ROOT, 'docs', 'manual')
 DOCS = [
     ('home',    'README.md',         '첫 장',      '김포한강한의원 업무 매뉴얼'),
     ('desk',    'desk.md',           '데스크',     '데스크 매뉴얼'),
@@ -549,6 +552,9 @@ page = f'''<title>김포한강한의원 업무 매뉴얼</title>
 <script>{JS.replace("__NAV__", nav_json)}</script>
 '''
 
-out = '/tmp/claude-0/-home-user-hangang/ae04bd92-914f-5ef1-b1a8-20c7cacfebd6/scratchpad/site/manual.html'
+# 게시용으로만 만들고 저장소에 두지 않는다 (.gitignore)
+out = os.path.join(HERE, '.out', 'manual.html')
+os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf-8').write(page)
-print('절', len(nav), '· 그림', len(imgs), '· 용량', round(len(page.encode())/1024/1024, 2), 'MB')
+print(out, '· 절', len(nav), '· 그림', len(imgs),
+      '· 용량', round(len(page.encode())/1024/1024, 2), 'MB')

@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 매뉴얼 페이지. 게시용으로만 만들고 저장소에 두지 않는다
+tools/manual/.out/
