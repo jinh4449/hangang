@@ -174,14 +174,13 @@ const STANDARD_ICONS: Record<string, (p: { className?: string }) => React.JSX.El
  * 「절반을 넘었다」는 사실만 눈에 보이게 했다.
  */
 function ReferralRing() {
-  // 눈금을 링 바깥에 두어야 원이 지나갈 때 가려지지 않는다
-  const R = 80;
+  // 원판 전체(반지름 88)를 획 하나로 그린다. 굵기의 절반이 반지름이면
+  // 획이 0 에서 88 까지를 덮어, 안쪽 판과 테두리가 한 도형이 된다.
+  // 판과 테두리를 따로 그리면 이음매마다 계단이 남는다
+  const R = 44;
   const CIRC = 2 * Math.PI * R;
   const STOP = 0.56; // 눈금(0.5)을 지난 것이 보일 만큼만
 
-  // 테두리가 그려진 길이도, 안쪽 부채꼴이 열린 각도도 --ring-p 하나에서
-  // 나온다. 둘을 따로 돌리면 시작 시각이 어긋날 수 있다.
-  //
   // 가운데 글자는 두 벌을 겹쳐 둔다. 밑에 깔린 초록 글자 위로 흰 글자를
   // 부채꼴로 덮으면, 초록이 지나간 자리만 글자가 흰색으로 바뀐다.
   // 한 벌을 두고 색만 바꾸는 방법은 없다 — 글자 한 자 안에서도 색이 갈린다
@@ -204,17 +203,23 @@ function ReferralRing() {
       style={{ "--stop": STOP } as React.CSSProperties}
     >
       <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
-        {/* 아직 차지 않은 안쪽 */}
-        <circle cx="100" cy="100" r={R - 8} fill="var(--tint)" />
+        {/* 아직 차지 않은 원 */}
+        <circle cx="100" cy="100" r="88" fill="var(--tint)" />
+        {/* 채워지는 부채꼴 — 그린 길이를 --ring-p 에서 셈한다.
+            끝을 둥글리지 않는다. 둥근 끝은 획 굵기의 절반만큼 밖으로
+            더 나가 부채꼴이 아니게 된다 */}
         <circle
+          className="ring-fan"
           cx="100"
           cy="100"
           r={R}
           fill="none"
-          stroke="var(--tint)"
-          strokeWidth="16"
+          stroke="var(--herb)"
+          strokeWidth="88"
+          strokeLinecap="butt"
+          style={{ "--circ": CIRC } as React.CSSProperties}
         />
-        {/* 절반 자리 눈금 — 12시에서 시계 방향으로 반 바퀴 돈 6시, 링 바깥 */}
+        {/* 절반 자리 눈금 — 12시에서 시계 방향으로 반 바퀴 돈 6시, 원 바깥 */}
         <line
           x1="100"
           y1="192"
@@ -224,31 +229,7 @@ function ReferralRing() {
           strokeWidth="3"
           strokeLinecap="round"
         />
-        {/* 끝을 둥글리지 않는다. 둥근 끝은 획 굵기의 절반(8)만큼 밖으로
-            더 나가, 반지름 80 에서 앞뒤로 5.7도씩 총 11.4도를 더 그린다.
-            안쪽 부채꼴은 곧은 반지름으로 끊기므로 그만큼 끝선이 어긋나고,
-            그 사이에 안 채워진 색이 낀 것처럼 보였다 */}
-        <circle
-          className="ring-arc"
-          cx="100"
-          cy="100"
-          r={R}
-          fill="none"
-          stroke="var(--herb)"
-          strokeWidth="16"
-          strokeLinecap="butt"
-          style={{ "--circ": CIRC } as React.CSSProperties}
-        />
       </svg>
-
-      {/* 안쪽 판. 테두리가 지나간 만큼만 초록이 된다.
-          안쪽 원의 끝(r=72)에 딱 맞추면 그 자리에 밝은 실선이 한 줄 남는다.
-          테두리 획의 안쪽 가장자리가 같은 자리에서 연한 바탕과 섞이기 때문이다.
-          판을 r=74(200 기준 13%)까지 키워 그 줄을 덮는다 */}
-      <div
-        aria-hidden="true"
-        className="ring-wedge absolute inset-[13%] rounded-full bg-herb"
-      />
 
       <div className={`${innerBox} text-herb`}>{inner}</div>
       <div aria-hidden="true" className={`${innerBox} ring-wedge text-white`}>

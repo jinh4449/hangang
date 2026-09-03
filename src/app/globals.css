@@ -421,18 +421,31 @@ a.tile-dark:hover {
   }
 }
 
-/* 테두리 — 그린 길이를 --ring-p 에서 셈한다 */
-.ring-arc {
+/* 채워지는 부채꼴 — 그린 길이를 --ring-p 에서 셈한다.
+   CSS 그라디언트로 오려 내지 않고 SVG 획으로 그린다. 원뿔 그라디언트의
+   경계는 브라우저가 갈아 주지 않아 빗면이 계단처럼 각지는데,
+   SVG 도형의 가장자리는 갈아서 그린다 */
+.ring-fan {
   stroke-dasharray: var(--circ);
   stroke-dashoffset: calc(var(--circ) * (1 - var(--ring-p)));
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
 }
 
-/* 안쪽 판과 흰 글자를 덮는 부채꼴 — 같은 값을 각도로 읽는다 */
+/* 흰 글자를 덮는 부채꼴 — 같은 값을 각도로 읽는다.
+   여기만은 글자가 HTML 이라 그라디언트로 오린다. 경계가 글자 획을
+   가로지르는 짧은 구간뿐이라 눈에 띄지 않지만, 그래도 끊기는 자리를
+   0.6도만큼 걸쳐 두어 획의 결과 맞춘다 */
 .ring-wedge {
-  -webkit-mask-image: conic-gradient(#000 calc(var(--ring-p) * 360deg), transparent 0deg);
-  mask-image: conic-gradient(#000 calc(var(--ring-p) * 360deg), transparent 0deg);
+  --ring-edge: calc(var(--ring-p) * 360deg);
+  -webkit-mask-image: conic-gradient(
+    #000 calc(var(--ring-edge) - 0.6deg),
+    transparent var(--ring-edge)
+  );
+  mask-image: conic-gradient(
+    #000 calc(var(--ring-edge) - 0.6deg),
+    transparent var(--ring-edge)
+  );
 }
 
 /* 가운데 글자는 테두리가 돌기 시작할 때 함께 맺힌다.
