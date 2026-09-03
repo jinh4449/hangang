@@ -525,59 +525,75 @@ export default function Home() {
         <section className="screen">
           <H2 accent="함께 진료합니다">두 원장이</H2>
 
-          {/* 넓은 화면에서는 사람 사이에 말이 들어가고, 좁아지면 아래로 내려온다 */}
-          <div className="mx-auto mt-12 grid max-w-[72rem] grid-cols-2 items-end gap-6 sm:gap-10 lg:grid-cols-[1fr_minmax(0,22rem)_1fr] lg:gap-8">
-            {CLINIC.doctors.map((d, i) => (
-              <figure
-                key={d.key}
-                className={
-                  "flex flex-col items-center " + (i === 0 ? "lg:order-1" : "lg:order-3")
-                }
-              >
-                {/* 사진은 사람에 딱 맞춰 잘라 두었다. 키를 맞추고 폭은 사진이
-                    정하게 둬야 두 사람이 같은 크기로 선다.
-                    배경이 흰색이라 회색 판 위에 곱하기로 겹친다.
-
-                    회색 판은 사진보다 옆으로 넓게 둔다. 사진에 딱 맞추면 판이
-                    사람의 윤곽을 따라가, 팔을 벌린 쪽과 붙인 쪽의 판 넓이가
-                    달라 보인다. 머리 위도 띄운다. 사진이 사람에 딱 맞게
-                    잘려 있어, 그대로 두면 정수리가 판의 끝에 닿는다.
-                    아래는 띄우지 않는다. 서 있는 바닥이 뜨면
-                    사람이 공중에 있는 것처럼 보인다 */}
-                <Rise>
-                  <div className="overflow-hidden rounded-[1.5rem] bg-surface-2 px-[clamp(1rem,3.5vw,2.75rem)] pt-[clamp(1.5rem,4vh,3rem)]">
-                    <Image
-                      src={d.photo.src}
-                      alt={`${CLINIC.name} ${d.name} ${d.role}`}
-                      width={d.photo.w}
-                      height={d.photo.h}
-                      sizes="(min-width: 1024px) 18rem, 42vw"
-                      className="block h-[clamp(13rem,32vh,22rem)] w-auto mix-blend-multiply"
-                    />
-                  </div>
-                </Rise>
-                <figcaption className="mt-4 text-center">
-                  <RiseLine className="font-mono text-[12px] uppercase tracking-[0.15em] text-herb">
-                    {d.role}
-                  </RiseLine>
-                  <RiseLine className="kr mt-1.5 text-xl font-bold">{d.name}</RiseLine>
-                </figcaption>
-              </figure>
-            ))}
-
-            <div className="col-span-2 text-center lg:order-2 lg:col-span-1 lg:pb-10">
-              <p className="kr text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
-                <Lines>{["두 원장이 차트를 함께 보며 진료합니다."]}</Lines>
-              </p>
-              <Rise className="mt-7">
-                <Link
-                  href="/doctors"
-                  className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
+          {/* 넓은 화면에서는 사람 사이에 말이 들어가고, 좁아지면 아래로 내려온다.
+              회색 판은 사람마다 하나씩 두지 않고 뒤에 한 장으로 깐다. 판이 둘이면
+              각자 칸에 갇혀 보인다. 판의 아래끝은 사진의 발끝과 같은 높이여야 해서
+              높이를 사진 상자와 같은 식으로 적어 둔다(위 여백 + 사진 높이) */}
+          <div className="relative mx-auto mt-12 max-w-[72rem]">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 top-0 h-[calc(clamp(1.5rem,4vh,3rem)+clamp(13rem,32vh,22rem))] rounded-[2rem] bg-surface-2"
+            />
+            <div className="relative grid grid-cols-2 items-end gap-6 sm:gap-10 lg:grid-cols-[1fr_minmax(0,22rem)_1fr] lg:gap-8">
+              {CLINIC.doctors.map((d, i) => (
+                <figure
+                  key={d.key}
+                  className={
+                    "flex flex-col items-center " + (i === 0 ? "lg:order-1" : "lg:order-3")
+                  }
                 >
-                  의료진 소개 보기
-                  <Arrow className="arw" />
-                </Link>
-              </Rise>
+                  {/* 사진은 사람에 딱 맞춰 잘라 두었다. 키를 맞추고 폭은 사진이
+                      정하게 둬야 두 사람이 같은 크기로 선다.
+                      배경이 흰색이라 회색 판 위에 곱하기로 겹친다.
+
+                      회색 판은 사진보다 옆으로 넓게 둔다. 사진에 딱 맞추면 판이
+                      사람의 윤곽을 따라가, 팔을 벌린 쪽과 붙인 쪽의 판 넓이가
+                      달라 보인다. 머리 위도 띄운다. 사진이 사람에 딱 맞게
+                      잘려 있어, 그대로 두면 정수리가 판의 끝에 닿는다.
+                      아래는 띄우지 않는다. 서 있는 바닥이 뜨면
+                      사람이 공중에 있는 것처럼 보인다.
+
+                      뒤에 깔린 판과 색이 같아 상자는 눈에 띄지 않는다. 그래도
+                      상자에 색을 남겨 둔다. Rise 가 clip-path 로 층을 나눠서,
+                      색을 빼면 곱하기가 겹칠 바탕을 잃고 사진의 흰 배경이
+                      흰 사각형으로 드러난다. 모서리를 판과 같은 2rem 으로
+                      두는 것도 같은 이유다. 좁은 화면에서는 상자의 바깥
+                      모서리가 판의 모서리와 겹쳐, 여기가 각지면 판이 각져 보인다 */}
+                  <Rise>
+                    <div className="overflow-hidden rounded-[2rem] bg-surface-2 px-[clamp(1rem,3.5vw,2.75rem)] pt-[clamp(1.5rem,4vh,3rem)]">
+                      <Image
+                        src={d.photo.src}
+                        alt={`${CLINIC.name} ${d.name} ${d.role}`}
+                        width={d.photo.w}
+                        height={d.photo.h}
+                        sizes="(min-width: 1024px) 18rem, 42vw"
+                        className="block h-[clamp(13rem,32vh,22rem)] w-auto mix-blend-multiply"
+                      />
+                    </div>
+                  </Rise>
+                  <figcaption className="mt-4 text-center">
+                    <RiseLine className="font-mono text-[12px] uppercase tracking-[0.15em] text-herb">
+                      {d.role}
+                    </RiseLine>
+                    <RiseLine className="kr mt-1.5 text-xl font-bold">{d.name}</RiseLine>
+                  </figcaption>
+                </figure>
+              ))}
+
+              <div className="col-span-2 text-center lg:order-2 lg:col-span-1 lg:pb-[4.75rem]">
+                <p className="kr text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
+                  <Lines>{["두 원장이 차트를 함께 보며 진료합니다."]}</Lines>
+                </p>
+                <Rise className="mt-7">
+                  <Link
+                    href="/doctors"
+                    className="press inline-flex items-center gap-2 rounded-full bg-surface px-7 py-3.5 font-medium ring-1 ring-line"
+                  >
+                    의료진 소개 보기
+                    <Arrow className="arw" />
+                  </Link>
+                </Rise>
+              </div>
             </div>
           </div>
         </section>
