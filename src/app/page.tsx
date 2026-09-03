@@ -179,11 +179,30 @@ function ReferralRing() {
   const CIRC = 2 * Math.PI * R;
   const STOP = 0.56; // 눈금(0.5)을 지난 것이 보일 만큼만
 
+  // 가운데 글자는 두 벌을 겹쳐 둔다. 밑에 깔린 초록 글자 위로 흰 글자를
+  // 부채꼴로 덮으면, 초록이 지나간 자리만 글자가 흰색으로 바뀐다.
+  // 한 벌을 두고 색만 바꾸는 방법은 없다 — 글자 한 자 안에서도 색이 갈린다
+  const inner = (
+    <>
+      <span className="display kr text-4xl font-black sm:text-5xl">
+        {CLINIC.whyHero.stat.value}
+      </span>
+      <span className="kr mt-2 max-w-[9rem] text-[15px] leading-6 opacity-80">
+        소개로 오십니다
+      </span>
+    </>
+  );
+  const innerBox =
+    "ring-label absolute inset-0 flex flex-col items-center justify-center text-center";
+
   return (
-    <div className="ring-host relative mx-auto aspect-square w-[17rem] sm:w-[20rem]">
+    <div
+      className="ring-host relative mx-auto aspect-square w-[17rem] sm:w-[20rem]"
+      style={{ "--stop": `${STOP * 100}%` } as React.CSSProperties}
+    >
       <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
-        {/* 안쪽을 채우는 판. 테두리가 돌아가는 동안 테두리색으로 같이 차오른다 */}
-        <circle className="ring-fill" cx="100" cy="100" r={R - 8} fill="var(--herb)" />
+        {/* 아직 차지 않은 안쪽 */}
+        <circle cx="100" cy="100" r={R - 8} fill="var(--tint)" />
         <circle
           cx="100"
           cy="100"
@@ -220,14 +239,16 @@ function ReferralRing() {
         />
       </svg>
 
-      <div className="ring-label absolute inset-0 flex flex-col items-center justify-center text-center">
-        {/* 판이 짙은 초록으로 찼으니 안쪽 글씨는 반전된다 */}
-        <span className="display kr text-4xl font-black text-white sm:text-5xl">
-          {CLINIC.whyHero.stat.value}
-        </span>
-        <span className="kr mt-2 max-w-[9rem] text-[15px] leading-6 text-white/85">
-          소개로 오십니다
-        </span>
+      {/* 안쪽 판. 테두리가 지나간 만큼만 초록이 된다.
+          지름이 안쪽 원(r=72)과 같도록 200 기준 14% 를 물린다 */}
+      <div
+        aria-hidden="true"
+        className="ring-wedge absolute inset-[14%] rounded-full bg-herb"
+      />
+
+      <div className={`${innerBox} text-herb`}>{inner}</div>
+      <div aria-hidden="true" className={`${innerBox} ring-wedge text-white`}>
+        {inner}
       </div>
 
       <span className="absolute left-1/2 top-full -translate-x-1/2 pt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
@@ -591,7 +612,7 @@ export default function Home() {
 
               <div className="col-span-2 text-center lg:order-2 lg:col-span-1 lg:pb-[4.75rem]">
                 <p className="kr text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
-                  <Lines>{["두 원장이 차트를 함께 보며 진료합니다."]}</Lines>
+                  <Lines>{["한분 한분을 위해 두 원장이", "머리를 맞대고 함께 진료합니다"]}</Lines>
                 </p>
                 <Rise className="mt-7">
                   <Link
