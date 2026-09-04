@@ -86,6 +86,14 @@ const clinicJsonLd = {
     addressRegion: CLINIC.region,
     addressCountry: "KR",
   },
+  // 좌표를 직접 준다. 주소만 있으면 검색엔진이 지오코딩을 하고, 그 결과가
+  // 옆 건물에 찍히면 「도보 1분」이 틀린 말이 된다
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: CLINIC.geo.lat,
+    longitude: CLINIC.geo.lng,
+  },
+  hasMap: CLINIC.placeUrl,
   areaServed: [
     { "@type": "City", name: "김포시" },
     { "@type": "City", name: "인천광역시 서구" },

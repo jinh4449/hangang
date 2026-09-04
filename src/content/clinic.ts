@@ -51,8 +51,17 @@ export const CLINIC = {
   sameAs: [
     "https://naver.me/G7NPJIyh",
     "https://booking.naver.com/booking/13/bizes/1623687",
-    "https://maps.app.goo.gl/DxWbUX5VtJ6dkvZ58",
+    // 구글 지도. cid 형태가 정식 주소다. /maps/place/... 뒤에 붙는
+    // data=!3m1!4b1... 덩어리는 구글이 수시로 바꾼다
+    "https://maps.google.com/?cid=5041969111098540742",
   ],
+  /**
+   * 지도 위의 자리. 구글 지도 프로필에서 그대로 가져왔다.
+   *
+   * 주소 문자열만 있으면 검색엔진이 지오코딩을 한 번 더 해야 하고,
+   * 그 결과가 옆 건물로 찍히기도 한다. 좌표를 직접 주면 그럴 일이 없다.
+   */
+  geo: { lat: 37.6446162, lng: 126.6689465 },
   parking: "건물 옥상주차장 · 장기1공영주차장 · 장기2공영주차장",
   /**
    * 주차할 수 있는 곳.
