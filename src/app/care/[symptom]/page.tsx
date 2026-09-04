@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { CLINIC, SITE_URL, sentences } from "@/content/clinic";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
-import { breadcrumb } from "@/content/schema";
+import { breadcrumb, faqPage } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
 import { PhoneLink } from "@/components/phone-link";
 
@@ -69,6 +69,9 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         }}
       />
       <JsonLd data={breadcrumb([{ name: s.name, path: `/care/${s.slug}` }])} />
+      {/* 화면에는 문답을 보여 주면서 스키마로는 알리지 않고 있었다. 부위 페이지에는
+          들어가 있는데 이쪽만 빠져 있었다. 화면에 있는 문답만 넣는 원칙은 그대로다 */}
+      {s.faq.length > 0 && <JsonLd data={faqPage(s.faq, `/care/${s.slug}`)} />}
 
       {/* 사진이 있는 과목은 첫 화면을 배경으로 채운다. 없으면 아래 머리글로 선다 */}
       {s.heroImage && (
