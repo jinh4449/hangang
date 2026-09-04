@@ -7,129 +7,145 @@
   @font-face { font-family: "KR"; src: url("file:///root/.fonts/NotoSansKR-900.ttf"); font-weight: 900; }
 
   :root {
-    --paper: #f4f6f4;
-    --card: #ffffff;
     --ink: #141715;
     --muted: #5c665f;
-    --faint: #8d958f;
-    --line: #e4e8e3;
+    --faint: #97a099;
+    --line: #e6e9e4;
     --herb: #1e5b45;
-    --herb-bright: #24785a;
-    --tint: #e9f2ec;
+    --herb-deep: #17462f;
+    --herb-bright: #2b8a63;
+    --tint: #eaf3ee;
   }
-  html { zoom: 2; }
+  /* A4 가로 297×210mm. 1169×827px(=100dpi)에 zoom 3 을 걸어 300dpi 로 뽑는다 */
+  html { zoom: 3; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    width: 1200px; height: 1500px;
-    background: var(--paper);
-    color: var(--ink);
+    width: 1169px; height: 827px;
+    background: #fff; color: var(--ink);
     font-family: "KR", "Pretendard", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     word-break: keep-all;
-    padding: 88px 80px 72px;
+    display: grid; grid-template-columns: 410px 1fr;
+  }
+
+  /* ── 왼쪽 옥색 판 ──────────────────────────────────── */
+  .panel {
+    background: linear-gradient(160deg, var(--herb) 0%, var(--herb-deep) 100%);
+    color: #fff;
+    padding: 58px 48px 46px;
     display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .panel::before {
+    content: ""; position: absolute; right: -150px; top: -110px;
+    width: 380px; height: 380px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .panel .badge {
+    align-self: flex-start; position: relative;
+    border: 1.5px solid rgba(255, 255, 255, 0.42);
+    border-radius: 999px; padding: 9px 20px;
+    font-size: 15px; font-weight: 700; letter-spacing: 0.12em;
+  }
+  .panel h1 {
+    margin-top: 30px; position: relative;
+    font-size: 60px; font-weight: 900; line-height: 1.18; letter-spacing: -0.05em;
+  }
+  .panel h1 em { font-style: normal; color: #9fe0c1; }
+  .panel .lead {
+    margin-top: 24px; position: relative;
+    font-size: 19px; font-weight: 400; line-height: 1.65; color: rgba(255, 255, 255, 0.8);
+  }
+  .panel .lead b { color: #fff; font-weight: 700; }
+
+  .panel .bottom { margin-top: auto; position: relative; }
+  .panel .note {
+    font-size: 13px; line-height: 1.6; color: rgba(255, 255, 255, 0.6);
+    padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  .panel .mark {
+    margin-top: 18px; font-size: 20px; font-weight: 900; letter-spacing: -0.03em;
   }
 
-  /* ── 머리말 ────────────────────────────────────────── */
-  .badge {
-    align-self: flex-start;
-    background: var(--herb); color: #fff;
-    font-size: 25px; font-weight: 700; letter-spacing: 0.06em;
-    padding: 13px 28px; border-radius: 999px;
+  /* ── 오른쪽 가격표 ─────────────────────────────────── */
+  .grid { padding: 58px 56px 46px; display: flex; flex-direction: column; }
+  .colhead {
+    display: grid; grid-template-columns: 1fr 174px 174px; gap: 18px;
+    align-items: end; padding-bottom: 16px;
   }
-  h1 {
-    margin-top: 34px;
-    font-size: 92px; font-weight: 900; line-height: 1.16; letter-spacing: -0.05em;
+  .colhead p {
+    text-align: center; font-size: 17px; font-weight: 900; letter-spacing: -0.02em;
+    color: var(--herb); padding-bottom: 12px;
   }
-  h1 em { font-style: normal; color: var(--herb-bright); }
-  .sub {
-    margin-top: 28px;
-    font-size: 31px; font-weight: 400; line-height: 1.6; color: var(--muted);
-  }
-  .sub b { font-weight: 700; color: var(--ink); }
+  .colhead .a, .colhead .b { border-bottom: 3px solid var(--tint); }
 
-  /* ── 시술 두 가지 ──────────────────────────────────── */
-  .cards {
-    margin-top: auto; margin-bottom: auto;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 26px;
-  }
-  .card {
-    background: var(--card);
-    border: 1px solid #eceeea;
-    border-radius: 34px;
-    padding: 48px 40px 42px;
-    box-shadow: 0 20px 48px -22px rgba(20, 23, 21, 0.18);
-    display: flex; flex-direction: column;
-  }
-  .card .no {
-    font-size: 24px; font-weight: 900; letter-spacing: 0.14em; color: var(--herb-bright);
-  }
-  .card h2 {
-    margin-top: 14px;
-    font-size: 52px; font-weight: 900; letter-spacing: -0.04em;
-  }
-  .tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .tags span {
-    background: var(--tint); color: var(--herb);
-    font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
-    padding: 8px 16px; border-radius: 10px;
-  }
-
-  .opt {
-    display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
-    padding: 26px 0 24px;
+  .row {
+    flex: 1;
+    display: grid; grid-template-columns: 1fr 174px 174px; gap: 18px;
+    align-items: center;
     border-top: 1px solid var(--line);
   }
-  .opt:first-of-type { margin-top: 34px; }
-  .opt .tag { font-size: 27px; font-weight: 900; color: var(--herb-bright); letter-spacing: -0.03em; }
-  .opt .cnt { margin-top: 7px; font-size: 23px; font-weight: 700; color: var(--faint); letter-spacing: -0.02em; }
-  .opt .amt { font-size: 46px; font-weight: 900; letter-spacing: -0.045em; white-space: nowrap; }
-  .opt .amt i { font-style: normal; font-size: 26px; font-weight: 900; }
+  .row:last-of-type { border-bottom: 1px solid var(--line); }
+  .no { font-size: 14px; font-weight: 900; letter-spacing: 0.16em; color: var(--herb-bright); }
+  .name { margin-top: 8px; font-size: 42px; font-weight: 900; letter-spacing: -0.045em; }
+  .tags { margin-top: 12px; font-size: 16px; font-weight: 700; color: var(--muted); letter-spacing: -0.02em; }
+  .tags i { font-style: normal; color: var(--faint); padding: 0 6px; }
 
-  /* ── 꼬리말 ────────────────────────────────────────── */
-  .foot {
-    display: flex; align-items: flex-end; justify-content: space-between; gap: 36px;
-    border-top: 1px solid var(--line); padding-top: 28px;
+  .cell { text-align: center; }
+  .cell .amt { font-size: 40px; font-weight: 900; letter-spacing: -0.05em; white-space: nowrap; }
+  .cell .amt i { font-style: normal; font-size: 22px; }
+  .cell .cnt {
+    margin-top: 9px; display: inline-block;
+    font-size: 15px; font-weight: 700; color: var(--muted); letter-spacing: -0.02em;
   }
-  .foot .note { font-size: 24px; line-height: 1.6; color: var(--muted); max-width: 30em; }
-  .foot .mark { font-size: 27px; font-weight: 900; color: var(--herb); letter-spacing: -0.03em; white-space: nowrap; }
+
+  .tail {
+    padding-top: 26px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 15px; font-weight: 700; color: var(--muted); letter-spacing: -0.02em;
+  }
+  .tail span {
+    background: var(--tint); color: var(--herb); border-radius: 6px;
+    padding: 6px 12px; font-weight: 900;
+  }
 </style>
 
-<p class="badge">약침 선결제 혜택</p>
-<h1>1회 무료시술 또는<br><em>30% 할인</em></h1>
-<p class="sub">꾸준한 치료와 재발 방지를 위해,<br>약침을 <b>선결제하시면</b> 두 가지 혜택 중 하나를 골라 드립니다.</p>
+<aside class="panel">
+  <p class="badge">약침 선결제 혜택</p>
+  <h1>1회 무료시술<br>또는<br><em>30% 할인</em></h1>
+  <p class="lead">꾸준한 치료와 재발 방지를 위해,<br>약침을 <b>선결제하시면</b> 두 가지 혜택 중<br>하나를 골라 드립니다.</p>
+  <div class="bottom">
+    <p class="note">약침치료는 비급여 항목으로 실비적용이 어려우며,<br>환불 시 정가 × 시술횟수로 차감됩니다.</p>
+    <p class="mark">김포한강한의원</p>
+  </div>
+</aside>
 
-<div class="cards">
-  <section class="card">
-    <p class="no">01</p>
-    <h2>소염 약침</h2>
-    <div class="tags"><span>염증제거</span><span>근육이완</span><span>통증완화</span></div>
-    <div class="opt">
-      <div><p class="tag">1회 무료시술</p><p class="cnt">5 + 1회</p></div>
-      <p class="amt">25,000<i>원</i></p>
+<main class="grid">
+  <div class="colhead">
+    <p></p>
+    <p class="a">1회 무료시술</p>
+    <p class="b">30% 할인</p>
+  </div>
+
+  <section class="row">
+    <div>
+      <p class="no">01</p>
+      <h2 class="name">소염 약침</h2>
+      <p class="tags">염증제거<i>·</i>근육이완<i>·</i>통증완화</p>
     </div>
-    <div class="opt">
-      <div><p class="tag">30% 할인</p><p class="cnt">10회</p></div>
-      <p class="amt">35,000<i>원</i></p>
-    </div>
+    <div class="cell"><p class="amt">25,000<i>원</i></p><p class="cnt">5 + 1회</p></div>
+    <div class="cell"><p class="amt">35,000<i>원</i></p><p class="cnt">10회</p></div>
   </section>
 
-  <section class="card">
-    <p class="no">02</p>
-    <h2>특수 약침</h2>
-    <div class="tags"><span>디스크</span><span>협착증</span><span>만성통증</span></div>
-    <div class="opt">
-      <div><p class="tag">1회 무료시술</p><p class="cnt">5 + 1회</p></div>
-      <p class="amt">50,000<i>원</i></p>
+  <section class="row">
+    <div>
+      <p class="no">02</p>
+      <h2 class="name">특수 약침</h2>
+      <p class="tags">디스크<i>·</i>협착증<i>·</i>만성통증</p>
     </div>
-    <div class="opt">
-      <div><p class="tag">30% 할인</p><p class="cnt">10회</p></div>
-      <p class="amt">70,000<i>원</i></p>
-    </div>
+    <div class="cell"><p class="amt">50,000<i>원</i></p><p class="cnt">5 + 1회</p></div>
+    <div class="cell"><p class="amt">70,000<i>원</i></p><p class="cnt">10회</p></div>
   </section>
-</div>
 
-<footer class="foot">
-  <p class="note">약침치료는 비급여 항목으로 실비적용이 어려우며,<br>환불 시 정가 × 시술횟수로 차감됩니다.</p>
-  <p class="mark">김포한강한의원</p>
-</footer>
+  <p class="tail"><span>선결제</span> 후 원하시는 혜택을 말씀해 주세요.</p>
+</main>
