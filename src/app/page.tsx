@@ -235,10 +235,6 @@ function ReferralRing() {
       <div aria-hidden="true" className={`${innerBox} ring-wedge text-white`}>
         {inner}
       </div>
-
-      <span className="absolute left-1/2 top-full -translate-x-1/2 pt-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
-        여기가 절반
-      </span>
     </div>
   );
 }
@@ -596,7 +592,7 @@ export default function Home() {
               ))}
 
               <div className="col-span-2 text-center lg:order-2 lg:col-span-1 lg:pb-[4.75rem]">
-                <p className="kr text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
+                <p className="kr text-[19px] leading-[1.7] text-muted xl:text-[22px]">
                   <Lines>{["한분 한분을 위해 두 원장이", "머리를 맞대고 함께 진료합니다"]}</Lines>
                 </p>
                 <Rise className="mt-7">

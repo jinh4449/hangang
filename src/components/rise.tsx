@@ -26,21 +26,6 @@ export function RiseInit() {
   const pathname = usePathname();
 
   useEffect(() => {
-    /* 화면보다 큰 덩어리를 골라 둔다. 제 높이만큼 밀어 두면 화면 안에서는
-       끝까지 올라올 수가 없어, 스크롤이 끝나도 반쯤 가려진 채로 남는다.
-       그런 것들은 가리지 않고 살짝 들어 올리기만 한다. 창 크기가 바뀌면
-       기준도 바뀌므로 다시 센다 */
-    const markTall = () => {
-      // 화면 절반을 넘는 것부터. 큰 칸일수록 올라올 거리가 길어 늦게 끝나는데,
-      // 늦게 끝나면 읽는 자리에 들어와서까지 반쯤 가려져 있다
-      const limit = window.innerHeight * 0.55;
-      document.querySelectorAll<HTMLElement>(".rise").forEach((el) => {
-        el.classList.toggle("rise-tall", el.getBoundingClientRect().height > limit);
-      });
-    };
-    markTall();
-    window.addEventListener("resize", markTall);
-
     const observers: IntersectionObserver[] = [];
     const watch = (selector: string, cls: string, stagger = false) => {
       const els = document.querySelectorAll(selector);
@@ -78,7 +63,6 @@ export function RiseInit() {
     watch(".ring-host", "ring-go");
 
     return () => {
-      window.removeEventListener("resize", markTall);
       observers.forEach((o) => o.disconnect());
     };
   }, [pathname]);

@@ -183,11 +183,19 @@ export function Section({
   note?: string;
   children: React.ReactNode;
 }) {
+  // 제목이 먼저 맺히고 내용이 뒤따른다. 첫 화면과 같은 결이다.
+  // 둘을 한 덩어리로 묶으면 긴 절이 통째로 흐렸다 맺혀 눈이 따라가기 어렵다
   return (
     <section className="mt-14">
-      <h2 className="display kr text-2xl sm:text-[1.7rem]">{title}</h2>
-      {note && <p className="kr mt-2 max-w-[58ch] text-[16px] leading-7 text-muted">{note}</p>}
-      <div className="mt-6">{children}</div>
+      <div className="rise">
+        <div className="rise-in">
+          <h2 className="display kr text-2xl sm:text-[1.7rem]">{title}</h2>
+          {note && <p className="kr mt-2 max-w-[58ch] text-[16px] leading-7 text-muted">{note}</p>}
+        </div>
+      </div>
+      <div className="rise mt-6">
+        <div className="rise-in">{children}</div>
+      </div>
     </section>
   );
 }

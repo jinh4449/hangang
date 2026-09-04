@@ -162,109 +162,40 @@ a.tile-dark:hover {
   transform: rotate(45deg);
 }
 
-/* 스크롤에 맞춰 아래에서 위로 솟아오르기.
-   스크롤 위치가 곧 재생 위치다. 멈추면 같이 멈추고, 천천히 내리면 천천히 뜬다.
+/* 스크롤에 맞춰 흐림에서 또렷해지기.
+   스크롤 위치가 곧 재생 위치다. 멈추면 같이 멈추고, 천천히 내리면 천천히 맺힌다.
 
-   .rise 가 가리개고 그 안의 .rise-in 이 움직인다. 가리개는 자기 아래쪽만
-   자르므로 글자가 아랫줄을 침범하지 않고 자기 자리에서 솟는다.
+   앞서 여기는 가리개 뒤에서 글자가 솟아오르는 방식이었다. 첫 화면만 흐림에서
+   또렷해지는 결이라 한 페이지 안에 두 가지 결이 섞였다. 첫 화면 쪽으로 맞춘다.
 
-   범위를 짧게 잡는 것이 핵심이다. 길게 잡으면 읽는 자리까지 반쯤 가려진 채
-   올라와, 스크롤을 멈춘 자리에서 글자가 잘려 보인다. 화면 아래 4분의 1
-   안에서 끝나게 해 두면 다 뜬 뒤에 읽는 자리로 들어온다.
-   큰 칸일수록 올라올 거리가 길어 늦게 끝나므로, 가리개를 씌우는 크기에도
-   상한을 둔다 (rise-tall). */
-@keyframes riseUp {
-  from {
-    transform: translateY(105%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-/* 화면보다 큰 덩어리용. 가리개를 쓰지 않는다.
-   제 높이만큼 밀어 두면 화면 안에서는 끝까지 올라올 수가 없어,
-   스크롤이 끝나도 반쯤 가려진 채로 남는다. 가리지 않고 살짝 들어 올리기만
-   하면 어디서 멈추든 글자가 숨는 일이 없다. */
-@keyframes riseUpTall {
-  from {
-    transform: translateY(2.5rem);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-/* 다 올라온 뒤에는 가리개를 푼다. 그대로 두면 칸에 마우스를 올렸을 때
-   커지는 만큼이 아래에서 잘린다. 끝에서만 풀어야 올라오는 동안은 계속 가린다 */
-@keyframes maskFree {
-  from,
-  92% {
-    clip-path: inset(-100% -100% 0 -100%);
-  }
-  to {
-    clip-path: inset(-100% -100% -100% -100%);
-  }
-}
-
+   가리개가 없어지면서 큰 덩어리를 따로 다루던 rise-tall 도 필요 없어졌다.
+   솟아오르는 방식은 덩어리가 클수록 올라올 거리가 길어 늦게 끝났는데,
+   흐림은 제자리에서 맺히므로 크기와 상관이 없다. */
 .rise {
   display: block;
-  clip-path: inset(-100% -100% 0 -100%);
   view-timeline-name: --rise;
 }
 .rise > .rise-in {
   display: block;
-  transform: translateY(105%);
-}
-.rise-tall {
-  clip-path: none;
-}
-.rise-tall > .rise-in {
-  transform: translateY(2.5rem);
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(8px);
 }
 
 /* view() 를 모르는 브라우저용. 관찰자가 .on 을 붙이고 차례를 준다 */
-.rise.on {
-  animation: maskFree 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
-}
 .rise.on > .rise-in {
-  animation: riseUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
-}
-.rise-tall.on {
-  animation: none;
-}
-.rise-tall.on > .rise-in {
-  animation: riseUpTall 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
+  animation: textIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
 }
 
-/* 스크롤에 물리는 쪽. 가리개는 움직이지 않으므로 그쪽에 시계를 걸고
-   안쪽이 가져다 쓴다. 안쪽 시계를 따로 걸면 자기가 밀려난 만큼 시계도
-   밀려나 서로를 밀어내는 꼴이 된다.
-   .on 까지 함께 적어 둔다. 관찰자가 표시를 붙였더라도 이쪽이 뒤에 와서 이긴다.
-   어느 쪽을 쓸지 자바스크립트가 판단하게 두면, 판단이 어긋나는 순간 글자가
-   영영 안 보인다. 판단을 없애고 CSS 가 알아서 고르게 한다 */
+/* 스크롤에 물리는 쪽. .on 까지 함께 적어 둔다. 관찰자가 표시를 붙였더라도
+   이쪽이 뒤에 와서 이긴다. 어느 쪽을 쓸지 자바스크립트가 판단하게 두면,
+   판단이 어긋나는 순간 글자가 영영 안 보인다. 판단을 없애고 CSS 가 고르게 한다 */
 @supports (animation-timeline: view()) {
-  .rise,
-  .rise.on {
-    animation: maskFree linear both;
-    animation-timeline: --rise;
-    animation-range: cover 0% cover 15%;
-  }
   .rise > .rise-in,
   .rise.on > .rise-in {
-    animation: riseUp linear both;
+    animation: textIn linear both;
     animation-timeline: --rise;
-    animation-range: cover 0% cover 15%;
-  }
-  .rise-tall,
-  .rise-tall.on {
-    animation: none;
-  }
-  .rise-tall > .rise-in,
-  .rise-tall.on > .rise-in {
-    animation: riseUpTall linear both;
-    animation-timeline: --rise;
-    animation-range: cover 0% cover 10%;
+    animation-range: cover 0% cover 18%;
   }
 }
 
@@ -286,39 +217,27 @@ a.tile-dark:hover {
    .rise 는 스크롤 위치에 물려 있어 같은 높이에 있는 것들이 함께 뜬다.
    여기는 그러면 안 된다. 네 단어가 하나씩 놓인 뒤에 문장이 뒤따라야
    「이런 경우 → 이렇게 됩니다」 순서로 읽힌다. 그래서 시간으로 세운다.
-   가리개와 알맹이는 .rise 와 같은 방식이다 */
+   맺히는 결은 .rise 와 같다 */
 .seq {
   display: block;
-  clip-path: inset(-100% -100% 0 -100%);
 }
 .seq > .seq-in {
   display: block;
-  transform: translateY(110%);
-}
-.seq.on {
-  animation: maskFree 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(8px);
 }
 .seq.on > .seq-in {
-  animation: riseUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
-}
-@media (prefers-reduced-motion: reduce) {
-  .seq {
-    clip-path: none !important;
-    animation: none !important;
-  }
-  .seq > .seq-in {
-    transform: none !important;
-    animation: none !important;
-  }
+  animation: textIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0ms) both;
 }
 
+/* 움직임을 줄이라고 해 둔 사람에게는 처음부터 또렷하게 보인다 */
 @media (prefers-reduced-motion: reduce) {
-  .rise {
-    clip-path: none !important;
-    animation: none !important;
-  }
-  .rise > .rise-in {
+  .rise > .rise-in,
+  .seq > .seq-in {
+    opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
     animation: none !important;
   }
 }
