@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { COMPARES, getCompare } from "@/content/compare";
 import { getSymptom } from "@/content/symptoms";
+import { sentences } from "@/content/clinic";
 import { PageHead, Section, Cta, JsonLd } from "@/components/site";
 import { medicalWebPage, faqPage, breadcrumb } from "@/content/schema";
 import type { ComparePane } from "@/content/types";
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: PageProps<"/compare/[slug]">)
   if (!c) return {};
   return {
     title: c.title,
-    description: c.lede.slice(0, 150),
+    description: sentences(c.lede),
     alternates: { canonical: `/compare/${c.slug}` },
   };
 }

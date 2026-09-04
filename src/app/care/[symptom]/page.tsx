@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
-import { CLINIC, SITE_URL } from "@/content/clinic";
+import { CLINIC, SITE_URL, sentences } from "@/content/clinic";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: PageProps<"/care/[symptom]">)
   return {
     // 「소화불량 한방치료」로 검색하는 사람은 없다. 「김포 소화불량 한의원」이다
     title: `김포 ${s.name} 한의원 — ${s.clinicalName}`,
-    description: s.care.lede.slice(0, 150),
+    description: sentences(s.care.lede),
     alternates: { canonical: `/care/${s.slug}` },
   };
 }
@@ -120,7 +120,17 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
               const Icon = SYMPTOM_ICONS[s.slug];
               return Icon ? <Icon className="mb-5 h-10 w-10 text-herb" /> : null;
             })()}
-            <PageHead eyebrow={s.clinicalName} title={care.title} />
+            {/* 제목 밑에 한 문단. 지금까지 이 자리가 비어 있어서, 화면에 들어온 사람이
+                제목 다음에 바로 증상 목록을 만났다. 물어보러 온 질문에 답하지 않고
+                항목부터 세우는 꼴이다.
+
+                아래 highlight 가 있는 과목은 그쪽이 이미 답이므로 겹쳐 놓지 않는다.
+                답이 둘이면 어느 쪽이 답인지 흐려진다 */}
+            <PageHead
+              eyebrow={s.clinicalName}
+              title={care.title}
+              lede={s.highlight ? undefined : care.lede}
+            />
           </>
         )}
 

@@ -374,3 +374,21 @@ export const CLINIC = {
     regNo: "524-49-01241",
   },
 } as const;
+
+/**
+ * 설명문을 문장 끝에서 자른다.
+ *
+ * 그냥 잘라 쓰면 「…근육과 인대이기 때 」처럼 말이 끊긴 채로 검색결과에 걸린다.
+ * 검색결과의 설명문은 사람이 클릭 전에 읽는 문장이고, AI 가 페이지를 요약할 때도
+ * 먼저 보는 자리다. 끊긴 문장을 내보내면 양쪽 모두에서 손해다.
+ *
+ * 한도를 넘지 않는 마지막 마침표까지만 남긴다. 첫 문장부터 한도를 넘으면
+ * 어쩔 수 없이 잘라 쓰되 말줄임표를 붙여 잘렸음을 알린다.
+ */
+export function sentences(text: string, limit = 160) {
+  if (text.length <= limit) return text;
+  const cut = text.slice(0, limit);
+  // 욕심껏 잡아서 한도 안의 마지막 문장부호까지 남긴다
+  const whole = cut.match(/^[\s\S]*[.?!]/);
+  return whole ? whole[0] : `${cut.trimEnd()}…`;
+}
