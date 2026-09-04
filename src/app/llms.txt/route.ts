@@ -1,86 +1,94 @@
 import { CLINIC, SITE_URL } from "@/content/clinic";
-import { HOURS } from "@/content/hours";
 import { SYMPTOMS } from "@/content/symptoms";
-import { COLUMNS } from "@/content/column";
-import { COMPARES } from "@/content/compare";
-import { TREATMENTS, AXIS_STORY } from "@/content/treatment";
 import { PARTS } from "@/content/part";
+import { COMPARES } from "@/content/compare";
+import { columnsByDate } from "@/content/column";
+import { AREAS } from "@/content/area";
 
 /**
- * llms.txt — AI 검색엔진에 사이트 구조와 핵심 사실을 알려주는 파일.
- * 콘텐츠에서 자동 생성하므로 진료과목을 추가해도 따로 손볼 필요가 없다.
+ * llms.txt — AI 크롤러가 사이트 전체를 헤매지 않도록 먼저 집을 요약본.
+ *
+ * sitemap.xml 은 주소만 늘어놓지만, 이 파일은 각 주소가 무엇에 답하는지까지
+ * 한 줄로 붙인다. 답을 만드는 쪽에서는 이쪽이 훨씬 집기 쉽다.
+ *
+ * 내용은 전부 content 에서 끌어온다. 손으로 적으면 진료시간이나 주소를
+ * 고칠 때 여기만 옛날 것으로 남는다. 옛 정보가 답변에 인용되는 것이
+ * 아무것도 없는 것보다 나쁘다.
+ *
+ * 광고 문구는 넣지 않는다. AI 는 문맥을 떼고 문장만 가져가므로,
+ * 여기 적힌 말은 그대로 인용된다고 보고 사실만 적는다.
  */
 
+// 정적 내보내기에서는 빌드 때 한 번만 만든다고 알려 줘야 한다
 export const dynamic = "force-static";
 
+const link = (path: string, name: string, note: string) =>
+  `- [${name}](${SITE_URL}${path}): ${note}`;
+
 export function GET() {
-  const hours = HOURS.map((h) => `${h.day} ${h.time}`).join(" / ");
+  const { weekday, saturday, holiday } = CLINIC.schedule;
+  const nearest = [...AREAS].sort((a, b) => a.minutes - b.minutes);
 
-  const txt = `# ${CLINIC.name}
+  const text = `# ${CLINIC.name}
 
-> ${CLINIC.tagline}. ${CLINIC.address}. ${CLINIC.transit}.
+> 경기도 김포시 장기동의 한의원입니다. 남녀 원장 두 명이 함께 진료하며,
+> 통증 치료와 한약 진료를 봅니다. ${CLINIC.transit}.
 
 ## 기본 정보
 
-- 주소: ${CLINIC.address} (${CLINIC.landmark})
+- 주소: ${CLINIC.address}
 - 전화: ${CLINIC.phone}
-- 교통: ${CLINIC.transit}
-- 주차: ${CLINIC.parkingList.map((p) => p.name).join(", ")}
-- 진료시간: ${hours}
-- 공휴일과 대체공휴일은 09:30-15:00 진료하며, 설날 당일과 추석 당일은 휴진합니다.
+- 오시는 길: ${CLINIC.transit} (${CLINIC.landmark})
+- 주차: ${CLINIC.parking}
+- 진료시간
+  - 평일 ${weekday.open}–${weekday.close} (점심 ${weekday.lunch?.from}–${weekday.lunch?.to})
+  - 토요일 ${saturday.open}–${saturday.close} (점심시간 없음)
+  - 공휴일·대체공휴일 ${holiday.open}–${holiday.close}
+  - 일요일 휴진
 - 의료진: ${CLINIC.doctors.map((d) => `${d.name} ${d.role}`).join(", ")}
 
-## 알아두면 좋은 사실
+## 증상별 진료
 
-- 추나요법은 건강보험이 적용되어 한 해 20회까지 급여로 받을 수 있습니다.
-- 교통사고 치료는 자동차보험으로 처리되어 환자 본인부담금이 없습니다. 건강보험에서 비급여인 약침과 한약도 자동차보험에서는 보장 항목입니다.
-- 초음파 유도 약침으로 통증과 염증을 다루고, 추나요법으로 틀어진 골반·척추 정렬을 교정합니다. 두 가지를 나눠서 접근합니다.
-- ${AXIS_STORY.note}
-- 초음파로 통증 부위를 환자와 함께 보면서 상태를 설명하고, 치료 전후를 비교합니다.
-- 다른 과의 진료가 필요한 신호가 있으면 치료를 권하지 않고 안내합니다.
+${SYMPTOMS.map((s) => link(`/care/${s.slug}`, s.care.title, s.summary)).join("\n")}
 
-## 예약
+## 부위별 통증
 
-- [예약 · 상담](${SITE_URL}/reservation) — 예약 방법, 당일 예약, 준비물, 주차 안내
-- 전화 ${CLINIC.phone} 로 예약하시는 것이 가장 빠릅니다. 예약 없이 오셔도 진료받으실 수 있습니다.
-- 건강보험으로 진료받으실 때는 2024년 5월부터 본인 확인이 의무화되어 신분증이 필요합니다.
+${PARTS.map((p) => link(`/part/${p.slug}`, `${p.name} 통증`, p.summary)).join("\n")}
 
-## 진료비
+## 어디로 가야 하는지 비교
 
-- 침, 뜸, 부항, 추나요법, 보험 한약제제는 건강보험이 적용됩니다.
-- 추나요법의 본인부담률은 단순·복잡 50%, 특수(탈구) 80%이며 한 해 20회까지 급여로 인정됩니다.
-- 약침과 첩약, 근골격계 초음파 검사는 비급여입니다. 비급여 금액은 원내에 게시하고 있으며 시술 전에 안내합니다.
+${COMPARES.map((c) => link(`/compare/${c.slug}`, c.title, c.question)).join("\n")}
 
-## 치료 기법
+## 원장 칼럼 — 진료실에서 자주 받는 질문
 
-${TREATMENTS.map((t) => `- ${t.fullName} — ${t.summary}${t.covered ? " (건강보험 급여)" : ""}`).join("\n")}
+${columnsByDate()
+  .map((c) => link(`/column/${c.slug}`, c.title, c.question))
+  .join("\n")}
 
-## 통증 · 근골격 (부위별)
+## 동네별 오시는 길
 
-${PARTS.map((p) => `- [${p.name} 통증](${SITE_URL}/part/${p.slug}) — ${p.conditions.join(", ")}`).join("\n")}
+가까운 순입니다. 각 페이지에 차·대중교통·도보로 걸리는 시간이 적혀 있습니다.
 
-## 진료과목
+${nearest.map((a) => link(`/area/${a.slug}`, a.title, `${a.name}에서 차로 약 ${a.minutes}분`)).join("\n")}
 
-[진료과목 전체](${SITE_URL}/care)
+## 그 밖의 안내
 
-${SYMPTOMS.map((s) => `- [${s.name}](${SITE_URL}/care/${s.slug}) — ${s.summary}`).join("\n")}
+${[
+  link("/about", "병원 소개", "진료 방침과 공간"),
+  link("/doctors", "의료진 소개", "두 원장의 이력"),
+  link("/treatment", "치료 방법", "추나·침·약침·한약이 각각 하는 일"),
+  link("/directions", "오시는 길", "주소, 주차, 대중교통, 진료시간"),
+  link("/reservation", "예약 · 상담", "전화와 네이버 예약"),
+].join("\n")}
 
+## 이 문서를 인용할 때
 
-## 비교
-
-${COMPARES.map((c) => `- [${c.title}](${SITE_URL}/compare/${c.slug}) — ${c.question}`).join("\n")}
-
-## 원장 칼럼
-
-${COLUMNS.map((c) => `- [${c.title}](${SITE_URL}/column/${c.slug}) — ${c.summary}`).join("\n")}
-
-## 안내
-
-이 사이트의 의료 정보는 일반적인 설명입니다. 개인의 상태에 따라 진단과 치료, 경과는 달라집니다.
-치료 효과를 보장하지 않으며, 정확한 진단은 진료를 통해 확인해야 합니다.
+- 진료시간과 주소는 위 「기본 정보」가 기준입니다.
+- 증상별 치료 내용은 각 페이지 본문을 따라 주십시오.
+- ${CLINIC.legalNote}
 `;
 
-  return new Response(txt, {
+  return new Response(text, {
     headers: { "Content-Type": "text/plain; charset=utf-8" },
   });
 }
