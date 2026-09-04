@@ -84,48 +84,50 @@
   }
   .card {
     background: var(--card); border-radius: 30px;
-    padding: 36px 30px 32px;
+    padding: 32px 28px 28px;
     box-shadow: 0 18px 40px -20px rgba(18, 48, 86, 0.28);
     display: flex; flex-direction: column;
   }
   .card .top { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-  .card h2 { font-size: 56px; letter-spacing: -0.02em; color: var(--ink); }
+  .card h2 { font-size: 48px; letter-spacing: -0.02em; color: var(--ink); }
   .fee {
-    background: var(--sun); color: #6b4a00; border-radius: 999px;
-    padding: 14px 23px; font-size: 28px; letter-spacing: -0.02em;
+    font-size: 19px; font-weight: 700; color: #8ea6c2; letter-spacing: -0.03em;
+    padding-bottom: 6px;
   }
-  .for { margin-top: 18px; display: flex; gap: 7px; }
+  .for { margin-top: 16px; display: flex; gap: 7px; }
   .for span {
     background: #eef6ff; color: var(--blue-deep); border-radius: 999px;
-    padding: 12px 19px; font-size: 18px; font-weight: 700; letter-spacing: -0.03em;
+    padding: 10px 16px; font-size: 17px; font-weight: 700; letter-spacing: -0.03em;
   }
 
   .perklabel {
-    margin-top: auto; padding-top: 30px;
+    margin-top: auto; padding-top: 24px;
     display: flex; align-items: center; gap: 11px;
     font-size: 15px; font-weight: 900; color: var(--faint); letter-spacing: 0.06em;
   }
   .perklabel::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: #e8f1fa; }
-  .perks { margin-top: 18px; }
+  .perks { margin-top: 16px; }
   .perk {
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 13px;
     background: #eef6ff; border-radius: 20px;
-    padding: 24px 22px;
+    padding: 23px 22px;
     color: var(--ink);
   }
-  .perk + .perk { margin-top: 14px; }
-  /* 조건은 고딕, 금액은 둥근 서체. 한 줄에 나란히 서야 하므로 조건 쪽을 좁게 잡는다 */
-  .perk .cond { font-size: 21px; font-weight: 700; letter-spacing: -0.04em; }
-  .perk .cond b { color: var(--blue); font-weight: 900; }
-  /* 금액이 1회 값으로 읽히지 않도록 몇 회를 쓰는지 밑에 붙인다 */
-  .perk .pay { margin-left: auto; text-align: right; }
-  .perk .amt {
-    display: block; font-size: 30px; color: var(--blue-deep); letter-spacing: -0.02em;
+  .perk + .perk { margin-top: 12px; }
+  /* 윗줄은 조건, 아랫줄이 눈에 걸려야 하는 금액이다 */
+  .perk .cond { font-size: 18px; font-weight: 700; color: #5a7a9e; letter-spacing: -0.04em; }
+  .perk .cond b { color: var(--blue-deep); font-weight: 900; }
+  .perk .cond em { font-style: normal; color: #9fb4cc; }
+  .perk .line { display: flex; align-items: baseline; gap: 11px; margin-top: 5px; }
+  .perk .was {
+    font-size: 18px; font-weight: 700; color: #9fb4cc; letter-spacing: -0.03em;
+    text-decoration: line-through;
   }
-  .perk .amt u { text-decoration: none; font-size: 19px; padding-left: 1px; }
-  .perk .use {
-    display: block; margin-top: 3px;
-    font-size: 15px; font-weight: 700; color: #8ea6c2; letter-spacing: -0.03em;
+  .perk .now { font-size: 36px; color: var(--blue-deep); letter-spacing: -0.02em; }
+  .perk .now u { text-decoration: none; font-size: 22px; padding-left: 1px; }
+  .perk .save {
+    background: var(--sun); color: #6b4a00; border-radius: 999px;
+    padding: 7px 14px; font-size: 17px; font-weight: 900; letter-spacing: -0.03em;
   }
   .perk .n {
     flex: none; width: 32px; height: 32px; border-radius: 50%;
@@ -149,26 +151,26 @@
   <section class="card">
     <div class="top">
       <h2 class="round oneline">일반 약침</h2>
-      <p class="fee round oneline">1회 10,000원</p>
+      <p class="fee oneline">1회 정가 10,000원</p>
     </div>
     <p class="for oneline"><span>소염약침</span><span>통증약침</span><span>봉약침</span></p>
     <p class="perklabel">이렇게 드려요</p>
     <div class="perks">
-      <p class="perk"><span class="n">1</span><span class="cond oneline"><b>5회</b> 결제하면 <b>1회 무료시술</b></span><span class="pay"><span class="amt round oneline">50,000<u>원</u></span><span class="use oneline">총 6회 이용</span></span></p>
-      <p class="perk"><span class="n">2</span><span class="cond oneline"><b>10회</b> 결제하면 <b>30% 할인</b></span><span class="pay"><span class="amt round oneline">70,000<u>원</u></span><span class="use oneline">총 10회 이용</span></span></p>
+      <p class="perk"><span class="n">1</span><span><span class="cond oneline"><b>5회 결제하면 1회 무료시술</b> <em>· 총 6회 이용</em></span><span class="line"><span class="was oneline">60,000원</span><span class="now round oneline">50,000<u>원</u></span><span class="save oneline">10,000원 할인</span></span></span></p>
+      <p class="perk"><span class="n">2</span><span><span class="cond oneline"><b>10회 결제하면 30% 할인</b> <em>· 총 10회 이용</em></span><span class="line"><span class="was oneline">100,000원</span><span class="now round oneline">70,000<u>원</u></span><span class="save oneline">30,000원 할인</span></span></span></p>
     </div>
   </section>
 
   <section class="card">
     <div class="top">
       <h2 class="round oneline">특수 약침</h2>
-      <p class="fee round oneline">1회 30,000원</p>
+      <p class="fee oneline">1회 정가 30,000원</p>
     </div>
     <p class="for oneline"><span>PDRN</span><span>자하거 약침</span></p>
     <p class="perklabel">이렇게 드려요</p>
     <div class="perks">
-      <p class="perk"><span class="n">1</span><span class="cond oneline"><b>5회</b> 결제하면 <b>1회 무료시술</b></span><span class="pay"><span class="amt round oneline">150,000<u>원</u></span><span class="use oneline">총 6회 이용</span></span></p>
-      <p class="perk"><span class="n">2</span><span class="cond oneline"><b>10회</b> 결제하면 <b>30% 할인</b></span><span class="pay"><span class="amt round oneline">210,000<u>원</u></span><span class="use oneline">총 10회 이용</span></span></p>
+      <p class="perk"><span class="n">1</span><span><span class="cond oneline"><b>5회 결제하면 1회 무료시술</b> <em>· 총 6회 이용</em></span><span class="line"><span class="was oneline">180,000원</span><span class="now round oneline">150,000<u>원</u></span><span class="save oneline">30,000원 할인</span></span></span></p>
+      <p class="perk"><span class="n">2</span><span><span class="cond oneline"><b>10회 결제하면 30% 할인</b> <em>· 총 10회 이용</em></span><span class="line"><span class="was oneline">300,000원</span><span class="now round oneline">210,000<u>원</u></span><span class="save oneline">90,000원 할인</span></span></span></p>
     </div>
   </section>
 </main>
