@@ -74,8 +74,13 @@ function RiseWords({ text, from = 0, className = "" }: { text: string; from?: nu
       {text.split(" ").map((w, i) => (
         <span key={`${w}-${i}`}>
           {i > 0 && " "}
-          <RiseLine className={`rise-word ${className}`} d={from + i * 95}>
-            {w}
+          {/* 색은 글자를 쥔 안쪽에 건다.
+              금색은 background-clip: text 라 바탕 그림을 글자 모양으로 오려 낸다.
+              바깥 껍데기에 걸면, 글자를 쥔 안쪽이 애니메이션 때문에 따로
+              그려지면서 오려 낼 글자를 잃는다. 그러면 투명만 남아 글자가
+              통째로 사라진다. 낱말로 끊기 전에는 이 사이가 없어서 드러나지 않았다 */}
+          <RiseLine className="rise-word" d={from + i * 95}>
+            <span className={className}>{w}</span>
           </RiseLine>
         </span>
       ))}
