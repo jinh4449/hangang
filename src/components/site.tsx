@@ -183,17 +183,32 @@ export function Section({
   note?: string;
   children: React.ReactNode;
 }) {
-  // 제목이 먼저 맺히고 내용이 뒤따른다. 첫 화면과 같은 결이다.
-  // 둘을 한 덩어리로 묶으면 긴 절이 통째로 흐렸다 맺혀 눈이 따라가기 어렵다
+  // 제목은 낱말마다, 설명과 내용은 그 뒤에 차례로 놓인다. 첫 화면과 같은 결이다.
+  // 한 덩어리로 묶으면 긴 절이 통째로 흐렸다 맺혀 눈이 따라가기 어렵다
+  const words = title.split(" ");
+  const after = words.length * 95 + 120;
+
   return (
     <section className="mt-14">
-      <div className="rise">
-        <div className="rise-in">
-          <h2 className="display kr text-2xl sm:text-[1.7rem]">{title}</h2>
-          {note && <p className="kr mt-2 max-w-[58ch] text-[16px] leading-7 text-muted">{note}</p>}
+      <h2 className="display kr text-2xl sm:text-[1.7rem]">
+        {words.map((w, i) => (
+          <span key={`${w}-${i}`}>
+            {i > 0 && " "}
+            <span className="rise rise-word" style={{ "--d": `${i * 95}ms` } as React.CSSProperties}>
+              <span className="rise-in">{w}</span>
+            </span>
+          </span>
+        ))}
+      </h2>
+      {note && (
+        <div className="rise mt-2" style={{ "--d": `${after}ms` } as React.CSSProperties}>
+          <p className="rise-in kr max-w-[58ch] text-[16px] leading-7 text-muted">{note}</p>
         </div>
-      </div>
-      <div className="rise mt-6">
+      )}
+      <div
+        className="rise mt-6"
+        style={{ "--d": `${after + (note ? 120 : 0)}ms` } as React.CSSProperties}
+      >
         <div className="rise-in">{children}</div>
       </div>
     </section>

@@ -44,14 +44,42 @@ function Lines({ children }: { children: string[] }) {
 function RiseLine({
   children,
   className = "",
+  d,
 }: {
   children: React.ReactNode;
   className?: string;
+  /** 차례를 직접 줄 때. 주지 않으면 화면에 들어온 순서대로 매겨진다 */
+  d?: number;
 }) {
   return (
-    <span className={`rise ${className}`}>
+    <span
+      className={`rise ${className}`}
+      style={d === undefined ? undefined : ({ "--d": `${d}ms` } as React.CSSProperties)}
+    >
       <span className="rise-in">{children}</span>
     </span>
+  );
+}
+
+/**
+ * 제목을 낱말마다 끊어 세운다.
+ *
+ * 한 덩어리로 뜨면 문장이 통째로 나타났다 사라지는 것처럼 보인다.
+ * 낱말이 하나씩 놓이면 읽는 속도와 뜨는 속도가 맞아 첫 화면과 같은 맛이 난다.
+ * 낱말 사이의 빈칸은 줄바꿈이 가능한 자리라 그대로 두고, 낱말만 감싼다.
+ */
+function RiseWords({ text, from = 0, className = "" }: { text: string; from?: number; className?: string }) {
+  return (
+    <>
+      {text.split(" ").map((w, i) => (
+        <span key={`${w}-${i}`}>
+          {i > 0 && " "}
+          <RiseLine className={`rise-word ${className}`} d={from + i * 95}>
+            {w}
+          </RiseLine>
+        </span>
+      ))}
+    </>
   );
 }
 
@@ -91,6 +119,11 @@ function H2({
   /** 상위 섹션에 딸린 이야기는 한 단계 작게 세워 위계를 만든다 */
   small?: boolean;
 }) {
+  // 제목이 다 놓인 뒤에 덧말과 설명이 따라온다. 낱말 수만큼 뒤로 민다
+  const words = typeof children === "string" ? children.split(" ").length : 1;
+  const head = words * 95;
+  const tail = head + (accent ? accent.split(" ").length * 95 : 0) + 120;
+
   return (
     <div className={`text-center ${className}`}>
       <h2
@@ -101,20 +134,24 @@ function H2({
             : "text-3xl sm:text-4xl xl:text-[2.75rem]")
         }
       >
-        <RiseLine>
-          {children}
-          {accent && (
-            <>
-              {" "}
-              <span className="grad">{accent}</span>
-            </>
-          )}
-        </RiseLine>
+        {typeof children === "string" ? (
+          <RiseWords text={children} />
+        ) : (
+          <RiseLine d={0}>{children}</RiseLine>
+        )}
+        {accent && (
+          <>
+            {" "}
+            <RiseWords text={accent} from={head} className="grad" />
+          </>
+        )}
       </h2>
       {note && (
         <p className="kr mx-auto mt-4 max-w-[52ch] text-[17px] leading-8 text-muted xl:text-[18px] xl:leading-9">
-          {(Array.isArray(note) ? note : [note]).map((line) => (
-            <RiseLine key={line}>{line}</RiseLine>
+          {(Array.isArray(note) ? note : [note]).map((line, i) => (
+            <RiseLine key={line} d={tail + i * 130}>
+              {line}
+            </RiseLine>
           ))}
         </p>
       )}
