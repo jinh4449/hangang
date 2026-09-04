@@ -14,6 +14,8 @@
   --herb-deep: #16412f;
   --herb-line: #bcd8ca;
   --tint: #eef4f0;
+  /* 눕힌 원판의 옆면. 윗면 tint 가 그늘에 들어간 값 */
+  --tint-deep: #d7e2db;
   /* 어두운 배경 위에서 쓰는 옥색 */
   --herb-light: #84c2a7;
   /* 진료중 점. 초록 계열 중 가장 밝은 값이라 2px 짜리 점에서도 눈에 걸린다 */
@@ -42,6 +44,7 @@
   --color-herb-deep: var(--herb-deep);
   --color-herb-line: var(--herb-line);
   --color-tint: var(--tint);
+  --color-tint-deep: var(--tint-deep);
   --color-herb-light: var(--herb-light);
   --color-live: var(--live);
   --color-grad-b: var(--grad-b);
@@ -348,6 +351,25 @@ a.tile-dark:hover {
   }
 }
 
+/* 원판을 눕히는 자리. 여기 하나만 눌러 두면 부채꼴과 흰 글자 덮개가
+   같은 좌표계에서 눌리므로, 끝선이 저절로 맞는다. 덮개의 원뿔 그라디언트를
+   상자 밖에 두고 각도로 맞추려 하면 눕은 각도만큼 어긋난다 */
+.ring-3d {
+  transform: scaleY(0.66);
+  transform-origin: 50% 0;
+}
+/* 눌린 상자 안에서 글자만 되돌려 세운다 (1 / 0.66) */
+.ring-flat {
+  transform: scaleY(1.5152);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* 그림자는 옆면에만 건다. 글자에 걸면 번진다 */
+.ring-side {
+  filter: drop-shadow(0 8px 10px rgba(22, 65, 47, 0.2));
+}
+
 /* 채워지는 부채꼴 — 그린 길이를 --ring-p 에서 셈한다.
    CSS 그라디언트로 오려 내지 않고 SVG 획으로 그린다. 원뿔 그라디언트의
    경계는 브라우저가 갈아 주지 않아 빗면이 계단처럼 각지는데,
@@ -355,6 +377,9 @@ a.tile-dark:hover {
 .ring-fan {
   stroke-dasharray: var(--circ);
   stroke-dashoffset: calc(var(--circ) * (1 - var(--ring-p)));
+  /* fill-box 를 지정해야 50% 50% 가 「이 원의 중심」이 된다. 지정하지 않으면
+     viewBox 한가운데를 기준으로 돌아, 아래로 내려 둔 옆면이 옆으로 밀린다 */
+  transform-box: fill-box;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
 }
