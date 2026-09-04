@@ -27,7 +27,7 @@
     background: var(--bg); color: var(--ink);
     font-family: "KR", "Pretendard", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    padding: 40px 46px 34px;
+    padding: 54px 46px 32px;
     display: flex; flex-direction: column;
     position: relative; overflow: hidden;
   }
@@ -58,7 +58,7 @@
   }
 
   h1 {
-    position: relative; z-index: 1; margin-top: 24px;
+    position: relative; z-index: 1;
     font-size: 78px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
   }
   h1 .hl {
@@ -84,36 +84,36 @@
   }
   .card {
     background: var(--card); border-radius: 30px;
-    padding: 34px 34px 30px;
+    padding: 36px 36px 32px;
     box-shadow: 0 18px 40px -20px rgba(18, 48, 86, 0.28);
     display: flex; flex-direction: column;
   }
   .card .top { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-  .card h2 { font-size: 52px; letter-spacing: -0.02em; color: var(--ink); }
+  .card h2 { font-size: 56px; letter-spacing: -0.02em; color: var(--ink); }
   .fee {
     background: var(--sun); color: #6b4a00; border-radius: 999px;
-    padding: 13px 22px; font-size: 27px; letter-spacing: -0.02em;
+    padding: 14px 23px; font-size: 28px; letter-spacing: -0.02em;
   }
   .for { margin-top: 18px; display: flex; gap: 7px; }
   .for span {
     background: #eef6ff; color: var(--blue-deep); border-radius: 999px;
-    padding: 10px 17px; font-size: 17px; font-weight: 700; letter-spacing: -0.03em;
+    padding: 12px 19px; font-size: 18px; font-weight: 700; letter-spacing: -0.03em;
   }
 
   .perklabel {
-    margin-top: auto; padding-top: 28px;
+    margin-top: auto; padding-top: 30px;
     display: flex; align-items: center; gap: 11px;
     font-size: 15px; font-weight: 900; color: var(--faint); letter-spacing: 0.06em;
   }
   .perklabel::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: #e8f1fa; }
-  .perks { margin-top: 16px; }
+  .perks { margin-top: 18px; }
   .perk {
     display: flex; align-items: center; gap: 13px;
     background: #eef6ff; border-radius: 20px;
-    padding: 30px 24px;
-    font-size: 27px; letter-spacing: -0.02em; color: var(--ink);
+    padding: 32px 26px;
+    font-size: 28px; letter-spacing: -0.02em; color: var(--ink);
   }
-  .perk + .perk { margin-top: 13px; }
+  .perk + .perk { margin-top: 14px; }
   .perk b { color: var(--blue); font-weight: 400; }
   .perk .n {
     flex: none; width: 32px; height: 32px; border-radius: 50%;
@@ -125,22 +125,13 @@
   .foot {
     position: relative; z-index: 1;
     display: flex; align-items: center; justify-content: space-between; gap: 28px;
-    padding-top: 22px;
+    padding-top: 24px;
     font-size: 15px; color: #7d97b5; letter-spacing: -0.02em;
   }
-  .foot .mark { font-size: 17px; font-weight: 900; color: var(--blue-deep); letter-spacing: -0.03em; }
 </style>
 
-<div class="bar">
-  <div class="logo">
-    <svg class="mk" viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M50.0 8.81C22.43 8.81 0.0 31.24 0.0 58.81C0.0 68.5 2.78 77.55 7.57 85.22L15.17 85.22C9.58 77.87 6.22 68.74 6.22 58.81C6.22 34.67 25.86 15.03 50.0 15.03C74.14 15.03 93.78 34.67 93.78 58.81C93.78 68.74 90.42 77.87 84.83 85.22L92.43 85.22C97.22 77.55 100.0 68.5 100.0 58.81C100.0 31.24 77.57 8.81 50.0 8.81Z"/><path d="M46.69 27.42L46.69 32.98L28.45 32.98L28.45 39.6L71.55 39.6L71.55 32.98L53.31 32.98L53.31 27.42L46.69 27.42Z"/><path d="M31.92 56.58L38.78 56.58C40.38 51.92 44.8 48.55 50.0 48.55C55.2 48.55 59.62 51.92 61.22 56.58L68.08 56.58C66.31 48.22 58.88 41.93 50.0 41.93C41.12 41.93 33.69 48.22 31.92 56.58Z"/><path d="M28.45 67.25L64.93 67.25L64.93 76.51L71.55 76.51L71.55 60.63L28.45 60.63L28.45 67.25Z"/><path d="M28.45 79.12L28.45 85.22L28.45 85.88C28.8 85.64 29.16 85.43 29.52 85.22C35.69 81.64 41.87 83.18 48.04 85.22C55.88 87.81 63.71 91.19 71.55 85.88L71.55 85.22L71.55 79.12C57.18 88.85 42.82 69.38 28.45 79.12Z"/></svg>
-    <div><p class="kr">김포한강한의원</p><p class="en oneline">GIMPO HANGANG KOREAN MEDICAL CLINIC</p></div>
-  </div>
-  <p class="badge round oneline">약침 선결제 혜택</p>
-</div>
-
 <h1 class="round oneline"><span class="hl">1회 무료시술</span> 또는 <span class="hl">30% 할인</span></h1>
-<p class="lead oneline">꾸준히 치료하고 재발도 막고! 약침 <b>미리 결제하시면</b> 둘 중 하나 골라 드려요.</p>
+<p class="lead oneline"><b>꾸준한 치료</b>와 <b>재발 방지</b>를 위해, 약침 선결제시 이벤트 참여 가능합니다.</p>
 
 <main class="cards">
   <section class="card">
@@ -148,7 +139,7 @@
       <h2 class="round oneline">일반 약침</h2>
       <p class="fee round oneline">1회 10,000원</p>
     </div>
-    <p class="for oneline"><span>염증제거</span><span>근육이완</span><span>통증완화</span></p>
+    <p class="for oneline"><span>소염약침</span><span>통증약침</span><span>봉약침</span></p>
     <p class="perklabel">이렇게 드려요</p>
     <div class="perks">
       <p class="perk round oneline"><span class="n">1</span><b>5회</b>&nbsp;결제하면&nbsp;<b>1회 무료시술</b></p>
@@ -161,7 +152,7 @@
       <h2 class="round oneline">특수 약침</h2>
       <p class="fee round oneline">1회 30,000원</p>
     </div>
-    <p class="for oneline"><span>디스크</span><span>협착증</span><span>만성통증</span></p>
+    <p class="for oneline"><span>PDRN</span><span>자하거 약침</span></p>
     <p class="perklabel">이렇게 드려요</p>
     <div class="perks">
       <p class="perk round oneline"><span class="n">1</span><b>5회</b>&nbsp;결제하면&nbsp;<b>1회 무료시술</b></p>
@@ -172,5 +163,8 @@
 
 <footer class="foot">
   <p class="oneline">약침치료는 비급여 항목으로 실비적용이 어려우며, 환불 시 정가 × 시술횟수로 차감됩니다.</p>
-  <p class="mark oneline">김포한강한의원</p>
+  <div class="logo">
+    <svg class="mk" viewBox="0 0 100 100" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M50.0 8.81C22.43 8.81 0.0 31.24 0.0 58.81C0.0 68.5 2.78 77.55 7.57 85.22L15.17 85.22C9.58 77.87 6.22 68.74 6.22 58.81C6.22 34.67 25.86 15.03 50.0 15.03C74.14 15.03 93.78 34.67 93.78 58.81C93.78 68.74 90.42 77.87 84.83 85.22L92.43 85.22C97.22 77.55 100.0 68.5 100.0 58.81C100.0 31.24 77.57 8.81 50.0 8.81Z"/><path d="M46.69 27.42L46.69 32.98L28.45 32.98L28.45 39.6L71.55 39.6L71.55 32.98L53.31 32.98L53.31 27.42L46.69 27.42Z"/><path d="M31.92 56.58L38.78 56.58C40.38 51.92 44.8 48.55 50.0 48.55C55.2 48.55 59.62 51.92 61.22 56.58L68.08 56.58C66.31 48.22 58.88 41.93 50.0 41.93C41.12 41.93 33.69 48.22 31.92 56.58Z"/><path d="M28.45 67.25L64.93 67.25L64.93 76.51L71.55 76.51L71.55 60.63L28.45 60.63L28.45 67.25Z"/><path d="M28.45 79.12L28.45 85.22L28.45 85.88C28.8 85.64 29.16 85.43 29.52 85.22C35.69 81.64 41.87 83.18 48.04 85.22C55.88 87.81 63.71 91.19 71.55 85.88L71.55 85.22L71.55 79.12C57.18 88.85 42.82 69.38 28.45 79.12Z"/></svg>
+    <div><p class="kr">김포한강한의원</p><p class="en oneline">GIMPO HANGANG KOREAN MEDICAL CLINIC</p></div>
+  </div>
 </footer>
