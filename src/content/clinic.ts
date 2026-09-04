@@ -51,6 +51,7 @@ export const CLINIC = {
   sameAs: [
     "https://naver.me/G7NPJIyh",
     "https://booking.naver.com/booking/13/bizes/1623687",
+    "https://maps.app.goo.gl/DxWbUX5VtJ6dkvZ58",
   ],
   parking: "건물 옥상주차장 · 장기1공영주차장 · 장기2공영주차장",
   /**
