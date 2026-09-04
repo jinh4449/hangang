@@ -1,0 +1,147 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>약침 할인이벤트</title>
+<style>
+  @font-face { font-family: "NSKR"; src: url("file:///root/.fonts/NotoSansKR-400.ttf"); font-weight: 400; }
+  @font-face { font-family: "NSKR"; src: url("file:///root/.fonts/NotoSansKR-700.ttf"); font-weight: 700; }
+  @font-face { font-family: "NSKR"; src: url("file:///root/.fonts/NotoSansKR-900.ttf"); font-weight: 900; }
+
+  :root {
+    --blue: #1667b2;
+    --blue-deep: #0f4f8c;
+    --blue-pill: #bfe0f4;
+    --gold-pill: #f5cf7a;
+    --ink: #16181a;
+    --line: #2b2f33;
+  }
+  html { zoom: 2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1500px; height: 990px;
+    font-family: "NSKR", "Pretendard", "Noto Sans KR", system-ui, sans-serif;
+    color: var(--ink);
+    background: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    word-break: keep-all;
+  }
+  .sheet {
+    width: 100%;
+    padding: 50px 66px 44px;
+    display: flex; flex-direction: column;
+    background: linear-gradient(180deg, #f7fbfe 0%, #ffffff 42%);
+  }
+
+  h1 {
+    font-weight: 900; font-size: 104px; line-height: 1.05;
+    color: var(--blue); letter-spacing: -0.03em; text-align: center;
+  }
+  .lead {
+    margin-top: 22px; text-align: center;
+    font-size: 38px; line-height: 1.48; font-weight: 400; letter-spacing: -0.02em;
+  }
+  .lead b { font-weight: 900; }
+  .lead .u {
+    display: inline-block; font-weight: 700;
+    border-bottom: 3px solid var(--ink); padding-bottom: 3px;
+  }
+
+  .card {
+    margin-top: 30px;
+    border: 3px solid var(--line);
+    border-radius: 6px;
+    padding: 30px 40px 32px;
+    background: #fff;
+    display: flex; flex-direction: column;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { vertical-align: middle; }
+
+  .pill {
+    display: inline-block; border-radius: 999px;
+    padding: 10px 34px; font-size: 40px; font-weight: 900; letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .pill.gold { background: var(--gold-pill); }
+  .pill.blue { background: var(--blue-pill); }
+
+  thead th { padding-bottom: 22px; text-align: center; }
+  thead th.spacer { width: 30%; }
+
+  .name {
+    font-size: 52px; font-weight: 900; letter-spacing: -0.03em; white-space: nowrap;
+  }
+  .price {
+    font-size: 42px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap;
+    text-align: center;
+  }
+  .price .hl { padding: 4px 10px; border-radius: 4px; }
+  .price .hl.gold { background: var(--gold-pill); }
+  .price .hl.blue { background: var(--blue-pill); }
+  .price .cnt { font-size: 32px; font-weight: 700; }
+  .desc {
+    font-size: 34px; font-weight: 400; letter-spacing: -0.02em;
+    padding: 8px 0 22px; text-align: center;
+  }
+  tbody tr.row + tr.row td { padding-top: 14px; }
+
+  .notes { padding-top: 34px; }
+  .note {
+    display: flex; gap: 14px; align-items: baseline;
+    font-size: 34px; line-height: 1.45; letter-spacing: -0.02em;
+  }
+  .note + .note { margin-top: 14px; }
+  .note .dot { color: var(--ink); font-size: 26px; }
+  .note b { font-weight: 900; }
+  .note .mark {
+    background: var(--gold-pill); padding: 2px 6px; border-radius: 3px; font-weight: 900;
+  }
+  .note.small { font-size: 28px; color: #3d4348; }
+  .note.small .dot { font-size: 22px; }
+</style>
+<div class="sheet">
+  <h1>약침 할인이벤트</h1>
+
+  <p class="lead">
+    <b>꾸준한 치료</b> 및 <b>재발방지</b>를 위해 약침 선결제시<br>
+    <span class="u">1회 무료시술 또는 30% 할인 해드립니다.</span>
+  </p>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th class="spacer"></th>
+          <th><span class="pill gold">1회 무료시술</span></th>
+          <th><span class="pill blue">30% 할인</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="row">
+          <td class="name">1. 소염 약침</td>
+          <td class="price"><span class="hl gold">25,000원</span> <span class="cnt">(5+1회)</span></td>
+          <td class="price"><span class="hl blue">35,000원</span> <span class="cnt">(10회)</span></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="desc" colspan="2">: 염증제거, 근육이완, 통증완화</td>
+        </tr>
+        <tr class="row">
+          <td class="name">2. 특수 약침</td>
+          <td class="price"><span class="hl gold">50,000원</span> <span class="cnt">(5+1회)</span></td>
+          <td class="price"><span class="hl blue">70,000원</span> <span class="cnt">(10회)</span></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="desc" colspan="2">: 디스크, 협착증, 만성통증</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="notes">
+      <p class="note"><span class="dot">●</span><span>10회 결제시 한달 간 <span class="mark">무제한으로 약침치료</span> 가능합니다.</span></p>
+      <p class="note small"><span class="dot">●</span><span>약침치료는 비급여 항목으로 실비적용이 어려우며, 환불시 정가 × 시술횟수로 차감됩니다.</span></p>
+    </div>
+  </div>
+</div>
+
