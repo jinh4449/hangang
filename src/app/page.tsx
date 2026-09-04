@@ -212,14 +212,8 @@ const STANDARD_ICONS: Record<string, (p: { className?: string }) => React.JSX.El
  * 소개 비율 원.
  *
  * 원내 집계가 「절반 이상」이라는 어림값이라 퍼센트를 지어내지 않는다.
- * 대신 원이 6시를 지나 멈추게 해서 「절반을 넘었다」는 사실만 보이게 했다.
- * 눈금을 따로 두지 않는다 — 눕힌 원판에서는 바깥 눈금이 옆면에 가리고,
- * 안쪽에 넣으면 지나가는 티끌로 읽힌다. 타원은 맨 아래가 어디인지
- * 그 자체로 분명하다.
- *
- * 원판을 눕혀 두께를 준다. 같은 원을 아래로 한 번 더 깔면 겹치고 남는
- * 초승달이 옆면이 된다. 옆면도 같은 --ring-p 를 읽으니, 채워진 쪽 옆면만
- * 짙은 색으로 따라 돈다.
+ * 대신 절반 자리에 눈금을 두고 원이 그 눈금을 지나 멈추게 해서,
+ * 「절반을 넘었다」는 사실만 눈에 보이게 했다.
  */
 function ReferralRing() {
   // 원판 전체(반지름 88)를 획 하나로 그린다. 굵기의 절반이 반지름이면
@@ -228,29 +222,6 @@ function ReferralRing() {
   const R = 44;
   const CIRC = 2 * Math.PI * R;
   const STOP = 0.56; // 눈금(0.5)을 지난 것이 보일 만큼만
-  // 눌리기 전 자리의 두께. 화면에서는 0.66 이 곱해져 14 로 보인다
-  const DEPTH = 21.2;
-
-  const disc = (cy: number, base: string, fan: string) => (
-    <>
-      {/* 아직 차지 않은 쪽 */}
-      <circle cx="100" cy={cy} r="88" fill={base} />
-      {/* 채워지는 부채꼴 — 그린 길이를 --ring-p 에서 셈한다.
-          끝을 둥글리지 않는다. 둥근 끝은 획 굵기의 절반만큼 밖으로
-          더 나가 부채꼴이 아니게 된다 */}
-      <circle
-        className="ring-fan"
-        cx="100"
-        cy={cy}
-        r={R}
-        fill="none"
-        stroke={fan}
-        strokeWidth="88"
-        strokeLinecap="butt"
-        style={{ "--circ": CIRC } as React.CSSProperties}
-      />
-    </>
-  );
 
   // 가운데 글자는 두 벌을 겹쳐 둔다. 밑에 깔린 초록 글자 위로 흰 글자를
   // 부채꼴로 덮으면, 초록이 지나간 자리만 글자가 흰색으로 바뀐다.
@@ -260,7 +231,7 @@ function ReferralRing() {
       <span className="display kr text-4xl font-black sm:text-5xl">
         {CLINIC.whyHero.stat.value}
       </span>
-      <span className="kr mt-2 max-w-[11rem] text-[15px] leading-6 opacity-80">
+      <span className="kr mt-2 max-w-[9rem] text-[15px] leading-6 opacity-80">
         소개로 오십니다
       </span>
     </>
@@ -270,55 +241,41 @@ function ReferralRing() {
 
   return (
     <div
-      className="ring-host relative mx-auto aspect-[200/146] w-full max-w-[20rem] sm:max-w-[24rem] lg:max-w-[27rem]"
+      className="ring-host relative mx-auto aspect-square w-[17rem] sm:w-[20rem]"
       style={{ "--stop": STOP } as React.CSSProperties}
     >
-      {/* 눕히는 일은 여기 한 곳에서만 한다. 원판과 글자 덮개가 같은 상자
-          안에서 같이 눌려야, 흰 글자가 갈리는 선과 부채꼴의 끝선이 어긋나지
-          않는다. 각도를 따로 셈해 맞추면 도는 동안 조금씩 벌어진다 */}
-      <div className="ring-3d absolute inset-x-0 top-0 aspect-square">
-        {/* 옆면 */}
-        <svg
-          viewBox="0 0 200 200"
-          className="ring-side absolute inset-0 h-full w-full"
-          aria-hidden="true"
-        >
-          {disc(100 + DEPTH, "var(--tint-deep)", "var(--herb-deep)")}
-        </svg>
+      <svg viewBox="0 0 200 200" className="h-full w-full" aria-hidden="true">
+        {/* 아직 차지 않은 원 */}
+        <circle cx="100" cy="100" r="88" fill="var(--tint)" />
+        {/* 채워지는 부채꼴 — 그린 길이를 --ring-p 에서 셈한다.
+            끝을 둥글리지 않는다. 둥근 끝은 획 굵기의 절반만큼 밖으로
+            더 나가 부채꼴이 아니게 된다 */}
+        <circle
+          className="ring-fan"
+          cx="100"
+          cy="100"
+          r={R}
+          fill="none"
+          stroke="var(--herb)"
+          strokeWidth="88"
+          strokeLinecap="butt"
+          style={{ "--circ": CIRC } as React.CSSProperties}
+        />
+        {/* 절반 자리 눈금 — 12시에서 시계 방향으로 반 바퀴 돈 6시, 원 바깥 */}
+        <line
+          x1="100"
+          y1="192"
+          x2="100"
+          y2="200"
+          stroke="var(--herb)"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      </svg>
 
-        {/* 윗면 */}
-        <svg
-          viewBox="0 0 200 200"
-          className="absolute inset-0 h-full w-full"
-          aria-hidden="true"
-        >
-          <defs>
-            <radialGradient id="ringGloss" cx="34%" cy="24%" r="72%">
-              <stop offset="0" stopColor="#fff" stopOpacity="0.18" />
-              <stop offset="1" stopColor="#fff" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          {disc(100, "var(--tint)", "var(--herb)")}
-          {/* 윗면에 얹는 빛 한 겹. 이게 없으면 눕혀도 종이처럼 납작하다 */}
-          <circle cx="100" cy="100" r="88" fill="url(#ringGloss)" />
-          <circle
-            cx="100"
-            cy="100"
-            r="87.5"
-            fill="none"
-            stroke="rgba(0,0,0,.10)"
-            strokeWidth="1"
-          />
-        </svg>
-
-        {/* 글자는 눌린 상자 안에서 되돌려 세운다. 상자와 같이 눕히면
-            읽히지 않고, 상자 밖에 두면 덮개가 어긋난다 */}
-        <div className={`${innerBox} text-herb`}>
-          <div className="ring-flat">{inner}</div>
-        </div>
-        <div aria-hidden="true" className={`${innerBox} ring-wedge text-white`}>
-          <div className="ring-flat">{inner}</div>
-        </div>
+      <div className={`${innerBox} text-herb`}>{inner}</div>
+      <div aria-hidden="true" className={`${innerBox} ring-wedge text-white`}>
+        {inner}
       </div>
     </div>
   );
