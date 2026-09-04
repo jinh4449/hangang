@@ -26,7 +26,7 @@
     font-family: "KR", "Pretendard", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     word-break: keep-all;
-    padding: 92px 80px 76px;
+    padding: 88px 80px 72px;
     display: flex; flex-direction: column;
   }
 
@@ -38,14 +38,13 @@
     padding: 13px 28px; border-radius: 999px;
   }
   h1 {
-    margin-top: 36px;
-    font-size: 112px; font-weight: 900; line-height: 1.14; letter-spacing: -0.05em;
+    margin-top: 34px;
+    font-size: 92px; font-weight: 900; line-height: 1.16; letter-spacing: -0.05em;
   }
   h1 em { font-style: normal; color: var(--herb-bright); }
   .sub {
-    margin-top: 30px;
+    margin-top: 28px;
     font-size: 31px; font-weight: 400; line-height: 1.6; color: var(--muted);
-    max-width: 24em;
   }
   .sub b { font-weight: 700; color: var(--ink); }
 
@@ -58,7 +57,7 @@
     background: var(--card);
     border: 1px solid #eceeea;
     border-radius: 34px;
-    padding: 52px 44px 50px;
+    padding: 48px 40px 42px;
     box-shadow: 0 20px 48px -22px rgba(20, 23, 21, 0.18);
     display: flex; flex-direction: column;
   }
@@ -66,55 +65,67 @@
     font-size: 24px; font-weight: 900; letter-spacing: 0.14em; color: var(--herb-bright);
   }
   .card h2 {
-    margin-top: 16px;
-    font-size: 54px; font-weight: 900; letter-spacing: -0.04em;
+    margin-top: 14px;
+    font-size: 52px; font-weight: 900; letter-spacing: -0.04em;
   }
-  .tags { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 9px; }
+  .tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
   .tags span {
     background: var(--tint); color: var(--herb);
-    font-size: 25px; font-weight: 700; letter-spacing: -0.02em;
-    padding: 9px 18px; border-radius: 10px;
+    font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+    padding: 8px 16px; border-radius: 10px;
   }
-  .rule { margin: 34px 0 30px; border-top: 1px solid var(--line); }
-  .price { display: flex; align-items: baseline; gap: 4px; letter-spacing: -0.045em; }
-  .price b { font-size: 74px; font-weight: 900; }
-  .price i { font-style: normal; font-size: 36px; font-weight: 900; }
-  .pack {
-    margin-top: 14px;
-    font-size: 27px; font-weight: 700; color: var(--muted); letter-spacing: -0.02em;
+
+  .opt {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+    padding: 26px 0 24px;
+    border-top: 1px solid var(--line);
   }
-  .pack u { text-decoration: none; color: var(--herb-bright); font-weight: 900; }
+  .opt:first-of-type { margin-top: 34px; }
+  .opt .tag { font-size: 27px; font-weight: 900; color: var(--herb-bright); letter-spacing: -0.03em; }
+  .opt .cnt { margin-top: 7px; font-size: 23px; font-weight: 700; color: var(--faint); letter-spacing: -0.02em; }
+  .opt .amt { font-size: 46px; font-weight: 900; letter-spacing: -0.045em; white-space: nowrap; }
+  .opt .amt i { font-style: normal; font-size: 26px; font-weight: 900; }
 
   /* ── 꼬리말 ────────────────────────────────────────── */
   .foot {
     display: flex; align-items: flex-end; justify-content: space-between; gap: 36px;
-    border-top: 1px solid var(--line); padding-top: 30px;
+    border-top: 1px solid var(--line); padding-top: 28px;
   }
   .foot .note { font-size: 24px; line-height: 1.6; color: var(--muted); max-width: 30em; }
   .foot .mark { font-size: 27px; font-weight: 900; color: var(--herb); letter-spacing: -0.03em; white-space: nowrap; }
 </style>
 
-<p class="badge">선결제 혜택</p>
-<h1>약침 선결제하면<br><em>1회 무료시술</em></h1>
-<p class="sub">꾸준한 치료와 재발 방지를 위해, 약침을 <b>선결제하시면 1회를 무료로</b> 시술해 드립니다.</p>
+<p class="badge">약침 선결제 혜택</p>
+<h1>1회 무료시술 또는<br><em>30% 할인</em></h1>
+<p class="sub">꾸준한 치료와 재발 방지를 위해,<br>약침을 <b>선결제하시면</b> 두 가지 혜택 중 하나를 골라 드립니다.</p>
 
 <div class="cards">
   <section class="card">
     <p class="no">01</p>
     <h2>소염 약침</h2>
     <div class="tags"><span>염증제거</span><span>근육이완</span><span>통증완화</span></div>
-    <div class="rule"></div>
-    <p class="price"><b>25,000</b><i>원</i></p>
-    <p class="pack"><u>5 + 1회</u> 선결제</p>
+    <div class="opt">
+      <div><p class="tag">1회 무료시술</p><p class="cnt">5 + 1회</p></div>
+      <p class="amt">25,000<i>원</i></p>
+    </div>
+    <div class="opt">
+      <div><p class="tag">30% 할인</p><p class="cnt">10회</p></div>
+      <p class="amt">35,000<i>원</i></p>
+    </div>
   </section>
 
   <section class="card">
     <p class="no">02</p>
     <h2>특수 약침</h2>
     <div class="tags"><span>디스크</span><span>협착증</span><span>만성통증</span></div>
-    <div class="rule"></div>
-    <p class="price"><b>50,000</b><i>원</i></p>
-    <p class="pack"><u>5 + 1회</u> 선결제</p>
+    <div class="opt">
+      <div><p class="tag">1회 무료시술</p><p class="cnt">5 + 1회</p></div>
+      <p class="amt">50,000<i>원</i></p>
+    </div>
+    <div class="opt">
+      <div><p class="tag">30% 할인</p><p class="cnt">10회</p></div>
+      <p class="amt">70,000<i>원</i></p>
+    </div>
   </section>
 </div>
 
