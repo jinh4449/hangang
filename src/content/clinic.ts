@@ -54,6 +54,8 @@ export const CLINIC = {
     // 구글 지도. cid 형태가 정식 주소다. /maps/place/... 뒤에 붙는
     // data=!3m1!4b1... 덩어리는 구글이 수시로 바꾼다
     "https://maps.google.com/?cid=5041969111098540742",
+    // 카카오맵. #home 은 화면 안에서 움직이는 표시라 주소의 일부가 아니다
+    "https://place.map.kakao.com/659460974",
   ],
   /**
    * 지도 위의 자리. 구글 지도 프로필에서 그대로 가져왔다.
