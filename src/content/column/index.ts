@@ -51,7 +51,7 @@ const howManySessions: Column = {
   authorKey: "lee",
   title: "추나요법, 몇 번이나 받아야 하나요",
   question: "추나 몇 번 받아야 하나요",
-  summary: "통증을 줄이는 데는 대체로 5회, 체형을 교정하는 데는 10회 이상이 걸립니다. 사람에 따라 달라집니다.",
+  summary: "통증을 줄이는 데는 대체로 5회, 체형을 교정하는 데는 10회 이상이 걸립니다. 증상에 따라 달라집니다.",
   date: "2026-08-15",
   symptomSlugs: ["pain"],
   body: [

@@ -34,7 +34,7 @@ export default function Directions() {
           <div className="p-7">
             <p className="kr text-[15px] leading-8">
               김포골드라인 <strong className="font-semibold">장기역 3번 또는 4번 출구</strong>에서 도보 1분입니다.
-              출구를 나오시면 {CLINIC.landmark} 건물 2층 202호입니다.
+              출구를 나오시면 바로 보이는 일신프라자 건물 2층입니다.
             </p>
           </div>
         </Bezel>

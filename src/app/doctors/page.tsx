@@ -24,11 +24,7 @@ export default function Doctors() {
       />
       <JsonLd data={breadcrumb([{ name: "의료진 소개", path: "/doctors" }])} />
 
-      <PageHead
-        eyebrow="의료진 소개"
-        title="두 원장이 함께 진료합니다"
-        lede="이진희 원장과 왕소정 원장이 함께 봅니다."
-      />
+      <PageHead eyebrow="의료진 소개" title="두 원장이 함께 진료합니다" />
 
       {/* 이력은 줄글로 늘어놓으면 눈이 미끄러진다. 사진 옆에 묶음별로 세운다 */}
       {CLINIC.doctors.map((d) => (

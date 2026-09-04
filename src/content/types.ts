@@ -83,8 +83,8 @@ export type Symptom = {
 
   faq: Faq[];
 
-  /** "효과 있나요" 검색에 정직하게 답하는 페이지 */
-  doubt: {
+  /** "효과 있나요" 검색에 정직하게 답하는 묶음. 과목에 따라 두지 않는다 */
+  doubt?: {
     question: string;
     lede: string;
     /** 도움이 되는 경우 */

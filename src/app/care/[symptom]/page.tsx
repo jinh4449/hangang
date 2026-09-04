@@ -425,54 +425,56 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         {/* 되는 경우와 안 되는 경우.
             효과를 묻는 사람에게 「됩니다」 만 말하면 믿지 않는다.
             안 되는 경우를 같이 적어야 되는 경우도 믿긴다 */}
-        <Section title={s.doubt.question} note={s.doubt.lede}>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-[1.5rem] border border-herb-line bg-tint p-7">
-              <h3 className="kr text-[18px] font-bold text-herb">이런 경우에 도움이 됩니다</h3>
-              <ul className="mt-4 grid gap-2.5">
-                {s.doubt.worksFor.map((w) => (
-                  <li key={w} className="kr flex items-start gap-2.5 text-[16.5px] leading-7">
-                    <span aria-hidden="true" className="mt-1 text-[13px] font-bold text-herb">
-                      ✓
-                    </span>
-                    {w}
-                  </li>
-                ))}
-              </ul>
+        {s.doubt && (
+          <Section title={s.doubt.question} note={s.doubt.lede}>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="rounded-[1.5rem] border border-herb-line bg-tint p-7">
+                <h3 className="kr text-[18px] font-bold text-herb">이런 경우에 도움이 됩니다</h3>
+                <ul className="mt-4 grid gap-2.5">
+                  {s.doubt.worksFor.map((w) => (
+                    <li key={w} className="kr flex items-start gap-2.5 text-[16.5px] leading-7">
+                      <span aria-hidden="true" className="mt-1 text-[13px] font-bold text-herb">
+                        ✓
+                      </span>
+                      {w}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* 다른 과가 나은 경우를 숨기면, 그 사람은 여기서 시간을 버린다 */}
+              <div className="rounded-[1.5rem] border border-ochre-line bg-ochre-soft p-7">
+                <h3 className="kr text-[18px] font-bold text-ochre">
+                  이럴 때는 다른 진료가 먼저입니다
+                </h3>
+                <ul className="mt-4 grid gap-2.5">
+                  {s.doubt.limitsOf.map((l) => (
+                    <li key={l} className="kr flex items-start gap-2.5 text-[16.5px] leading-7">
+                      <span aria-hidden="true" className="mt-1 text-[13px] font-bold text-ochre">
+                        !
+                      </span>
+                      {l}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            {/* 다른 과가 나은 경우를 숨기면, 그 사람은 여기서 시간을 버린다 */}
-            <div className="rounded-[1.5rem] border border-ochre-line bg-ochre-soft p-7">
-              <h3 className="kr text-[18px] font-bold text-ochre">
-                이럴 때는 다른 진료가 먼저입니다
-              </h3>
-              <ul className="mt-4 grid gap-2.5">
-                {s.doubt.limitsOf.map((l) => (
-                  <li key={l} className="kr flex items-start gap-2.5 text-[16.5px] leading-7">
-                    <span aria-hidden="true" className="mt-1 text-[13px] font-bold text-ochre">
-                      !
-                    </span>
-                    {l}
-                  </li>
+            {s.doubt.grounds.length > 0 && (
+              <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                {s.doubt.grounds.map((g) => (
+                  <div
+                    key={g.title}
+                    className="rounded-[1rem] border border-line bg-surface px-6 py-5"
+                  >
+                    <h3 className="kr text-[17px] font-bold leading-snug">{g.title}</h3>
+                    <p className="kr mt-2 text-[16px] leading-7 text-muted">{g.body}</p>
+                  </div>
                 ))}
-              </ul>
-            </div>
-          </div>
-
-          {s.doubt.grounds.length > 0 && (
-            <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
-              {s.doubt.grounds.map((g) => (
-                <div
-                  key={g.title}
-                  className="rounded-[1rem] border border-line bg-surface px-6 py-5"
-                >
-                  <h3 className="kr text-[17px] font-bold leading-snug">{g.title}</h3>
-                  <p className="kr mt-2 text-[16px] leading-7 text-muted">{g.body}</p>
-                </div>
-              ))}
-            </div>
-          )}
-        </Section>
+              </div>
+            )}
+          </Section>
+        )}
 
         {care.extraSections?.map((sec) => (
           <Section key={sec.title} title={sec.title} note={sec.note}>
