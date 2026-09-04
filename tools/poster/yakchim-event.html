@@ -110,17 +110,23 @@
   .perk {
     display: flex; align-items: center; gap: 12px;
     background: #eef6ff; border-radius: 20px;
-    padding: 30px 22px;
+    padding: 24px 22px;
     color: var(--ink);
   }
   .perk + .perk { margin-top: 14px; }
   /* 조건은 고딕, 금액은 둥근 서체. 한 줄에 나란히 서야 하므로 조건 쪽을 좁게 잡는다 */
   .perk .cond { font-size: 21px; font-weight: 700; letter-spacing: -0.04em; }
   .perk .cond b { color: var(--blue); font-weight: 900; }
+  /* 금액이 1회 값으로 읽히지 않도록 몇 회를 쓰는지 밑에 붙인다 */
+  .perk .pay { margin-left: auto; text-align: right; }
   .perk .amt {
-    margin-left: auto; font-size: 30px; color: var(--blue-deep); letter-spacing: -0.02em;
+    display: block; font-size: 30px; color: var(--blue-deep); letter-spacing: -0.02em;
   }
   .perk .amt u { text-decoration: none; font-size: 19px; padding-left: 1px; }
+  .perk .use {
+    display: block; margin-top: 3px;
+    font-size: 15px; font-weight: 700; color: #8ea6c2; letter-spacing: -0.03em;
+  }
   .perk .n {
     flex: none; width: 32px; height: 32px; border-radius: 50%;
     background: var(--blue); color: #fff;
@@ -148,8 +154,8 @@
     <p class="for oneline"><span>소염약침</span><span>통증약침</span><span>봉약침</span></p>
     <p class="perklabel">이렇게 드려요</p>
     <div class="perks">
-      <p class="perk"><span class="n">1</span><span class="cond oneline"><b>5회</b> 결제하면 <b>1회 무료시술</b></span><span class="amt round oneline">50,000<u>원</u></span></p>
-      <p class="perk"><span class="n">2</span><span class="cond oneline"><b>10회</b> 결제하면 <b>30% 할인</b></span><span class="amt round oneline">70,000<u>원</u></span></p>
+      <p class="perk"><span class="n">1</span><span class="cond oneline"><b>5회</b> 결제하면 <b>1회 무료시술</b></span><span class="pay"><span class="amt round oneline">50,000<u>원</u></span><span class="use oneline">총 6회 이용</span></span></p>
+      <p class="perk"><span class="n">2</span><span class="cond oneline"><b>10회</b> 결제하면 <b>30% 할인</b></span><span class="pay"><span class="amt round oneline">70,000<u>원</u></span><span class="use oneline">총 10회 이용</span></span></p>
     </div>
   </section>
 
@@ -161,8 +167,8 @@
     <p class="for oneline"><span>PDRN</span><span>자하거 약침</span></p>
     <p class="perklabel">이렇게 드려요</p>
     <div class="perks">
-      <p class="perk"><span class="n">1</span><span class="cond oneline"><b>5회</b> 결제하면 <b>1회 무료시술</b></span><span class="amt round oneline">150,000<u>원</u></span></p>
-      <p class="perk"><span class="n">2</span><span class="cond oneline"><b>10회</b> 결제하면 <b>30% 할인</b></span><span class="amt round oneline">210,000<u>원</u></span></p>
+      <p class="perk"><span class="n">1</span><span class="cond oneline"><b>5회</b> 결제하면 <b>1회 무료시술</b></span><span class="pay"><span class="amt round oneline">150,000<u>원</u></span><span class="use oneline">총 6회 이용</span></span></p>
+      <p class="perk"><span class="n">2</span><span class="cond oneline"><b>10회</b> 결제하면 <b>30% 할인</b></span><span class="pay"><span class="amt round oneline">210,000<u>원</u></span><span class="use oneline">총 10회 이용</span></span></p>
     </div>
   </section>
 </main>
