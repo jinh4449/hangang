@@ -27,7 +27,7 @@
     background: var(--bg); color: var(--ink);
     font-family: "KR", "Pretendard", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    padding: 54px 46px 32px;
+    padding: 50px 46px 26px;
     display: flex; flex-direction: column;
     position: relative; overflow: hidden;
   }
@@ -44,10 +44,10 @@
   /* ── 머리 ──────────────────────────────────────────── */
   .bar { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; }
   .logo { display: flex; align-items: center; gap: 12px; color: var(--blue-deep); }
-  .logo .mk { width: 42px; height: 42px; flex: none; }
-  .logo .kr { font-size: 23px; font-weight: 900; letter-spacing: -0.045em; line-height: 1; }
+  .logo .mk { width: 46px; height: 46px; flex: none; }
+  .logo .kr { font-size: 25px; font-weight: 900; letter-spacing: -0.045em; line-height: 1; }
   .logo .en {
-    margin-top: 5px; font-size: 7.3px; font-weight: 700;
+    margin-top: 5px; font-size: 8px; font-weight: 700;
     letter-spacing: 0.085em; color: #7ba3cf;
   }
   .badge {
@@ -72,7 +72,7 @@
   }
   .lead {
     position: relative; z-index: 1; margin-top: 18px;
-    font-size: 23px; font-weight: 400; color: var(--muted);
+    font-size: 26px; font-weight: 400; color: var(--muted);
   }
   .lead b { font-weight: 900; color: var(--ink); }
 
@@ -84,64 +84,64 @@
   }
   .card {
     background: var(--card); border-radius: 30px;
-    padding: 32px 28px 28px;
+    padding: 28px 26px 22px;
     box-shadow: 0 18px 40px -20px rgba(18, 48, 86, 0.28);
     display: flex; flex-direction: column;
   }
   .card .top { display: flex; align-items: baseline; gap: 13px; }
-  .card h2 { font-size: 48px; letter-spacing: -0.02em; color: var(--ink); }
+  .card h2 { font-size: 54px; letter-spacing: -0.02em; color: var(--ink); }
   .fee {
-    font-size: 21px; font-weight: 700; color: #5a7a9e; letter-spacing: -0.03em;
+    font-size: 23px; font-weight: 700; color: #5a7a9e; letter-spacing: -0.03em;
   }
   .fee::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%;
     background: #bcd0e4; vertical-align: 0.28em; margin-right: 12px; }
   .for { margin-top: 16px; display: flex; gap: 7px; }
   .for span {
     background: #eef6ff; color: var(--blue-deep); border-radius: 999px;
-    padding: 10px 16px; font-size: 17px; font-weight: 700; letter-spacing: -0.03em;
+    padding: 11px 17px; font-size: 19px; font-weight: 700; letter-spacing: -0.03em;
   }
 
   .perklabel {
-    margin-top: auto; padding-top: 24px;
+    margin-top: auto; padding-top: 20px;
     display: flex; align-items: center; gap: 11px;
-    font-size: 15px; font-weight: 900; color: var(--faint); letter-spacing: 0.06em;
+    font-size: 17px; font-weight: 900; color: var(--faint); letter-spacing: 0.06em;
   }
   .perklabel::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: #e8f1fa; }
   .perks { margin-top: 16px; }
   .perk {
     display: flex; align-items: center; gap: 13px;
     background: #eef6ff; border-radius: 20px;
-    padding: 23px 22px;
+    padding: 19px 20px;
     color: var(--ink);
   }
   .perk + .perk { margin-top: 12px; }
   /* 윗줄은 조건, 아랫줄이 눈에 걸려야 하는 금액이다 */
-  .perk .cond { font-size: 18px; font-weight: 700; color: #5a7a9e; letter-spacing: -0.04em; }
+  .perk .cond { font-size: 20px; font-weight: 700; color: #5a7a9e; letter-spacing: -0.04em; }
   .perk .cond b { color: var(--blue-deep); font-weight: 900; }
   .perk .cond em { font-style: normal; color: #9fb4cc; }
   .perk .line { display: flex; align-items: baseline; gap: 11px; margin-top: 5px; }
   .perk .was {
-    font-size: 18px; font-weight: 700; color: #9fb4cc; letter-spacing: -0.03em;
+    font-size: 20px; font-weight: 700; color: #9fb4cc; letter-spacing: -0.03em;
     text-decoration: line-through;
   }
-  .perk .now { font-size: 36px; color: var(--blue-deep); letter-spacing: -0.02em; }
-  .perk .now u { text-decoration: none; font-size: 22px; padding-left: 1px; }
+  .perk .now { font-size: 40px; color: var(--blue-deep); letter-spacing: -0.02em; }
+  .perk .now u { text-decoration: none; font-size: 25px; padding-left: 1px; }
   /* 제목의 형광펜 자국과 같은 처리. z-index 1 로 층을 만들어야
      ::before 가 칸 배경 뒤로 숨지 않는다 */
   .perk .save {
     position: relative; z-index: 1;
-    font-size: 19px; font-weight: 900; color: var(--ink); letter-spacing: -0.03em;
+    font-size: 21px; font-weight: 900; color: var(--ink); letter-spacing: -0.03em;
     padding: 0 4px;
   }
   .perk .save::before {
     content: ""; position: absolute; z-index: -1;
-    left: -2px; right: -2px; bottom: 1px; height: 12px;
+    left: -2px; right: -2px; bottom: 1px; height: 13px;
     background: var(--sun); border-radius: 3px;
   }
   .perk .n {
-    flex: none; width: 32px; height: 32px; border-radius: 50%;
+    flex: none; width: 35px; height: 35px; border-radius: 50%;
     background: var(--blue); color: #fff;
-    font-size: 18px; line-height: 33px; text-align: center;
+    font-size: 20px; line-height: 36px; text-align: center;
   }
 
   /* ── 꼬리 ──────────────────────────────────────────── */
@@ -149,7 +149,7 @@
     position: relative; z-index: 1;
     display: flex; align-items: center; justify-content: space-between; gap: 28px;
     padding-top: 24px;
-    font-size: 15px; color: #7d97b5; letter-spacing: -0.02em;
+    font-size: 17px; color: #7d97b5; letter-spacing: -0.02em;
   }
 </style>
 
