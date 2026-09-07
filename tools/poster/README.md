@@ -6,7 +6,11 @@
 - **10회 결제 시 한 달 무제한 약침치료** 문구
 
 - `yakchim-event.html` — 문구·금액 수정용 원본
-- `yakchim-event.png` — 3507×2481. **A4 가로(297×210mm) 300dpi** 라 그대로 인쇄하면 된다
+- `yakchim-event.pdf` — **인쇄용.** A4 가로 1쪽, 글자·도형 전부 벡터, 폰트 포함(4벌)
+- `yakchim-event.png` — 화면·SNS용. 3507×2481 (A4 가로 300dpi)
+
+인쇄소에는 **PDF** 를 준다. 글자가 벡터라 확대해도 깨지지 않고 폰트가 파일에 박혀 있어
+받는 쪽에 Jua·Noto Sans KR 이 없어도 그대로 나온다.
 
 ## 금액을 이렇게 적은 이유
 
@@ -107,10 +111,31 @@ fc-cache -f
 다른 해상도가 필요하면 `zoom` 과 `--window-size` 를 같은 배수로 함께 바꾼다.
 
 ```bash
-/opt/pw-browsers/chromium-1194/chrome-linux/chrome \
-  --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
+CHROME=/opt/pw-browsers/chromium-1194/chrome-linux/chrome
+
+# 인쇄용 PDF
+$CHROME --headless=new --no-sandbox --disable-gpu --no-pdf-header-footer \
+  --print-to-pdf=tools/poster/yakchim-event.pdf --virtual-time-budget=8000 \
+  file://$PWD/tools/poster/yakchim-event.html
+
+# 화면용 PNG
+$CHROME --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
   --force-device-scale-factor=1 --window-size=3507,2481 \
   --virtual-time-budget=6000 \
   --screenshot=tools/poster/yakchim-event.png \
   file://$PWD/tools/poster/yakchim-event.html
+```
+
+뽑은 PDF 는 **쪽수와 판형을 반드시 확인한다.** 두 쪽이면 배율이 넘친 것이다.
+
+```bash
+python3 - <<'EOF'
+import re
+d = open('tools/poster/yakchim-event.pdf','rb').read()
+v = [float(x) for x in re.findall(rb'/MediaBox\s*\[([^\]]*)\]', d)[0].split()]
+print("쪽수:", re.findall(rb'/Count\s+(\d+)', d)[0].decode(),
+      "판형: %.1f x %.1f mm" % ((v[2]-v[0])/72*25.4, (v[3]-v[1])/72*25.4),
+      "폰트:", len(re.findall(rb'/FontFile2|/FontFile3', d)),
+      "래스터:", len(re.findall(rb'/Subtype\s*/Image', d)))
+EOF
 ```

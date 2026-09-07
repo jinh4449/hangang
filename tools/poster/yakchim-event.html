@@ -19,8 +19,20 @@
     --sun: #ffd34d;
     --card: #ffffff;
   }
-  /* A4 가로 297×210mm. 1169×827px(=100dpi)에 zoom 3 을 걸어 300dpi 로 뽑는다 */
-  html { zoom: 3; }
+  /* 판형은 A4 가로 297×210mm. 본문은 1169×827px(=A4 @100dpi)로 짜여 있다.
+     화면(PNG)은 zoom 3 으로 키워 300dpi 로 뽑고,
+     인쇄(PDF)는 CSS 픽셀(96dpi) 기준 A4 폭 1122.52px 에 맞춰 줄인다.
+     1122.52 / 1169 = 0.96024 */
+  @media screen { html { zoom: 3; } }
+  @media print {
+    @page { size: 297mm 210mm; margin: 0; }
+    html { zoom: 0.9598; }
+    /* A4 세로 210mm = 793.70px. 827 × 0.96024 = 794.1 로 0.4px 가 넘쳐
+       두 쪽으로 갈라진다. 인쇄에서만 높이를 826.5px 로 깎아 한 쪽에 담는다 */
+    body { height: 826.4px; }
+    /* 배경색을 인쇄에서도 그대로 남긴다 */
+    body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     width: 1169px; height: 827px;
@@ -31,10 +43,14 @@
     display: flex; flex-direction: column;
     position: relative; overflow: hidden;
   }
-  /* 배경에 깔리는 동그라미 두 개. 종이 가장자리에서 잘려 나가게 둔다 */
-  body::before, body::after { content: ""; position: absolute; border-radius: 50%; z-index: 0; }
-  body::before { width: 460px; height: 460px; right: -150px; top: -190px; background: #d7e9ff; }
-  body::after { width: 300px; height: 300px; left: -120px; bottom: -140px; background: #d7e9ff; }
+  /* 배경에 깔리는 동그라미 두 개. 종이 가장자리에서 잘려 나가게 둔다.
+     body 에 직접 걸면 넘친 부분이 인쇄에서 둘째 쪽을 만든다 —
+     overflow: hidden 이 body 에서는 뷰포트로 넘어가 클립이 안 되기 때문이다.
+     그래서 안쪽 상자를 하나 두고 거기서 자른다 */
+  .bg { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+  .bg::before, .bg::after { content: ""; position: absolute; border-radius: 50%; background: #d7e9ff; }
+  .bg::before { width: 460px; height: 460px; right: -150px; top: -190px; }
+  .bg::after { width: 300px; height: 300px; left: -120px; bottom: -140px; }
 
   .round { font-family: "Round", "KR", sans-serif; font-weight: 400; }
   /* 이 안의 문장은 어떤 것도 두 줄로 넘어가지 않는다.
@@ -151,7 +167,16 @@
     padding-top: 24px;
     font-size: 17px; color: #7d97b5; letter-spacing: -0.02em;
   }
+
+  /* 그림자는 크롬이 JPEG 로 구워 넣는다. 인쇄용 PDF 를 통째로 벡터로 두려고
+     가는 테두리로 바꾼다. 화면용 PNG 는 그림자를 그대로 쓴다.
+     .card 정의보다 뒤에 와야 덮어쓴다 */
+  @media print {
+    .card { box-shadow: none; border: 1px solid #dae7f7; }
+  }
 </style>
+
+<div class="bg" aria-hidden="true"></div>
 
 <h1 class="round oneline"><span class="hl">1회 무료시술</span> 또는 <span class="hl">30% 할인</span></h1>
 <p class="lead oneline"><b>꾸준한 치료</b>와 <b>재발 방지</b>를 위해 약침 이벤트를 진행합니다.</p>
