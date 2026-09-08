@@ -50,7 +50,7 @@
   /* ── 머리 ──────────────────────────────────────────── */
   h1 {
     position: relative; z-index: 1;
-    font-size: 62px; line-height: 1.12; letter-spacing: -0.02em;
+    font-size: 58px; line-height: 1.12; letter-spacing: -0.02em;
   }
   h1 .hl { position: relative; z-index: 1; color: var(--blue-deep); }
   h1 .hl::before {
@@ -59,24 +59,24 @@
     background: var(--sun); border-radius: 6px;
   }
   .lead {
-    position: relative; z-index: 1; margin-top: 18px;
+    position: relative; z-index: 1; margin-top: 14px;
     font-size: 26px; font-weight: 400; color: var(--muted);
   }
   .lead b { font-weight: 900; color: var(--ink); }
 
   /* ── 약침 묶음 ─────────────────────────────────────── */
-  .groups { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; gap: 20px; padding: 26px 0 0; }
+  .groups { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; gap: 16px; padding: 20px 0 0; }
   .group {
     /* 제목이 줄면서 생긴 자리를 카드가 나눠 갖는다. 없으면 띠 위가 텅 빈다 */
     flex: 1;
     background: var(--card); border-radius: 30px;
-    padding: 30px 34px 26px;
+    padding: 24px 32px 20px;
     box-shadow: 0 18px 40px -20px rgba(18, 48, 86, 0.28);
     display: flex; flex-direction: column;
   }
-  .group .top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
-  .group h2 { font-size: 50px; letter-spacing: -0.02em; }
-  .group .fee { font-size: 23px; font-weight: 700; color: var(--muted); letter-spacing: -0.03em; }
+  .group .top { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .group h2 { font-size: 44px; letter-spacing: -0.02em; }
+  .group .fee { font-size: 22px; font-weight: 700; color: var(--muted); letter-spacing: -0.03em; }
   .group .fee b { font-weight: 900; color: var(--ink); }
   .group .fee i { font-style: normal; color: #b9cbdd; padding: 0 10px; }
   /* 10회 금액은 이벤트가라 제목과 같은 형광펜 자국으로 표시한다 */
@@ -87,12 +87,12 @@
     background: var(--sun); border-radius: 3px;
   }
 
-  .items { margin-top: 20px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .items { margin-top: 14px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
   .item {
     flex: 1;
     display: flex; align-items: center; gap: 16px;
     background: var(--tint); border-radius: 18px;
-    padding: 14px 22px;
+    padding: 12px 22px;
   }
   .item .name {
     flex: none; width: 195px;
@@ -135,23 +135,23 @@
   <section class="group">
     <div class="top">
       <h2 class="round oneline">일반 약침</h2>
-      <p class="fee oneline">1회 <b>10,000원</b><i>·</i>10회 <span class="hl">70,000원</span></p>
+      <p class="fee oneline">1회 <b>10,000원</b><i>·</i>5+1회 <span class="hl">50,000원</span><i>·</i>10회 <span class="hl">70,000원</span></p>
     </div>
     <div class="items">
-      <p class="item"><span class="name round oneline">소염약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">염증 가라앉힘<i>·</i>부기 완화</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">삐끗한 통증<i>·</i>부은 관절</span></span></span></p>
-      <p class="item"><span class="name round oneline">통증약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">통증 완화<i>·</i>뭉친 근육 풀기</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">목·허리 통증<i>·</i>결림</span></span></span></p>
-      <p class="item"><span class="name round oneline">봉약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">염증 완화<i>·</i>면역력 관리</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">무릎 관절염<i>·</i>오십견</span></span></span></p>
+      <p class="item"><span class="name round oneline">소염약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">염증 완화<i>·</i>부기 감소</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">삐끗한 통증<i>·</i>부은 관절</span></span></span></p>
+      <p class="item"><span class="name round oneline">통증약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">통증 완화<i>·</i>근육 이완</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">목·허리 통증<i>·</i>결림</span></span></span></p>
+      <p class="item"><span class="name round oneline">봉약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">강력한 항염 효과<i>·</i>만성 통증 개선</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">테니스엘보<i>·</i>관절염<i>·</i>오십견</span></span></span></p>
     </div>
   </section>
 
   <section class="group">
     <div class="top">
       <h2 class="round oneline">특수 약침</h2>
-      <p class="fee oneline">1회 <b>30,000원</b><i>·</i>10회 <span class="hl">210,000원</span></p>
+      <p class="fee oneline">1회 <b>30,000원</b><i>·</i>5+1회 <span class="hl">150,000원</span><i>·</i>10회 <span class="hl">210,000원</span></p>
     </div>
     <div class="items">
-      <p class="item"><span class="name round oneline">DNA약침<small>(PDRN)</small></span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">다친 부위 회복</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">인대·힘줄 손상<i>·</i>어깨 통증</span></span></span></p>
-      <p class="item"><span class="name round oneline">태반약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">기력 회복<i>·</i>면역력 관리</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">만성 피로<i>·</i>갱년기 증상</span></span></span></p>
+      <p class="item"><span class="name round oneline">DNA약침<small>(PDRN)</small></span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">손상된 조직 재생<i>·</i>통증 완화</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">인대·힘줄 손상<i>·</i>어깨 통증</span></span></span></p>
+      <p class="item"><span class="name round oneline">태반약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">기력 회복<i>·</i>노화 방지</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">만성 피로<i>·</i>갱년기 증상</span></span></span></p>
     </div>
   </section>
 </main>
