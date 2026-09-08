@@ -76,7 +76,8 @@
   }
   .group .top { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
   .group h2 { font-size: 44px; letter-spacing: -0.02em; }
-  .group .fee { font-size: 22px; font-weight: 700; color: var(--muted); letter-spacing: -0.03em; }
+  /* 금액 줄은 제목 아래, 카드 오른쪽 끝에 붙인다 */
+  .group .fee { align-self: flex-end; font-size: 22px; font-weight: 700; color: var(--muted); letter-spacing: -0.03em; }
   .group .fee b { font-weight: 900; color: var(--ink); }
   .group .fee i { font-style: normal; color: #b9cbdd; padding: 0 10px; }
   /* 10회 금액은 이벤트가라 제목과 같은 형광펜 자국으로 표시한다 */
