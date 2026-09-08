@@ -75,7 +75,10 @@
     display: flex; flex-direction: column;
   }
   /* 시술명 오른쪽 빈자리를 금액으로 채운다. 두 줄로 나눠 오른쪽 끝에 맞춘다 */
+  /* Jua 는 글자가 글줄 위쪽에 붙어 있어, 베이스라인만 맞추면
+     옆의 고딕 글씨가 아래로 처져 보인다. 그만큼 올려 준다 */
   .group .top { display: flex; align-items: baseline; gap: 16px; }
+  .group .once { position: relative; top: -6px; }
   .group .fees { text-align: right; }
   /* 1회 금액은 시술명 바로 아래 */
   .group .once { font-size: 26px; font-weight: 700; color: var(--muted); letter-spacing: -0.035em; }
