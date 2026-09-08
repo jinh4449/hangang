@@ -65,7 +65,7 @@ if [ -n "$(git status --porcelain)" ]; then
   git add -A && git commit -q -m "${MSG}"
   git push -q -u origin "$(git branch --show-current)"
   echo "   $(git log --oneline -1)"
-  printf "\n\033[1m완료.\033[0m Netlify 가 곧 새 내용을 올립니다.\n"
+  printf "\n\033[1m완료.\033[0m Cloudflare 가 곧 새 내용을 올립니다.\n"
 else
   echo "   바뀐 것 없음 — 건너뜀"
 fi
