@@ -76,8 +76,16 @@
   }
   .group .top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
   .group h2 { font-size: 50px; letter-spacing: -0.02em; }
-  .group .fee { font-size: 24px; font-weight: 700; color: var(--muted); letter-spacing: -0.03em; }
+  .group .fee { font-size: 23px; font-weight: 700; color: var(--muted); letter-spacing: -0.03em; }
   .group .fee b { font-weight: 900; color: var(--ink); }
+  .group .fee i { font-style: normal; color: #b9cbdd; padding: 0 10px; }
+  /* 10회 금액은 이벤트가라 제목과 같은 형광펜 자국으로 표시한다 */
+  .group .fee .hl { position: relative; z-index: 1; font-weight: 900; color: var(--ink); }
+  .group .fee .hl::before {
+    content: ""; position: absolute; z-index: -1;
+    left: -4px; right: -4px; bottom: 0; height: 12px;
+    background: var(--sun); border-radius: 3px;
+  }
 
   .items { margin-top: 20px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
   .item {
@@ -94,7 +102,7 @@
   .item .lines { display: flex; flex-direction: column; gap: 5px; }
   .item .row { display: flex; align-items: baseline; gap: 12px; }
   .item .lab {
-    flex: none; width: 48px;
+    flex: none; width: 62px;
     font-size: 16px; font-weight: 900; color: var(--blue); letter-spacing: -0.02em;
   }
   .item .val { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
@@ -123,23 +131,23 @@
   <section class="group">
     <div class="top">
       <h2 class="round oneline">일반 약침</h2>
-      <p class="fee oneline">1회 <b>10,000원</b></p>
+      <p class="fee oneline">1회 <b>10,000원</b><i>·</i>10회 <span class="hl">70,000원</span></p>
     </div>
     <div class="items">
-      <p class="item"><span class="name round oneline">소염약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">염증 완화<i>·</i>부기 감소</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">급성 염좌<i>·</i>관절 부종</span></span></span></p>
-      <p class="item"><span class="name round oneline">통증약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">통증 완화<i>·</i>근육 이완</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">목·허리 통증<i>·</i>근막통증</span></span></span></p>
-      <p class="item"><span class="name round oneline">봉약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">항염<i>·</i>면역 조절</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">퇴행성 관절염<i>·</i>오십견</span></span></span></p>
+      <p class="item"><span class="name round oneline">소염약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">염증 가라앉힘<i>·</i>부기 완화</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">삐끗한 통증<i>·</i>부은 관절</span></span></span></p>
+      <p class="item"><span class="name round oneline">통증약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">통증 완화<i>·</i>뭉친 근육 풀기</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">목·허리 통증<i>·</i>결림</span></span></span></p>
+      <p class="item"><span class="name round oneline">봉약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">염증 완화<i>·</i>면역력 관리</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">무릎 관절염<i>·</i>오십견</span></span></span></p>
     </div>
   </section>
 
   <section class="group">
     <div class="top">
       <h2 class="round oneline">특수 약침</h2>
-      <p class="fee oneline">1회 <b>30,000원</b></p>
+      <p class="fee oneline">1회 <b>30,000원</b><i>·</i>10회 <span class="hl">210,000원</span></p>
     </div>
     <div class="items">
-      <p class="item"><span class="name round oneline">PDRN</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">손상 조직 회복<i>·</i>재생</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">인대·힘줄 손상<i>·</i>회전근개</span></span></span></p>
-      <p class="item"><span class="name round oneline">자하거 약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">기력 보강<i>·</i>면역 조절</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">만성 피로<i>·</i>갱년기 증상</span></span></span></p>
+      <p class="item"><span class="name round oneline">PDRN</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">다친 부위 회복</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">인대·힘줄 손상<i>·</i>어깨 통증</span></span></span></p>
+      <p class="item"><span class="name round oneline">자하거 약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">기력 회복<i>·</i>면역력 관리</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">만성 피로<i>·</i>갱년기 증상</span></span></span></p>
     </div>
   </section>
 </main>
