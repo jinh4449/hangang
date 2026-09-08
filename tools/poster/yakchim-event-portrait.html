@@ -78,13 +78,13 @@
   .group .top { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
   .group .fees { text-align: right; }
   /* 1회 금액은 시술명 바로 아래 */
-  .group .once { margin-top: 8px; font-size: 26px; font-weight: 700; color: var(--muted); letter-spacing: -0.035em; }
+  .group .once { font-size: 26px; font-weight: 700; color: var(--muted); letter-spacing: -0.035em; }
   .group .once b { font-weight: 900; color: var(--ink); }
   .group .fees .fee + .fee { margin-top: 6px; }
   .group h2 { font-size: 40px; letter-spacing: -0.02em; }
   /* 금액은 제목 아래 왼쪽에 한 줄. 정가는 취소선, 이벤트가는 형광펜 자국.
      세 가지를 한 줄에 세우느라 폭이 빠듯하다 — 글자를 키우면 카드를 넘긴다 */
-  .group .fee { font-size: 27px; font-weight: 700; color: var(--muted); letter-spacing: -0.035em; }
+  .group .fee { font-size: 26px; font-weight: 700; color: var(--muted); letter-spacing: -0.035em; }
   .group .fee b { font-weight: 900; color: var(--ink); }
   .group .fee s { text-decoration: line-through; color: #9fb4cc; font-weight: 400; padding-left: 10px; }
   .group .fee i { font-style: normal; color: #b9cbdd; padding: 0 11px; }
@@ -142,15 +142,10 @@
 <main class="groups">
   <section class="group">
     <div class="top">
-      <div>
-        <h2 class="round oneline">일반 약침</h2>
-        <p class="once oneline">1회 <b>1만원</b></p>
-      </div>
-      <div class="fees">
-        <p class="fee oneline">5+1회<s>60,000원</s><span class="hl">50,000원</span></p>
-        <p class="fee oneline">10회<s>100,000원</s><span class="hl">70,000원</span></p>
-      </div>
+      <h2 class="round oneline">일반 약침</h2>
+      <p class="once oneline">1회 <b>1만원</b></p>
     </div>
+    <p class="fee deals oneline">5+1회<s>60,000원</s><span class="hl">50,000원</span><i>·</i>10회<s>100,000원</s><span class="hl">70,000원</span></p>
     <div class="items">
       <p class="item"><span class="name round oneline">소염약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">염증 완화<i>·</i>부기 감소</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">삐끗한 통증<i>·</i>부은 관절</span></span></span></p>
       <p class="item"><span class="name round oneline">통증약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">통증 완화<i>·</i>근육 이완</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">목·허리 통증<i>·</i>결림</span></span></span></p>
@@ -160,15 +155,10 @@
 
   <section class="group">
     <div class="top">
-      <div>
-        <h2 class="round oneline">특수 약침</h2>
-        <p class="once oneline">1회 <b>3만원</b></p>
-      </div>
-      <div class="fees">
-        <p class="fee oneline">5+1회<s>180,000원</s><span class="hl">150,000원</span></p>
-        <p class="fee oneline">10회<s>300,000원</s><span class="hl">210,000원</span></p>
-      </div>
+      <h2 class="round oneline">특수 약침</h2>
+      <p class="once oneline">1회 <b>3만원</b></p>
     </div>
+    <p class="fee deals oneline">5+1회<s>180,000원</s><span class="hl">150,000원</span><i>·</i>10회<s>300,000원</s><span class="hl">210,000원</span></p>
     <div class="items">
       <p class="item"><span class="name round oneline">DNA약침<small>(PDRN)</small></span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">손상된 조직 재생<i>·</i>통증 완화</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">인대·힘줄 손상<i>·</i>어깨 통증</span></span></span></p>
       <p class="item"><span class="name round oneline">태반약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">기력 회복<i>·</i>노화 방지</span></span><span class="row sub"><span class="lab">이럴 때</span><span class="val oneline">만성 피로<i>·</i>갱년기 증상</span></span></span></p>
