@@ -82,31 +82,24 @@
   .items { margin-top: 20px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
   .item {
     flex: 1;
-    display: flex; align-items: center; gap: 18px;
+    display: flex; align-items: center; gap: 16px;
     background: var(--tint); border-radius: 18px;
-    padding: 16px 22px;
+    padding: 14px 22px;
   }
   .item .name {
-    flex: none; width: 190px;
-    font-size: 32px; letter-spacing: -0.02em; color: var(--blue-deep);
+    flex: none; width: 165px;
+    font-size: 30px; letter-spacing: -0.03em; color: var(--blue-deep);
   }
-  .item .eff { font-size: 26px; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
-  .item .eff i { font-style: normal; color: var(--faint); padding: 0 8px; }
-
-  /* ── 혜택 띠 ───────────────────────────────────────── */
-  .deal {
-    position: relative; z-index: 1; margin-top: 20px;
-    display: flex; align-items: center; gap: 16px;
-    background: var(--blue-deep); color: #fff;
-    border-radius: 24px; padding: 24px 30px;
+  /* 효과와 적응증을 한 줄씩. 라벨 폭을 고정해 두 줄의 글 시작점을 맞춘다 */
+  .item .lines { display: flex; flex-direction: column; gap: 5px; }
+  .item .row { display: flex; align-items: baseline; gap: 12px; }
+  .item .lab {
+    flex: none; width: 48px;
+    font-size: 16px; font-weight: 900; color: var(--blue); letter-spacing: -0.02em;
   }
-  .deal .tag {
-    flex: none; background: var(--sun); color: #6b4a00;
-    border-radius: 999px; padding: 9px 18px;
-    font-size: 21px; letter-spacing: -0.02em;
-  }
-  .deal .txt { font-size: 30px; letter-spacing: -0.02em; }
-  .deal .txt b { color: #ffe28a; }
+  .item .val { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
+  .item .row.sub .val { font-weight: 400; color: var(--muted); }
+  .item .val i { font-style: normal; color: var(--faint); padding: 0 7px; }
 
   /* ── 꼬리 ──────────────────────────────────────────── */
   .foot {
@@ -133,9 +126,9 @@
       <p class="fee oneline">1회 <b>10,000원</b></p>
     </div>
     <div class="items">
-      <p class="item"><span class="name round oneline">소염약침</span><span class="eff oneline">염증 완화<i>·</i>부기 가라앉힘</span></p>
-      <p class="item"><span class="name round oneline">통증약침</span><span class="eff oneline">통증 완화<i>·</i>근육 이완</span></p>
-      <p class="item"><span class="name round oneline">봉약침</span><span class="eff oneline">관절 염증<i>·</i>만성 통증</span></p>
+      <p class="item"><span class="name round oneline">소염약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">염증 완화<i>·</i>부기 감소</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">급성 염좌<i>·</i>관절 부종</span></span></span></p>
+      <p class="item"><span class="name round oneline">통증약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">통증 완화<i>·</i>근육 이완</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">목·허리 통증<i>·</i>근막통증</span></span></span></p>
+      <p class="item"><span class="name round oneline">봉약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">항염<i>·</i>면역 조절</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">퇴행성 관절염<i>·</i>오십견</span></span></span></p>
     </div>
   </section>
 
@@ -145,15 +138,11 @@
       <p class="fee oneline">1회 <b>30,000원</b></p>
     </div>
     <div class="items">
-      <p class="item"><span class="name round oneline">PDRN</span><span class="eff oneline">손상 부위 회복<i>·</i>조직 재생</span></p>
-      <p class="item"><span class="name round oneline">자하거 약침</span><span class="eff oneline">만성 피로<i>·</i>면역력 저하</span></p>
+      <p class="item"><span class="name round oneline">PDRN</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">손상 조직 회복<i>·</i>재생</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">인대·힘줄 손상<i>·</i>회전근개</span></span></span></p>
+      <p class="item"><span class="name round oneline">자하거 약침</span><span class="lines"><span class="row"><span class="lab">효과</span><span class="val oneline">기력 보강<i>·</i>면역 조절</span></span><span class="row sub"><span class="lab">적응증</span><span class="val oneline">만성 피로<i>·</i>갱년기 증상</span></span></span></p>
     </div>
   </section>
 </main>
-
-<div class="deal">
-  <span class="txt round oneline"><b>5+1회</b> 또는 <b>10회 결제 시 30% 할인</b></span>
-</div>
 
 <footer class="foot">
   <p class="oneline">약침치료는 비급여 항목으로 실비적용이 어려우며, 환불 시 정가 × 시술횟수로 차감됩니다.</p>
