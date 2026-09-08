@@ -1,11 +1,11 @@
 <!doctype html>
 <meta charset="utf-8">
-<title>약침 할인이벤트</title>
+<title>약침 이벤트</title>
 <style>
   @font-face { font-family: "KR"; src: url("file:///root/.fonts/NotoSansKR-400.ttf"); font-weight: 400; }
   @font-face { font-family: "KR"; src: url("file:///root/.fonts/NotoSansKR-700.ttf"); font-weight: 700; }
   @font-face { font-family: "KR"; src: url("file:///root/.fonts/NotoSansKR-900.ttf"); font-weight: 900; }
-  /* 둥근 한글 서체. 제목과 금액에만 쓴다 — 본문까지 이걸로 두면 잔글씨가 뭉갠다 */
+  /* 둥근 한글 서체. 제목·시술명에만 쓴다 — 본문까지 이걸로 두면 잔글씨가 뭉갠다 */
   @font-face { font-family: "Round"; src: url("file:///root/.fonts/Jua-Regular.ttf"); font-weight: 400; }
 
   :root {
@@ -15,23 +15,17 @@
     --faint: #8ea6c2;
     --blue: #2c80e0;
     --blue-deep: #1a5cb0;
-    --sky: #bfdcfb;
     --sun: #ffd34d;
     --card: #ffffff;
+    --tint: #eef6ff;
   }
   /* 판형은 A4 세로 210×297mm. 본문은 827×1169px(=A4 @100dpi)로 짜여 있다.
-     가로 버전은 yakchim-event.html — 문구·금액을 고치면 두 벌 다 고쳐야 한다.
-     세로는 카드가 위아래로 쌓여 한 장당 높이가 줄어든다.
-     그래서 글자 크기는 가로 버전과 같게 두고 키우지 않는다 */
+     화면(PNG)은 zoom 3 으로 300dpi, 인쇄(PDF)는 96dpi 기준 A4 폭에 맞춰 줄인다 */
   @media screen { html { zoom: 3; } }
   @media print {
     @page { size: 210mm 297mm; margin: 0; }
     html { zoom: 0.9588; }
-    /* A4 세로 210mm = 793.70px. 827 × 0.96024 = 794.1 로 0.4px 가 넘쳐
-       두 쪽으로 갈라진다. 인쇄에서만 높이를 826.5px 로 깎아 한 쪽에 담는다 */
-    body { height: 1168px; }
-    /* 배경색을 인쇄에서도 그대로 남긴다 */
-    body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    body { height: 1168px; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -39,175 +33,126 @@
     background: var(--bg); color: var(--ink);
     font-family: "KR", "Pretendard", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    padding: 50px 46px 30px;
+    padding: 52px 46px 30px;
     display: flex; flex-direction: column;
     position: relative; overflow: hidden;
   }
-  /* 배경에 깔리는 동그라미 두 개. 종이 가장자리에서 잘려 나가게 둔다.
-     body 에 직접 걸면 넘친 부분이 인쇄에서 둘째 쪽을 만든다 —
-     overflow: hidden 이 body 에서는 뷰포트로 넘어가 클립이 안 되기 때문이다.
-     그래서 안쪽 상자를 하나 두고 거기서 자른다 */
+  /* 배경 동그라미. body 에 직접 걸면 인쇄에서 둘째 쪽이 생겨 안쪽 상자에서 자른다 */
   .bg { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
   .bg::before, .bg::after { content: ""; position: absolute; border-radius: 50%; background: #d7e9ff; }
-  .bg::before { width: 460px; height: 460px; right: -150px; top: -190px; }
-  .bg::after { width: 300px; height: 300px; left: -120px; bottom: -140px; }
+  .bg::before { width: 460px; height: 460px; right: -160px; top: -200px; }
+  .bg::after { width: 300px; height: 300px; left: -130px; bottom: -150px; }
 
   .round { font-family: "Round", "KR", sans-serif; font-weight: 400; }
-  /* 이 안의 문장은 어떤 것도 두 줄로 넘어가지 않는다.
-     문구를 늘리면 폭을 넘겨 잘리므로, 글자 크기를 같이 줄여야 한다 */
+  /* 이 안의 문장은 두 줄로 넘어가지 않는다. 문구를 늘리면 폭을 넘겨 잘린다 */
   .oneline { white-space: nowrap; }
 
   /* ── 머리 ──────────────────────────────────────────── */
-  .bar { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; }
-  .logo { align-self: flex-end; display: flex; align-items: center; gap: 12px; color: var(--blue-deep); }
-  .logo .mk { width: 46px; height: 46px; flex: none; }
-  .logo .kr { font-size: 25px; font-weight: 900; letter-spacing: -0.045em; line-height: 1; }
-  .logo .en {
-    margin-top: 5px; font-size: 8px; font-weight: 700;
-    letter-spacing: 0.085em; color: #7ba3cf;
-  }
-  .badge {
-    background: var(--sun); color: #6b4a00;
-    border-radius: 999px; padding: 12px 24px;
-    font-size: 18px; letter-spacing: -0.02em;
-    transform: rotate(2.2deg);
-  }
-
   h1 {
     position: relative; z-index: 1;
-    font-size: 62px; line-height: 1.1; letter-spacing: -0.02em; color: var(--ink);
+    font-size: 92px; line-height: 1.1; letter-spacing: -0.02em;
   }
-  h1 .hl {
-    position: relative; z-index: 1; color: var(--blue-deep);
-  }
-  /* 형광펜으로 그은 것처럼 글자 뒤에 노란 띠를 깐다 */
+  h1 .hl { position: relative; z-index: 1; color: var(--blue-deep); }
   h1 .hl::before {
     content: ""; position: absolute; z-index: -1;
-    left: -8px; right: -8px; bottom: 6px; height: 26px;
+    left: -8px; right: -8px; bottom: 8px; height: 28px;
     background: var(--sun); border-radius: 6px;
   }
   .lead {
-    position: relative; z-index: 1; margin-top: 14px;
+    position: relative; z-index: 1; margin-top: 18px;
     font-size: 26px; font-weight: 400; color: var(--muted);
   }
   .lead b { font-weight: 900; color: var(--ink); }
 
-  /* ── 시술 두 가지 ──────────────────────────────────── */
-  .cards {
-    position: relative; z-index: 1; flex: 1;
-    display: grid; grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); gap: 18px;
-    padding: 18px 0 0;
-  }
-  .card {
+  /* ── 약침 묶음 ─────────────────────────────────────── */
+  .groups { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; gap: 20px; padding: 26px 0 0; }
+  .group {
     background: var(--card); border-radius: 30px;
-    padding: 18px 20px 16px;
+    padding: 30px 34px 26px;
     box-shadow: 0 18px 40px -20px rgba(18, 48, 86, 0.28);
     display: flex; flex-direction: column;
   }
-  .card .top { display: flex; align-items: baseline; gap: 13px; }
-  .card h2 { font-size: 48px; letter-spacing: -0.02em; color: var(--ink); }
-  .fee {
-    font-size: 23px; font-weight: 700; color: #5a7a9e; letter-spacing: -0.03em;
-  }
-  .fee::before { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%;
-    background: #bcd0e4; vertical-align: 0.28em; margin-right: 12px; }
-  .for { margin-top: 6px; display: flex; gap: 6px; }
-  .for span {
-    background: #eef6ff; color: var(--blue-deep); border-radius: 999px;
-    padding: 7px 14px; font-size: 17px; font-weight: 700; letter-spacing: -0.03em;
-  }
+  .group .top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+  .group h2 { font-size: 50px; letter-spacing: -0.02em; }
+  .group .fee { font-size: 24px; font-weight: 700; color: var(--muted); letter-spacing: -0.03em; }
+  .group .fee b { font-weight: 900; color: var(--ink); }
 
-  .perklabel {
-    margin-top: 12px;
-    display: flex; align-items: center; gap: 11px;
-    font-size: 17px; font-weight: 900; color: var(--faint); letter-spacing: 0.06em;
+  .items { margin-top: 20px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .item {
+    flex: 1;
+    display: flex; align-items: center; gap: 18px;
+    background: var(--tint); border-radius: 18px;
+    padding: 16px 22px;
   }
-  .perklabel::after { content: ""; flex: 1; height: 2px; border-radius: 2px; background: #e8f1fa; }
-  .perks { margin-top: 10px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
-  .perk {
-    display: flex; align-items: center; gap: 11px;
-    background: #eef6ff; border-radius: 20px;
-    flex: 1; padding: 11px 16px;
-    color: var(--ink);
+  .item .name {
+    flex: none; width: 190px;
+    font-size: 32px; letter-spacing: -0.02em; color: var(--blue-deep);
   }
+  .item .eff { font-size: 26px; font-weight: 700; letter-spacing: -0.03em; color: var(--ink); }
+  .item .eff i { font-style: normal; color: var(--faint); padding: 0 8px; }
 
-  /* 윗줄은 조건, 아랫줄이 눈에 걸려야 하는 금액이다 */
-  .perk .cond { font-size: 20px; font-weight: 700; color: #5a7a9e; letter-spacing: -0.04em; }
-  .perk .cond b { color: var(--blue-deep); font-weight: 900; }
-  .perk .cond em { font-style: normal; color: #9fb4cc; }
-  .perk .line { display: flex; align-items: baseline; gap: 8px; margin-top: 4px; }
-  .perk .was {
-    font-size: 19px; font-weight: 700; color: #9fb4cc; letter-spacing: -0.03em;
-    text-decoration: line-through;
+  /* ── 혜택 띠 ───────────────────────────────────────── */
+  .deal {
+    position: relative; z-index: 1; margin-top: 20px;
+    display: flex; align-items: center; gap: 16px;
+    background: var(--blue-deep); color: #fff;
+    border-radius: 24px; padding: 24px 30px;
   }
-  .perk .now { font-size: 40px; color: var(--blue-deep); letter-spacing: -0.02em; }
-  .perk .now u { text-decoration: none; font-size: 25px; padding-left: 1px; }
-  /* 제목의 형광펜 자국과 같은 처리. z-index 1 로 층을 만들어야
-     ::before 가 칸 배경 뒤로 숨지 않는다 */
-  .perk .save {
-    position: relative; z-index: 1;
-    font-size: 22px; font-weight: 900; color: var(--ink); letter-spacing: -0.03em;
-    padding: 0 4px;
+  .deal .tag {
+    flex: none; background: var(--sun); color: #6b4a00;
+    border-radius: 999px; padding: 9px 18px;
+    font-size: 21px; letter-spacing: -0.02em;
   }
-  .perk .save::before {
-    content: ""; position: absolute; z-index: -1;
-    left: -2px; right: -2px; bottom: 1px; height: 13px;
-    background: var(--sun); border-radius: 3px;
-  }
-  .perk .n {
-    flex: none; width: 38px; height: 38px; border-radius: 50%;
-    background: var(--blue); color: #fff;
-    font-size: 21px; line-height: 39px; text-align: center;
-  }
+  .deal .txt { font-size: 30px; letter-spacing: -0.02em; }
+  .deal .txt b { color: #ffe28a; }
 
   /* ── 꼬리 ──────────────────────────────────────────── */
   .foot {
     position: relative; z-index: 1;
     display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
-    padding-top: 12px;
+    padding-top: 20px;
     font-size: 17px; color: #7d97b5; letter-spacing: -0.02em;
   }
-
-  /* 그림자는 크롬이 JPEG 로 구워 넣는다. 인쇄용 PDF 를 통째로 벡터로 두려고
-     가는 테두리로 바꾼다. 화면용 PNG 는 그림자를 그대로 쓴다.
-     .card 정의보다 뒤에 와야 덮어쓴다 */
-  @media print {
-    .card { box-shadow: none; border: 1px solid #dae7f7; }
-  }
+  .logo { align-self: flex-end; display: flex; align-items: center; gap: 12px; color: var(--blue-deep); }
+  .logo .mk { width: 46px; height: 46px; flex: none; }
+  .logo .kr { font-size: 25px; font-weight: 900; letter-spacing: -0.045em; line-height: 1; }
+  .logo .en { margin-top: 5px; font-size: 8px; font-weight: 700; letter-spacing: 0.085em; color: #7ba3cf; }
 </style>
 
 <div class="bg" aria-hidden="true"></div>
 
-<h1 class="round oneline"><span class="hl">1회 무료시술</span> 또는 <span class="hl">30% 할인</span></h1>
-<p class="lead oneline"><b>꾸준한 치료</b>와 <b>재발 방지</b>를 위해 약침 이벤트를 진행합니다.</p>
+<h1 class="round oneline">약침 <span class="hl">이벤트</span></h1>
+<p class="lead oneline"><b>꾸준한 진료</b>와 <b>재발 방지</b>를 위한 약침 이벤트를 진행합니다.</p>
 
-<main class="cards">
-  <section class="card">
+<main class="groups">
+  <section class="group">
     <div class="top">
       <h2 class="round oneline">일반 약침</h2>
-      <p class="fee oneline">1회 10,000원</p>
+      <p class="fee oneline">1회 <b>10,000원</b></p>
     </div>
-    <p class="for oneline"><span>소염약침</span><span>통증약침</span><span>봉약침</span></p>
-    <p class="perklabel">이렇게 드려요</p>
-    <div class="perks">
-      <p class="perk"><span class="n">1</span><span><span class="cond oneline"><b>5회 결제하면 1회 무료시술</b> <em>· 총 6회 이용</em></span><span class="line"><span class="was oneline">60,000원</span><span class="now round oneline">50,000<u>원</u></span><span class="save oneline">10,000원 할인</span></span></span></p>
-      <p class="perk"><span class="n">2</span><span><span class="cond oneline"><b>10회 결제하면 30% 할인</b> <em>· 총 10회 이용</em></span><span class="line"><span class="was oneline">100,000원</span><span class="now round oneline">70,000<u>원</u></span><span class="save oneline">30,000원 할인</span></span></span></p>
+    <div class="items">
+      <p class="item"><span class="name round oneline">소염약침</span><span class="eff oneline">염증 완화<i>·</i>부기 가라앉힘</span></p>
+      <p class="item"><span class="name round oneline">통증약침</span><span class="eff oneline">통증 완화<i>·</i>근육 이완</span></p>
+      <p class="item"><span class="name round oneline">봉약침</span><span class="eff oneline">관절 염증<i>·</i>만성 통증</span></p>
     </div>
   </section>
 
-  <section class="card">
+  <section class="group">
     <div class="top">
       <h2 class="round oneline">특수 약침</h2>
-      <p class="fee oneline">1회 30,000원</p>
+      <p class="fee oneline">1회 <b>30,000원</b></p>
     </div>
-    <p class="for oneline"><span>PDRN</span><span>자하거 약침</span></p>
-    <p class="perklabel">이렇게 드려요</p>
-    <div class="perks">
-      <p class="perk"><span class="n">1</span><span><span class="cond oneline"><b>5회 결제하면 1회 무료시술</b> <em>· 총 6회 이용</em></span><span class="line"><span class="was oneline">180,000원</span><span class="now round oneline">150,000<u>원</u></span><span class="save oneline">30,000원 할인</span></span></span></p>
-      <p class="perk"><span class="n">2</span><span><span class="cond oneline"><b>10회 결제하면 30% 할인</b> <em>· 총 10회 이용</em></span><span class="line"><span class="was oneline">300,000원</span><span class="now round oneline">210,000<u>원</u></span><span class="save oneline">90,000원 할인</span></span></span></p>
+    <div class="items">
+      <p class="item"><span class="name round oneline">PDRN</span><span class="eff oneline">손상 부위 회복<i>·</i>조직 재생</span></p>
+      <p class="item"><span class="name round oneline">자하거 약침</span><span class="eff oneline">만성 피로<i>·</i>면역력 저하</span></p>
     </div>
   </section>
 </main>
+
+<div class="deal">
+  <span class="tag round oneline">선결제 혜택</span>
+  <span class="txt round oneline"><b>5+1회</b> 또는 <b>10회 결제 시 30% 할인</b></span>
+</div>
 
 <footer class="foot">
   <p class="oneline">약침치료는 비급여 항목으로 실비적용이 어려우며, 환불 시 정가 × 시술횟수로 차감됩니다.</p>
@@ -216,3 +161,9 @@
     <div><p class="kr">김포한강한의원</p><p class="en oneline">GIMPO HANGANG KOREAN MEDICAL CLINIC</p></div>
   </div>
 </footer>
+
+  <!-- 그림자는 크롬이 JPEG 로 구워 넣는다. 인쇄 PDF 를 통째로 벡터로 두려고 테두리로 바꾼다.
+       .group 정의보다 뒤에 와야 덮어쓴다 -->
+<style>
+  @media print { .group { box-shadow: none; border: 1px solid #dae7f7; } }
+</style>
