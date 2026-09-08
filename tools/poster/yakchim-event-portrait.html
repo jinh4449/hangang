@@ -75,10 +75,14 @@
     display: flex; flex-direction: column;
   }
   /* 시술명 오른쪽 빈자리를 금액으로 채운다. 두 줄로 나눠 오른쪽 끝에 맞춘다 */
-  .group .top { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+  .group .top { display: flex; align-items: baseline; gap: 16px; }
   .group .fees { text-align: right; }
   /* 1회 금액은 시술명 바로 아래 */
   .group .once { font-size: 26px; font-weight: 700; color: var(--muted); letter-spacing: -0.035em; }
+  .group .once::before {
+    content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+    background: #bcd0e4; vertical-align: 0.3em; margin-right: 14px;
+  }
   .group .once b { font-weight: 900; color: var(--ink); }
   .group .fees .fee + .fee { margin-top: 6px; }
   .group h2 { font-size: 40px; letter-spacing: -0.02em; }
