@@ -18,7 +18,7 @@ export const metadata: Metadata = {
    * 네이버 검색결과는 공백 포함 40자 안팎까지 보여 준다.
    */
   title: {
-    default: `김포 한의원 · ${CLINIC.name} — 장기역 도보 1분, 밤 8시까지`,
+    default: `김포한의원 · ${CLINIC.name} — 장기역 도보 1분, 밤 8시까지`,
     template: `%s | ${CLINIC.name}`,
   },
   description:
