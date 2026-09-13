@@ -10,6 +10,16 @@ import "./globals.css";
 
 const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"], display: "swap" });
 
+/**
+ * 병원을 한 문단으로 적은 글.
+ *
+ * 검색 결과의 설명과 구조화 데이터의 description 이 같은 곳에서 나와야
+ * 한다. 따로 적으면 한쪽만 고쳐 두 곳이 서로 다른 말을 하게 된다.
+ */
+const CLINIC_DESCRIPTION =
+  `김포 장기동 ${CLINIC.name}. 통증·교통사고 후유증·다이어트·소화불량·만성피로를 진료합니다. ` +
+  "김포골드라인 장기역 3·4번 출구 도보 1분, 평일 밤 8시까지·토요일·공휴일 진료, 주차 3곳.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   /**
@@ -21,9 +31,7 @@ export const metadata: Metadata = {
     default: `김포한의원 · ${CLINIC.name} — 장기역 도보 1분, 밤 8시까지`,
     template: `%s | ${CLINIC.name}`,
   },
-  description:
-    `김포 장기동 ${CLINIC.name}. 통증·교통사고 후유증·다이어트·소화불량·만성피로를 진료합니다. ` +
-    "김포골드라인 장기역 3·4번 출구 도보 1분, 평일 밤 8시까지·토요일·공휴일 진료, 주차 3곳.",
+  description: CLINIC_DESCRIPTION,
   robots: { index: true, follow: true },
   alternates: {
     // 첫 화면 몫이다. 하위 페이지는 각자 적는다. 여기에만 적으면 물려받아
@@ -78,6 +86,11 @@ const clinicJsonLd = {
   name: CLINIC.name,
   medicalSpecialty: "TraditionalChinese",
   url: SITE_URL,
+  description: CLINIC_DESCRIPTION,
+  // 지도와 지식 패널에 뜨는 로고·사진. 주소는 빌드마다 바뀌지 않는 것으로
+  // 고른다 — /icon.svg 뒤에 붙는 물음표 값은 판마다 달라진다
+  logo: `${SITE_URL}/icon.svg`,
+  image: [`${SITE_URL}/og.jpg`, `${SITE_URL}/clinic-interior.webp`],
   telephone: `+82-31-8049-7541`,
   address: {
     "@type": "PostalAddress",

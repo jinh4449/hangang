@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { columnsFor } from "@/content/column";
+import { getPart } from "@/content/part";
 import { CLINIC, SITE_URL, sentences } from "@/content/clinic";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb, faqPage } from "@/content/schema";
@@ -133,7 +134,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
             <PageHead
               eyebrow={s.clinicalName}
               title={care.title}
-              lede={s.highlight ? undefined : care.lede}
+              lede={s.highlight ? undefined : (care.leadLine ?? care.lede)}
             />
           </>
         )}
@@ -492,6 +493,46 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
             </div>
           </Section>
         ))}
+
+        {/* 부위로 갈라지는 자리.
+            「어디가 아픈가」는 환자가 스스로 답할 수 있는 질문이라, 증상
+            문장을 그대로 세우고 누르면 그 부위 안내로 보낸다. 문장은 부위
+            자료의 signs 첫 줄을 쓴다 — 그 부위에서 가장 흔한 호소다 */}
+        {care.partSlugs && care.partSlugs.length > 0 && (
+          <Section
+            title="어디가 아프신가요"
+            note="해당하는 곳을 누르시면 그 부위의 치료와 걸리는 기간을 볼 수 있습니다."
+          >
+            <div className="border-t border-line">
+              {care.partSlugs.map((slug) => {
+                const part = getPart(slug);
+                if (!part) return null;
+                return (
+                  <Link
+                    key={slug}
+                    href={`/part/${slug}`}
+                    className="group flex items-center justify-between gap-5 border-b border-line py-4"
+                  >
+                    <span className="min-w-0">
+                      <span className="kr block text-[16.5px] leading-7 text-muted">
+                        {part.signs[0]}
+                      </span>
+                    </span>
+                    <span className="kr flex shrink-0 items-center gap-2 text-[16px] font-bold group-hover:text-herb">
+                      {part.name}
+                      <span
+                        aria-hidden="true"
+                        className="grid h-7 w-7 place-items-center rounded-full bg-tint text-herb"
+                      >
+                        <Arrow className="arw h-3.5 w-3.5" />
+                      </span>
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </Section>
+        )}
 
         {s.faq.length > 0 && (
           <Section title="자주 묻는 질문" note="진료실에서 실제로 많이 받는 질문입니다.">
