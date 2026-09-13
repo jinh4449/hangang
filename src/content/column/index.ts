@@ -185,6 +185,32 @@ export const getColumn = (slug: string) => COLUMNS.find((c) => c.slug === slug);
 export const columnsFor = (symptomSlug: string, limit = 3) =>
   COLUMNS.filter((c) => c.symptomSlugs.includes(symptomSlug)).slice(0, limit);
 
+/**
+ * 어떤 부위에 딸린 칼럼.
+ *
+ * 증상 쪽은 칼럼이 스스로 symptomSlugs 를 들고 있어 뒤집기만 하면 됐는데,
+ * 부위는 그 표시가 없다. 그래서 여기에 적어 둔다. 순서도 그대로 쓴다 —
+ * 어느 글을 먼저 보일지는 자료에서 저절로 나오는 것이 아니라 정한 것이다.
+ *
+ * 고를 때의 기준은 그 부위에서 실제로 무슨 치료를 하는가였다. 추나를 쓰지
+ * 않는 팔꿈치에는 추나 글을 넣지 않고, 한약을 쓰는 허리에만 한약 글을 넣는다.
+ * 「엑스레이는 정상인데」가 여섯 부위에 다 들어가는 것은, 사진을 찍고
+ * 이상 없다는 말을 듣고 오시는 분이 부위를 가리지 않기 때문이다.
+ */
+const PART_COLUMNS: Record<string, string[]> = {
+  neck: ["neck-worse-after-crash", "xray-normal-still-hurts", "how-many-sessions"],
+  "low-back": ["back-surgery-alternatives", "herbal-medicine-liver", "xray-normal-still-hurts"],
+  shoulder: ["what-ultrasound-shows", "xray-normal-still-hurts", "how-many-sessions"],
+  knee: ["what-ultrasound-shows", "xray-normal-still-hurts", "how-many-sessions"],
+  ankle: ["what-ultrasound-shows", "xray-normal-still-hurts", "how-many-sessions"],
+  elbow: ["what-ultrasound-shows", "xray-normal-still-hurts", "sore-after-treatment"],
+};
+
+export const columnsForPart = (partSlug: string) =>
+  (PART_COLUMNS[partSlug] ?? [])
+    .map((slug) => COLUMNS.find((c) => c.slug === slug))
+    .filter((c): c is Column => Boolean(c));
+
 /** 최신순 */
 export const columnsByDate = () =>
   [...COLUMNS].sort((a, b) => (a.date < b.date ? 1 : -1));
