@@ -173,6 +173,18 @@ export { QUESTION_COLUMNS };
 
 export const getColumn = (slug: string) => COLUMNS.find((c) => c.slug === slug);
 
+/**
+ * 어떤 증상에 딸린 칼럼.
+ *
+ * 칼럼에서 증상으로 나가는 길은 이미 symptomSlugs 로 나 있었는데, 반대로
+ * 증상에서 칼럼으로 들어오는 입구가 없었다. 같은 자료를 뒤집어 쓴다.
+ *
+ * 세 편에서 끊는다. 통증치료에는 일곱 편이 걸리는데 다 세우면 목록이 되고,
+ * 목록이 되면 페이지 끝의 상투적인 「관련 글」과 구별되지 않는다.
+ */
+export const columnsFor = (symptomSlug: string, limit = 3) =>
+  COLUMNS.filter((c) => c.symptomSlugs.includes(symptomSlug)).slice(0, limit);
+
 /** 최신순 */
 export const columnsByDate = () =>
   [...COLUMNS].sort((a, b) => (a.date < b.date ? 1 : -1));

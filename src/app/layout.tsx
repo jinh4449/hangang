@@ -120,6 +120,25 @@ const clinicJsonLd = {
     },
     { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "09:30", closes: "15:00" },
     { "@type": "OpeningHoursSpecification", dayOfWeek: "PublicHolidays", opens: "09:30", closes: "15:00" },
+    // 공휴일을 날짜로도 못박는다. 위의 PublicHolidays 는 어느 날이 공휴일인지를
+    // 검색엔진의 달력에 맡기는데, 한국 공휴일을 제대로 안다는 보장이 없다.
+    // 날짜를 찍어 두면 구글 비즈니스 프로필의 특별 영업시간과 같은 말을 하게 된다
+    ...CLINIC.holidays.shortDay.map((d) => ({
+      "@type": "OpeningHoursSpecification",
+      opens: CLINIC.schedule.holiday.open,
+      closes: CLINIC.schedule.holiday.close,
+      validFrom: d,
+      validThrough: d,
+    })),
+    // 쉬는 날은 여는 시각과 닫는 시각을 같게 적는다. 빼 버리면 「모르는 날」이
+    // 되어 평일 규칙이 그대로 적용된다
+    ...CLINIC.holidays.closed.map((d) => ({
+      "@type": "OpeningHoursSpecification",
+      opens: "00:00",
+      closes: "00:00",
+      validFrom: d,
+      validThrough: d,
+    })),
   ],
   currenciesAccepted: "KRW",
   // 의료진을 Person 으로 노출하면 의료 콘텐츠의 신뢰도 평가에 유리하다

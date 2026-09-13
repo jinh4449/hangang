@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
+import { columnsFor } from "@/content/column";
 import { CLINIC, SITE_URL, sentences } from "@/content/clinic";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb, faqPage } from "@/content/schema";
@@ -508,6 +509,43 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                   </summary>
                   <p className="kr pb-6 text-[16.5px] leading-8 text-muted">{f.a}</p>
                 </details>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {/* 이어지는 글.
+            자주 묻는 질문 바로 다음, 예약 앞에 둔다. 칼럼 제목이 전부 질문
+            형태라 이 자리에 놓이면 「관련 글 목록」이 아니라 문답의 연장으로
+            읽힌다. 페이지 맨 아래 카드 세 장으로 만들면 어느 사이트에나 있는
+            부속물이 되어 사람도 검색엔진도 그냥 지나친다 */}
+        {columnsFor(s.slug).length > 0 && (
+          <Section
+            title="이런 것도 궁금하실 겁니다"
+            note="진료실에서 자주 나오는 질문을 원장이 글로 정리했습니다."
+          >
+            <div className="border-t border-line">
+              {columnsFor(s.slug).map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/column/${c.slug}`}
+                  className="group flex items-start justify-between gap-5 border-b border-line py-5"
+                >
+                  <span className="min-w-0">
+                    <span className="kr block text-[18px] font-bold leading-snug group-hover:text-herb">
+                      {c.title}
+                    </span>
+                    <span className="kr mt-1.5 block text-[16px] leading-7 text-muted">
+                      {c.summary}
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-tint text-herb"
+                  >
+                    <Arrow className="arw" />
+                  </span>
+                </Link>
               ))}
             </div>
           </Section>
