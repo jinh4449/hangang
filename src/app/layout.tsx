@@ -154,14 +154,57 @@ const clinicJsonLd = {
     })),
   ],
   currenciesAccepted: "KRW",
-  // 의료진을 Person 으로 노출하면 의료 콘텐츠의 신뢰도 평가에 유리하다
-  employee: CLINIC.doctors.map((d) => ({
-    "@type": "Person",
-    "@id": `${SITE_URL}/#doctor-${d.key}`,
-    name: d.name,
-    jobTitle: d.role,
-    worksFor: { "@id": `${SITE_URL}/#clinic` },
-  })),
+  // 의료진. Person 이 아니라 Physician 으로 내보내고, 화면에 적힌 학력·학회·
+  // 자격을 항목마다 제 자리에 담는다. 의료는 검색엔진이 쓴 사람의 자격을
+  // 특히 따지는 분야인데, 글자로만 있으면 기계가 읽지 못한다.
+  //
+  // 경력은 넣지 않는다. 「前 ○○한의원 진료원장」을 담을 자리가 schema.org 에
+  // 마땅치 않아, 억지로 다른 속성에 밀어 넣으면 없는 뜻이 생긴다. 화면에는
+  // 그대로 적혀 있다.
+  employee: CLINIC.doctors.map((d) => {
+    // 갈래 이름이 원장마다 다르다(「학회 · 수료」와 「자격 · 학회」). 그래서
+    // 칸 이름이 아니라 줄 끝의 말로 가른다
+    const rest = Object.entries(d.career)
+      .filter(([k]) => k !== "학력" && k !== "경력")
+      .flatMap(([, v]) => v as readonly string[]);
+    const memberships = rest.filter((t) => /정회원|회원$/.test(t));
+    const credentials = rest.filter((t) => !/정회원|회원$/.test(t));
+    const schools = (d.career.학력 as readonly string[]).map((t) =>
+      t.replace(/\s*졸업$/, ""),
+    );
+    return {
+      "@type": "Physician",
+      "@id": `${SITE_URL}/#doctor-${d.key}`,
+      name: d.name,
+      jobTitle: d.role,
+      medicalSpecialty: "TraditionalChinese",
+      url: `${SITE_URL}/doctors`,
+      image: `${SITE_URL}${d.photo.src}`,
+      description: d.line,
+      worksFor: { "@id": `${SITE_URL}/#clinic` },
+      ...(schools.length
+        ? { alumniOf: schools.map((name) => ({ "@type": "CollegeOrUniversity", name })) }
+        : {}),
+      ...(memberships.length
+        ? {
+            // 「대한한의사협회 정회원」에서 단체 이름만 남긴다. 「정회원」은
+            // 소속 상태이지 단체 이름이 아니다
+            memberOf: memberships.map((t) => ({
+              "@type": "Organization",
+              name: t.replace(/\s*정?회원$/, ""),
+            })),
+          }
+        : {}),
+      ...(credentials.length
+        ? {
+            hasCredential: credentials.map((name) => ({
+              "@type": "EducationalOccupationalCredential",
+              name,
+            })),
+          }
+        : {}),
+    };
+  }),
   numberOfEmployees: { "@type": "QuantitativeValue", value: CLINIC.doctors.length, unitText: "원장" },
   // 다른 곳에 있는 같은 병원. 흩어진 이름을 하나로 묶어 준다
   sameAs: CLINIC.sameAs,
