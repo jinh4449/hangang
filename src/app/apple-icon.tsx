@@ -27,10 +27,11 @@ export default function AppleIcon() {
           background: "#1E5B45",
         }}
       >
-        {/* icon.svg 와 같은 셈. 마크의 실제 경계(-1.1 7.71 102.2 79.27)를
-            viewBox 로 잡아 칸 가운데에 두고, 같은 굵기로 부풀린다 */}
-        <svg width="166" height="129" viewBox="-1.1 7.71 102.2 79.27">
-        <g fill="#fff" fillRule="evenodd" stroke="#fff" strokeWidth="2.2" strokeLinejoin="round">
+        {/* icon.svg 와 같은 칸(64)·같은 셈·같은 굵기. 여기만 다르게 키우면
+            브라우저 탭과 홈 화면이 서로 다른 그림이 된다 */}
+        <svg width="180" height="180" viewBox="0 0 64 64">
+        <g transform="translate(5.00 5.86) scale(0.5401)"
+        fill="#fff" fillRule="evenodd" stroke="#fff" strokeWidth="2.6" strokeLinejoin="round">
           <path fill="#fff" fillRule="evenodd" d="M50.0 8.81C22.43 8.81 0.0 31.24 0.0 58.81C0.0 68.5 2.78 77.55 7.57 85.22L15.17 85.22C9.58 77.87 6.22 68.74 6.22 58.81C6.22 34.67 25.86 15.03 50.0 15.03C74.14 15.03 93.78 34.67 93.78 58.81C93.78 68.74 90.42 77.87 84.83 85.22L92.43 85.22C97.22 77.55 100.0 68.5 100.0 58.81C100.0 31.24 77.57 8.81 50.0 8.81Z" />
           <path fill="#fff" fillRule="evenodd" d="M46.69 27.42L46.69 32.98L28.45 32.98L28.45 39.6L71.55 39.6L71.55 32.98L53.31 32.98L53.31 27.42L46.69 27.42Z" />
           <path fill="#fff" fillRule="evenodd" d="M31.92 56.58L38.78 56.58C40.38 51.92 44.8 48.55 50.0 48.55C55.2 48.55 59.62 51.92 61.22 56.58L68.08 56.58C66.31 48.22 58.88 41.93 50.0 41.93C41.12 41.93 33.69 48.22 31.92 56.58Z" />
