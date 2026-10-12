@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 김포한강한의원 홈페이지
 
-## Getting Started
+https://gimpohangang.com 의 원본입니다. Next.js 로 만들고, 빌드하면 전부
+정적 HTML 이 됩니다.
 
-First, run the development server:
+## 고치고 올리기
+
+`main` 에 push 하면 끝입니다. Cloudflare 의 `hangang` Worker 가 이 저장소를
+지켜보다가 직접 빌드해서 1~3분 안에 올립니다.
+
+글과 진료시간 같은 내용은 `src/content/` 안에 모여 있습니다.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # http://localhost:3000 에서 미리 보기
+npm run build   # out/ 에 사이트가 만들어진다
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 어디에 올라가 있나
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| 주소 | |
+|---|---|
+| https://gimpohangang.com | 정본 |
+| https://www.gimpohangang.com | 위로 넘어감 |
+| https://hangang.jinh4449.workers.dev | Cloudflare 가 준 주소 |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Cloudflare 설정은 `wrangler.jsonc` 에 있습니다. 대시보드에는 빌드 명령
+`npm run build`, 배포 명령 `npx wrangler deploy`, 브랜치 `main` 만 넣어 두었습니다.
 
-## Learn More
+캐시 규칙은 `public/_headers` 에 있습니다. `netlify.toml` 은 Netlify 로
+되돌아갈 때를 위해 남겨 두었습니다. Cloudflare 는 이 파일을 읽지 않습니다.
 
-To learn more about Next.js, take a look at the following resources:
+## 제대로 올라갔는지 확인
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`/version.txt` 를 열면 지금 올라가 있는 판의 커밋 번호와 만든 시각이 나옵니다.
+「고쳤는데 왜 그대로냐」 싶을 때 이 주소부터 보십시오. Cloudflare 대시보드의
+`hangang` → Deployments 에서 빌드가 실패하지 않았는지도 함께 보십시오.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 예전 방식
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+예전에는 여기서 빌드한 HTML 을 `jinh4449/hangangclinic` 저장소에 따로 올려
+배포했습니다. 이제는 쓰지 않습니다.
