@@ -9,6 +9,9 @@
 {
   "name": "hangang",
   "compatibility_date": "2026-09-01",
+  // hangang.jinh4449.workers.dev 주소를 켠다. 실제 도메인으로 옮기기 전에
+  // 여기서 먼저 확인한다
+  "workers_dev": true,
   "assets": {
     "directory": "./out",
     // /about 으로 들어오면 about.html 을 준다
