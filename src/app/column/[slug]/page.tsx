@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { COLUMNS, getColumn, columnsByDate } from "@/content/column";
 import { getSymptom } from "@/content/symptoms";
@@ -95,18 +96,54 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
         </header>
 
         {/* 결론 먼저. 제목을 보고 들어온 사람이 첫 화면에서 답을 얻게 한다 */}
-        <section aria-label="결론" className="mt-9 rounded-2xl border border-herb/25 bg-tint p-6 sm:p-7">
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-herb">결론부터 말씀드리면</p>
-          <p className="kr mt-3 text-[17.5px] font-medium leading-8">{c.answer}</p>
+        <section
+          aria-label="결론"
+          className="relative mt-9 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-tint via-[#f4f8f5] to-ochre-soft p-6 ring-1 ring-herb-line/60 sm:p-8"
+        >
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute right-5 top-2 font-serif text-[96px] leading-none text-herb/15"
+          >
+            &ldquo;
+          </span>
+          <p className="inline-flex items-center gap-2 rounded-full bg-surface/80 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-herb ring-1 ring-herb-line/60">
+            <span className="h-1.5 w-1.5 rounded-full bg-herb" aria-hidden="true" />
+            결론부터 말씀드리면
+          </p>
+          <p className="kr relative mt-4 text-[17.5px] font-medium leading-8 sm:text-[18.5px] sm:leading-9">{c.answer}</p>
         </section>
 
         <Blocks blocks={c.body} />
 
-        <Section title="김포한강한의원에서는 이렇게 봅니다">
-          <div className="rounded-2xl bg-surface px-6 pb-2 pt-1 ring-1 ring-line sm:px-8">
-            <Blocks blocks={c.clinic} />
+        {/* 저희 진료. 원장 사진과 이름을 머리에 두어 「누가 이렇게 본다」가 보이게 한다 */}
+        <section className="mt-16 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-herb-deep via-herb to-[#2b6e55] p-[1px] shadow-[0_24px_60px_-30px_rgba(22,65,47,0.55)]">
+          <div className="rounded-[calc(1.75rem-1px)] bg-gradient-to-b from-tint via-surface to-surface px-6 pb-7 pt-7 sm:px-8">
+            <div className="flex items-center gap-3">
+              {author && (
+                <Image
+                  src={author.photo.src}
+                  width={author.photo.w}
+                  height={author.photo.h}
+                  alt=""
+                  className="h-12 w-12 shrink-0 rounded-full object-cover object-top ring-2 ring-surface"
+                />
+              )}
+              <div className="leading-tight">
+                <h2 className="kr text-[20px] font-bold tracking-tight sm:text-[22px]">
+                  김포한강한의원에서는 이렇게 봅니다
+                </h2>
+                {author && (
+                  <p className="kr mt-1 text-[14px] text-muted">
+                    {author.name} {author.role}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="-mt-4">
+              <Blocks blocks={c.clinic} numbered={false} />
+            </div>
           </div>
-        </Section>
+        </section>
 
         {c.references.length > 0 && (
           <Section title="참고문헌">
