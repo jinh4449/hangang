@@ -145,7 +145,7 @@ const herbLiver: Column = {
     alt: "한약 파우치와 간을 함께 살피는 그림",
   },
   answer:
-    "한의사가 진찰하고 처방한 한약으로 간에 문제가 생기는 경우는 드뭅니다. 국내 연구에서도 한약을 복용한 입원 환자의 99% 이상은 한약으로 인한 간 손상에 해당하지 않았습니다. 드시는 약과 건강 상태를 확인하고 처방하니 안심하고 상담받으셔도 됩니다.",
+    "한의사가 진찰하고 처방한 한약으로 간에 문제가 생기는 경우는 드뭅니다. 한방병원 입원 환자 6,894명을 분석한 국내 연구에서도 간 기능이 정상이던 분들에게 간 손상이 생긴 경우는 적었습니다. 드시는 약과 건강 상태를 확인하고 처방하니 안심하고 상담받으셔도 됩니다.",
   body: [
     { t: "p", text:
       "한약을 권해 드리면 간 걱정 때문에 망설이시는 분들이 계십니다. " +
@@ -155,11 +155,12 @@ const herbLiver: Column = {
       "몸에 들어가는 대부분의 약은 간에서 대사됩니다. 진통제, 감기약, 영양제도 마찬가지입니다. " +
       "그래서 중요한 것은 「한약이냐 아니냐」보다 " +
       "「누가 진찰하고 처방했는지, 어떤 약재인지, 무엇과 함께 드시는지」입니다." },
-    { t: "h", text: "국내 연구에서는" },
+    { t: "h", text: "국내 대규모 연구에서는" },
     { t: "p", text:
-      "2013년부터 2016년까지 국내 10개 병원에서 한약을 처방받은 입원 환자 1,001명을 지켜본 연구에서, " +
-      "99% 이상은 한약으로 인한 간 손상 기준에 해당하지 않았습니다. 해당한 소수(0.6%)도 몸으로 느끼는 증상은 없었고 혈액검사로만 확인되었습니다. " +
-      "처방 전에 확인하고 복용 중에 살피면 충분히 관리할 수 있는 수준입니다." },
+      "자생한방병원 연구팀이 2005년부터 2013년까지 7개 한방병원에 근골격계 질환으로 입원해 한약을 복용한 " +
+      "환자 6,894명의 입원·퇴원 때 간 기능 검사를 분석했습니다. 입원 때 간 기능이 정상이던 분들에게서 " +
+      "간 손상이 생긴 경우는 드물었고, 입원 때 이미 간 수치가 높았던 354명은 퇴원할 때 129명으로 줄었습니다. " +
+      "연구진은 한약이 대부분의 환자에서 기존의 간 손상을 악화시키지 않았다고 정리했습니다." },
     { t: "note", tone: "check", title: "직접 구해 드시는 약재는 권하지 않습니다", text:
       "시장이나 인터넷에서 산 약재를 임의로 달여 드시거나, 지인이 좋다고 준 약을 그대로 드시는 것은 " +
       "용량과 배합을 확인하지 않은 상태라 권하지 않습니다. 궁금한 약이 있으면 가져오셔서 물어봐 주세요." },
@@ -177,8 +178,8 @@ const herbLiver: Column = {
   ],
   references: [
     {
-      cite: "Cho JH, Oh DS, et al. A nationwide study of the incidence rate of herb-induced liver injury in Korea. Archives of Toxicology. 2017;91(12):4009–4015.",
-      url: "https://doi.org/10.1007/s00204-017-2007-9",
+      cite: "Lee J, Shin JS, Kim MR, et al. Liver enzyme abnormalities in taking traditional herbal medicine in Korea: a retrospective large sample cohort study of musculoskeletal disorder patients. Journal of Ethnopharmacology. 2015;169:407–412.",
+      url: "https://pubmed.ncbi.nlm.nih.gov/?term=Liver+enzyme+abnormalities+in+taking+traditional+herbal+medicine+in+Korea",
     },
   ],
 };
