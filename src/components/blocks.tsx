@@ -29,18 +29,15 @@ export function Blocks({ blocks }: { blocks: Block[] }) {
             </ul>
           );
         // note
-        const warn = b.tone === "warn";
+        const box = {
+          warn: "border border-rust-line border-l-rust bg-rust-soft",
+          check: "border border-ochre-line border-l-ochre bg-ochre-soft",
+          info: "border border-herb/15 border-l-herb bg-tint",
+        }[b.tone];
+        const ink = { warn: "text-rust", check: "text-ochre", info: "text-herb" }[b.tone];
         return (
-          <aside
-            key={i}
-            className={
-              "rounded-2xl border-l-[3px] p-6 " +
-              (warn
-                ? "border border-rust-line border-l-rust bg-rust-soft"
-                : "border border-herb/15 border-l-herb bg-tint")
-            }
-          >
-            <p className={"kr font-bold " + (warn ? "text-rust" : "text-herb")}>{b.title}</p>
+          <aside key={i} className={"rounded-2xl border-l-[3px] p-6 " + box}>
+            <p className={"kr font-bold " + ink}>{b.title}</p>
             <p className="kr mt-2 text-[15px] leading-8">{b.text}</p>
           </aside>
         );

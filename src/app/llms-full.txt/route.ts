@@ -139,7 +139,7 @@ export function GET() {
         blocks(c.body),
         `#### ${CLINIC.name}에서는 이렇게 봅니다\n\n${blocks(c.clinic)}`,
         c.references.length
-          ? `참고문헌:\n${list(c.references.map((r) => `${r.cite} ${r.url} — ${r.used}`))}`
+          ? `참고문헌:\n${list(c.references.map((r) => `${r.cite} ${r.url}`))}`
           : "",
       ]
         .filter(Boolean)

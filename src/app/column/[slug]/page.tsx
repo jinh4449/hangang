@@ -123,7 +123,6 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
                     >
                       {r.cite}
                     </a>
-                    <p className="kr mt-1 text-muted">칼럼에 반영한 내용 · {r.used}</p>
                   </div>
                 </li>
               ))}

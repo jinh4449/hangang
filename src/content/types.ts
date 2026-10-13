@@ -178,7 +178,12 @@ export type Block =
   | { t: "p"; text: string }
   | { t: "h"; text: string }
   | { t: "ul"; items: string[] }
-  | { t: "note"; tone: "warn" | "info"; title: string; text: string };
+  /**
+   * warn  — 붉은 상자. 증상·치료 안내의 위험 신호에만 쓴다
+   * check — 황토 상자. 칼럼의 「검사를 함께 권하는 경우」. 겁주지 않고 차분하게
+   * info  — 초록 상자. 덧붙이는 설명
+   */
+  | { t: "note"; tone: "warn" | "info" | "check"; title: string; text: string };
 
 /**
  * 원장 칼럼.
@@ -223,8 +228,6 @@ export type Reference = {
   cite: string;
   /** DOI·PubMed·PMC 주소 */
   url: string;
-  /** 이 칼럼에 가져온 내용 한 줄 */
-  used: string;
 };
 
 /**
