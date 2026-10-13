@@ -116,6 +116,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
         <Blocks blocks={c.body} />
 
         {/* 저희 진료. 원장 사진과 이름을 머리에 두어 「누가 이렇게 본다」가 보이게 한다 */}
+        {c.clinic.length > 0 && (
         <section className="mt-16 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-herb-deep via-herb to-[#2b6e55] p-[1px] shadow-[0_24px_60px_-30px_rgba(22,65,47,0.55)]">
           <div className="rounded-[calc(1.75rem-1px)] bg-gradient-to-b from-tint via-surface to-surface px-6 pb-7 pt-7 sm:px-8">
             <div className="flex items-center gap-3">
@@ -144,6 +145,7 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
             </div>
           </div>
         </section>
+        )}
 
         {c.references.length > 0 && (
           <Section title="참고문헌">

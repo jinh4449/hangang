@@ -137,7 +137,7 @@ export function GET() {
         `${author ? `${author.name} ${author.role} · ` : ""}${c.updated ?? c.date}`,
         `결론: ${c.answer}`,
         blocks(c.body),
-        `#### ${CLINIC.name}에서는 이렇게 봅니다\n\n${blocks(c.clinic)}`,
+        c.clinic.length ? `#### ${CLINIC.name}에서는 이렇게 봅니다\n\n${blocks(c.clinic)}` : "",
         c.references.length
           ? `참고문헌:\n${list(c.references.map((r) => `${r.cite} ${r.url}`))}`
           : "",
