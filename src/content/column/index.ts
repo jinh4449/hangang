@@ -3,7 +3,7 @@ import { QUESTION_COLUMNS } from "./questions";
 
 /** 새 칼럼은 파일 하나를 추가하고 COLUMNS 에 넣으면 목록·사이트맵·RSS 에 자동 반영된다 */
 
-// TODO: 작성자 배정은 임의로 넣었다. 실제 집필자에 맞게 authorKey 를 교체할 것
+// 글쓴이: 통증·초음파·교통사고는 이진희(lee), 한약·소화·피로·소아·다이어트는 왕소정(wang)
 const nextDayPain: Column = {
   slug: "sore-after-treatment",
   authorKey: "lee",
@@ -12,6 +12,12 @@ const nextDayPain: Column = {
   summary: "치료 다음 날의 뻐근함은 흔한 반응입니다. 다만 구분해야 할 통증이 따로 있습니다.",
   date: "2026-08-11",
   symptomSlugs: ["pain", "car-accident"],
+  image: {
+    src: "/column-sore-after.svg",
+    w: 800,
+    h: 500,
+    alt: "치료 다음 날 잠깐 올라갔다가 며칠에 걸쳐 내려가는 통증 곡선",
+  },
   body: [
     { t: "p", text:
       "진료실에서 가장 많이 듣는 말 중 하나입니다. 치료를 받고 다음 날 오히려 뻐근하거나 " +
@@ -58,6 +64,12 @@ const howManySessions: Column = {
      검색엔진이 신호로 쓰지 않는다 */
   updated: "2026-09-04",
   symptomSlugs: ["pain"],
+  image: {
+    src: "/column-sessions.svg",
+    w: 800,
+    h: 500,
+    alt: "치료 회차가 지날수록 낮아지는 통증을 막대로 그린 그림",
+  },
   body: [
     { t: "p", text:
       "가장 자주 받는 질문입니다. 상태에 따라 달라서 숫자를 못박기는 어렵지만, " +
@@ -88,6 +100,12 @@ const herbLiver: Column = {
   summary: "묻지 않고 그냥 거절하시는 분이 많아 먼저 정리했습니다. 확인하고 넘어가야 할 부분은 분명히 있습니다.",
   date: "2026-08-19",
   symptomSlugs: ["pain", "indigestion", "fatigue"],
+  image: {
+    src: "/column-herb-liver.svg",
+    w: 800,
+    h: 500,
+    alt: "한약 파우치와 간을 함께 살피는 그림",
+  },
   body: [
     { t: "p", text:
       "한약을 권해드리면 표정이 굳는 분들이 계십니다. 대개 이 이야기 때문입니다. " +
@@ -126,12 +144,18 @@ const herbLiver: Column = {
 
 const ultrasoundWhat: Column = {
   slug: "what-ultrasound-shows",
-  authorKey: "wang",
+  authorKey: "lee",
   title: "한의원에서 초음파로 무엇을 보나요",
   question: "한의원 초음파",
   summary: "X-ray에 안 나오는데 계속 아픈 이유를 설명드립니다.",
   date: "2026-08-22",
   symptomSlugs: ["pain", "car-accident"],
+  image: {
+    src: "/column-ultrasound.svg",
+    w: 800,
+    h: 500,
+    alt: "초음파 탐촉자와 화면에 보이는 근육·힘줄 층",
+  },
   body: [
     { t: "p", text:
       "「검사에서는 이상이 없다는데 계속 아프다」는 말씀을 자주 듣습니다. " +

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { columnsByDate } from "@/content/column";
 import { CLINIC } from "@/content/clinic";
@@ -52,30 +53,60 @@ export default function ColumnIndex() {
           title="진료실에서 자주 받는 질문"
           lede="묻기 애매해서 그냥 넘어가시는 것들을 먼저 꺼내 정리했습니다."
         />
-        <div className="mt-10 border-t border-line">
-          {list.map((c) => (
-            <Link
-              key={c.slug}
-              href={`/column/${c.slug}`}
-              className="group grid gap-2 border-b border-line py-7 transition-colors hover:bg-surface"
-            >
-              <div className="flex flex-wrap items-center gap-3 font-mono text-sm text-faint">
-                <time dateTime={c.date} className="tabular-nums">
-                  {fmtDate(c.date)}
-                </time>
-                <span aria-hidden="true">·</span>
-                <span>{readingMinutes(c.body)}분</span>
-                <span aria-hidden="true">·</span>
-                <span>
-                  {CLINIC.doctors.find((d) => d.key === c.authorKey)?.name ?? CLINIC.name}
-                </span>
-              </div>
-              <h2 className="kr text-xl font-bold leading-snug transition-colors group-hover:text-herb">
-                {c.title}
-              </h2>
-              <p className="kr max-w-[56ch] text-[16px] leading-7 text-muted">{c.summary}</p>
-            </Link>
-          ))}
+        {/* 카드. 그림으로 무슨 글인지 먼저 알리고, 아래에 누가 언제 썼는지를 둔다.
+            의료 글은 「누가 썼나」가 믿을지를 가르는 첫 단서다 */}
+        <div className="mt-10 grid gap-5 sm:grid-cols-2">
+          {list.map((c) => {
+            const author = CLINIC.doctors.find((d) => d.key === c.authorKey);
+            return (
+              <Link
+                key={c.slug}
+                href={`/column/${c.slug}`}
+                className="group flex flex-col overflow-hidden rounded-[1.5rem] bg-surface ring-1 ring-line transition-shadow hover:ring-herb"
+              >
+                <div className="aspect-[8/5] overflow-hidden bg-tint">
+                  {c.image ? (
+                    <Image
+                      src={c.image.src}
+                      width={c.image.w}
+                      height={c.image.h}
+                      alt={c.image.alt}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  ) : null}
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <h2 className="kr text-[19px] font-bold leading-snug transition-colors group-hover:text-herb">
+                    {c.title}
+                  </h2>
+                  <p className="kr mt-2 line-clamp-2 text-[15px] leading-7 text-muted">{c.summary}</p>
+                  <div className="mt-5 flex items-center gap-3 border-t border-line pt-4">
+                    {author && (
+                      <Image
+                        src={author.photo.src}
+                        width={author.photo.w}
+                        height={author.photo.h}
+                        alt=""
+                        className="h-10 w-10 shrink-0 rounded-full object-cover object-top ring-1 ring-line"
+                      />
+                    )}
+                    <div className="min-w-0 leading-tight">
+                      <p className="kr text-[14px] font-semibold">
+                        {author ? `${author.name} ${author.role}` : CLINIC.name}
+                      </p>
+                      <p className="mt-1 font-mono text-[12px] text-faint">
+                        <time dateTime={c.date} className="tabular-nums">
+                          {fmtDate(c.date)}
+                        </time>
+                        <span aria-hidden="true"> · </span>
+                        {readingMinutes(c.body)}분
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
         <Cta />
       </article>
