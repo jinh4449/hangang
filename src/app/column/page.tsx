@@ -76,10 +76,15 @@ export default function ColumnIndex() {
                   ) : null}
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <h2 className="kr text-[19px] font-bold leading-snug transition-colors group-hover:text-herb">
+                  {/* 카드 높이를 맞추려고 제목은 한 줄, 요약은 두 줄 높이로 고정한다.
+                      잘린 제목은 title 로 전체를 띄운다 */}
+                  <h2
+                    title={c.title}
+                    className="kr truncate text-[19px] font-bold leading-snug transition-colors group-hover:text-herb"
+                  >
                     {c.title}
                   </h2>
-                  <p className="kr mt-2 line-clamp-2 text-[15px] leading-7 text-muted">{c.summary}</p>
+                  <p className="kr mt-2 line-clamp-2 min-h-[3.5rem] text-[15px] leading-7 text-muted">{c.summary}</p>
                   <div className="mt-5 flex items-center gap-3 border-t border-line pt-4">
                     {author && (
                       <Image
@@ -99,7 +104,7 @@ export default function ColumnIndex() {
                           {fmtDate(c.date)}
                         </time>
                         <span aria-hidden="true"> · </span>
-                        {readingMinutes(c.body)}분
+                        {readingMinutes([...c.body, ...c.clinic])}분
                       </p>
                     </div>
                   </div>

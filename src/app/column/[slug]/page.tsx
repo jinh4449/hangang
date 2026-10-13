@@ -60,6 +60,13 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           },
           publisher: { "@id": `${SITE_URL}/#clinic` },
           mainEntityOfPage: `${SITE_URL}/column/${c.slug}`,
+          // 결론 문단. AI 검색이 이 글의 답으로 가져가는 자리다
+          abstract: c.answer,
+          citation: c.references.map((r) => ({
+            "@type": "ScholarlyArticle",
+            name: r.cite,
+            url: r.url,
+          })),
         }}
       />
       <JsonLd
@@ -76,19 +83,53 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           <h1 className="kr text-3xl font-bold leading-tight tracking-tight text-balance sm:text-[2.4rem]">
             {c.title}
           </h1>
-          <p className="kr mt-5 max-w-[52ch] text-[18px] leading-8 text-muted">{c.summary}</p>
           <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-sm text-faint">
             <time dateTime={c.date} className="tabular-nums">
               {fmtDate(c.date)}
             </time>
             <span aria-hidden="true">·</span>
-            <span>{readingMinutes(c.body)}분</span>
+            <span>{readingMinutes([...c.body, ...c.clinic])}분</span>
             <span aria-hidden="true">·</span>
             <span>{author ? `${author.name} ${author.role}` : CLINIC.name}</span>
           </div>
         </header>
 
+        {/* 결론 먼저. 제목을 보고 들어온 사람이 첫 화면에서 답을 얻게 한다 */}
+        <section aria-label="결론" className="mt-9 rounded-2xl border border-herb/25 bg-tint p-6 sm:p-7">
+          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-herb">결론부터 말씀드리면</p>
+          <p className="kr mt-3 text-[17.5px] font-medium leading-8">{c.answer}</p>
+        </section>
+
         <Blocks blocks={c.body} />
+
+        <Section title="김포한강한의원에서는 이렇게 봅니다">
+          <div className="rounded-2xl bg-surface px-6 pb-2 pt-1 ring-1 ring-line sm:px-8">
+            <Blocks blocks={c.clinic} />
+          </div>
+        </Section>
+
+        {c.references.length > 0 && (
+          <Section title="참고문헌">
+            <ol className="grid gap-4">
+              {c.references.map((r, i) => (
+                <li key={r.url} className="grid grid-cols-[1.75rem_1fr] gap-x-2 text-[14.5px] leading-7">
+                  <span className="font-mono text-faint">{i + 1}.</span>
+                  <div>
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="break-words text-ink underline decoration-line underline-offset-4 hover:decoration-herb"
+                    >
+                      {r.cite}
+                    </a>
+                    <p className="kr mt-1 text-muted">칼럼에 반영한 내용 · {r.used}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Section>
+        )}
 
         {c.symptomSlugs.length > 0 && (
           <Section title="관련 진료">

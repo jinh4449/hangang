@@ -201,7 +201,30 @@ export type Column = {
   symptomSlugs: string[];
   /** 목록에 카드로 세울 때 쓰는 삽화. 없으면 글자만으로 세운다 */
   image?: { src: string; w: number; h: number; alt: string };
+  /**
+   * 결론 먼저. 제목 바로 아래 상자에 선다. 질문에 대한 답을 두세 문장으로.
+   * AI 검색은 이 문단을 그대로 답으로 가져간다고 보고 쓴다
+   */
+  answer: string;
+  /** 본문. 왜 그런지, 무엇을 구분해야 하는지, 연구는 무엇을 보여 주는지 */
   body: Block[];
+  /** 「김포한강한의원에서는 이렇게 봅니다」. 저희가 실제로 하는 진료만 적는다 */
+  clinic: Block[];
+  /**
+   * 참고문헌. 의학적 내용이면 최소 한 편. 본문에 그 논문의 내용을 실제로
+   * 적용해 쓰고, 여기에는 무엇을 가져왔는지를 적는다. 확인하지 않은 논문은
+   * 적지 않는다 — 없는 논문을 인용하는 것이 인용이 없는 것보다 나쁘다
+   */
+  references: Reference[];
+};
+
+export type Reference = {
+  /** 저자. 제목. 학술지. 연도;권(호):쪽. */
+  cite: string;
+  /** DOI·PubMed·PMC 주소 */
+  url: string;
+  /** 이 칼럼에 가져온 내용 한 줄 */
+  used: string;
 };
 
 /**

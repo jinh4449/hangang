@@ -135,9 +135,15 @@ export function GET() {
         `### ${c.title}`,
         source(`/column/${c.slug}`),
         `${author ? `${author.name} ${author.role} · ` : ""}${c.updated ?? c.date}`,
-        c.summary,
+        `결론: ${c.answer}`,
         blocks(c.body),
-      ].join("\n\n");
+        `#### ${CLINIC.name}에서는 이렇게 봅니다\n\n${blocks(c.clinic)}`,
+        c.references.length
+          ? `참고문헌:\n${list(c.references.map((r) => `${r.cite} ${r.url} — ${r.used}`))}`
+          : "",
+      ]
+        .filter(Boolean)
+        .join("\n\n");
     })
     .join("\n\n");
 
