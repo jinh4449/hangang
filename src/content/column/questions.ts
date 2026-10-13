@@ -1,7 +1,7 @@
 import type { Column } from "../types";
 
 /**
- * 진료실에서 실제로 받는 여섯 질문.
+ * 진료실에서 실제로 받는 질문들.
  *
  * 메인에 카드로 세우는 글들이라 삽화를 함께 둔다. 틀과 말투는 index.ts 의
  * 머리 주석을 따른다. 결론을 먼저 주고, 겁주지 않는다.
@@ -153,64 +153,6 @@ const xrayNormal: Column = {
     {
       cite: "Brinjikji W, Luetmer PH, Comstock B, et al. Systematic literature review of imaging features of spinal degeneration in asymptomatic populations. AJNR American Journal of Neuroradiology. 2015;36(4):811–816.",
       url: "https://doi.org/10.3174/ajnr.A4173",
-    },
-  ],
-};
-
-const settlement: Column = {
-  slug: "settle-while-still-hurting",
-  authorKey: "lee",
-  title: "아직 아픈데 합의해도 되는지",
-  question: "교통사고 합의를 언제 해야 하나요",
-  summary:
-    "통증이 남아 있다면 서두르실 이유가 없습니다. 합의 전에 확인해 두실 것을 정리했습니다.",
-  date: "2026-07-10",
-  symptomSlugs: ["car-accident"],
-  image: {
-    src: "/column-settlement.svg",
-    w: 800,
-    h: 500,
-    alt: "서명란이 비어 있는 합의서와 시계를 그린 그림",
-  },
-  answer:
-    "통증이 남아 있다면 합의를 서두르실 이유가 없습니다. 합의 전까지는 자동차보험으로 본인부담 없이 치료를 이어가실 수 있으니, 충분히 회복한 뒤 남은 증상을 정리해서 결정하시면 됩니다. 합의 금액과 시점은 보험사나 손해사정사와 상의하실 부분입니다.",
-  body: [
-    { t: "p", text:
-      "치료를 시작한 지 얼마 되지 않았는데 보험사에서 합의 이야기가 나왔다며 물으시는 분이 많습니다. " +
-      "아직 아프시다면 서두르실 이유가 없습니다. 합의는 보통 치료가 어느 정도 마무리된 뒤에 합니다." },
-    { t: "h", text: "먼저 분명히 해 둘 것" },
-    { t: "p", text:
-      "저희는 한의원이지 보상 대리인이 아닙니다. 합의 금액이 적절한지, 언제 합의하는 것이 유리한지는 " +
-      "보험사 담당자나 손해사정사와 상의하실 부분입니다." },
-    { t: "h", text: "합의 전에 확인해 두실 것" },
-    { t: "ul", items: [
-      "합의서에 앞으로의 치료비가 포함되어 있는지 — 포함되어 있으면 그 뒤의 치료비는 따로 청구하기 어렵습니다.",
-      "지금 남아 있는 증상이 무엇인지, 어느 동작에서 불편한지.",
-      "통증이 줄어든 것인지, 회복이 마무리된 것인지.",
-    ]},
-    { t: "h", text: "회복에는 사람마다 시간이 다릅니다" },
-    { t: "p", text:
-      "편타손상 연구를 종합한 2008년 국제 보고에서는 처음 통증이 클수록 회복에 시간이 더 걸렸습니다. " +
-      "몇 주 만에 통증이 줄었더라도 남은 불편이 있다면 조금 더 지켜보고 결정하셔도 늦지 않습니다." },
-    { t: "note", tone: "info", title: "합의 전까지는 치료를 이어가실 수 있습니다", text:
-      "자동차보험 치료는 합의 전까지 계속 받으실 수 있고 본인부담금이 없습니다. " +
-      "통증이 남아 있는데 치료를 멈추고 합의부터 하실 필요는 없습니다." },
-  ],
-  clinic: [
-    { t: "p", text:
-      "저희가 할 수 있는 것은 지금 상태가 어떤지, 어떤 치료를 얼마나 받았는지, " +
-      "앞으로 어느 정도가 더 필요해 보이는지를 진료 기록으로 정확히 남기는 일입니다. " +
-      "판단에 필요한 자료를 만들어 드리는 것까지가 저희 몫입니다." },
-    { t: "p", text:
-      "다 나았는데 습관처럼 계속 다니시는 것도 권하지 않습니다. " +
-      "치료가 마무리되면 마무리됐다고 말씀드립니다. 그 시점을 알려드리는 것도 진료의 일부입니다." },
-    { t: "p", text:
-      "필요한 서류와 진료 기록은 요청하시면 준비해 드립니다." },
-  ],
-  references: [
-    {
-      cite: "Carroll LJ, Holm LW, Hogg-Johnson S, et al. Course and prognostic factors for neck pain in whiplash-associated disorders (WAD): results of the Bone and Joint Decade 2000–2010 Task Force on Neck Pain and Its Associated Disorders. Spine. 2008;33(4 Suppl):S83–S92.",
-      url: "https://pubmed.ncbi.nlm.nih.gov/18204405/",
     },
   ],
 };
@@ -396,11 +338,10 @@ const dietPalpitations: Column = {
   ],
 };
 
-/** 메인에 카드로 세우는 여섯 질문. 순서는 화면에 놓이는 순서다 */
+/** 질문형 칼럼. 첫 화면에는 이 중 최신 여섯 편이 선다(homeColumns) */
 export const QUESTION_COLUMNS: Column[] = [
   crashNeck,
   xrayNormal,
-  settlement,
   fatigueLabs,
   backSurgery,
   dietPalpitations,

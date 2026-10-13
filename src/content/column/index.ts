@@ -161,6 +161,10 @@ const herbLiver: Column = {
       "환자 6,894명의 입원·퇴원 때 간 기능 검사를 분석했습니다. 입원 때 간 기능이 정상이던 분들에게서 " +
       "간 손상이 생긴 경우는 드물었고, 입원 때 이미 간 수치가 높았던 354명은 퇴원할 때 129명으로 줄었습니다. " +
       "연구진은 한약이 대부분의 환자에서 기존의 간 손상을 악화시키지 않았다고 정리했습니다." },
+    { t: "p", text:
+      "2013년부터 2016년까지 국내 10개 병원에서 한약을 처방받은 입원 환자 1,001명을 지켜본 전국 단위 연구에서도, " +
+      "99% 이상은 한약으로 인한 간 손상 기준에 해당하지 않았습니다. 해당한 소수(0.6%)도 몸으로 느끼는 증상은 없었고 혈액검사로만 확인되었습니다. " +
+      "처방 전에 확인하고 복용 중에 살피면 충분히 관리할 수 있는 수준입니다." },
     { t: "note", tone: "check", title: "직접 구해 드시는 약재는 권하지 않습니다", text:
       "시장이나 인터넷에서 산 약재를 임의로 달여 드시거나, 지인이 좋다고 준 약을 그대로 드시는 것은 " +
       "용량과 배합을 확인하지 않은 상태라 권하지 않습니다. 궁금한 약이 있으면 가져오셔서 물어봐 주세요." },
@@ -180,6 +184,10 @@ const herbLiver: Column = {
     {
       cite: "Lee J, Shin JS, Kim MR, et al. Liver enzyme abnormalities in taking traditional herbal medicine in Korea: a retrospective large sample cohort study of musculoskeletal disorder patients. Journal of Ethnopharmacology. 2015;169:407–412.",
       url: "https://pubmed.ncbi.nlm.nih.gov/?term=Liver+enzyme+abnormalities+in+taking+traditional+herbal+medicine+in+Korea",
+    },
+    {
+      cite: "Cho JH, Oh DS, et al. A nationwide study of the incidence rate of herb-induced liver injury in Korea. Archives of Toxicology. 2017;91(12):4009–4015.",
+      url: "https://doi.org/10.1007/s00204-017-2007-9",
     },
   ],
 };
@@ -296,3 +304,11 @@ export const columnsForPart = (partSlug: string) =>
 /** 최신순 */
 export const columnsByDate = () =>
   [...COLUMNS].sort((a, b) => (a.date < b.date ? 1 : -1));
+
+/**
+ * 첫 화면 Q&A 에 세우는 칼럼. 삽화가 있는 최신 여섯 편.
+ *
+ * 손으로 고르면 칼럼이 늘어도 첫 화면은 그대로 낡는다. 월·수·금 새 글이
+ * 올라오면 여기도 저절로 바뀐다. 여섯은 3열 두 줄을 꽉 채우는 수다.
+ */
+export const homeColumns = () => columnsByDate().filter((c) => c.image).slice(0, 6);
