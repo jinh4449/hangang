@@ -151,7 +151,7 @@ export default async function TermPage({ params }: PageProps<"/glossary/[slug]">
       {t.needsTests && t.needsTests.length > 0 && (
         <Section
           title="추가 검사가 필요한 경우"
-          note="아래에 해당하면 영상·혈액·내시경 같은 검사로 먼저 확인하시는 것이 좋습니다. 필요한 검사는 진료 때 안내해 드립니다."
+          note="아래에 해당하시면 추가 검사가 필요할 수 있습니다. 어떤 검사가 필요한지는 진료 때 안내해 드립니다."
         >
           <ul className="grid max-w-[62ch] gap-2 rounded-2xl border border-ochre-line bg-ochre-soft p-5">
             {t.needsTests.map((f) => (
