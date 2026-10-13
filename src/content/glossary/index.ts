@@ -63,3 +63,7 @@ export function chosung(term: string) {
   const c = CHOSUNG[Math.floor(code / 588)];
   return FOLD[c] ?? c;
 }
+
+/** 낱말마다 초성만 뽑아 잇는다. 「오십견」 → 「ㅇㅅㄱ」. 초성 검색에 쓴다 */
+export const initialsOf = (text: string) =>
+  [...text.replace(/\s+/g, "")].map((c) => (/[가-힣]/.test(c) ? chosung(c) : "")).join("");

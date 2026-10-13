@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { GLOSSARY, GLOSSARY_CATEGORIES, termsIn, chosung } from "@/content/glossary";
+import { GLOSSARY, GLOSSARY_CATEGORIES, termsIn, chosung, initialsOf } from "@/content/glossary";
+import { GlossaryBrowser, type BrowserTerm } from "@/components/glossary-browser";
 import { PageHead, Section, Cta, JsonLd } from "@/components/site";
 import { webPage, breadcrumb, definedTermSet } from "@/content/schema";
 
@@ -12,12 +13,15 @@ export const metadata: Metadata = {
 };
 
 export default function GlossaryIndex() {
-  // 가나다 색인. GLOSSARY 는 이미 가나다순이라 순서대로 묶기만 하면 된다
-  const groups = new Map<string, typeof GLOSSARY>();
-  for (const t of GLOSSARY) {
-    const k = chosung(t.term);
-    groups.set(k, [...(groups.get(k) ?? []), t]);
-  }
+  // 검색에 필요한 만큼만 넘긴다. 풀이 본문까지 넘기면 첫 화면이 무거워진다
+  const browse: BrowserTerm[] = GLOSSARY.map((t) => ({
+    slug: t.slug,
+    term: t.term,
+    aka: t.aka ?? [],
+    short: t.short,
+    ch: chosung(t.term),
+    initials: [t.term, ...(t.aka ?? [])].map(initialsOf).join(" "),
+  }));
 
   return (
     <>
@@ -37,67 +41,29 @@ export default function GlossaryIndex() {
           lede="진료실에서 듣는 이름이 무엇을 뜻하는지 한 문장으로 먼저 답하고, 아래에 풀어 적었습니다. 추가 검사가 필요한 경우도 숨기지 않고 함께 적었습니다."
         />
 
-        <Section title="분류로 찾기">
-          <div className="grid gap-3 sm:grid-cols-2">
-            {GLOSSARY_CATEGORIES.map((c) => {
-              const n = termsIn(c.slug).length;
-              if (n === 0) return null;
-              return (
-                <Link
-                  key={c.slug}
-                  href={`/glossary/category/${c.slug}`}
-                  className="tile block bg-surface p-6"
-                >
-                  <span className="flex items-baseline justify-between gap-3">
-                    <span className="kr text-lg font-bold">{c.name}</span>
-                    <span className="font-mono text-xs text-faint">{n}개</span>
-                  </span>
-                  <span className="kr mt-1.5 block text-[15px] leading-7 text-muted">{c.blurb}</span>
-                </Link>
-              );
-            })}
-          </div>
+        {/* 분류는 단추 한 줄로 둔다. 카드로 세우면 검색창이 화면 밖으로 밀린다 */}
+        <nav aria-label="분류" className="mt-8 flex flex-wrap gap-2">
+          {GLOSSARY_CATEGORIES.map((c) => {
+            const n = termsIn(c.slug).length;
+            if (n === 0) return null;
+            return (
+              <Link
+                key={c.slug}
+                href={`/glossary/category/${c.slug}`}
+                title={c.blurb}
+                className="badge inline-flex items-baseline gap-1.5 rounded-full border border-line bg-surface px-4 py-2 text-sm hover:border-herb"
+              >
+                {c.name}
+                <span className="font-mono text-[11px] text-faint">{n}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <Section title="용어 찾기">
+          <GlossaryBrowser terms={browse} />
         </Section>
 
-        <Section title="가나다로 찾기">
-          <nav aria-label="초성 색인" className="flex flex-wrap gap-1.5">
-            {[...groups.keys()].map((k) => (
-              <a
-                key={k}
-                href={`#idx-${k}`}
-                className="grid h-9 min-w-9 place-items-center rounded-full border border-line bg-surface px-2 text-sm hover:border-herb"
-              >
-                {k}
-              </a>
-            ))}
-          </nav>
-          <div className="mt-8 grid gap-8">
-            {[...groups.entries()].map(([k, terms]) => (
-              <div key={k} id={`idx-${k}`} className="scroll-mt-28">
-                <h3 className="font-serif text-xl font-bold text-herb">{k}</h3>
-                <div className="mt-2 border-t border-line">
-                  {terms.map((t) => (
-                    <Link
-                      key={t.slug}
-                      href={`/glossary/${t.slug}`}
-                      className="group block border-b border-line py-4"
-                    >
-                      <span className="kr block text-[17px] font-bold leading-snug group-hover:text-herb">
-                        {t.term}
-                        {t.aka && t.aka.length > 0 && (
-                          <span className="ml-2 text-[14px] font-normal text-faint">
-                            {t.aka.slice(0, 2).join(" · ")}
-                          </span>
-                        )}
-                      </span>
-                      <span className="kr mt-1 block text-[15px] leading-7 text-muted">{t.short}</span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
         <Cta />
       </article>
     </>
