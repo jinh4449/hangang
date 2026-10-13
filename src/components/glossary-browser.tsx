@@ -53,8 +53,10 @@ export function GlossaryBrowser({ terms }: { terms: BrowserTerm[] }) {
     "grid h-9 min-w-9 place-items-center rounded-full border px-2.5 text-sm transition-colors " +
     (on ? "border-herb bg-herb text-white" : "border-line bg-surface hover:border-herb");
 
+  // data-* 는 미리보기(tools/preview)용이다. 미리보기는 React 를 걷어낸 정지
+  // 화면이라, 같은 거르기를 이 표시를 보고 작은 스크립트로 흉내 낸다
   return (
-    <div>
+    <div data-glossary>
       <label className="block">
         <span className="sr-only">용어 검색</span>
         <input
@@ -67,13 +69,14 @@ export function GlossaryBrowser({ terms }: { terms: BrowserTerm[] }) {
       </label>
 
       <div role="group" aria-label="초성으로 거르기" className="mt-4 flex flex-wrap gap-1.5">
-        <button type="button" onClick={() => setCh(null)} aria-pressed={ch === null} className={chip(ch === null)}>
+        <button type="button" data-ch-btn="" onClick={() => setCh(null)} aria-pressed={ch === null} className={chip(ch === null)}>
           전체
         </button>
         {keys.map((k) => (
           <button
             key={k}
             type="button"
+            data-ch-btn={k}
             onClick={() => setCh(ch === k ? null : k)}
             aria-pressed={ch === k}
             className={chip(ch === k)}
@@ -83,7 +86,7 @@ export function GlossaryBrowser({ terms }: { terms: BrowserTerm[] }) {
         ))}
       </div>
 
-      <p className="kr mt-4 text-sm text-faint" aria-live="polite">
+      <p className="kr mt-4 text-sm text-faint" aria-live="polite" data-gl-count={terms.length}>
         {shown.length === terms.length ? `${terms.length}개 용어` : `${shown.length}개 찾음`}
       </p>
 
@@ -94,11 +97,18 @@ export function GlossaryBrowser({ terms }: { terms: BrowserTerm[] }) {
       ) : (
         <div className="mt-6 grid gap-8">
           {groups.map(([k, list]) => (
-            <div key={k}>
+            <div key={k} data-gl-group>
               <h3 className="font-serif text-xl font-bold text-herb">{k}</h3>
               <div className="mt-2 border-t border-line">
                 {list.map((t) => (
-                  <Link key={t.slug} href={`/glossary/${t.slug}`} className="group block border-b border-line py-4">
+                  <Link
+                    key={t.slug}
+                    href={`/glossary/${t.slug}`}
+                    className="group block border-b border-line py-4"
+                    data-gl-ch={t.ch}
+                    data-gl-text={norm([t.term, ...t.aka, t.short].join(" "))}
+                    data-gl-initials={t.initials}
+                  >
                     <span className="kr block text-[17px] font-bold leading-snug group-hover:text-herb">
                       {t.term}
                       {t.aka.length > 0 && (

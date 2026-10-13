@@ -231,6 +231,37 @@ JS = """
     document.querySelectorAll('.ring-arc,.ring-label,.ring-fill').forEach(function(el){io.observe(el);});
   }
 
+  /* 용어사전 검색. 실제 사이트에서는 React 가 하는 일을 data-* 를 보고 흉내 낸다
+     (src/components/glossary-browser.tsx 와 같은 규칙) */
+  document.querySelectorAll('[data-glossary]').forEach(function(root){
+    var input=root.querySelector('input[type=search]');
+    var count=root.querySelector('[data-gl-count]');
+    var total=count?count.getAttribute('data-gl-count'):'';
+    var ch='';
+    function apply(){
+      var n=(input.value||'').toLowerCase().replace(/\s+/g,'');
+      var jamo=/^[\u3131-\u314e]+$/.test(n);
+      var shown=0;
+      root.querySelectorAll('[data-gl-ch]').forEach(function(a){
+        var ok=(!ch||a.getAttribute('data-gl-ch')===ch)&&(!n||(jamo?a.getAttribute('data-gl-initials'):a.getAttribute('data-gl-text')).indexOf(n)>=0);
+        a.hidden=!ok; if(ok)shown++;
+      });
+      root.querySelectorAll('[data-gl-group]').forEach(function(g){
+        g.hidden=!g.querySelector('[data-gl-ch]:not([hidden])');
+      });
+      root.querySelectorAll('[data-ch-btn]').forEach(function(b){
+        var on=b.getAttribute('data-ch-btn')===ch;
+        b.setAttribute('aria-pressed',on?'true':'false');
+        b.className=b.className.replace(/border-herb bg-herb text-white|border-line bg-surface hover:border-herb/,on?'border-herb bg-herb text-white':'border-line bg-surface hover:border-herb');
+      });
+      if(count)count.textContent=String(shown)===total?total+'개 용어':shown+'개 찾음';
+    }
+    input&&input.addEventListener('input',apply);
+    root.querySelectorAll('[data-ch-btn]').forEach(function(b){
+      b.addEventListener('click',function(){var k=b.getAttribute('data-ch-btn');ch=(ch===k&&k)?'':k;apply();});
+    });
+  });
+
   sel.addEventListener('change',function(){location.hash=sel.value;});
   window.addEventListener('hashchange',fromHash);
   document.addEventListener('click',function(e){
