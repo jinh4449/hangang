@@ -171,7 +171,7 @@ export function definedTermSet(terms: { slug: string; term: string; short: strin
     "@context": "https://schema.org",
     "@type": "DefinedTermSet",
     "@id": GLOSSARY_SET_ID,
-    name: `${CLINIC.name} 한방·통증 용어사전`,
+    name: `${CLINIC.name} 한의학 용어사전`,
     url: `${SITE_URL}/glossary`,
     inLanguage: "ko",
     publisher: CLINIC_REF,

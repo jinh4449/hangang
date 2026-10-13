@@ -4,7 +4,7 @@ import { PARTS } from "@/content/part";
 import { TREATMENTS } from "@/content/treatment";
 import { COMPARES } from "@/content/compare";
 import { columnsByDate } from "@/content/column";
-import { GLOSSARY } from "@/content/glossary";
+import { GLOSSARY_CATEGORIES, termsIn } from "@/content/glossary";
 import type { Block } from "@/content/types";
 
 /**
@@ -113,9 +113,9 @@ export function GET() {
     ].join("\n\n"),
   ).join("\n\n");
 
-  const glossary = GLOSSARY.map((t) =>
+  const glossary = GLOSSARY_CATEGORIES.map((c) => `### ${c.name}\n\n` + termsIn(c.slug).map((t) =>
     [
-      `### ${t.term}${t.aka?.length ? ` (${t.aka.join(", ")})` : ""}`,
+      `#### ${t.term}${t.aka?.length ? ` (${t.aka.join(", ")})` : ""}`,
       source(`/glossary/${t.slug}`),
       t.short,
       t.about.join("\n\n"),
@@ -125,7 +125,7 @@ export function GET() {
     ]
       .filter(Boolean)
       .join("\n\n"),
-  ).join("\n\n");
+  ).join("\n\n")).join("\n\n");
 
   const columns = columnsByDate()
     .map((c) => {
@@ -183,7 +183,7 @@ ${treatments}
 
 ${compares}
 
-## 용어사전
+## 한의학 용어사전
 
 ${glossary}
 

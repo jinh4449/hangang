@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { GLOSSARY, getTerm } from "@/content/glossary";
+import { GLOSSARY, getTerm, getCategory } from "@/content/glossary";
+import type { GlossaryTerm } from "@/content/glossary";
 import { getPart } from "@/content/part";
 import { getTreatment } from "@/content/treatment";
 import { getSymptom } from "@/content/symptoms";
@@ -13,13 +14,36 @@ import { medicalWebPage, faqPage, breadcrumb, definedTerm } from "@/content/sche
 
 export const generateStaticParams = () => GLOSSARY.map((t) => ({ slug: t.slug }));
 
+/**
+ * 검색 결과 제목. 「○○이란? — 무엇을 알려 주는지」 꼴로 쓴다.
+ *
+ * 비디치과가 서치콘솔로 잰 결과, 「단어 | 백과사전」 꼴 제목은 노출이 나와도
+ * 클릭률이 0.35% 였고 무엇을 답하는지 예고한 제목으로 바꾼 뒤에야 클릭이
+ * 붙었다. 제목이 정의만 약속하면 사람은 검색 결과에서 정의만 읽고 떠난다.
+ */
+function titleOf(t: GlossaryTerm) {
+  if (t.question) return `${t.question}?`;
+  const sick = t.category === "musculoskeletal" || t.category === "internal" || t.category === "accident";
+  const hook = sick
+    ? t.firstElsewhere?.length
+      ? "증상과 병원부터 가야 할 때"
+      : "뜻과 증상"
+    : t.firstElsewhere?.length
+      ? "뜻과 주의할 점"
+      : "뜻 풀이";
+  // 한글 다른 이름 하나만 괄호로. 한자나 이름에 이미 든 말은 붙이지 않는다
+  const aka = t.aka?.find((a) => /^[가-힣 ]{2,10}$/.test(a) && !t.term.includes(a) && !a.includes(t.term));
+  return `${t.term}${aka ? `(${aka})` : ""}${t.term.endsWith(")") ? "란" : withJosa(t.term, "이란").slice(t.term.length)}? ${hook}`;
+}
+
+/** 본문 첫 질문. 이름이면 「○○이란 무엇인가요」, 질문형 용어면 그 질문 */
+const askOf = (t: GlossaryTerm) => t.question ?? `${withJosa(t.term, "이란")} 무엇인가요`;
+
 export async function generateMetadata({ params }: PageProps<"/glossary/[slug]">): Promise<Metadata> {
   const t = getTerm((await params).slug);
   if (!t) return {};
-  const aka = t.aka?.length ? ` (${t.aka.join(", ")})` : "";
-  const what = t.category === "질환" ? "뜻과 증상" : "뜻";
   return {
-    title: `${withJosa(t.term, "이란")}? ${what}${aka}`,
+    title: titleOf(t),
     description: sentences(t.short),
     alternates: { canonical: `/glossary/${t.slug}` },
   };
@@ -38,10 +62,11 @@ export default async function TermPage({ params }: PageProps<"/glossary/[slug]">
   const symptom = t.symptomSlug ? getSymptom(t.symptomSlug) : undefined;
   const compare = t.compareSlug ? getCompare(t.compareSlug) : undefined;
   const see = (t.see ?? []).map(getTerm).filter((x) => x !== undefined);
+  const cat = getCategory(t.category)!;
 
   // 화면에 보이는 문답만 스키마에 넣는다 (schema.ts 의 FAQPage 규칙)
   const faq = [
-    { q: `${withJosa(t.term, "이란")} 무엇인가요?`, a: `${t.short} ${t.about.join(" ")}` },
+    { q: `${askOf(t)}?`, a: `${t.short} ${t.about.join(" ")}` },
     ...(t.firstElsewhere?.length
       ? [
           {
@@ -59,24 +84,31 @@ export default async function TermPage({ params }: PageProps<"/glossary/[slug]">
         data={medicalWebPage({
           name: t.term,
           description: t.short,
-          condition: t.category === "질환" ? t.term : undefined,
+          condition: t.category === "musculoskeletal" || t.category === "internal" ? t.term : undefined,
           path,
         })}
       />
       <JsonLd data={faqPage(faq, path)} />
       <JsonLd
         data={breadcrumb([
-          { name: "용어사전", path: "/glossary" },
+          { name: "한의학 용어사전", path: "/glossary" },
+          { name: cat.name, path: `/glossary/category/${cat.slug}` },
           { name: t.term, path },
         ])}
       />
 
-      <Link href="/glossary" className="font-mono text-xs text-herb hover:underline">
-        ← 용어사전
-      </Link>
+      <p className="font-mono text-xs text-herb">
+        <Link href="/glossary" className="hover:underline">
+          한의학 용어사전
+        </Link>
+        {" / "}
+        <Link href={`/glossary/category/${cat.slug}`} className="hover:underline">
+          {cat.name}
+        </Link>
+      </p>
       <div className="mt-6">
         <PageHead
-          eyebrow={[t.category, ...(t.english ? [t.english] : [])].join(" · ")}
+          eyebrow={[cat.name, ...(t.english ? [t.english] : [])].join(" · ")}
           title={t.term}
           lede={t.short}
         />
@@ -85,7 +117,7 @@ export default async function TermPage({ params }: PageProps<"/glossary/[slug]">
         <p className="kr mt-4 text-[15px] text-faint">다른 이름 · {t.aka.join(", ")}</p>
       )}
 
-      <Section title={`${withJosa(t.term, "이란")} 무엇인가요`}>
+      <Section title={askOf(t)}>
         <div className="grid max-w-[62ch] gap-4">
           {t.about.map((p) => (
             <p key={p} className="kr text-[16.5px] leading-8 text-muted">
