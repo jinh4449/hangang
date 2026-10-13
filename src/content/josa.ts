@@ -8,6 +8,7 @@ const PAIRS = {
   을를: ["을", "를"],
   과와: ["과", "와"],
   으로로: ["으로", "로"],
+  이란: ["이란", "란"],
 } as const;
 
 function hasFinal(word: string) {

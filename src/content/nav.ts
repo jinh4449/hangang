@@ -60,6 +60,7 @@ export const NAV: NavEntry[] = [
         links: [
           { label: "통증 · 근골격", href: "/part" },
           { label: "치료 방법", href: "/treatment" },
+          { label: "용어사전", href: "/glossary" },
         ],
       },
     ],

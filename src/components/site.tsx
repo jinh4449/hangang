@@ -338,6 +338,7 @@ const FOOTER_NAV = [
     links: [
       { label: "통증 · 근골격", href: "/part" },
       { label: "치료 방법", href: "/treatment" },
+      { label: "용어사전", href: "/glossary" },
       { label: "원장 칼럼", href: "/column" },
     ],
   },

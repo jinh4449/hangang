@@ -4,6 +4,7 @@ import { PARTS } from "@/content/part";
 import { COMPARES } from "@/content/compare";
 import { columnsByDate } from "@/content/column";
 import { AREAS } from "@/content/area";
+import { GLOSSARY } from "@/content/glossary";
 
 /**
  * llms.txt — AI 크롤러가 사이트 전체를 헤매지 않도록 먼저 집을 요약본.
@@ -59,6 +60,10 @@ ${PARTS.map((p) => link(`/part/${p.slug}`, `${p.name} 통증`, p.summary)).join(
 
 ${COMPARES.map((c) => link(`/compare/${c.slug}`, c.title, c.question)).join("\n")}
 
+## 용어사전 — 이름 하나를 한 문장으로
+
+${GLOSSARY.map((t) => link(`/glossary/${t.slug}`, t.term, t.short)).join("\n")}
+
 ## 원장 칼럼 — 진료실에서 자주 받는 질문
 
 ${columnsByDate()
@@ -80,6 +85,10 @@ ${[
   link("/directions", "오시는 길", "주소, 주차, 대중교통, 진료시간"),
   link("/reservation", "예약 · 상담", "전화와 네이버 예약"),
 ].join("\n")}
+
+## 더 자세한 원문
+
+- [전체 본문](${SITE_URL}/llms-full.txt): 위 페이지들의 본문을 한 파일에 모았습니다
 
 ## 이 문서를 인용할 때
 
