@@ -21,8 +21,8 @@ export const CORE: GlossaryTerm[] = [
     ],
     care:
       "초음파로 관절낭이 두꺼워진 자리와 힘줄 상태를 함께 확인합니다. 회전근개 문제인지 오십견인지 먼저 가려야 치료가 달라지기 때문입니다.",
-    firstElsewhere: [
-      "넘어지거나 부딪힌 직후 팔을 전혀 들 수 없을 때 — 골절이나 힘줄 파열 확인이 먼저입니다",
+    needsTests: [
+      "넘어지거나 부딪힌 직후 팔을 전혀 들 수 없을 때 — 골절이나 힘줄 파열이 없는지 영상 검사로 확인해야 합니다",
     ],
     partSlug: "shoulder",
     treatmentSlug: "ultrasound-pharmacopuncture",
@@ -47,7 +47,7 @@ export const CORE: GlossaryTerm[] = [
     ],
     care:
       "초음파로 힘줄이 부어 있는지, 찢어진 곳이 있는지를 확인합니다. 부분 손상이면 그 자리를 찾아 약침을 놓고, 어깨가 앞으로 말린 자세를 함께 교정합니다.",
-    firstElsewhere: [
+    needsTests: [
       "다친 뒤 팔을 전혀 들어 올릴 수 없을 때 — 완전 파열 여부를 영상으로 확인해야 합니다",
     ],
     partSlug: "shoulder",
@@ -87,7 +87,7 @@ export const CORE: GlossaryTerm[] = [
     signs: ["한쪽 팔이나 손끝이 저리다", "고개를 뒤로 젖히면 저림이 심해진다"],
     care:
       "신경 증상의 정도를 먼저 확인합니다. 수술이 필요한 신호가 없으면 목 주변의 긴장을 풀고, 머리가 앞으로 나온 자세를 교정합니다.",
-    firstElsewhere: [
+    needsTests: [
       "손에 힘이 빠져 물건을 자주 떨어뜨릴 때",
       "걸을 때 다리가 휘청거릴 때 — 척수 압박일 수 있어 바로 검사가 필요합니다",
     ],
@@ -132,7 +132,7 @@ export const CORE: GlossaryTerm[] = [
     signs: ["사고 며칠 뒤 목이 돌아가지 않는다", "두통이나 어지럼이 함께 온다"],
     care:
       "초음파로 근육과 인대의 상태를 확인합니다. 교통사고 치료는 자동차보험으로 처리되어 본인부담금이 없습니다.",
-    firstElsewhere: [
+    needsTests: [
       "의식을 잃었거나 심한 두통·구토가 있을 때",
       "팔다리에 힘이 빠지거나 감각이 둔해졌을 때",
     ],
@@ -160,7 +160,7 @@ export const CORE: GlossaryTerm[] = [
     ],
     care:
       "수술이 필요한 신호가 없는지 먼저 확인하고, 골반 정렬과 주변 조직의 염증을 함께 다룹니다.",
-    firstElsewhere: [
+    needsTests: [
       "대소변을 참기 어렵거나 회음부 감각이 둔해졌을 때 — 응급 수술이 필요한 신호입니다",
       "다리에 힘이 빠져 발을 들어 올리기 어려울 때",
     ],
@@ -183,7 +183,7 @@ export const CORE: GlossaryTerm[] = [
     ],
     signs: ["걷다가 쉬어야 다시 걸을 수 있다", "허리를 숙이고 걸으면 덜하다"],
     care: "신경 증상의 정도를 확인하고, 허리와 골반 주변의 부담을 줄이는 쪽으로 치료합니다.",
-    firstElsewhere: ["다리 힘이 점점 빠지거나 대소변에 문제가 생겼을 때"],
+    needsTests: ["다리 힘이 점점 빠지거나 대소변에 문제가 생겼을 때"],
     partSlug: "low-back",
     compareSlug: "hanui-vs-ortho",
     see: ["lumbar-disc", "sciatica"],
@@ -203,7 +203,7 @@ export const CORE: GlossaryTerm[] = [
     signs: ["엉덩이부터 종아리까지 한쪽으로 저리다", "오래 앉으면 엉덩이가 아프다"],
     care:
       "허리에서 오는지, 엉덩이 깊은 근육에서 오는지를 진찰과 초음파로 나눠 봅니다.",
-    firstElsewhere: ["양쪽 다리가 동시에 저리거나 힘이 빠질 때"],
+    needsTests: ["양쪽 다리가 동시에 저리거나 힘이 빠질 때"],
     partSlug: "low-back",
     see: ["lumbar-disc", "spinal-stenosis"],
   },
@@ -238,7 +238,7 @@ export const CORE: GlossaryTerm[] = [
     ],
     signs: ["아침에 무릎이 뻣뻣하다", "오래 걸으면 붓는다", "쪼그려 앉기 어렵다"],
     care: "관절 안의 변화와 주변 힘줄 상태를 초음파로 함께 보고, 통증을 만드는 쪽부터 다룹니다.",
-    firstElsewhere: ["무릎이 갑자기 붓고 열감이 있을 때", "다친 직후 체중을 실을 수 없을 때"],
+    needsTests: ["무릎이 갑자기 붓고 열감이 있을 때", "다친 직후 체중을 실을 수 없을 때"],
     partSlug: "knee",
     see: ["pes-anserine"],
   },
@@ -257,7 +257,7 @@ export const CORE: GlossaryTerm[] = [
     signs: ["문고리를 돌리거나 물건을 들 때 아프다", "팔꿈치 바깥쪽을 누르면 아프다"],
     care:
       "초음파로 손상된 힘줄 부착부를 찾아 그 위치에 약침을 놓습니다. 이 부위는 위치가 조금만 벗어나도 차이가 큽니다.",
-    firstElsewhere: ["손가락 감각이 둔해지거나 힘이 빠질 때", "다친 뒤 팔꿈치 모양이 변했을 때"],
+    needsTests: ["손가락 감각이 둔해지거나 힘이 빠질 때", "다친 뒤 팔꿈치 모양이 변했을 때"],
     partSlug: "elbow",
     treatmentSlug: "ultrasound-pharmacopuncture",
   },
@@ -276,7 +276,7 @@ export const CORE: GlossaryTerm[] = [
     signs: ["아침 첫걸음에 발뒤꿈치가 아프다", "오래 서 있으면 심해진다"],
     care:
       "초음파로 근막이 얼마나 두꺼워졌는지 확인하고, 종아리 근육의 긴장과 걷는 방식을 함께 봅니다.",
-    firstElsewhere: ["당뇨가 있으면서 발에 상처나 궤양이 있을 때"],
+    needsTests: ["당뇨가 있으면서 발에 상처나 궤양이 있을 때"],
     partSlug: "ankle",
     treatmentSlug: "ultrasound-pharmacopuncture",
   },
@@ -293,9 +293,9 @@ export const CORE: GlossaryTerm[] = [
     ],
     signs: ["같은 쪽 발목을 자주 접질린다", "고르지 않은 길에서 발목이 불안하다"],
     care: "인대 상태와 함께 발목을 잡아 주는 근육이 제때 반응하는지를 봅니다.",
-    firstElsewhere: [
+    needsTests: [
       "발을 딛을 수 없을 정도로 아플 때",
-      "발목이 심하게 붓고 멍이 넓게 퍼졌을 때 — 골절 확인이 먼저입니다",
+      "발목이 심하게 붓고 멍이 넓게 퍼졌을 때 — 골절이 없는지 엑스레이로 확인해야 합니다",
     ],
     partSlug: "ankle",
   },
@@ -312,10 +312,10 @@ export const CORE: GlossaryTerm[] = [
       "식사 습관, 수면, 스트레스와 맞물려 좋아졌다 나빠졌다를 반복하는 경우가 흔합니다.",
     ],
     signs: ["조금만 먹어도 배가 부르다", "식후에 오래 더부룩하다", "명치가 답답하다"],
-    firstElsewhere: [
+    needsTests: [
       "체중이 이유 없이 빠질 때",
       "검은 변을 보거나 피를 토했을 때",
-      "삼키기가 점점 어려워질 때 — 내시경 검사가 먼저입니다",
+      "삼키기가 점점 어려워질 때 — 내시경 검사가 필요합니다",
     ],
     symptomSlug: "indigestion",
     treatmentSlug: "herbal",
@@ -370,7 +370,7 @@ export const CORE: GlossaryTerm[] = [
     ],
     care:
       "이진희 대표원장이 미국 근골격계 초음파사(RMSK) 자격을 갖추고 진료합니다. 화면은 환자분이 함께 보실 수 있는 자리에 둡니다.",
-    firstElsewhere: ["추간판 내부나 신경 뿌리처럼 깊은 구조는 초음파로 보이지 않아 MRI 가 필요합니다"],
+    needsTests: ["추간판 내부나 신경 뿌리처럼 깊은 구조는 초음파로 보이지 않아 MRI 가 필요합니다"],
     treatmentSlug: "ultrasound-pharmacopuncture",
     see: ["pharmacopuncture", "rmsk"],
   },
@@ -433,9 +433,9 @@ export const CORE: GlossaryTerm[] = [
       "침, 부항, 추나요법, 약침, 한약, 물리치료가 자동차보험 진료 범위에 들어갑니다. 보험사에 사고를 접수하고 받은 접수번호만 있으면 됩니다.",
       "사고 당일에는 괜찮다가 며칠 뒤 아파지는 경우가 많습니다. 증상이 있으면 합의 전에 치료를 받아 두시는 것이 좋습니다.",
     ],
-    firstElsewhere: [
+    needsTests: [
       "의식을 잃었거나 심한 두통·구토가 있을 때",
-      "골절이 의심될 때 — 응급실이나 정형외과가 먼저입니다",
+      "골절이 의심될 때 — 엑스레이 등 영상 검사가 필요합니다",
     ],
     symptomSlug: "car-accident",
     compareSlug: "accident-hanui-vs-ortho",

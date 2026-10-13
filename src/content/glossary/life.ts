@@ -16,7 +16,7 @@ export const LIFE: GlossaryTerm[] = [
     ],
     signs: ["사고 며칠 뒤 목과 어깨가 굳는다", "두통이나 어지럼이 이어진다", "잠을 깊이 못 잔다"],
     care: "초음파로 다친 조직을 확인하고 침, 약침, 추나, 한약을 자동차보험으로 진료합니다.",
-    firstElsewhere: ["의식을 잃었거나 구토, 심한 두통이 있을 때", "골절이 의심될 때"],
+    needsTests: ["의식을 잃었거나 구토, 심한 두통이 있을 때", "골절이 의심될 때"],
     symptomSlug: "car-accident",
     compareSlug: "accident-hanui-vs-ortho",
     see: ["whiplash", "car-insurance-hanbang", "accident-claim-number"],
@@ -64,9 +64,9 @@ export const LIFE: GlossaryTerm[] = [
       "식사 직후 눕거나, 과식·야식, 기름진 음식, 술과 커피, 복부 비만이 악화 요인입니다. 목에 뭔가 걸린 느낌이나 마른기침으로만 나타나기도 합니다.",
     ],
     signs: ["가슴 가운데가 타는 듯 쓰리다", "누우면 신물이 올라온다", "목에 뭔가 걸린 느낌이 있다"],
-    firstElsewhere: [
+    needsTests: [
       "삼키기 어렵거나 삼킬 때 아플 때",
-      "체중이 이유 없이 빠지거나 검은 변을 볼 때 — 내시경 검사가 먼저입니다",
+      "체중이 이유 없이 빠지거나 검은 변을 볼 때 — 내시경 검사가 필요합니다",
     ],
     symptomSlug: "indigestion",
     see: ["functional-dyspepsia", "spleen-stomach"],
@@ -83,7 +83,7 @@ export const LIFE: GlossaryTerm[] = [
       "검사에서 뚜렷한 원인이 없으면 한의학에서는 기혈과 비위의 상태, 수면과 생활을 함께 보고 회복을 돕습니다.",
     ],
     signs: ["자고 일어나도 개운하지 않다", "오후만 되면 기운이 떨어진다", "작은 일에도 쉽게 지친다"],
-    firstElsewhere: ["체중이 빠지거나 열, 식은땀이 함께 있을 때 — 혈액 검사가 먼저입니다"],
+    needsTests: ["체중이 빠지거나 열, 식은땀이 함께 있을 때 — 혈액 검사가 필요합니다"],
     symptomSlug: "fatigue",
     treatmentSlug: "herbal",
     see: ["qi-blood", "spleen-stomach"],
@@ -99,7 +99,7 @@ export const LIFE: GlossaryTerm[] = [
       "식욕을 줄이는 처방에는 마황이 들어가는 경우가 많습니다. 마황은 심장이 빨리 뛰거나 잠이 안 오는 등의 반응이 있을 수 있어, 혈압·심장 질환·갑상선 질환이 있으면 반드시 미리 알려 주셔야 합니다.",
       "한약만으로 체중이 유지되지는 않습니다. 식사와 활동을 함께 바꿔야 요요를 줄일 수 있습니다.",
     ],
-    firstElsewhere: ["임신 중이거나 임신 계획이 있을 때는 다이어트 한약을 드시지 않습니다"],
+    cautions: ["임신 중이거나 임신 계획이 있을 때는 다이어트 한약을 드시지 않습니다"],
     symptomSlug: "diet",
     treatmentSlug: "herbal",
     see: ["ephedra", "pregnancy-hanbang"],
@@ -221,7 +221,7 @@ export const LIFE: GlossaryTerm[] = [
       "임신 중에는 배와 허리 아래쪽, 일부 손발의 경혈을 피하고 자극을 약하게 합니다. 다이어트 한약은 쓰지 않고, 약침도 일반적으로 피합니다.",
       "임신 중 한약은 필요한 경우에 한해 신중하게 처방하며, 산부인과 담당 선생님께도 알리시는 것이 좋습니다.",
     ],
-    firstElsewhere: ["출혈, 배 뭉침, 양수가 새는 느낌이 있을 때 — 바로 산부인과로 가셔야 합니다"],
+    needsTests: ["출혈, 배 뭉침, 양수가 새는 느낌이 있을 때 — 바로 산부인과 검사가 필요합니다"],
     see: ["herbal-diet", "herb-drug"],
   },
   {
@@ -249,7 +249,7 @@ export const LIFE: GlossaryTerm[] = [
     about: [
       "발에 상처나 궤양이 있으면 그 주변에는 치료하지 않습니다. 당뇨약이나 인슐린을 쓰시면 한약과 함께 드실 때 혈당 변화를 살펴야 합니다.",
     ],
-    firstElsewhere: ["발에 낫지 않는 상처, 색이 변한 부위가 있을 때 — 내과·외과 진료가 먼저입니다"],
+    needsTests: ["발에 낫지 않는 상처, 색이 변한 부위가 있을 때 — 내과·외과 검사가 필요합니다"],
     see: ["herb-drug", "moxibustion"],
   },
 ];

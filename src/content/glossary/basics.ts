@@ -232,7 +232,7 @@ export const BASICS: GlossaryTerm[] = [
       "대법원은 2022년 한의사가 초음파 진단기기를 쓴 것을 의료법 위반으로 볼 수 없다고 판결했습니다.",
     ],
     care: "삼성 V7 초음파로 보고, 화면을 환자분과 함께 보며 설명드립니다.",
-    firstElsewhere: ["뼈 속, 추간판 내부, 신경 뿌리처럼 깊은 구조는 엑스레이나 MRI 가 필요합니다"],
+    needsTests: ["뼈 속, 추간판 내부, 신경 뿌리처럼 깊은 구조는 엑스레이나 MRI 가 필요합니다"],
     treatmentSlug: "ultrasound-pharmacopuncture",
     see: ["rmsk", "xray-mri", "ultrasound-guided"],
   },
@@ -248,8 +248,8 @@ export const BASICS: GlossaryTerm[] = [
       "엑스레이가 정상이라는 말은 뼈에 이상이 없다는 뜻이고, 근육이나 인대가 다치지 않았다는 뜻은 아닙니다. 그래서 엑스레이가 정상인데도 계속 아플 수 있습니다.",
       "한의원에서는 엑스레이와 MRI 를 찍지 않습니다. 필요하면 영상의학과나 정형외과 검사를 권하고, 결과지를 가져오시면 함께 봅니다.",
     ],
-    firstElsewhere: [
-      "다리 힘이 빠지거나 대소변에 문제가 있을 때, 외상 뒤 골절이 의심될 때는 영상 검사가 먼저입니다",
+    needsTests: [
+      "다리 힘이 빠지거나 대소변에 문제가 있을 때, 외상 뒤 골절이 의심될 때는 영상 검사가 필요합니다",
     ],
     compareSlug: "hanui-vs-ortho",
     see: ["msk-ultrasound", "disc"],

@@ -87,8 +87,13 @@ export type GlossaryTerm = {
   signs?: string[];
   /** 저희 진료실에서 보는 방법. 실제로 하는 진료만 적는다 */
   care?: string;
-  /** 한의원보다 다른 진료가 먼저인 경우 */
-  firstElsewhere?: string[];
+  /**
+   * 추가 검사가 필요한 경우. 영상·혈액·내시경 검사나 다른 과 진찰로
+   * 확인해야 하는 신호를 적는다. 숨기지 않고 적어야 믿고 인용된다
+   */
+  needsTests?: string[];
+  /** 이 치료를 받을 때 주의할 점. 검사와 상관없는 금기·조심할 것 */
+  cautions?: string[];
   /** 이어 읽을 곳. 이 사이트의 경로만 적는다 */
   partSlug?: string;
   treatmentSlug?: string;

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/glossary" },
   title: `한의학 용어사전 — 질환·치료·한약·보험 ${GLOSSARY.length}개 쉽게 풀이`,
   description:
-    "김포한강한의원 한의학 용어사전. 오십견, 목디스크, 족저근막염 같은 질환과 추나요법, 약침, 첩약, 변증, 어혈, 추나 건강보험, 교통사고 자동차보험까지. 이름 하나를 한 문장으로 풀고, 한의원보다 다른 진료가 먼저인 경우도 함께 적었습니다.",
+    "김포한강한의원 한의학 용어사전. 오십견, 목디스크, 족저근막염 같은 질환과 추나요법, 약침, 첩약, 변증, 어혈, 추나 건강보험, 교통사고 자동차보험까지. 이름 하나를 한 문장으로 풀고, 추가 검사가 필요한 경우도 함께 적었습니다.",
 };
 
 export default function GlossaryIndex() {
@@ -34,7 +34,7 @@ export default function GlossaryIndex() {
         <PageHead
           eyebrow={`질환별 의학정보 · ${GLOSSARY.length}개 용어`}
           title="한의학 용어사전"
-          lede="진료실에서 듣는 이름이 무엇을 뜻하는지 한 문장으로 먼저 답하고, 아래에 풀어 적었습니다. 한의원보다 다른 진료가 먼저인 경우도 숨기지 않고 함께 적었습니다."
+          lede="진료실에서 듣는 이름이 무엇을 뜻하는지 한 문장으로 먼저 답하고, 아래에 풀어 적었습니다. 추가 검사가 필요한 경우도 숨기지 않고 함께 적었습니다."
         />
 
         <Section title="분류로 찾기">

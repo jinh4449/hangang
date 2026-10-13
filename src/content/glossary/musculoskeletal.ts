@@ -15,8 +15,8 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     ],
     signs: ["자고 일어났더니 고개가 한쪽으로 돌아가지 않는다", "날개뼈 안쪽이 숨 쉴 때 결린다"],
     care: "굳은 근육을 침과 부항으로 풀고, 같은 자리에 반복되면 등과 목의 정렬을 함께 봅니다.",
-    firstElsewhere: [
-      "가슴 통증이 함께 있거나 숨이 차고 식은땀이 날 때 — 심장 문제를 먼저 확인해야 합니다",
+    needsTests: [
+      "가슴 통증이 함께 있거나 숨이 차고 식은땀이 날 때 — 심장 검사가 필요하니 뇌 검사가 필요하니 바로 응급실로 가셔야 합니다",
     ],
     partSlug: "neck",
     treatmentSlug: "acupuncture",
@@ -52,9 +52,9 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     ],
     signs: ["뒷목에서 시작해 머리로 올라오는 두통", "모니터를 오래 보면 심해진다"],
     care: "목과 등 위쪽의 긴장, 머리가 앞으로 나온 자세를 함께 봅니다.",
-    firstElsewhere: [
+    needsTests: [
       "갑자기 생긴 평생 처음 겪는 심한 두통",
-      "말이 어눌해지거나 한쪽 팔다리에 힘이 빠질 때 — 바로 응급실로 가셔야 합니다",
+      "말이 어눌해지거나 한쪽 팔다리에 힘이 빠질 때 — 뇌 검사가 필요하니 바로 응급실로 가셔야 합니다",
     ],
     partSlug: "neck",
     see: ["forward-head", "cervical-disc"],
@@ -91,7 +91,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     ],
     signs: ["팔꿈치 안쪽을 누르면 아프다", "주먹을 꽉 쥐거나 물건을 들 때 아프다"],
     care: "초음파로 힘줄이 붙는 자리를 확인하고 그 위치에 약침을 놓습니다.",
-    firstElsewhere: ["넷째·다섯째 손가락이 저리거나 힘이 빠질 때 — 척골신경 문제를 확인해야 합니다"],
+    needsTests: ["넷째·다섯째 손가락이 저리거나 힘이 빠질 때 — 척골신경 문제를 확인해야 합니다"],
     partSlug: "elbow",
     treatmentSlug: "ultrasound-pharmacopuncture",
     see: ["tennis-elbow", "tendon"],
@@ -109,7 +109,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
       "목디스크로도 손이 저릴 수 있어, 저림이 어디서 시작되는지를 나눠 봐야 합니다.",
     ],
     signs: ["새벽에 손이 저려 깬다", "엄지 쪽 손가락 감각이 둔하다"],
-    firstElsewhere: [
+    needsTests: [
       "엄지 아래 손바닥 근육이 눈에 띄게 줄었을 때 — 신경 손상이 진행된 것일 수 있어 신경 검사가 필요합니다",
     ],
     see: ["cervical-disc", "trigger-finger"],
@@ -126,7 +126,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
       "아침에 더 심하고, 손바닥 쪽 손가락 뿌리를 누르면 아프거나 멍울이 만져집니다. 손을 쥐는 일을 반복하는 분에게 흔합니다.",
     ],
     signs: ["손가락을 펼 때 딸깍 걸린다", "손가락 뿌리 손바닥 쪽이 아프다"],
-    firstElsewhere: ["손가락이 굽은 채 펴지지 않을 때 — 정형외과 시술이 필요할 수 있습니다"],
+    needsTests: ["손가락이 굽은 채 펴지지 않을 때 — 정형외과 진찰로 시술이 필요한지 확인해야 합니다"],
     see: ["tendon", "carpal-tunnel"],
   },
   {
@@ -176,7 +176,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     ],
     signs: ["허리를 펴거나 숙이기 어렵다", "돌아눕거나 일어날 때 허리가 아프다"],
     care: "급성기에는 침과 약침으로 통증과 염증을 먼저 줄입니다.",
-    firstElsewhere: ["다리 저림이나 힘 빠짐이 함께 있을 때", "넘어지거나 부딪힌 뒤 생긴 통증일 때"],
+    needsTests: ["다리 저림이나 힘 빠짐이 함께 있을 때", "넘어지거나 부딪힌 뒤 생긴 통증일 때"],
     partSlug: "low-back",
     see: ["lumbar-disc", "ligament"],
   },
@@ -192,7 +192,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
       "엑스레이로 확인합니다. 미끄러진 정도가 작고 신경 증상이 심하지 않으면 보존치료를 먼저 하는 경우가 많습니다.",
       "허리를 뒤로 젖힐 때 심해지고, 오래 서 있거나 걸을 때 다리가 저리는 모습이 척추관협착증과 비슷합니다.",
     ],
-    firstElsewhere: [
+    needsTests: [
       "다리 힘이 빠지거나 대소변에 문제가 생겼을 때",
       "미끄러진 정도가 커서 수술 상담이 필요하다는 소견을 받았을 때",
     ],
@@ -230,8 +230,8 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     ],
     signs: ["발뒤꿈치 위 힘줄이 두껍게 만져진다", "까치발을 들 때 아프다"],
     care: "초음파로 힘줄의 두께와 염증을 확인하고, 종아리 근육의 긴장을 함께 풉니다.",
-    firstElsewhere: [
-      "「뚝」 소리와 함께 갑자기 아프고 까치발을 들 수 없을 때 — 힘줄 파열일 수 있어 바로 정형외과로 가셔야 합니다",
+    needsTests: [
+      "「뚝」 소리와 함께 갑자기 아프고 까치발을 들 수 없을 때 — 힘줄 파열일 수 있어 바로 초음파나 MRI 검사가 필요합니다",
     ],
     partSlug: "ankle",
     treatmentSlug: "ultrasound-pharmacopuncture",
@@ -249,7 +249,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
       "이를 악무는 습관, 이갈이, 한쪽으로만 씹는 습관, 긴장과 관련이 깊습니다. 목과 어깨의 긴장이 함께 있는 경우가 많습니다.",
     ],
     signs: ["입을 벌릴 때 딱 소리가 난다", "아침에 턱이 뻐근하다", "입이 손가락 세 개만큼 벌어지지 않는다"],
-    firstElsewhere: ["치아나 잇몸 통증이 함께 있을 때 — 치과 진료가 먼저입니다"],
+    needsTests: ["치아나 잇몸 통증이 함께 있을 때 — 치과 검사로 치아 문제를 확인해야 합니다"],
     see: ["forward-head", "myofascial-pain"],
   },
 ];

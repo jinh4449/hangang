@@ -121,7 +121,8 @@ export function GET() {
       t.about.join("\n\n"),
       t.signs?.length ? `흔히 겪는 모습:\n${list(t.signs)}` : "",
       t.care ? `${CLINIC.name}에서는: ${t.care}` : "",
-      t.firstElsewhere?.length ? `한의원보다 다른 진료가 먼저인 경우:\n${list(t.firstElsewhere)}` : "",
+      t.needsTests?.length ? `추가 검사가 필요한 경우:\n${list(t.needsTests)}` : "",
+      t.cautions?.length ? `주의할 점:\n${list(t.cautions)}` : "",
     ]
       .filter(Boolean)
       .join("\n\n"),

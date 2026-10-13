@@ -25,10 +25,10 @@ function titleOf(t: GlossaryTerm) {
   if (t.question) return `${t.question}?`;
   const sick = t.category === "musculoskeletal" || t.category === "internal" || t.category === "accident";
   const hook = sick
-    ? t.firstElsewhere?.length
-      ? "증상과 병원부터 가야 할 때"
+    ? t.needsTests?.length
+      ? "증상과 검사가 필요한 때"
       : "뜻과 증상"
-    : t.firstElsewhere?.length
+    : t.needsTests?.length || t.cautions?.length
       ? "뜻과 주의할 점"
       : "뜻 풀이";
   // 한글 다른 이름 하나만 괄호로. 한자나 이름에 이미 든 말은 붙이지 않는다
@@ -67,14 +67,15 @@ export default async function TermPage({ params }: PageProps<"/glossary/[slug]">
   // 화면에 보이는 문답만 스키마에 넣는다 (schema.ts 의 FAQPage 규칙)
   const faq = [
     { q: `${askOf(t)}?`, a: `${t.short} ${t.about.join(" ")}` },
-    ...(t.firstElsewhere?.length
+    ...(t.needsTests?.length
       ? [
           {
-            q: "한의원보다 다른 진료가 먼저인 경우는 언제인가요?",
-            a: t.firstElsewhere.join(" "),
+            q: "추가 검사가 필요한 경우는 언제인가요?",
+            a: t.needsTests.join(" "),
           },
         ]
       : []),
+    ...(t.cautions?.length ? [{ q: "주의할 점은 무엇인가요?", a: t.cautions.join(" ") }] : []),
   ];
 
   return (
@@ -147,13 +148,25 @@ export default async function TermPage({ params }: PageProps<"/glossary/[slug]">
         </Section>
       )}
 
-      {t.firstElsewhere && t.firstElsewhere.length > 0 && (
+      {t.needsTests && t.needsTests.length > 0 && (
         <Section
-          title="한의원보다 다른 진료가 먼저인 경우"
-          note="아래에 해당하면 영상 검사나 응급 진료를 먼저 받으십시오."
+          title="추가 검사가 필요한 경우"
+          note="아래에 해당하면 영상·혈액·내시경 같은 검사로 먼저 확인하시는 것이 좋습니다. 필요한 검사는 진료 때 안내해 드립니다."
         >
           <ul className="grid max-w-[62ch] gap-2 rounded-2xl border border-ochre-line bg-ochre-soft p-5">
-            {t.firstElsewhere.map((f) => (
+            {t.needsTests.map((f) => (
+              <li key={f} className="kr text-[15.5px] leading-7">
+                · {f}
+              </li>
+            ))}
+          </ul>
+        </Section>
+      )}
+
+      {t.cautions && t.cautions.length > 0 && (
+        <Section title="주의할 점">
+          <ul className="grid max-w-[62ch] gap-2 rounded-2xl bg-surface p-5 ring-1 ring-line">
+            {t.cautions.map((f) => (
               <li key={f} className="kr text-[15.5px] leading-7">
                 · {f}
               </li>
