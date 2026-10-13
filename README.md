@@ -35,6 +35,13 @@ Cloudflare 설정은 `wrangler.jsonc` 에 있습니다. 대시보드에는 빌�
 「고쳤는데 왜 그대로냐」 싶을 때 이 주소부터 보십시오. Cloudflare 대시보드의
 `hangang` → Deployments 에서 빌드가 실패하지 않았는지도 함께 보십시오.
 
+## 검색엔진에 알리기
+
+`main` 을 빌드할 때마다 `tools/indexnow.mjs` 가 지난번과 내용이 달라진
+페이지만 골라 Bing 에 알립니다(IndexNow). 따로 할 일은 없습니다.
+무엇을 알렸는지는 Cloudflare 빌드 로그에서 `indexnow` 줄을 보면 나옵니다.
+네이버와 구글은 IndexNow 를 받지 않아 사이트맵을 보고 찾아옵니다.
+
 ## 예전 방식
 
 예전에는 여기서 빌드한 HTML 을 `jinh4449/hangangclinic` 저장소에 따로 올려

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "node tools/version.mjs",
+    "postbuild": "node tools/version.mjs && node tools/indexnow.mjs",
     "start": "next start",
     "lint": "eslint"
   },
