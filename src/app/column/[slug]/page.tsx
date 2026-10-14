@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import type { Metadata } from "next";
 import { COLUMNS, getColumn, columnsByDate } from "@/content/column";
 import { getSymptom } from "@/content/symptoms";
@@ -60,6 +61,13 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           },
           publisher: { "@id": `${SITE_URL}/#clinic` },
           mainEntityOfPage: `${SITE_URL}/column/${c.slug}`,
+          // 결론 문단. AI 검색이 이 글의 답으로 가져가는 자리다
+          abstract: c.answer,
+          citation: c.references.map((r) => ({
+            "@type": "ScholarlyArticle",
+            name: r.cite,
+            url: r.url,
+          })),
         }}
       />
       <JsonLd
@@ -76,19 +84,90 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           <h1 className="kr text-3xl font-bold leading-tight tracking-tight text-balance sm:text-[2.4rem]">
             {c.title}
           </h1>
-          <p className="kr mt-5 max-w-[52ch] text-[18px] leading-8 text-muted">{c.summary}</p>
           <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-sm text-faint">
             <time dateTime={c.date} className="tabular-nums">
               {fmtDate(c.date)}
             </time>
             <span aria-hidden="true">·</span>
-            <span>{readingMinutes(c.body)}분</span>
+            <span>{readingMinutes([...c.body, ...c.clinic])}분</span>
             <span aria-hidden="true">·</span>
             <span>{author ? `${author.name} ${author.role}` : CLINIC.name}</span>
           </div>
         </header>
 
+        {/* 결론 먼저. 제목을 보고 들어온 사람이 첫 화면에서 답을 얻게 한다 */}
+        <section
+          aria-label="결론"
+          className="relative mt-9 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-tint via-[#f4f8f5] to-ochre-soft p-6 ring-1 ring-herb-line/60 sm:p-8"
+        >
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute right-5 top-2 font-serif text-[96px] leading-none text-herb/15"
+          >
+            &ldquo;
+          </span>
+          <p className="inline-flex items-center gap-2 rounded-full bg-surface/80 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-herb ring-1 ring-herb-line/60">
+            <span className="h-1.5 w-1.5 rounded-full bg-herb" aria-hidden="true" />
+            결론부터 말씀드리면
+          </p>
+          <p className="kr relative mt-4 text-[17.5px] font-medium leading-8 sm:text-[18.5px] sm:leading-9">{c.answer}</p>
+        </section>
+
         <Blocks blocks={c.body} />
+
+        {/* 저희 진료. 원장 사진과 이름을 머리에 두어 「누가 이렇게 본다」가 보이게 한다 */}
+        {c.clinic.length > 0 && (
+        <section className="mt-16 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-herb-deep via-herb to-[#2b6e55] p-[1px] shadow-[0_24px_60px_-30px_rgba(22,65,47,0.55)]">
+          <div className="rounded-[calc(1.75rem-1px)] bg-gradient-to-b from-tint via-surface to-surface px-6 pb-7 pt-7 sm:px-8">
+            <div className="flex items-center gap-3">
+              {author && (
+                <Image
+                  src={author.photo.src}
+                  width={author.photo.w}
+                  height={author.photo.h}
+                  alt=""
+                  className="h-12 w-12 shrink-0 rounded-full object-cover object-top ring-2 ring-surface"
+                />
+              )}
+              <div className="leading-tight">
+                <h2 className="kr text-[20px] font-bold tracking-tight sm:text-[22px]">
+                  김포한강한의원에서는 이렇게 봅니다
+                </h2>
+                {author && (
+                  <p className="kr mt-1 text-[14px] text-muted">
+                    {author.name} {author.role}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="-mt-4">
+              <Blocks blocks={c.clinic} numbered={false} />
+            </div>
+          </div>
+        </section>
+        )}
+
+        {c.references.length > 0 && (
+          <Section title="참고문헌">
+            <ol className="grid gap-4">
+              {c.references.map((r, i) => (
+                <li key={r.url} className="grid grid-cols-[1.75rem_1fr] gap-x-2 text-[14.5px] leading-7">
+                  <span className="font-mono text-faint">{i + 1}.</span>
+                  <div>
+                    <a
+                      href={r.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="break-words text-ink underline decoration-line underline-offset-4 hover:decoration-herb"
+                    >
+                      {r.cite}
+                    </a>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Section>
+        )}
 
         {c.symptomSlugs.length > 0 && (
           <Section title="관련 진료">

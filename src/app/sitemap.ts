@@ -5,6 +5,7 @@ import { COLUMNS } from "@/content/column";
 import { PARTS } from "@/content/part";
 import { AREAS } from "@/content/area";
 import { SITE_URL } from "@/content/clinic";
+import { GLOSSARY, GLOSSARY_CATEGORIES, termsIn } from "@/content/glossary";
 
 /** 진료과목을 추가하면 사이트맵도 자동으로 늘어난다. 손으로 관리하지 않는다. */
 // 정적 내보내기에서는 빌드 때 한 번만 만든다고 알려 줘야 한다
@@ -72,6 +73,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entries.push({
       url: `${SITE_URL}/column/${c.slug}`,
       lastModified: new Date(c.updated ?? c.date),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    });
+  }
+  // 용어사전. 「오십견이 뭐예요」처럼 이름 하나를 묻는 검색을 받는다
+  entries.push({ url: `${SITE_URL}/glossary`, lastModified: now, changeFrequency: "monthly", priority: 0.8 });
+  for (const c of GLOSSARY_CATEGORIES) {
+    if (termsIn(c.slug).length === 0) continue;
+    entries.push({
+      url: `${SITE_URL}/glossary/category/${c.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.6,
+    });
+  }
+  for (const t of GLOSSARY) {
+    entries.push({
+      url: `${SITE_URL}/glossary/${t.slug}`,
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
     });

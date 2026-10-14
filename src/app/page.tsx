@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CLINIC, SITE_URL } from "@/content/clinic";
 import { SYMPTOMS, getSymptom } from "@/content/symptoms";
-import { QUESTION_COLUMNS } from "@/content/column";
+import { homeColumns } from "@/content/column";
 import { PARTS } from "@/content/part";
 import { JsonLd, Arrow } from "@/components/site";
 import { webPage, breadcrumb } from "@/content/schema";
@@ -308,7 +308,7 @@ function Enter({
  * 아픈 사람이 검색창에 치는 말이 아니다. 물어본 말이 그대로 제목이어야
  * 자기 이야기인 줄 알고 누른다.
  */
-const QA = QUESTION_COLUMNS.map((c) => ({
+const QA = homeColumns().map((c) => ({
   question: c.question,
   summary: c.summary,
   href: `/column/${c.slug}`,

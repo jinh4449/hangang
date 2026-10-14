@@ -7,6 +7,7 @@ import { getTreatment } from "@/content/treatment";
 import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb, faqPage, SITE_URL } from "@/content/schema";
 import { withJosa } from "@/content/josa";
+import { termsForPart } from "@/content/glossary";
 
 export const generateStaticParams = () => PARTS.map((p) => ({ slug: p.slug }));
 
@@ -174,6 +175,16 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
             <Link href="/care/pain" className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb">
               통증치료 전체 안내
             </Link>
+            {/* 진료실에서 듣는 병명이 무엇인지 한 문장으로 답하는 곳 */}
+            {termsForPart(p.slug).map((t) => (
+              <Link
+                key={t.slug}
+                href={`/glossary/${t.slug}`}
+                className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb"
+              >
+                {withJosa(t.term, "이란")}
+              </Link>
+            ))}
                                   </div>
         </Section>
 

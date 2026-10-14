@@ -174,11 +174,29 @@ export type Area = {
 };
 
 /** 칼럼 본문 블록. 자유 HTML 대신 타입으로 묶어 형태가 흐트러지지 않게 한다 */
+/**
+ * 글 안 강조 표시(p·ul·ol·summary·note·table 의 글에서 쓴다).
+ *   **글**, ==글==  굵게. 가장 중요한 한 구절, 안심되는 말에 쓴다. 형광펜·밑줄은 두지 않는다
+ * 한 문단에 한두 군데만. 많으면 아무것도 강조되지 않는다
+ */
 export type Block =
   | { t: "p"; text: string }
   | { t: "h"; text: string }
   | { t: "ul"; items: string[] }
-  | { t: "note"; tone: "warn" | "info"; title: string; text: string };
+  /** 번호 목록. 작은 원 번호로 순서 있는 안내에 쓴다 */
+  | { t: "ol"; items: string[] }
+  /** 3줄 요약 상자. 글머리 맨 앞에 둔다 */
+  | { t: "summary"; title?: string; items: string[] }
+  /** 비교표. 첫 칸은 항목 이름으로 굵게 나온다. 모바일에서는 가로로 밀어 본다 */
+  | { t: "table"; title?: string; head: string[]; rows: string[][] }
+  /** 순서가 있는 흐름. 번호를 붙여 위에서 아래로 */
+  | { t: "steps"; items: { title: string; text: string }[] }
+  /**
+   * warn  — 붉은 상자. 증상·치료 안내의 위험 신호에만 쓴다
+   * check — 황토 상자. 칼럼의 「검사를 함께 권하는 경우」. 겁주지 않고 차분하게
+   * info  — 초록 상자. 덧붙이는 설명
+   */
+  | { t: "note"; tone: "warn" | "info" | "check"; title: string; text: string };
 
 /**
  * 원장 칼럼.
@@ -201,7 +219,28 @@ export type Column = {
   symptomSlugs: string[];
   /** 목록에 카드로 세울 때 쓰는 삽화. 없으면 글자만으로 세운다 */
   image?: { src: string; w: number; h: number; alt: string };
+  /**
+   * 결론 먼저. 제목 바로 아래 상자에 선다. 질문에 대한 답을 두세 문장으로.
+   * AI 검색은 이 문단을 그대로 답으로 가져간다고 보고 쓴다
+   */
+  answer: string;
+  /** 본문. 왜 그런지, 무엇을 구분해야 하는지, 연구는 무엇을 보여 주는지 */
   body: Block[];
+  /** 「김포한강한의원에서는 이렇게 봅니다」. 저희가 실제로 하는 진료만 적는다 */
+  clinic: Block[];
+  /**
+   * 참고문헌. 의학적 내용이면 최소 한 편. 본문에 그 논문의 내용을 실제로
+   * 적용해 쓰고, 여기에는 무엇을 가져왔는지를 적는다. 확인하지 않은 논문은
+   * 적지 않는다 — 없는 논문을 인용하는 것이 인용이 없는 것보다 나쁘다
+   */
+  references: Reference[];
+};
+
+export type Reference = {
+  /** 저자. 제목. 학술지. 연도;권(호):쪽. */
+  cite: string;
+  /** DOI·PubMed·PMC 주소 */
+  url: string;
 };
 
 /**

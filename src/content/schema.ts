@@ -158,4 +158,47 @@ export function costSchema({
   };
 }
 
+/**
+ * 용어사전. 「오십견이 뭐예요」 같은 질문에 답하는 정의 문장을 표시한다.
+ *
+ * DefinedTermSet 을 하나 세우고 각 용어가 그 안에 든다고 걸어 둔다.
+ * 용어 하나만 따로 떠 있으면 「누가 내놓은 정의인가」가 흐려진다.
+ */
+export const GLOSSARY_SET_ID = `${SITE_URL}/glossary#set`;
+
+export function definedTermSet(terms: { slug: string; term: string; short: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "@id": GLOSSARY_SET_ID,
+    name: `${CLINIC.name} 한의학 용어사전`,
+    url: `${SITE_URL}/glossary`,
+    inLanguage: "ko",
+    publisher: CLINIC_REF,
+    hasDefinedTerm: terms.map((t) => ({ "@id": `${SITE_URL}/glossary/${t.slug}#term` })),
+  };
+}
+
+export function definedTerm(t: {
+  slug: string;
+  term: string;
+  short: string;
+  aka?: string[];
+  english?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    "@id": `${SITE_URL}/glossary/${t.slug}#term`,
+    name: t.term,
+    description: t.short,
+    url: `${SITE_URL}/glossary/${t.slug}`,
+    inLanguage: "ko",
+    ...(t.aka || t.english
+      ? { alternateName: [...(t.aka ?? []), ...(t.english ? [t.english] : [])] }
+      : {}),
+    inDefinedTermSet: { "@id": GLOSSARY_SET_ID },
+  };
+}
+
 export { CLINIC, SITE_URL };
