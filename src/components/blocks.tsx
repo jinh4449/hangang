@@ -10,7 +10,7 @@ import type { Block } from "@/content/types";
  * @param numbered 소제목에 번호를 붙일지. 「김포한강한의원에서는」 처럼
  *                 상자 안에 들어가는 짧은 글에서는 끈다
  */
-/** 글 안 강조 표시(**노랑**, ==초록==)를 입힌다. 표시는 types.ts 의 Block 주석 참고 */
+/** 글 안 강조 표시(**굵게**, ==굵게==)를 입힌다. 표시는 types.ts 의 Block 주석 참고 */
 function Rich({ text }: { text: string }) {
   const parts = text.split(/(\*\*.+?\*\*|==.+?==)/g);
   return (
@@ -18,13 +18,13 @@ function Rich({ text }: { text: string }) {
       {parts.map((t, i) => {
         if (t.startsWith("**") && t.endsWith("**") && t.length > 4)
           return (
-            <strong key={i} className="font-bold text-ink [background:linear-gradient(transparent_58%,#fde6a1_58%)]">
+            <strong key={i} className="font-bold text-ink">
               {t.slice(2, -2)}
             </strong>
           );
         if (t.startsWith("==") && t.endsWith("==") && t.length > 4)
           return (
-            <strong key={i} className="font-bold text-ink [background:linear-gradient(transparent_58%,#bfe6d3_58%)]">
+            <strong key={i} className="font-bold text-ink">
               {t.slice(2, -2)}
             </strong>
           );
