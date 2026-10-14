@@ -174,10 +174,21 @@ export type Area = {
 };
 
 /** 칼럼 본문 블록. 자유 HTML 대신 타입으로 묶어 형태가 흐트러지지 않게 한다 */
+/**
+ * 글 안 강조 표시(p·ul·ol·summary·note·table 의 글에서 쓴다).
+ *   **글**  노란 형광펜 — 가장 중요한 한 구절
+ *   ==글==  초록 형광펜 — 안심되는 말, 할 수 있는 것
+ *   __글__  황토 밑줄   — 용어·이름
+ * 한 문단에 한두 군데만. 많으면 아무것도 강조되지 않는다
+ */
 export type Block =
   | { t: "p"; text: string }
   | { t: "h"; text: string }
   | { t: "ul"; items: string[] }
+  /** 번호 목록. 작은 원 번호로 순서 있는 안내에 쓴다 */
+  | { t: "ol"; items: string[] }
+  /** 3줄 요약 상자. 글머리 맨 앞에 둔다 */
+  | { t: "summary"; title?: string; items: string[] }
   /** 비교표. 첫 칸은 항목 이름으로 굵게 나온다. 모바일에서는 가로로 밀어 본다 */
   | { t: "table"; title?: string; head: string[]; rows: string[][] }
   /** 순서가 있는 흐름. 번호를 붙여 위에서 아래로 */

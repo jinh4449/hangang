@@ -26,6 +26,9 @@ const qa = (pairs: { q: string; a: string }[]) =>
   pairs.map((p) => `**Q. ${p.q}**\n${p.a}`).join("\n\n");
 const source = (path: string) => `원문: ${SITE_URL}${path}`;
 
+/** 칼럼 글 안 강조 표시(**, ==, __)는 읽는 쪽에 필요 없어 떼어 낸다 */
+const plain = (t: string) => t.replace(/\*\*(.+?)\*\*|==(.+?)==|__(.+?)__/g, (_, a, b, c) => a ?? b ?? c);
+
 function blocks(body: Block[]) {
   return body
     .map((b) => {
@@ -33,19 +36,23 @@ function blocks(body: Block[]) {
         case "h":
           return `#### ${b.text}`;
         case "p":
-          return b.text;
+          return plain(b.text);
         case "ul":
-          return list(b.items);
+          return list(b.items.map(plain));
+        case "ol":
+          return b.items.map((x, i) => `${i + 1}. ${plain(x)}`).join("\n");
+        case "summary":
+          return `> ${b.title ?? "3줄 요약"}\n${list(b.items.map(plain))}`;
         case "table":
           return [
             `| ${b.head.join(" | ")} |`,
             `|${b.head.map(() => "---").join("|")}|`,
-            ...b.rows.map((r) => `| ${r.join(" | ")} |`),
+            ...b.rows.map((r) => `| ${r.map(plain).join(" | ")} |`),
           ].join("\n");
         case "steps":
-          return b.items.map((x, i) => `${i + 1}. ${x.title} — ${x.text}`).join("\n");
+          return b.items.map((x, i) => `${i + 1}. ${x.title} — ${plain(x.text)}`).join("\n");
         case "note":
-          return `> ${b.title} — ${b.text}`;
+          return `> ${b.title} — ${plain(b.text)}`;
       }
     })
     .join("\n\n");

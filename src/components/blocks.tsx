@@ -10,6 +10,36 @@ import type { Block } from "@/content/types";
  * @param numbered 소제목에 번호를 붙일지. 「김포한강한의원에서는」 처럼
  *                 상자 안에 들어가는 짧은 글에서는 끈다
  */
+/** 글 안 강조 표시(**노랑**, ==초록==, __밑줄__)를 입힌다. 표시는 types.ts 의 Block 주석 참고 */
+function Rich({ text }: { text: string }) {
+  const parts = text.split(/(\*\*.+?\*\*|==.+?==|__.+?__)/g);
+  return (
+    <>
+      {parts.map((t, i) => {
+        if (t.startsWith("**") && t.endsWith("**") && t.length > 4)
+          return (
+            <strong key={i} className="font-bold text-ink [background:linear-gradient(transparent_58%,#fde6a1_58%)]">
+              {t.slice(2, -2)}
+            </strong>
+          );
+        if (t.startsWith("==") && t.endsWith("==") && t.length > 4)
+          return (
+            <strong key={i} className="font-bold text-ink [background:linear-gradient(transparent_58%,#bfe6d3_58%)]">
+              {t.slice(2, -2)}
+            </strong>
+          );
+        if (t.startsWith("__") && t.endsWith("__") && t.length > 4)
+          return (
+            <strong key={i} className="font-bold text-ink underline decoration-ochre decoration-2 underline-offset-4">
+              {t.slice(2, -2)}
+            </strong>
+          );
+        return t;
+      })}
+    </>
+  );
+}
+
 export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?: boolean }) {
   // 소제목 번호. 렌더 중에 세지 않고 먼저 매겨 둔다
   const nth = blocks.map((b, i) => blocks.slice(0, i + 1).filter((x) => x.t === "h").length);
@@ -39,8 +69,45 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
         if (b.t === "p")
           return (
             <p key={i} className="kr max-w-[58ch] text-[16.5px] leading-8 text-ink/85">
-              {b.text}
+              <Rich text={b.text} />
             </p>
+          );
+        if (b.t === "summary")
+          return (
+            <aside
+              key={i}
+              className="max-w-[58ch] rounded-2xl border border-herb-line/60 border-l-[6px] border-l-herb-light bg-gradient-to-br from-tint via-tint/50 to-surface p-6"
+            >
+              <p className="kr font-bold text-herb">{b.title ?? "3줄 요약"}</p>
+              <ul className="mt-3 flex flex-col gap-3">
+                {b.items.map((it) => (
+                  <li key={it} className="kr flex gap-3 text-[16px] leading-8 text-ink/85">
+                    <span className="mt-[0.7rem] h-2 w-2 shrink-0 rounded-full bg-ochre/70" aria-hidden="true" />
+                    <span>
+                      <Rich text={it} />
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+          );
+        if (b.t === "ol")
+          return (
+            <ol key={i} className="flex max-w-[58ch] flex-col gap-3">
+              {b.items.map((it, j) => (
+                <li key={it} className="kr flex gap-3 text-[16px] leading-8 text-ink/85">
+                  <span
+                    className="font-display mt-[0.3rem] flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ochre-soft text-[13px] font-semibold text-ochre ring-1 ring-ochre-line"
+                    aria-hidden="true"
+                  >
+                    {j + 1}
+                  </span>
+                  <span>
+                    <Rich text={it} />
+                  </span>
+                </li>
+              ))}
+            </ol>
           );
         if (b.t === "ul")
           return (
@@ -54,7 +121,9 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
                     className="mt-[0.7rem] h-2 w-2 shrink-0 rounded-full bg-gradient-to-br from-herb to-herb-light"
                     aria-hidden="true"
                   />
-                  <span>{it}</span>
+                  <span>
+                    <Rich text={it} />
+                  </span>
                 </li>
               ))}
             </ul>
@@ -82,11 +151,11 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
                         {r.map((c, j) =>
                           j === 0 ? (
                             <th key={j} scope="row" className="px-3 py-3 align-top font-bold text-ink sm:px-4">
-                              {c}
+                              <Rich text={c} />
                             </th>
                           ) : (
                             <td key={j} className="px-3 py-3 align-top text-ink/85 sm:px-4">
-                              {c}
+                              <Rich text={c} />
                             </td>
                           ),
                         )}
@@ -111,7 +180,7 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
                   <span className="kr text-[16px] leading-8 text-ink/85">
                     <strong className="text-ink">{it.title}</strong>
                     <br />
-                    {it.text}
+                    <Rich text={it.text} />
                   </span>
                 </li>
               ))}
@@ -131,7 +200,9 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
               <span className={"h-2 w-2 shrink-0 rounded-full " + dot} aria-hidden="true" />
               {b.title}
             </p>
-            <p className="kr mt-2 text-[15.5px] leading-8 text-ink/85">{b.text}</p>
+            <p className="kr mt-2 text-[15.5px] leading-8 text-ink/85">
+              <Rich text={b.text} />
+            </p>
           </aside>
         );
       })}
@@ -142,7 +213,7 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
 /** 읽는 데 걸리는 시간. 한국어는 분당 약 500자로 잡는다 */
 export function readingMinutes(blocks: Block[]) {
   const chars = blocks.reduce((n, b) => {
-    if (b.t === "ul") return n + b.items.join("").length;
+    if (b.t === "ul" || b.t === "ol" || b.t === "summary") return n + b.items.join("").length;
     if (b.t === "note") return n + b.title.length + b.text.length;
     if (b.t === "table") return n + [...b.head, ...b.rows.flat()].join("").length;
     if (b.t === "steps") return n + b.items.map((x) => x.title + x.text).join("").length;
