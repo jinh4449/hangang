@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { columnsByDate } from "@/content/column";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Cta, JsonLd } from "@/components/site";
-import { readingMinutes } from "@/components/blocks";
+import { ColumnFilter } from "@/components/column-filter";
 import { webPage, breadcrumb, SITE_URL } from "@/content/schema";
 
 export const metadata: Metadata = {
@@ -55,14 +55,14 @@ export default function ColumnIndex() {
         />
         {/* 카드. 그림으로 무슨 글인지 먼저 알리고, 아래에 누가 언제 썼는지를 둔다.
             의료 글은 「누가 썼나」가 믿을지를 가르는 첫 단서다 */}
-        <div className="mt-10 grid gap-5 sm:grid-cols-2">
-          {list.map((c) => {
+        <ColumnFilter
+          tabs={CLINIC.doctors.map((d) => ({ key: d.key, label: `${d.name} 원장` }))}
+          items={list.map((c) => {
             const author = CLINIC.doctors.find((d) => d.key === c.authorKey);
-            return (
+            return { key: c.slug, author: c.authorKey, node: (
               <Link
-                key={c.slug}
                 href={`/column/${c.slug}`}
-                className="group flex flex-col overflow-hidden rounded-[1.5rem] bg-surface ring-1 ring-line transition-shadow hover:ring-herb"
+                className="group flex w-full flex-col overflow-hidden rounded-[1.5rem] bg-surface ring-1 ring-line transition-shadow hover:ring-herb"
               >
                 <div className="aspect-[8/5] overflow-hidden bg-tint">
                   {c.image ? (
@@ -103,16 +103,14 @@ export default function ColumnIndex() {
                         <time dateTime={c.date} className="tabular-nums">
                           {fmtDate(c.date)}
                         </time>
-                        <span aria-hidden="true"> · </span>
-                        {readingMinutes([...c.body, ...c.clinic])}분
                       </p>
                     </div>
                   </div>
                 </div>
               </Link>
-            );
+            ) };
           })}
-        </div>
+        />
         <Cta />
       </article>
     </>

@@ -6,7 +6,7 @@ import { COLUMNS, getColumn, columnsByDate } from "@/content/column";
 import { getSymptom } from "@/content/symptoms";
 import { CLINIC } from "@/content/clinic";
 import { Section, Cta, JsonLd } from "@/components/site";
-import { Blocks, readingMinutes } from "@/components/blocks";
+import { Blocks } from "@/components/blocks";
 import { breadcrumb, SITE_URL } from "@/content/schema";
 
 export const generateStaticParams = () => COLUMNS.map((c) => ({ slug: c.slug }));
@@ -88,8 +88,6 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
             <time dateTime={c.date} className="tabular-nums">
               {fmtDate(c.date)}
             </time>
-            <span aria-hidden="true">·</span>
-            <span>{readingMinutes([...c.body, ...c.clinic])}분</span>
             <span aria-hidden="true">·</span>
             <span>{author ? `${author.name} ${author.role}` : CLINIC.name}</span>
           </div>

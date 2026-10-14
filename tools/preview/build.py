@@ -262,6 +262,24 @@ JS = """
     });
   });
 
+  /* 원장 칼럼 원장별 보기 (src/components/column-filter.tsx 와 같은 규칙) */
+  document.querySelectorAll('[data-column-filter]').forEach(function(root){
+    var btns=root.querySelectorAll('[data-author-btn]');
+    btns.forEach(function(b){
+      b.addEventListener('click',function(){
+        var who=b.getAttribute('data-author-btn');
+        root.querySelectorAll('[data-author]').forEach(function(c){
+          c.hidden=!!who&&c.getAttribute('data-author')!==who;
+        });
+        btns.forEach(function(x){
+          var on=x===b;
+          x.setAttribute('aria-pressed',on?'true':'false');
+          x.className=x.className.replace(/border-herb bg-herb text-white|border-line bg-surface hover:border-herb/,on?'border-herb bg-herb text-white':'border-line bg-surface hover:border-herb');
+        });
+      });
+    });
+  });
+
   sel.addEventListener('change',function(){location.hash=sel.value;});
   window.addEventListener('hashchange',fromHash);
   document.addEventListener('click',function(e){
