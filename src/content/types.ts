@@ -178,6 +178,10 @@ export type Block =
   | { t: "p"; text: string }
   | { t: "h"; text: string }
   | { t: "ul"; items: string[] }
+  /** 비교표. 첫 칸은 항목 이름으로 굵게 나온다. 모바일에서는 가로로 밀어 본다 */
+  | { t: "table"; title?: string; head: string[]; rows: string[][] }
+  /** 순서가 있는 흐름. 번호를 붙여 위에서 아래로 */
+  | { t: "steps"; items: { title: string; text: string }[] }
   /**
    * warn  — 붉은 상자. 증상·치료 안내의 위험 신호에만 쓴다
    * check — 황토 상자. 칼럼의 「검사를 함께 권하는 경우」. 겁주지 않고 차분하게

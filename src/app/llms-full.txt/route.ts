@@ -36,6 +36,14 @@ function blocks(body: Block[]) {
           return b.text;
         case "ul":
           return list(b.items);
+        case "table":
+          return [
+            `| ${b.head.join(" | ")} |`,
+            `|${b.head.map(() => "---").join("|")}|`,
+            ...b.rows.map((r) => `| ${r.join(" | ")} |`),
+          ].join("\n");
+        case "steps":
+          return b.items.map((x, i) => `${i + 1}. ${x.title} — ${x.text}`).join("\n");
         case "note":
           return `> ${b.title} — ${b.text}`;
       }

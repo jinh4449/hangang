@@ -59,6 +59,64 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
               ))}
             </ul>
           );
+        if (b.t === "table")
+          return (
+            <figure key={i} className="max-w-[58ch]">
+              {b.title && (
+                <figcaption className="kr mb-2 text-[15px] font-bold text-herb">{b.title}</figcaption>
+              )}
+              <div className="overflow-x-auto rounded-2xl ring-1 ring-line">
+                <table className="kr w-full border-collapse text-left text-[14.5px] leading-7 sm:text-[15px]">
+                  <thead>
+                    <tr className="bg-gradient-to-r from-herb to-herb-light text-white">
+                      {b.head.map((h) => (
+                        <th key={h} scope="col" className="px-3 py-3 font-bold sm:px-4">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {b.rows.map((r) => (
+                      <tr key={r[0]} className="border-t border-line odd:bg-surface even:bg-surface-2">
+                        {r.map((c, j) =>
+                          j === 0 ? (
+                            <th key={j} scope="row" className="px-3 py-3 align-top font-bold text-ink sm:px-4">
+                              {c}
+                            </th>
+                          ) : (
+                            <td key={j} className="px-3 py-3 align-top text-ink/85 sm:px-4">
+                              {c}
+                            </td>
+                          ),
+                        )}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </figure>
+          );
+        if (b.t === "steps")
+          return (
+            <ol key={i} className="flex max-w-[58ch] flex-col gap-4 rounded-2xl bg-gradient-to-br from-surface-2 to-surface p-5 ring-1 ring-line">
+              {b.items.map((it, j) => (
+                <li key={it.title} className="flex gap-4">
+                  <span
+                    className="font-display flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-herb to-herb-light text-[15px] font-semibold text-white"
+                    aria-hidden="true"
+                  >
+                    {j + 1}
+                  </span>
+                  <span className="kr text-[16px] leading-8 text-ink/85">
+                    <strong className="text-ink">{it.title}</strong>
+                    <br />
+                    {it.text}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          );
         // note
         const box = {
           warn: "border-rust-line bg-gradient-to-br from-rust-soft to-surface",
@@ -86,6 +144,8 @@ export function readingMinutes(blocks: Block[]) {
   const chars = blocks.reduce((n, b) => {
     if (b.t === "ul") return n + b.items.join("").length;
     if (b.t === "note") return n + b.title.length + b.text.length;
+    if (b.t === "table") return n + [...b.head, ...b.rows.flat()].join("").length;
+    if (b.t === "steps") return n + b.items.map((x) => x.title + x.text).join("").length;
     return n + b.text.length;
   }, 0);
   return Math.max(1, Math.round(chars / 500));
