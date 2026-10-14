@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import Image from "next/image";
 
 /**
  * 원장 칼럼을 글쓴이로 거르는 단추.
@@ -16,14 +15,14 @@ export function ColumnFilter({
   tabs,
   items,
 }: {
-  tabs: { key: string; label: string; photo?: string }[];
+  tabs: { key: string; label: string }[];
   items: { key: string; author: string; node: ReactNode }[];
 }) {
   const [who, setWho] = useState("");
 
   // 한 덩어리 알약 안에서 고른 칸만 초록으로 채운다(세그먼트 단추)
   const seg = (on: boolean) =>
-    "kr inline-flex h-8 items-center gap-1.5 rounded-full px-3.5 text-[13.5px] font-medium transition-all " +
+    "kr inline-flex h-8 items-center rounded-full px-3.5 text-[13.5px] font-medium transition-all " +
     (on ? "bg-herb text-white shadow-sm" : "text-muted hover:text-ink");
 
   return (
@@ -34,7 +33,7 @@ export function ColumnFilter({
           aria-label="원장별로 보기"
           className="inline-flex items-center gap-0.5 rounded-full bg-surface p-1 ring-1 ring-line"
         >
-          {[{ key: "", label: "전체", photo: undefined }, ...tabs].map((t) => (
+          {[{ key: "", label: "전체" }, ...tabs].map((t) => (
             <button
               key={t.key}
               type="button"
@@ -43,18 +42,6 @@ export function ColumnFilter({
               aria-pressed={who === t.key}
               className={seg(who === t.key)}
             >
-              {/* 원본이 상반신 세로 사진이라 얼굴 쪽으로 당겨 작은 원 안에서도 알아보게 한다 */}
-              {t.photo && (
-                <span className="h-5 w-5 shrink-0 overflow-hidden rounded-full bg-tint ring-1 ring-black/10">
-                  <Image
-                    src={t.photo}
-                    width={60}
-                    height={60}
-                    alt=""
-                    className="h-full w-full origin-[50%_12%] scale-[1.7] object-cover object-top"
-                  />
-                </span>
-              )}
               {t.label}
             </button>
           ))}
