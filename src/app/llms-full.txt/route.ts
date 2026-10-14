@@ -26,8 +26,8 @@ const qa = (pairs: { q: string; a: string }[]) =>
   pairs.map((p) => `**Q. ${p.q}**\n${p.a}`).join("\n\n");
 const source = (path: string) => `원문: ${SITE_URL}${path}`;
 
-/** 칼럼 글 안 강조 표시(**, ==, __)는 읽는 쪽에 필요 없어 떼어 낸다 */
-const plain = (t: string) => t.replace(/\*\*(.+?)\*\*|==(.+?)==|__(.+?)__/g, (_, a, b, c) => a ?? b ?? c);
+/** 칼럼 글 안 강조 표시(**, ==)는 읽는 쪽에 필요 없어 떼어 낸다 */
+const plain = (t: string) => t.replace(/\*\*(.+?)\*\*|==(.+?)==/g, (_, a, b) => a ?? b);
 
 function blocks(body: Block[]) {
   return body

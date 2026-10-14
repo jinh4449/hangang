@@ -10,9 +10,9 @@ import type { Block } from "@/content/types";
  * @param numbered 소제목에 번호를 붙일지. 「김포한강한의원에서는」 처럼
  *                 상자 안에 들어가는 짧은 글에서는 끈다
  */
-/** 글 안 강조 표시(**노랑**, ==초록==, __밑줄__)를 입힌다. 표시는 types.ts 의 Block 주석 참고 */
+/** 글 안 강조 표시(**노랑**, ==초록==)를 입힌다. 표시는 types.ts 의 Block 주석 참고 */
 function Rich({ text }: { text: string }) {
-  const parts = text.split(/(\*\*.+?\*\*|==.+?==|__.+?__)/g);
+  const parts = text.split(/(\*\*.+?\*\*|==.+?==)/g);
   return (
     <>
       {parts.map((t, i) => {
@@ -25,12 +25,6 @@ function Rich({ text }: { text: string }) {
         if (t.startsWith("==") && t.endsWith("==") && t.length > 4)
           return (
             <strong key={i} className="font-bold text-ink [background:linear-gradient(transparent_58%,#bfe6d3_58%)]">
-              {t.slice(2, -2)}
-            </strong>
-          );
-        if (t.startsWith("__") && t.endsWith("__") && t.length > 4)
-          return (
-            <strong key={i} className="font-bold text-ink underline decoration-ochre decoration-2 underline-offset-4">
               {t.slice(2, -2)}
             </strong>
           );
@@ -55,7 +49,7 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
                     {String(nth[i]).padStart(2, "0")}
                   </span>
                 )}
-                <span className="kr text-[21px] font-bold leading-snug tracking-tight sm:text-[23px]">
+                <span className="kr text-[18px] font-bold leading-snug tracking-tight sm:text-[20px]">
                   {b.text}
                 </span>
               </span>
