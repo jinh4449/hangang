@@ -338,6 +338,81 @@ const dietPalpitations: Column = {
   ],
 };
 
+const guidedPharmacopuncture: Column = {
+  slug: "ultrasound-guided-pharmacopuncture",
+  authorKey: "lee",
+  title: "초음파 약침, 일반 약침과 무엇이 다른가요?",
+  question: "초음파 약침 효과",
+  summary:
+    "약 자체가 달라지는 것은 아닙니다. 달라지는 것은 아픈 자리를 화면으로 보고 놓는다는 점입니다.",
+  date: "2026-10-14",
+  symptomSlugs: ["pain"],
+  image: {
+    src: "/column-guided-needle.svg",
+    w: 800,
+    h: 500,
+    alt: "초음파 화면 속 힘줄 층과 그 위치로 향하는 바늘 한 개",
+  },
+  answer:
+    "약침에 쓰는 약은 같고, 초음파 약침은 화면으로 힘줄·근육·혈관의 위치를 확인하면서 놓는 방법입니다. 깊고 구조가 복잡한 부위에서 특히 쓸모가 있고, 모든 통증에 꼭 필요한 것은 아닙니다. 어디가 아픈지, 초음파가 도움이 될 자리인지 먼저 상담해 드립니다.",
+  body: [
+    { t: "p", text:
+      "「초음파를 붙이면 약침이 더 잘 듣나요?」 하고 많이 물으십니다. " +
+      "먼저 말씀드리면 약침에 쓰는 약액은 같습니다. 달라지는 것은 약을 놓는 자리를 " +
+      "손 감각이 아니라 눈으로 확인한다는 점입니다." },
+    { t: "h", text: "초음파가 더해 주는 것" },
+    { t: "p", text:
+      "약침은 한약재에서 추출한 약액을 아픈 부위에 소량 놓는 치료입니다. " +
+      "어깨 힘줄이나 허리 깊은 근육처럼 겹겹이 쌓인 자리에서는, 같은 곳을 짚었다고 생각해도 " +
+      "한 층 위나 아래일 수 있습니다. 초음파 화면에서는 힘줄과 근막의 층, 그리고 피해야 할 혈관과 " +
+      "신경의 위치가 보여서, 바늘이 가는 길과 끝이 닿는 자리를 보면서 놓을 수 있습니다." },
+    { t: "p", text:
+      "치료 전에 같은 화면으로 아픈 구조의 상태를 먼저 살펴볼 수 있다는 점도 있습니다. " +
+      "힘줄이 두꺼워졌는지, 물이 고였는지를 함께 보며 설명드리면 치료 계획을 세우기가 수월합니다." },
+    { t: "h", text: "연구에서는" },
+    { t: "p", text:
+      "한국의 한의 의료기관 7곳에서 급성 목 근막통증증후군 환자 97명이 약침을 한 번 받았습니다. " +
+      "초음파를 보고 놓은 군과 초음파 없이 놓은 군을 비교했더니(2025), 두 군 모두 통증과 목 움직임이 좋아졌고 " +
+      "초음파를 쓴 군에서 통증 점수가 더 많이 내려갔습니다. 심각한 이상반응은 없었습니다. " +
+      "다만 환자를 무작위로 나눈 시험이 아니라 관찰 연구라서, 결과를 그대로 단정하기보다 " +
+      "「초음파를 보고 놓는 방법이 의미 있게 쓰일 수 있다」는 정도로 이해하시면 좋겠습니다." },
+    { t: "p", text:
+      "어깨 통증에 스테로이드 주사를 놓는 방법을 비교한 코크란 체계적 고찰(2021, 임상시험 19건·1,035명)에서는, " +
+      "초음파를 보고 놓은 경우와 그렇지 않은 경우의 통증 차이가 0~10점 척도로 0.5점 안팎이었습니다. " +
+      "이 차이는 환자가 크게 느끼는 수준은 아니라고 보았습니다. 주사 약물이 다르고 약침 연구도 아니므로 " +
+      "그대로 옮길 수는 없지만, 초음파가 만능 열쇠라기보다 정확하게 놓기 위한 도구라는 점을 알려 줍니다." },
+    { t: "h", text: "그래서 이렇게 선택합니다" },
+    { t: "ul", items: [
+      "어깨·엉덩이·허리처럼 깊고 층이 많은 자리, 힘줄·인대가 아픈 자리에는 화면으로 보고 놓는 편이 도움이 됩니다.",
+      "얕은 근육의 뭉친 점은 손으로 짚어 놓아도 충분한 경우가 많습니다.",
+      "어느 쪽이든 약침만으로 끝내지 않고, 아픈 원인에 맞춰 침이나 추나를 함께 계획합니다.",
+    ]},
+    { t: "note", tone: "check", title: "이럴 때는 검사를 함께 권해 드립니다", text:
+      "몇 주가 지나도 같은 자리가 이어서 아프거나, 팔을 들거나 걸을 때 힘이 빠지는 느낌이 있으면 " +
+      "초음파로 힘줄 상태를 먼저 확인해 드립니다. 혈액을 묽게 하는 약을 드시거나 주사 치료가 걱정되는 " +
+      "지병이 있으시면 상담 때 말씀해 주세요. 대부분은 해당하지 않으며, 필요한 검사는 저희가 안내해 드립니다." },
+  ],
+  clinic: [
+    { t: "p", text:
+      "이진희 대표원장이 미국 근골격계 초음파사(RMSK) 자격을 갖추고, 삼성 V7 초음파로 먼저 아픈 구조를 " +
+      "확인합니다. 화면을 함께 보면서 지금 어떤 상태인지 설명드립니다." },
+    { t: "p", text:
+      "약침이 도움이 될 자리라고 판단되면 같은 화면을 보면서 바늘의 위치와 깊이를 확인하며 놓습니다. " +
+      "복용 중인 약이나 걱정되는 점을 말씀해 주시면 반영해 맞춰 드립니다. " +
+      "필요하면 침·전침·부항, 추나요법(건강보험 연 20회)을 함께 계획합니다." },
+  ],
+  references: [
+    {
+      cite: "Kwon R, Kim K, Lee YU, et al. Effectiveness and Safety of Portable Ultrasound-Guided Pharmacopuncture for Cervical Myofascial Pain Syndrome: A Prospective Observational Multi-Center Study. Medicina. 2025;61(8):1371.",
+      url: "https://doi.org/10.3390/medicina61081371",
+    },
+    {
+      cite: "Zadro J, Rischin A, Johnston RV, Buchbinder R. Image-guided glucocorticoid injection versus injection without image guidance for shoulder pain. Cochrane Database of Systematic Reviews. 2021;(8):CD009147.",
+      url: "https://doi.org/10.1002/14651858.CD009147.pub3",
+    },
+  ],
+};
+
 /** 질문형 칼럼. 첫 화면에는 이 중 최신 여섯 편이 선다(homeColumns) */
 export const QUESTION_COLUMNS: Column[] = [
   crashNeck,
@@ -345,4 +420,5 @@ export const QUESTION_COLUMNS: Column[] = [
   fatigueLabs,
   backSurgery,
   dietPalpitations,
+  guidedPharmacopuncture,
 ];
