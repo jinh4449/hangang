@@ -109,6 +109,7 @@ export const LIFE: GlossaryTerm[] = [
     term: "마황",
     aka: ["麻黃"],
     category: "herb",
+    treatmentSlug: "herbal",
     short:
       "마황은 에페드린 성분을 가진 한약재로, 한의학에서 땀을 내고 기침을 멎게 하는 데 쓰며 식욕을 줄이는 작용 때문에 다이어트 처방에도 들어갑니다.",
     about: [
@@ -141,6 +142,7 @@ export const LIFE: GlossaryTerm[] = [
     term: "첩약 건강보험 시범사업",
     aka: ["한약 건강보험", "첩약 급여"],
     category: "insurance",
+    treatmentSlug: "herbal",
     short:
       "첩약 건강보험 시범사업은 정해진 일부 질환에 한해 한의사가 처방한 첩약(달인 한약)에 건강보험을 적용하는 제도로, 2020년 11월부터 시행되고 있습니다.",
     about: [
@@ -171,6 +173,7 @@ export const LIFE: GlossaryTerm[] = [
     term: "온찜질과 냉찜질",
     aka: ["찜질", "얼음찜질", "핫팩"],
     category: "selfcare",
+    symptomSlug: "pain",
     short:
       "다친 직후 붓고 열이 나는 1~2일은 냉찜질로 염증과 붓기를 줄이고, 그 뒤 굳고 뻐근한 통증에는 온찜질로 근육을 풀어 주는 것이 일반적인 원칙입니다.",
     about: [
@@ -185,6 +188,7 @@ export const LIFE: GlossaryTerm[] = [
     term: "바른 앉은 자세",
     aka: ["컴퓨터 자세", "모니터 높이", "책상 자세"],
     category: "selfcare",
+    symptomSlug: "pain",
     short:
       "오래 앉아 일할 때는 모니터 윗선을 눈높이에 맞추고, 엉덩이를 의자 깊숙이 넣어 등을 기대며, 30~50분마다 일어나 자세를 바꾸는 것이 목과 허리의 부담을 줄이는 기본입니다.",
     about: [
@@ -199,6 +203,7 @@ export const LIFE: GlossaryTerm[] = [
     term: "통증이 있을 때 스트레칭",
     aka: ["스트레칭", "운동해도 되나요"],
     category: "selfcare",
+    symptomSlug: "pain",
     short:
       "통증이 있을 때의 스트레칭은 아프지 않은 범위에서 천천히 15~30초씩 늘리는 것이 원칙이며, 하면서 통증이 커지거나 저림이 퍼지면 멈춰야 합니다.",
     about: [
@@ -230,6 +235,7 @@ export const LIFE: GlossaryTerm[] = [
     term: "항응고제 복용 중 침 치료",
     aka: ["아스피린 먹는데 침", "혈액 희석제 한의원"],
     category: "special",
+    treatmentSlug: "acupuncture",
     short:
       "아스피린이나 와파린 같은 항응고제·항혈소판제를 드시는 분도 침 치료를 받을 수 있지만, 멍과 출혈이 생기기 쉬워 약 이름을 미리 알려 주셔야 하고 습식 부항과 일부 약침은 피합니다.",
     about: [
@@ -244,6 +250,7 @@ export const LIFE: GlossaryTerm[] = [
     term: "당뇨가 있을 때 한의원 치료",
     aka: ["당뇨 침", "당뇨 한약"],
     category: "special",
+    treatmentSlug: "acupuncture",
     short:
       "당뇨가 있으면 상처가 잘 낫지 않고 감각이 둔할 수 있어, 침 자리의 위생과 찜질·뜸의 열 자극을 더 조심해야 하고 한약도 혈당에 영향을 주는 약재를 고려해 처방합니다.",
     about: [

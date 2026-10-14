@@ -32,6 +32,7 @@ export const CARE: GlossaryTerm[] = [
     aka: ["뜸치료", "구법"],
     english: "Moxibustion",
     category: "treatment",
+    treatmentSlug: "acupuncture",
     short:
       "뜸은 쑥을 뭉쳐 경혈 위에서 태워 그 열로 자극을 주는 한방 치료입니다.",
     about: [
@@ -77,6 +78,7 @@ export const CARE: GlossaryTerm[] = [
     term: "한약 제형",
     aka: ["탕약", "환약", "산제", "한약 엑스제"],
     category: "herb",
+    treatmentSlug: "herbal",
     short:
       "한약 제형은 같은 처방을 어떤 모양으로 만드는지를 말하며, 달인 물약(탕약), 둥글게 빚은 알약(환), 가루(산), 농축 과립(엑스제)이 대표적입니다.",
     about: [
@@ -91,6 +93,7 @@ export const CARE: GlossaryTerm[] = [
     term: "한약 복용법",
     aka: ["한약 먹는 법", "한약 식전 식후"],
     category: "herb",
+    treatmentSlug: "herbal",
     short:
       "한약은 대개 하루 두세 번 식사와 간격을 두고 따뜻하게 데워 드시며, 정확한 시간과 양은 처방한 한의사의 안내를 따르는 것이 원칙입니다.",
     about: [
@@ -106,6 +109,7 @@ export const CARE: GlossaryTerm[] = [
     term: "한약과 양약 함께 복용",
     aka: ["한약 양약 같이", "한약 병용"],
     category: "herb",
+    treatmentSlug: "herbal",
     short:
       "한약과 양약은 함께 드실 수 있는 경우가 많지만, 드시는 약을 한의사에게 모두 알려 처방에 반영하고 두 약 사이에 시간 간격을 두는 것이 원칙입니다.",
     about: [
@@ -121,6 +125,7 @@ export const CARE: GlossaryTerm[] = [
     term: "한약과 간",
     aka: ["한약 간 손상", "한약 간수치"],
     category: "herb",
+    treatmentSlug: "herbal",
     short:
       "한약이 간을 해친다는 걱정이 많지만, 한의사가 진찰해 처방하고 복용 중 이상을 살피는 한약은 관리할 수 있는 범위에 있으며, 출처를 알 수 없는 약재를 직접 구해 먹는 경우가 더 위험합니다.",
     about: [
@@ -134,6 +139,7 @@ export const CARE: GlossaryTerm[] = [
     term: "공진단",
     aka: ["供辰丹"],
     category: "herb",
+    treatmentSlug: "herbal",
     short:
       "공진단은 녹용, 당귀, 산수유에 사향(또는 목향)을 더해 꿀로 빚은 환약으로, 한의학에서 기력이 떨어졌을 때 쓰는 대표적인 보약 처방입니다.",
     about: [
@@ -148,6 +154,7 @@ export const CARE: GlossaryTerm[] = [
     term: "녹용",
     aka: ["鹿茸"],
     category: "herb",
+    treatmentSlug: "herbal",
     short:
       "녹용은 굳기 전의 어린 사슴뿔을 잘라 말린 한약재로, 한의학에서 기혈과 양기를 보하는 약재로 분류합니다.",
     about: [

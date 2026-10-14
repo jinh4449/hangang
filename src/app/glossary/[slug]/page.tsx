@@ -52,6 +52,10 @@ export async function generateMetadata({ params }: PageProps<"/glossary/[slug]">
 const chip =
   "badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb";
 
+/** 진료과목·치료 방법으로 건너가는 큰 단추 */
+const jump =
+  "block rounded-2xl bg-gradient-to-br from-herb to-[#3f8a6c] p-5 text-white shadow-[0_12px_30px_-18px_rgba(30,91,69,0.6)] transition hover:brightness-105";
+
 export default async function TermPage({ params }: PageProps<"/glossary/[slug]">) {
   const t = getTerm((await params).slug);
   if (!t) notFound();
@@ -176,29 +180,49 @@ export default async function TermPage({ params }: PageProps<"/glossary/[slug]">
       )}
 
       {(part || treatment || symptom || compare) && (
-        <Section title="이어서 보기">
-          <div className="flex flex-wrap gap-2">
-            {part && (
-              <Link href={`/part/${part.slug}`} className={chip}>
-                {part.name} 통증 안내
-              </Link>
-            )}
-            {treatment && (
-              <Link href="/treatment" className={chip}>
-                치료 방법 — {treatment.name}
-              </Link>
-            )}
-            {symptom && (
-              <Link href={`/care/${symptom.slug}`} className={chip}>
-                {symptom.name} 진료 안내
-              </Link>
-            )}
-            {compare && (
-              <Link href={`/compare/${compare.slug}`} className={chip}>
-                {compare.title}
-              </Link>
-            )}
-          </div>
+        <Section title="관련 진료 · 치료 안내">
+          {(symptom || treatment) && (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {symptom && (
+                <Link href={`/care/${symptom.slug}`} className={jump}>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">
+                    관련 진료과목
+                  </span>
+                  <span className="kr mt-1 block text-[19px] font-bold">{symptom.name}</span>
+                  <span className="kr mt-1 block text-[14.5px] leading-6 text-white/85">{symptom.summary}</span>
+                  <span className="mt-3 inline-block text-[14px] font-bold" aria-hidden="true">
+                    진료 안내 보기 →
+                  </span>
+                </Link>
+              )}
+              {treatment && (
+                <Link href={`/treatment#${treatment.slug}`} className={jump}>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-white/70">
+                    관련 치료 방법
+                  </span>
+                  <span className="kr mt-1 block text-[19px] font-bold">{treatment.name}</span>
+                  <span className="kr mt-1 block text-[14.5px] leading-6 text-white/85">{treatment.summary}</span>
+                  <span className="mt-3 inline-block text-[14px] font-bold" aria-hidden="true">
+                    치료 방법 보기 →
+                  </span>
+                </Link>
+              )}
+            </div>
+          )}
+          {(part || compare) && (
+            <div className="mt-4 flex flex-wrap gap-2">
+              {part && (
+                <Link href={`/part/${part.slug}`} className={chip}>
+                  {part.name} 통증 안내
+                </Link>
+              )}
+              {compare && (
+                <Link href={`/compare/${compare.slug}`} className={chip}>
+                  {compare.title}
+                </Link>
+              )}
+            </div>
+          )}
         </Section>
       )}
 

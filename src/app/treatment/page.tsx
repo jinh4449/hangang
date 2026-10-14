@@ -88,7 +88,7 @@ export default function TreatmentIndex() {
 
         <div className="mt-14 border-t border-line">
           {TREATMENTS.map((t) => (
-            <div key={t.slug} className="grid gap-2 border-b border-line py-7">
+            <div key={t.slug} id={t.slug} className="grid scroll-mt-24 gap-2 border-b border-line py-7">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-faint">
                   {AXIS_LABEL[t.axis]}

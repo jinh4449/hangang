@@ -8,6 +8,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["유착성 관절낭염", "동결견"],
     english: "Adhesive capsulitis (Frozen shoulder)",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "오십견은 어깨 관절을 싸고 있는 관절낭이 두꺼워지고 굳어, 팔을 어느 방향으로 들어도 움직임이 막히는 상태입니다.",
     about: [
@@ -34,6 +35,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["회전근개 파열", "회전근개 건염"],
     english: "Rotator cuff injury",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "회전근개 손상은 어깨 관절을 붙잡고 돌리는 네 개의 힘줄(회전근개)에 염증이 생기거나 일부가 찢어진 상태입니다.",
     about: [
@@ -60,6 +62,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["어깨 석회", "석회화 건염"],
     english: "Calcific tendinitis",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "석회성 건염은 어깨 힘줄 안에 칼슘 덩어리(석회)가 쌓이고, 그 주변에 염증이 생겨 아픈 상태입니다.",
     about: [
@@ -78,6 +81,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["경추 추간판탈출증"],
     english: "Cervical disc herniation",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "목디스크는 목뼈 사이의 추간판이 밀려 나와 주변 신경을 누르면서, 목 통증과 함께 어깨·팔·손끝으로 저림이 퍼지는 상태입니다.",
     about: [
@@ -101,6 +105,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["거북목", "일자목"],
     english: "Forward head posture",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "거북목증후군은 머리가 어깨보다 앞으로 나온 자세가 굳으면서 목과 어깨, 등 위쪽에 부담이 몰려 통증이 생기는 상태입니다.",
     about: [
@@ -147,6 +152,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["요추 추간판탈출증"],
     english: "Lumbar disc herniation",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "허리디스크는 허리뼈 사이의 추간판이 밀려 나와 신경을 누르면서, 허리 통증과 함께 엉덩이와 다리로 저림이 뻗치는 상태입니다.",
     about: [
@@ -175,6 +181,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["요추관 협착증"],
     english: "Spinal stenosis",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "척추관협착증은 척추 안쪽의 신경이 지나는 통로(척추관)가 좁아져 신경이 눌리면서, 걸을 때 다리가 저리고 아파 쉬어 가야 하는 상태입니다.",
     about: [
@@ -194,6 +201,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["궁둥신경통"],
     english: "Sciatica",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "좌골신경통은 허리에서 엉덩이를 지나 다리 뒤쪽으로 내려가는 좌골신경이 자극되어, 그 길을 따라 저림과 통증이 뻗치는 증상입니다.",
     about: [
@@ -213,6 +221,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["거위발 점액낭염", "거위발건 통증"],
     english: "Pes anserine tendinitis / bursitis",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "거위발건염은 무릎 안쪽 아래, 세 개의 힘줄이 거위 발 모양으로 모여 붙는 자리에 염증이 생겨 아픈 상태입니다.",
     about: [
@@ -230,6 +239,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["무릎 관절염", "슬관절염"],
     english: "Knee osteoarthritis",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "무릎 퇴행성 관절염은 무릎 관절의 연골이 닳고 주변 뼈가 변하면서, 걷거나 앉았다 일어설 때 통증과 붓기가 생기는 상태입니다.",
     about: [
@@ -248,6 +258,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["외측상과염", "팔꿈치 바깥쪽 힘줄염"],
     english: "Lateral epicondylitis (Tennis elbow)",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "테니스엘보는 손목을 젖히는 근육의 힘줄이 팔꿈치 바깥쪽 뼈에 붙는 자리에 손상과 염증이 생겨 아픈 상태입니다.",
     about: [
@@ -267,6 +278,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["발바닥 근막염"],
     english: "Plantar fasciitis",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "족저근막염은 발뒤꿈치에서 발가락까지 이어지는 발바닥 근막에 반복해서 부담이 쌓여 염증과 통증이 생기는 상태입니다.",
     about: [
@@ -286,6 +298,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["발목 삠", "발목 인대 손상"],
     english: "Ankle sprain",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "발목 염좌는 발목이 안쪽이나 바깥쪽으로 꺾이면서 발목을 잡아 주는 인대가 늘어나거나 찢어진 상태입니다.",
     about: [
@@ -447,6 +460,7 @@ export const CORE: GlossaryTerm[] = [
     aka: ["근골격계 초음파사", "Registered in Musculoskeletal Sonography"],
     english: "Registered in Musculoskeletal Sonography",
     category: "exam",
+    treatmentSlug: "ultrasound-pharmacopuncture",
     short:
       "RMSK 는 미국 초음파 인증기관(APCA/Inteleos)이 근골격계 초음파를 다루는 의료인에게 주는 자격으로, 근육·힘줄·인대·관절을 초음파로 판독하는 능력을 시험으로 확인합니다.",
     about: [

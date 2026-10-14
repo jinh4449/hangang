@@ -7,6 +7,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     term: "담 결림",
     aka: ["담 들었다", "목 담", "급성 경부 근육 긴장"],
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "담 결림은 목이나 등, 날개뼈 주변 근육이 갑자기 뭉치고 굳어, 고개를 돌리거나 숨을 깊이 쉴 때 찌르듯 아픈 상태를 흔히 부르는 말입니다.",
     about: [
@@ -28,6 +29,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["근막통", "근막 통증"],
     english: "Myofascial pain syndrome",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "근막통증증후군은 근육과 그 막(근막) 안에 단단하게 뭉친 자리(통증 유발점)가 생기고, 그 자리를 누르면 아프면서 다른 곳까지 통증이 뻗치는 상태입니다.",
     about: [
@@ -45,6 +47,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["목 두통", "긴장성 두통"],
     english: "Cervicogenic headache",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "경추성 두통은 목뼈와 목 주변 근육·관절의 문제에서 시작해 뒤통수, 관자놀이, 눈 쪽으로 뻗치는 두통입니다.",
     about: [
@@ -65,6 +68,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["충돌증후군", "견봉하 충돌"],
     english: "Shoulder impingement syndrome",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "어깨 충돌증후군은 팔을 들어 올릴 때 어깨 힘줄과 점액낭이 위쪽 뼈(견봉) 아래에 끼이고 부딪히면서 염증과 통증이 생기는 상태입니다.",
     about: [
@@ -83,6 +87,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["내측상과염", "팔꿈치 안쪽 힘줄염"],
     english: "Medial epicondylitis (Golfer's elbow)",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "골프엘보는 손목을 굽히고 주먹을 쥐는 근육의 힘줄이 팔꿈치 안쪽 뼈에 붙는 자리에 손상과 염증이 생겨 아픈 상태입니다.",
     about: [
@@ -135,6 +140,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["궁둥구멍근 증후군"],
     english: "Piriformis syndrome",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "이상근증후군은 엉덩이 깊은 곳의 이상근이 굳거나 부어 그 아래를 지나는 좌골신경을 자극해, 엉덩이 통증과 다리 저림이 생기는 상태입니다.",
     about: [
@@ -152,6 +158,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["천장관절 통증", "엉치 통증"],
     english: "Sacroiliac joint dysfunction",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "천장관절 증후군은 골반 뒤쪽에서 척추 끝(천골)과 골반뼈(장골)가 만나는 천장관절에 무리가 가서, 엉치와 허리 아래쪽이 아픈 상태입니다.",
     about: [
@@ -169,6 +176,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["허리 삠", "허리 삐끗", "급성 요통"],
     english: "Lumbar sprain",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "요추 염좌는 허리를 갑자기 비틀거나 무거운 것을 들 때 허리 주변의 인대와 근육이 늘어나거나 다쳐 생기는 급성 허리 통증입니다.",
     about: [
@@ -186,6 +194,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["척추 미끄러짐", "척추분리증"],
     english: "Spondylolisthesis",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "척추전방전위증은 위쪽 척추뼈가 아래쪽 척추뼈보다 앞으로 미끄러져 나가 허리 통증과 다리 저림이 생기는 상태입니다.",
     about: [
@@ -206,6 +215,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["점퍼스 니", "무릎 앞 힘줄염"],
     english: "Patellar tendinopathy",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "슬개건염은 무릎뼈(슬개골) 아래에서 정강이뼈로 이어지는 힘줄에 반복해서 부담이 쌓여 무릎 앞쪽이 아픈 상태입니다.",
     about: [
@@ -223,6 +233,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     aka: ["아킬레스건 통증"],
     english: "Achilles tendinopathy",
     category: "musculoskeletal",
+    symptomSlug: "pain",
     short:
       "아킬레스건염은 종아리 근육과 발뒤꿈치를 잇는 아킬레스건에 반복해서 부담이 쌓여 발뒤꿈치 위쪽이 아프고 두꺼워지는 상태입니다.",
     about: [

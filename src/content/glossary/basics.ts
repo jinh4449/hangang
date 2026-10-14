@@ -14,6 +14,7 @@ export const BASICS: GlossaryTerm[] = [
     aka: ["변증론치", "辨證"],
     english: "Pattern identification",
     category: "concept",
+    treatmentSlug: "herbal",
     short:
       "변증은 한의사가 증상, 맥, 혀, 체형과 생활을 종합해 지금 몸의 상태를 하나의 유형(증)으로 판단하는 한의학의 진단 방법입니다.",
     about: [
@@ -76,6 +77,7 @@ export const BASICS: GlossaryTerm[] = [
     term: "한열",
     aka: ["한증", "열증", "몸이 차다", "열이 많다"],
     category: "concept",
+    treatmentSlug: "herbal",
     short:
       "한열은 한의학에서 몸이 차서 생긴 상태(한)와 열이 많아 생긴 상태(열)를 나누는 기준으로, 같은 증상이라도 어느 쪽인지에 따라 치료가 반대가 됩니다.",
     about: [
@@ -102,6 +104,7 @@ export const BASICS: GlossaryTerm[] = [
     aka: ["경맥", "經絡"],
     english: "Meridian",
     category: "concept",
+    treatmentSlug: "acupuncture",
     short:
       "경락은 한의학에서 기혈이 흐르는 길로 보는 체계로, 몸 안의 장부와 몸 겉을 잇는 통로라고 설명합니다.",
     about: [
@@ -115,6 +118,7 @@ export const BASICS: GlossaryTerm[] = [
     aka: ["혈자리", "經穴"],
     english: "Acupuncture point",
     category: "concept",
+    treatmentSlug: "acupuncture",
     short:
       "경혈은 경락 위에서 침이나 뜸으로 자극하는 자리로, 흔히 「혈자리」라고 부릅니다.",
     about: [
@@ -127,6 +131,7 @@ export const BASICS: GlossaryTerm[] = [
     term: "사상체질",
     aka: ["태양인", "태음인", "소양인", "소음인", "체질"],
     category: "concept",
+    treatmentSlug: "herbal",
     short:
       "사상체질은 조선 말 이제마가 정리한 한의학 이론으로, 사람을 태양인·태음인·소양인·소음인 네 체질로 나누고 체질에 따라 건강 관리와 처방을 달리합니다.",
     about: [
@@ -142,6 +147,7 @@ export const BASICS: GlossaryTerm[] = [
     aka: ["건", "腱"],
     english: "Tendon",
     category: "anatomy",
+    symptomSlug: "pain",
     short:
       "힘줄은 근육을 뼈에 붙여 근육의 힘을 뼈에 전달하는 질기고 단단한 섬유 조직입니다.",
     about: [
@@ -156,6 +162,7 @@ export const BASICS: GlossaryTerm[] = [
     aka: ["靭帶"],
     english: "Ligament",
     category: "anatomy",
+    symptomSlug: "pain",
     short:
       "인대는 뼈와 뼈를 이어 관절이 정해진 범위 밖으로 움직이지 않게 잡아 주는 섬유 조직입니다.",
     about: [
@@ -169,6 +176,7 @@ export const BASICS: GlossaryTerm[] = [
     aka: ["筋膜"],
     english: "Fascia",
     category: "anatomy",
+    symptomSlug: "pain",
     short:
       "근막은 근육을 감싸고 근육과 근육 사이를 이어 주는 얇고 질긴 막입니다.",
     about: [
@@ -182,6 +190,7 @@ export const BASICS: GlossaryTerm[] = [
     aka: ["활액낭", "윤활낭"],
     english: "Bursa",
     category: "anatomy",
+    symptomSlug: "pain",
     short:
       "점액낭은 힘줄과 뼈가 맞닿는 자리에서 마찰을 줄여 주는 작은 물주머니입니다.",
     about: [
@@ -195,6 +204,7 @@ export const BASICS: GlossaryTerm[] = [
     aka: ["디스크", "椎間板"],
     english: "Intervertebral disc",
     category: "anatomy",
+    symptomSlug: "pain",
     short:
       "추간판은 척추뼈와 척추뼈 사이에서 충격을 흡수하는 쿠션으로, 바깥의 질긴 섬유륜과 안쪽의 말랑한 수핵으로 이루어져 있습니다.",
     about: [
@@ -208,6 +218,7 @@ export const BASICS: GlossaryTerm[] = [
     term: "골반 정렬",
     aka: ["골반 틀어짐", "골반 비대칭"],
     category: "anatomy",
+    symptomSlug: "pain",
     short:
       "골반 정렬은 좌우 골반뼈와 천골이 이루는 위치 관계를 말하며, 이 균형이 무너지면 좌우 다리에 실리는 무게가 달라져 허리와 무릎에 부담이 갑니다.",
     about: [
@@ -242,6 +253,7 @@ export const BASICS: GlossaryTerm[] = [
     term: "엑스레이와 MRI",
     aka: ["X-ray", "엠알아이", "영상 검사"],
     category: "exam",
+    symptomSlug: "pain",
     short:
       "엑스레이는 뼈의 모양과 배열을, MRI 는 추간판·신경·인대·연골 같은 부드러운 조직을 자세히 보여 주는 영상 검사입니다.",
     about: [
