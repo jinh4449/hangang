@@ -274,7 +274,7 @@ JS = """
         btns.forEach(function(x){
           var on=x===b;
           x.setAttribute('aria-pressed',on?'true':'false');
-          x.className=x.className.replace(/border-herb bg-herb text-white|border-line bg-surface hover:border-herb/,on?'border-herb bg-herb text-white':'border-line bg-surface hover:border-herb');
+          x.className=x.className.replace(/bg-herb text-white shadow-sm|text-muted hover:text-ink/,on?'bg-herb text-white shadow-sm':'text-muted hover:text-ink');
         });
       });
     });

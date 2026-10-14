@@ -56,7 +56,7 @@ export default function ColumnIndex() {
         {/* 카드. 그림으로 무슨 글인지 먼저 알리고, 아래에 누가 언제 썼는지를 둔다.
             의료 글은 「누가 썼나」가 믿을지를 가르는 첫 단서다 */}
         <ColumnFilter
-          tabs={CLINIC.doctors.map((d) => ({ key: d.key, label: `${d.name} 원장` }))}
+          tabs={CLINIC.doctors.map((d) => ({ key: d.key, label: `${d.name} 원장`, photo: d.photo.src }))}
           items={list.map((c) => {
             const author = CLINIC.doctors.find((d) => d.key === c.authorKey);
             return { key: c.slug, author: c.authorKey, node: (
