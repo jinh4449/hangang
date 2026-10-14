@@ -203,15 +203,3 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
     </div>
   );
 }
-
-/** 읽는 데 걸리는 시간. 한국어는 분당 약 500자로 잡는다 */
-export function readingMinutes(blocks: Block[]) {
-  const chars = blocks.reduce((n, b) => {
-    if (b.t === "ul" || b.t === "ol" || b.t === "summary") return n + b.items.join("").length;
-    if (b.t === "note") return n + b.title.length + b.text.length;
-    if (b.t === "table") return n + [...b.head, ...b.rows.flat()].join("").length;
-    if (b.t === "steps") return n + b.items.map((x) => x.title + x.text).join("").length;
-    return n + b.text.length;
-  }, 0);
-  return Math.max(1, Math.round(chars / 500));
-}
