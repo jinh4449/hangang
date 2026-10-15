@@ -80,6 +80,14 @@ export const pain: Symptom = {
         body: "석회나 오래된 힘줄 병변의 회복을 돕습니다.",
       },
       {
+        name: "도침",
+        icon: "needle",
+        covered: false,
+        body:
+          "오래된 통증으로 들러붙은 근육과 근막을 떼어 냅니다. 퇴행성 질환, 디스크, 협착증, " +
+          "엘보처럼 오래 끌어 온 통증에 다른 치료와 함께 씁니다.",
+      },
+      {
         name: "초음파 약침",
         icon: "ultrasound",
         covered: false,

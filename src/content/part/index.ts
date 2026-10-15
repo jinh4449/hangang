@@ -130,6 +130,8 @@ export const PARTS: BodyPart[] = [
         role: "이상근이나 천장관절 주변처럼 깊은 부위의 염증을 확인해 약침을 놓습니다." },
       { treatmentSlug: "chuna",
         role: "골반의 틀어진 정렬을 교정합니다. 한쪽 허리만 반복해서 아픈 경우 여기에 원인이 있는 경우가 많습니다." },
+      { treatmentSlug: "acupotomy",
+        role: "디스크나 협착증으로 오래 아프면서 허리·엉덩이 근육과 근막이 들러붙어 굳은 경우, 도침으로 유착을 떼어 냅니다." },
       { treatmentSlug: "herbal",
         role: "회복이 더딘 경우 소화·수면·기력처럼 회복을 붙잡는 부분을 함께 다룹니다." },
     ],
@@ -185,6 +187,8 @@ export const PARTS: BodyPart[] = [
         role: "골반 정렬이 틀어져 한쪽 무릎에 무게가 몰리는 경우, 그 구조를 교정합니다." },
       { treatmentSlug: "acupuncture",
         role: "무릎 주변 근육의 긴장을 낮춰 관절 부담을 줄입니다." },
+      { treatmentSlug: "acupotomy",
+        role: "퇴행성 관절염으로 오래 아프면서 무릎 주변 근육·힘줄이 들러붙어 굳은 경우 도침으로 유착을 떼어 냅니다." },
     ],
     span: "주 2회로 3~4주 후 경과를 보고 간격을 조정합니다.",
     redFlags: [
@@ -228,6 +232,8 @@ export const PARTS: BodyPart[] = [
         role: "손상된 힘줄 부착부를 초음파로 확인해 그 위치에 약침을 놓습니다. 이 부위는 위치가 조금만 벗어나도 효과가 달라집니다." },
       { treatmentSlug: "acupuncture",
         role: "전완 근육의 과긴장을 낮춰 힘줄에 걸리는 부담을 줄입니다." },
+      { treatmentSlug: "acupotomy",
+        role: "몇 달씩 이어진 엘보에서 힘줄 주변 조직이 들러붙어 굳은 경우 도침으로 유착을 떼어 냅니다." },
     ],
     span: "주 2회로 3~4주. 사용을 줄이지 않으면 회복이 늦어집니다.",
     redFlags: [

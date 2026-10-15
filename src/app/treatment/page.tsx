@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/treatment" },
   title: "치료 방법 — 초음파 유도 약침과 추나요법",
   description:
-    "김포한강한의원 치료 방법. 초음파로 통증 부위를 보면서 놓는 약침으로 염증을, 추나요법으로 틀어진 구조를 다룹니다. 추나요법은 건강보험이 적용되어 연 20회까지 급여입니다.",
+    "김포한강한의원 치료 방법. 초음파로 통증 부위를 보면서 놓는 약침으로 염증을, 추나요법으로 틀어진 구조를, 도침으로 오래되어 들러붙은 근육·근막을 다룹니다. 추나요법은 건강보험이 적용되어 연 20회까지 급여입니다.",
 };
 
 const AXIS_LABEL: Record<string, string> = {

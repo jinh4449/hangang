@@ -173,7 +173,7 @@ export const CORE: GlossaryTerm[] = [
     partSlug: "low-back",
     treatmentSlug: "chuna",
     compareSlug: "hanui-vs-ortho",
-    see: ["spinal-stenosis", "sciatica"],
+    see: ["spinal-stenosis", "sciatica", "acupotomy"],
   },
   {
     slug: "spinal-stenosis",
@@ -193,7 +193,7 @@ export const CORE: GlossaryTerm[] = [
     needsTests: ["다리 힘이 점점 빠지거나 대소변에 문제가 생겼을 때"],
     partSlug: "low-back",
     compareSlug: "hanui-vs-ortho",
-    see: ["lumbar-disc", "sciatica"],
+    see: ["lumbar-disc", "sciatica", "acupotomy"],
   },
   {
     slug: "sciatica",
@@ -250,7 +250,7 @@ export const CORE: GlossaryTerm[] = [
     care: "관절 안의 변화와 주변 힘줄 상태를 초음파로 함께 보고, 통증을 만드는 쪽부터 다룹니다.",
     needsTests: ["무릎이 갑자기 붓고 열감이 있을 때", "다친 직후 체중을 실을 수 없을 때"],
     partSlug: "knee",
-    see: ["pes-anserine"],
+    see: ["pes-anserine", "acupotomy"],
   },
   {
     slug: "tennis-elbow",
@@ -271,6 +271,7 @@ export const CORE: GlossaryTerm[] = [
     needsTests: ["손가락 감각이 둔해지거나 힘이 빠질 때", "다친 뒤 팔꿈치 모양이 변했을 때"],
     partSlug: "elbow",
     treatmentSlug: "ultrasound-pharmacopuncture",
+    see: ["acupotomy"],
   },
   {
     slug: "plantar-fasciitis",
@@ -367,7 +368,34 @@ export const CORE: GlossaryTerm[] = [
     care:
       "손 감각에만 의존하지 않고 초음파로 보면서 놓습니다. 통증을 느끼는 자리와 실제로 문제가 생긴 조직이 다른 경우가 많기 때문입니다.",
     treatmentSlug: "ultrasound-pharmacopuncture",
-    see: ["ultrasound-guided", "acupuncture"],
+    see: ["ultrasound-guided", "acupuncture", "acupotomy"],
+  },
+  {
+    slug: "acupotomy",
+    term: "도침",
+    aka: ["침도", "도침치료", "침도요법"],
+    english: "Acupotomy",
+    category: "treatment",
+    short:
+      "도침은 끝이 납작한 칼날 모양으로 된 침으로, 오래된 통증으로 서로 들러붙은 근육과 근막 사이를 떼어 내는(박리하는) 한방 치료입니다.",
+    about: [
+      "통증이 오래가면 근육·근막·힘줄 주변 조직이 서로 들러붙어, 미끄러지듯 움직여야 할 층이 한 덩어리처럼 굳습니다. 도침은 그 들러붙은 층 사이를 떼어 내 조직이 다시 제자리에서 움직이게 하는 것을 목표로 합니다.",
+      "갑자기 생긴 통증보다 몇 달에서 몇 년씩 이어진 만성 통증에 주로 씁니다. 퇴행성 관절 질환, 허리디스크, 척추관협착증, 테니스엘보·골프엘보 등에 씁니다.",
+    ],
+    signs: [
+      "침이나 약침으로 잠시 풀렸다가 같은 자리가 다시 굳는다",
+      "오래 아픈 자리를 누르면 딱딱하게 뭉친 띠가 만져진다",
+      "아침에 특히 뻣뻣하고 움직이기 시작할 때 당긴다",
+    ],
+    care:
+      "들러붙은 자리를 진찰로 확인한 뒤 도침으로 유착을 떼어 내고, 침·약침으로 남은 통증을 줄이며, 추나요법으로 같은 자리에 다시 부담이 몰리지 않게 정렬을 함께 다룹니다.",
+    cautions: [
+      "일반 침보다 굵어, 시술한 자리가 하루 이틀 뻐근하거나 멍이 들 수 있습니다.",
+      "혈액을 묽게 하는 약을 드시거나 지병이 있으면 미리 말씀해 주세요.",
+    ],
+    treatmentSlug: "acupotomy",
+    symptomSlug: "pain",
+    see: ["fascia", "acupuncture", "spinal-stenosis", "tennis-elbow"],
   },
   {
     slug: "ultrasound-guided",
