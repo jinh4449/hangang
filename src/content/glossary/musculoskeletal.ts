@@ -263,4 +263,158 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
     needsTests: ["치아나 잇몸 통증이 함께 있을 때 — 치과 검사로 치아 문제를 확인해야 합니다"],
     see: ["forward-head", "myofascial-pain"],
   },
+
+  /* 스포츠 손상 — 종목별 손상 목록과 자가 확인에서 이어지는 질환들 */
+  {
+    slug: "runners-knee",
+    term: "러너스 니",
+    question: "러너스 니(슬개대퇴 통증 증후군)란? 달릴 때 무릎 앞이 아픈 이유",
+    aka: ["슬개대퇴 통증 증후군", "러너스니", "달리기 무릎 통증"],
+    english: "Runner's knee (Patellofemoral pain syndrome)",
+    category: "musculoskeletal",
+    symptomSlug: "sports-injury",
+    short:
+      "러너스 니는 무릎뼈(슬개골)와 허벅지뼈가 맞닿는 자리에 부담이 쌓여, 달리거나 계단을 내려갈 때 무릎 앞쪽이 시큰하게 아픈 상태입니다.",
+    about: [
+      "달리기를 하는 사람에게 가장 흔한 무릎 통증이라 이런 이름이 붙었습니다. 무릎뼈가 굽혔다 펴질 때 제 길로 미끄러지지 못하면 그 아래 연골 면에 압력이 몰립니다.",
+      "허벅지 앞·바깥 근육과 엉덩이 근육의 균형, 운동량을 갑자기 늘린 것, 발의 정렬이 함께 관여합니다. 대부분 수술 없이 부담을 줄이고 주변 근육을 다스리며 좋아집니다.",
+    ],
+    signs: [
+      "내리막이나 계단을 내려갈 때 무릎 앞이 시큰하다",
+      "오래 앉아 있다 일어설 때 무릎 앞이 뻐근하다",
+      "쪼그려 앉으면 무릎뼈 주변이 아프다",
+    ],
+    care:
+      "초음파로 무릎 앞 힘줄과 주변 조직을 확인하고, 침·약침으로 통증을 줄이며 허벅지·골반 정렬을 추나로 함께 봅니다. 운동량을 어떻게 조절할지 함께 정합니다.",
+    needsTests: ["무릎이 크게 붓거나 걸리는 느낌이 있을 때 — 연골·반월상연골 손상 확인을 위해 MRI를 권해 드립니다"],
+    partSlug: "knee",
+    treatmentSlug: "ultrasound-pharmacopuncture",
+    see: ["patellar-tendinitis", "itb-syndrome"],
+  },
+  {
+    slug: "itb-syndrome",
+    term: "장경인대 증후군",
+    question: "장경인대 증후군이란? 오래 뛰면 무릎 바깥쪽이 아픈 이유",
+    aka: ["장경인대 마찰 증후군", "ITB 증후군", "무릎 바깥쪽 통증"],
+    english: "Iliotibial band syndrome",
+    category: "musculoskeletal",
+    symptomSlug: "sports-injury",
+    short:
+      "장경인대 증후군은 골반에서 무릎 바깥쪽까지 이어지는 긴 띠(장경인대)가 무릎 바깥에서 반복해 쓸리며 아픈 상태입니다.",
+    about: [
+      "달리기·자전거처럼 무릎을 같은 각도로 수없이 굽혔다 펴는 운동에서 흔합니다. 처음에는 일정 거리를 넘기면 아프기 시작하고, 쉬면 가라앉는 경우가 많습니다.",
+      "엉덩이 바깥 근육이 약하거나 장경인대가 뻣뻣하면 무릎 바깥에 부담이 몰립니다. 아픈 무릎만이 아니라 골반·엉덩이 근육을 함께 봐야 재발이 줄어듭니다.",
+    ],
+    signs: [
+      "일정 거리를 넘게 뛰면 무릎 바깥쪽이 아파 멈추게 된다",
+      "무릎 바깥쪽 뼈 튀어나온 곳을 누르면 아프다",
+      "내리막을 달릴 때 더 심하다",
+    ],
+    care:
+      "초음파로 무릎 바깥쪽 조직을 확인하고 약침·침으로 통증을 줄입니다. 오래되어 굳은 경우에는 도침으로 들러붙은 조직을 풀고, 골반 정렬을 함께 봅니다.",
+    partSlug: "knee",
+    treatmentSlug: "ultrasound-pharmacopuncture",
+    see: ["runners-knee", "fascia"],
+  },
+  {
+    slug: "shin-splints",
+    term: "신스플린트",
+    question: "신스플린트란? 달리면 정강이 안쪽이 아픈 이유",
+    aka: ["정강이 통증", "경골 내측 스트레스 증후군", "정강이 부목"],
+    english: "Shin splints (Medial tibial stress syndrome)",
+    category: "musculoskeletal",
+    symptomSlug: "sports-injury",
+    short:
+      "신스플린트는 달리기 양을 갑자기 늘렸을 때, 정강이뼈 안쪽을 따라 근육이 붙는 자리에 염증이 생겨 욱신거리는 상태입니다.",
+    about: [
+      "달리기를 막 시작했거나 거리·속도를 갑자기 늘린 사람, 딱딱한 바닥에서 뛰는 사람에게 흔합니다. 정강이 안쪽 아래 1/3 부분을 따라 넓게 아픈 것이 특징입니다.",
+      "대부분 운동량을 조절하고 종아리 근육의 긴장을 풀면 좋아집니다. 다만 한 점만 콕 찌르듯 아프면 피로골절과 구분해야 합니다.",
+    ],
+    signs: [
+      "정강이 안쪽을 따라 넓게 욱신거린다",
+      "뛰기 시작할 때 아프다가 몸이 풀리면 덜해진다",
+      "정강이 안쪽 뼈 가장자리를 누르면 아프다",
+    ],
+    care:
+      "종아리 근육과 근막의 긴장을 침·약침으로 풀고, 달리는 양을 어떻게 다시 늘릴지 단계를 함께 정합니다.",
+    needsTests: ["정강이 한 점만 콕 찌르듯 아프고 쉬어도 계속 아플 때 — 피로골절 확인을 위해 영상 검사를 권해 드립니다"],
+    treatmentSlug: "acupuncture",
+    see: ["calf-strain", "fascia"],
+  },
+  {
+    slug: "wrist-tendinitis",
+    term: "손목 힘줄염",
+    question: "손목 힘줄염이란? 운동하면 손목이 아픈 이유",
+    aka: ["손목 건염", "손목 통증", "드퀘르벵 건초염"],
+    english: "Wrist tendinitis",
+    category: "musculoskeletal",
+    symptomSlug: "sports-injury",
+    short:
+      "손목 힘줄염은 손목을 젖히거나 비트는 동작이 반복되어 손목을 지나는 힘줄과 그 싸개에 염증이 생겨 아픈 상태입니다.",
+    about: [
+      "푸시업·벤치프레스처럼 손목에 체중이 실리는 운동, 골프·테니스의 임팩트, 아기를 안는 동작처럼 손목에 힘이 반복해서 걸리면 생깁니다.",
+      "엄지 쪽 손목이 아프면 드퀘르벵 건초염, 새끼손가락 쪽이 아프면 다른 힘줄이나 연골 문제일 수 있어 아픈 위치를 먼저 확인합니다.",
+    ],
+    signs: [
+      "손목을 젖히거나 바닥을 짚을 때 아프다",
+      "엄지를 움직이거나 손목을 비틀 때 아프다",
+      "손목 한쪽이 붓거나 누르면 아프다",
+    ],
+    care:
+      "초음파로 어느 힘줄에 염증이 있는지 확인하고 그 자리에 약침을 놓습니다. 운동할 때 손목 각도와 그립을 어떻게 바꿀지도 함께 말씀드립니다.",
+    needsTests: ["넘어지며 손을 짚은 뒤 엄지 쪽 손목이 계속 아플 때 — 손목뼈 골절 확인을 위해 엑스레이를 권해 드립니다"],
+    treatmentSlug: "ultrasound-pharmacopuncture",
+    see: ["tendon", "carpal-tunnel"],
+  },
+  {
+    slug: "calf-strain",
+    term: "종아리 근육 손상",
+    question: "종아리 근육 손상이란? 뛰다가 종아리가 뜨끔했을 때",
+    aka: ["테니스 레그", "종아리 근육 파열", "비복근 손상"],
+    english: "Calf muscle strain (Tennis leg)",
+    category: "musculoskeletal",
+    symptomSlug: "sports-injury",
+    short:
+      "종아리 근육 손상은 뛰거나 방향을 틀 때 종아리 근육이 갑자기 늘어나거나 일부 찢어진 상태입니다.",
+    about: [
+      "테니스·배드민턴·축구처럼 갑자기 박차고 나가는 운동에서 「뚝」 하는 느낌과 함께 생기는 경우가 많아 「테니스 레그」 라고도 부릅니다. 40대 이후에 특히 흔합니다.",
+      "손상 정도에 따라 쉬는 기간이 크게 다릅니다. 초음파로 근육이 얼마나 다쳤는지 확인하면 언제 다시 운동할 수 있을지 가늠할 수 있습니다.",
+    ],
+    signs: [
+      "뛰다가 종아리가 「뚝」 하며 뜨끔했다",
+      "까치발을 들거나 걸을 때 종아리가 아프다",
+      "종아리가 붓거나 며칠 뒤 멍이 내려온다",
+    ],
+    care:
+      "초음파로 근육 손상의 위치와 범위를 확인하고, 침·약침으로 붓기와 통증을 줄입니다. 손상 정도에 맞춰 걷기부터 운동 복귀까지 단계를 정합니다.",
+    needsTests: ["종아리가 점점 심하게 붓고 단단해질 때 — 혈관 문제를 확인하는 검사가 필요할 수 있습니다"],
+    partSlug: "ankle",
+    treatmentSlug: "ultrasound-pharmacopuncture",
+    see: ["hamstring-strain", "achilles-tendinitis"],
+  },
+  {
+    slug: "hamstring-strain",
+    term: "햄스트링 손상",
+    question: "햄스트링 손상이란? 뛰다가 허벅지 뒤가 뜨끔했을 때",
+    aka: ["햄스트링 부상", "허벅지 뒤 근육 손상", "햄스트링 파열"],
+    english: "Hamstring strain",
+    category: "musculoskeletal",
+    symptomSlug: "sports-injury",
+    short:
+      "햄스트링 손상은 허벅지 뒤쪽 근육이 전력으로 뛰거나 다리를 크게 뻗을 때 갑자기 늘어나거나 일부 찢어진 상태입니다.",
+    about: [
+      "축구·풋살·단거리 달리기처럼 순간적으로 속도를 내는 운동에서 흔합니다. 충분히 회복되기 전에 다시 뛰면 같은 자리를 또 다치기 쉬운 부위입니다.",
+      "손상 정도에 따라 며칠에서 몇 주까지 회복 기간이 다릅니다. 초음파로 손상 부위와 범위를 확인하고, 다시 뛰어도 되는 시점을 단계적으로 판단합니다.",
+    ],
+    signs: [
+      "전력으로 뛰다가 허벅지 뒤가 당기며 뜨끔했다",
+      "다리를 펴고 숙이거나 계단을 오를 때 허벅지 뒤가 아프다",
+      "허벅지 뒤가 붓거나 멍이 들었다",
+    ],
+    care:
+      "초음파로 근육 손상의 위치와 범위를 확인하고, 침·약침으로 통증과 붓기를 줄입니다. 골반 정렬을 함께 보고 운동 복귀 단계를 정합니다.",
+    needsTests: ["엉덩이 아래쪽에서 「뚝」 소리가 나고 크게 멍이 들었을 때 — 힘줄이 떨어졌는지 MRI 확인을 권해 드립니다"],
+    treatmentSlug: "ultrasound-pharmacopuncture",
+    see: ["calf-strain", "fascia"],
+  },
 ];

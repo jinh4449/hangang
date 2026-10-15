@@ -31,9 +31,9 @@ export const sportsInjury: Symptom = {
         conditions: [
           { name: "족저근막염", glossarySlug: "plantar-fasciitis" },
           { name: "아킬레스건염", glossarySlug: "achilles-tendinitis" },
-          { name: "러너스 니" },
-          { name: "장경인대 증후군" },
-          { name: "신스플린트" },
+          { name: "러너스 니", glossarySlug: "runners-knee" },
+          { name: "장경인대 증후군", glossarySlug: "itb-syndrome" },
+          { name: "신스플린트", glossarySlug: "shin-splints" },
         ],
       },
       {
@@ -43,7 +43,7 @@ export const sportsInjury: Symptom = {
           { name: "골프엘보", glossarySlug: "golfers-elbow" },
           { name: "허리 염좌", glossarySlug: "lumbar-sprain" },
           { name: "회전근개 힘줄염", glossarySlug: "rotator-cuff" },
-          { name: "손목 힘줄염" },
+          { name: "손목 힘줄염", glossarySlug: "wrist-tendinitis" },
         ],
       },
       {
@@ -52,7 +52,7 @@ export const sportsInjury: Symptom = {
         conditions: [
           { name: "테니스엘보", glossarySlug: "tennis-elbow" },
           { name: "어깨 충돌증후군", glossarySlug: "shoulder-impingement" },
-          { name: "종아리 근육 손상" },
+          { name: "종아리 근육 손상", glossarySlug: "calf-strain" },
           { name: "발목 염좌", glossarySlug: "ankle-sprain" },
         ],
       },
@@ -63,7 +63,7 @@ export const sportsInjury: Symptom = {
           { name: "어깨 충돌증후군", glossarySlug: "shoulder-impingement" },
           { name: "허리 염좌", glossarySlug: "lumbar-sprain" },
           { name: "팔꿈치 힘줄염", glossarySlug: "tennis-elbow" },
-          { name: "손목 통증" },
+          { name: "손목 힘줄염", glossarySlug: "wrist-tendinitis" },
         ],
       },
       {
@@ -72,7 +72,7 @@ export const sportsInjury: Symptom = {
         conditions: [
           { name: "발목 염좌", glossarySlug: "ankle-sprain" },
           { name: "무릎 내측 인대 손상", glossarySlug: "ligament" },
-          { name: "햄스트링 손상" },
+          { name: "햄스트링 손상", glossarySlug: "hamstring-strain" },
           { name: "슬개건염", glossarySlug: "patellar-tendinitis" },
         ],
       },
@@ -83,77 +83,208 @@ export const sportsInjury: Symptom = {
        정확한 진단은 진찰과 초음파로 한다는 말을 늘 붙인다 */
     checker: {
       title: "내 증상, 어떤 손상일까요?",
-      note: "아픈 곳과 느낌을 차례로 누르시면 가능성이 높은 손상을 알려 드립니다.",
+      note: "아픈 곳을 고르고 세 가지 질문에 답하시면 가능성이 높은 손상을 알려 드립니다.",
       areas: [
         {
-          key: "shoulder", label: "어깨", question: "어떤 느낌에 가장 가깝나요?",
-          options: [
-            { label: "팔을 옆으로 들어 올릴 때 특정 각도에서 걸리듯 아프다",
-              result: { name: "어깨 충돌증후군", desc: "팔을 들 때 어깨 힘줄이 뼈 사이에 끼이며 아픈 상태입니다. 서브·스매싱·숄더프레스처럼 팔을 머리 위로 드는 운동에서 흔합니다.", href: "/glossary/shoulder-impingement" } },
-            { label: "던지거나 스윙한 뒤 어깨가 아프고, 밤에 누우면 더 아프다",
-              result: { name: "회전근개 손상", desc: "어깨를 감싸 움직이는 힘줄(회전근개)에 염증이나 부분 손상이 생긴 상태입니다. 초음파로 힘줄 상태를 바로 확인할 수 있습니다.", href: "/glossary/rotator-cuff" } },
-            { label: "갑자기 심하게 아파 팔을 거의 움직이지 못한다",
-              result: { name: "석회성 건염", desc: "힘줄에 석회가 쌓였다가 염증이 생기며 갑자기 심하게 아픈 상태입니다. 초음파로 석회의 위치와 크기를 확인합니다.", href: "/glossary/calcific-tendinitis" } },
+          key: "shoulder", label: "어깨",
+          conditions: [
+            { key: "si", name: "어깨 충돌증후군", href: "/glossary/shoulder-impingement",
+              desc: "팔을 들 때 어깨 힘줄이 뼈 사이에 끼이며 아픈 상태입니다. 서브·스매싱·숄더프레스처럼 팔을 머리 위로 드는 운동에서 흔합니다." },
+            { key: "rc", name: "회전근개 손상", href: "/glossary/rotator-cuff",
+              desc: "어깨를 감싸 움직이는 힘줄(회전근개)에 염증이나 부분 손상이 생긴 상태입니다. 초음파로 힘줄 상태를 바로 확인할 수 있습니다." },
+            { key: "ca", name: "석회성 건염", href: "/glossary/calcific-tendinitis",
+              desc: "힘줄에 쌓인 석회 주변에 염증이 생기며 갑자기 심하게 아픈 상태입니다. 초음파로 석회의 위치와 크기를 확인합니다." },
+          ],
+          questions: [
+            { q: "어디가 아픈가요?", options: [
+              { label: "어깨 앞이나 옆 위쪽", scores: { si: 2, rc: 1 } },
+              { label: "어깨 안쪽 깊은 곳이 전체적으로", scores: { rc: 2, ca: 1 } },
+              { label: "한 곳이 찌르듯이 심하게", scores: { ca: 2 } },
+            ]},
+            { q: "언제 가장 아픈가요?", options: [
+              { label: "팔을 옆으로 들어 올릴 때 특정 높이에서", scores: { si: 2 } },
+              { label: "밤에 아픈 쪽으로 누우면", scores: { rc: 2, ca: 1 } },
+              { label: "가만히 있어도 아프다", scores: { ca: 2 } },
+            ]},
+            { q: "어떻게 시작됐나요?", options: [
+              { label: "운동을 늘리면서 서서히", scores: { si: 1, rc: 1 } },
+              { label: "무거운 것을 들거나 던지다가 뜨끔", scores: { rc: 2 } },
+              { label: "며칠 사이에 갑자기 심해졌다", scores: { ca: 2 } },
+            ]},
           ],
         },
         {
-          key: "elbow", label: "팔꿈치", question: "어디가 아픈가요?",
-          options: [
-            { label: "바깥쪽이 아프다. 라켓을 쥐거나 문고리를 돌릴 때 심하다",
-              result: { name: "테니스엘보", desc: "손목을 젖히는 근육의 힘줄이 팔꿈치 바깥쪽에 붙는 자리에 손상과 염증이 생긴 상태입니다.", href: "/glossary/tennis-elbow" } },
-            { label: "안쪽이 아프다. 골프 스윙이나 턱걸이 때 심하다",
-              result: { name: "골프엘보", desc: "손목을 굽히는 근육의 힘줄이 팔꿈치 안쪽에 붙는 자리에 손상과 염증이 생긴 상태입니다.", href: "/glossary/golfers-elbow" } },
+          key: "elbow", label: "팔꿈치",
+          conditions: [
+            { key: "te", name: "테니스엘보", href: "/glossary/tennis-elbow",
+              desc: "손목을 젖히는 근육의 힘줄이 팔꿈치 바깥쪽에 붙는 자리에 손상과 염증이 생긴 상태입니다." },
+            { key: "go", name: "골프엘보", href: "/glossary/golfers-elbow",
+              desc: "손목을 굽히는 근육의 힘줄이 팔꿈치 안쪽에 붙는 자리에 손상과 염증이 생긴 상태입니다." },
+          ],
+          questions: [
+            { q: "팔꿈치 어느 쪽이 아픈가요?", options: [
+              { label: "바깥쪽 (엄지 쪽)", scores: { te: 3 } },
+              { label: "안쪽 (새끼손가락 쪽)", scores: { go: 3 } },
+              { label: "잘 모르겠다", scores: {} },
+            ]},
+            { q: "어떤 동작에서 아픈가요?", options: [
+              { label: "손목을 뒤로 젖힐 때, 문고리를 돌릴 때", scores: { te: 2 } },
+              { label: "손목을 굽히거나 꽉 쥘 때", scores: { go: 2 } },
+              { label: "컵이나 가방을 들 때", scores: { te: 1, go: 1 } },
+            ]},
+            { q: "주로 하는 운동은 무엇인가요?", options: [
+              { label: "테니스 · 배드민턴 · 탁구", scores: { te: 1 } },
+              { label: "골프 · 턱걸이 · 클라이밍", scores: { go: 1 } },
+              { label: "헬스 · 그 밖의 운동", scores: { te: 1, go: 1 } },
+            ]},
           ],
         },
         {
-          key: "wrist", label: "손목 · 손", question: "어떤 느낌에 가장 가깝나요?",
-          options: [
-            { label: "손목을 젖히거나 바닥을 짚을 때 아프다",
-              result: { name: "손목 힘줄염", desc: "푸시업·임팩트처럼 손목에 체중이나 충격이 실리는 동작이 반복되며 손목 힘줄에 염증이 생긴 상태입니다.", href: "/glossary/tendon", linkLabel: "힘줄 손상 알아보기" } },
-            { label: "손가락이 저리고 밤에 더 심하다",
-              result: { name: "손목터널증후군", desc: "손목 안쪽 통로에서 신경이 눌려 손가락이 저린 상태입니다. 그립을 오래 쥐는 운동에서 심해질 수 있습니다.", href: "/glossary/carpal-tunnel" } },
+          key: "wrist", label: "손목 · 손",
+          conditions: [
+            { key: "wt", name: "손목 힘줄염", href: "/glossary/wrist-tendinitis",
+              desc: "손목을 젖히거나 비트는 동작이 반복되어 손목 힘줄에 염증이 생긴 상태입니다." },
+            { key: "ct", name: "손목터널증후군", href: "/glossary/carpal-tunnel",
+              desc: "손목 안쪽 통로에서 신경이 눌려 손가락이 저린 상태입니다. 그립을 오래 쥐는 운동에서 심해질 수 있습니다." },
+            { key: "ws", name: "손목 염좌", href: "/glossary/ligament",
+              desc: "넘어지며 손을 짚거나 손목이 꺾여 손목 인대가 늘어나거나 다친 상태입니다. 뼈에 금이 가지 않았는지 함께 확인합니다." },
+          ],
+          questions: [
+            { q: "어떤 증상이 가장 큰가요?", options: [
+              { label: "손목이 아프다", scores: { wt: 2, ws: 1 } },
+              { label: "손가락이 저리다", scores: { ct: 3 } },
+              { label: "붓고 멍이 들었다", scores: { ws: 2 } },
+            ]},
+            { q: "언제 심한가요?", options: [
+              { label: "바닥을 짚거나 손목을 젖힐 때", scores: { wt: 2, ws: 1 } },
+              { label: "밤이나 새벽에 저려서 깬다", scores: { ct: 2 } },
+              { label: "손목을 조금만 움직여도 아프다", scores: { ws: 2 } },
+            ]},
+            { q: "어떻게 시작됐나요?", options: [
+              { label: "운동을 반복하면서 서서히", scores: { wt: 2, ct: 1 } },
+              { label: "넘어지거나 꺾인 날부터", scores: { ws: 3 } },
+              { label: "잘 모르겠다", scores: {} },
+            ]},
           ],
         },
         {
-          key: "back", label: "허리", question: "어떤 느낌에 가장 가깝나요?",
-          options: [
-            { label: "들거나 비틀다 삐끗했고, 허리만 아프다",
-              result: { name: "허리 염좌", desc: "허리 근육과 인대가 갑자기 늘어나거나 다친 상태입니다. 데드리프트·스쿼트·골프 스윙 뒤에 흔합니다.", href: "/glossary/lumbar-sprain" } },
-            { label: "엉덩이나 다리로 저림이 뻗친다",
-              result: { name: "허리디스크", desc: "추간판이 밀려나와 신경을 자극해 다리까지 저린 상태일 수 있습니다. 힘이 빠지는 느낌이 있으면 영상 검사를 함께 권해 드립니다.", href: "/glossary/lumbar-disc" } },
+          key: "back", label: "허리",
+          conditions: [
+            { key: "ls", name: "허리 염좌", href: "/glossary/lumbar-sprain",
+              desc: "허리 근육과 인대가 갑자기 늘어나거나 다친 상태입니다. 데드리프트·스쿼트·골프 스윙 뒤에 흔합니다." },
+            { key: "ld", name: "허리디스크", href: "/glossary/lumbar-disc",
+              desc: "추간판이 밀려나와 신경을 자극해 다리까지 저린 상태일 수 있습니다. 다리에 힘이 빠지는 느낌이 있으면 영상 검사를 함께 권해 드립니다." },
+            { key: "mf", name: "근막통증", href: "/glossary/myofascial-pain",
+              desc: "운동으로 지친 허리 근육과 근막이 뭉쳐 띠처럼 당기며 아픈 상태입니다. 뭉친 곳을 누르면 아프면서 시원한 것이 특징입니다." },
+          ],
+          questions: [
+            { q: "어디가 아픈가요?", options: [
+              { label: "허리 가운데나 양옆만", scores: { ls: 2, mf: 1 } },
+              { label: "엉덩이나 다리까지 저림이 뻗친다", scores: { ld: 3 } },
+              { label: "한쪽 근육이 띠처럼 당긴다", scores: { mf: 2 } },
+            ]},
+            { q: "언제 심한가요?", options: [
+              { label: "들거나 몸을 비틀 때", scores: { ls: 2 } },
+              { label: "오래 앉아 있거나 허리를 숙일 때 다리가 당긴다", scores: { ld: 2 } },
+              { label: "아침에 뻣뻣하고 움직이면 풀린다", scores: { mf: 2 } },
+            ]},
+            { q: "어떻게 시작됐나요?", options: [
+              { label: "운동 중에 삐끗했다", scores: { ls: 2 } },
+              { label: "서서히 시작됐고 기침할 때 다리가 울린다", scores: { ld: 2 } },
+              { label: "운동한 다음 날부터 뻐근하다", scores: { mf: 1, ls: 1 } },
+            ]},
           ],
         },
         {
-          key: "knee", label: "무릎", question: "어디가, 언제 아픈가요?",
-          options: [
-            { label: "무릎 앞·아래가 아프다. 점프하거나 계단을 오를 때 심하다",
-              result: { name: "슬개건염", desc: "무릎뼈 아래 힘줄에 반복된 부담으로 염증이 생긴 상태입니다. 점프·러닝이 많은 운동에서 흔합니다.", href: "/glossary/patellar-tendinitis" } },
-            { label: "무릎 안쪽 아래가 아프다. 내리막을 내려갈 때 심하다",
-              result: { name: "거위발건염", desc: "무릎 안쪽 아래에 모이는 세 힘줄과 그 아래 점액낭에 염증이 생긴 상태입니다.", href: "/glossary/pes-anserine" } },
-            { label: "무릎 바깥쪽이 아프다. 일정 거리를 넘게 뛰면 시작된다",
-              result: { name: "장경인대 증후군", desc: "허벅지 바깥쪽 긴 띠(장경인대)가 무릎 바깥에서 쓸리며 아픈 상태입니다. 러너에게 흔합니다.", href: "/part/knee", linkLabel: "무릎 통증 알아보기" } },
-            { label: "꺾이거나 부딪힌 뒤 무릎 안쪽이 아프다",
-              result: { name: "무릎 내측 인대 손상", desc: "무릎 안쪽 인대가 늘어나거나 일부 찢어진 상태입니다. 무릎이 빠지는 느낌이 있으면 MRI를 함께 권해 드립니다.", href: "/glossary/ligament", linkLabel: "인대 손상 알아보기" } },
+          key: "knee", label: "무릎",
+          conditions: [
+            { key: "pt", name: "슬개건염", href: "/glossary/patellar-tendinitis",
+              desc: "무릎뼈 아래 힘줄에 반복된 부담으로 염증이 생긴 상태입니다. 점프·러닝이 많은 운동에서 흔합니다." },
+            { key: "rk", name: "러너스 니", href: "/glossary/runners-knee",
+              desc: "무릎뼈와 허벅지뼈가 맞닿는 자리에 부담이 쌓여 무릎 앞이 시큰한 상태입니다. 달리기를 늘린 뒤에 흔합니다." },
+            { key: "pa", name: "거위발건염", href: "/glossary/pes-anserine",
+              desc: "무릎 안쪽 아래에 모이는 세 힘줄과 그 아래 점액낭에 염증이 생긴 상태입니다." },
+            { key: "it", name: "장경인대 증후군", href: "/glossary/itb-syndrome",
+              desc: "허벅지 바깥쪽 긴 띠(장경인대)가 무릎 바깥에서 쓸리며 아픈 상태입니다. 러너에게 흔합니다." },
+            { key: "mc", name: "무릎 내측 인대 손상", href: "/glossary/ligament",
+              desc: "무릎 안쪽 인대가 늘어나거나 일부 찢어진 상태입니다. 무릎이 빠지는 느낌이 있으면 MRI를 함께 권해 드립니다." },
+          ],
+          questions: [
+            { q: "무릎 어디가 아픈가요?", options: [
+              { label: "무릎뼈 바로 아래", scores: { pt: 3 } },
+              { label: "무릎뼈 주변 앞쪽 전체", scores: { rk: 3 } },
+              { label: "무릎 안쪽", scores: { pa: 2, mc: 2 } },
+              { label: "무릎 바깥쪽", scores: { it: 3 } },
+            ]},
+            { q: "언제 가장 아픈가요?", options: [
+              { label: "점프하거나 계단을 오를 때", scores: { pt: 2 } },
+              { label: "계단·내리막을 내려가거나 오래 앉았다 일어설 때", scores: { rk: 2, pa: 1 } },
+              { label: "일정 거리 이상 달리면", scores: { it: 2, rk: 1 } },
+              { label: "비틀거나 옆에서 힘을 받을 때", scores: { mc: 2 } },
+            ]},
+            { q: "어떻게 시작됐나요?", options: [
+              { label: "운동량을 늘리면서 서서히", scores: { pt: 1, rk: 1, pa: 1, it: 1 } },
+              { label: "부딪히거나 꺾인 뒤부터", scores: { mc: 3 } },
+              { label: "잘 모르겠다", scores: {} },
+            ]},
           ],
         },
         {
-          key: "ankle", label: "발목 · 발", question: "어떤 느낌에 가장 가깝나요?",
-          options: [
-            { label: "접질린 뒤 발목이 붓고 멍이 들었다",
-              result: { name: "발목 염좌", desc: "발목 인대가 늘어나거나 일부 찢어진 상태입니다. 초음파로 인대 손상 정도를 확인하고 쉬는 기간을 정합니다.", href: "/glossary/ankle-sprain" } },
-            { label: "아침 첫발을 디딜 때 발뒤꿈치가 찌릿하다",
-              result: { name: "족저근막염", desc: "발바닥을 받치는 근막이 뒤꿈치에 붙는 자리에 염증이 생긴 상태입니다. 러닝을 늘린 뒤에 흔합니다.", href: "/glossary/plantar-fasciitis" } },
-            { label: "발목 뒤 굵은 힘줄이 뻣뻣하고 아프다",
-              result: { name: "아킬레스건염", desc: "종아리 근육과 발뒤꿈치를 잇는 아킬레스건에 반복된 부담으로 염증이 생긴 상태입니다.", href: "/glossary/achilles-tendinitis" } },
+          key: "ankle", label: "발목 · 발",
+          conditions: [
+            { key: "as", name: "발목 염좌", href: "/glossary/ankle-sprain",
+              desc: "발목 인대가 늘어나거나 일부 찢어진 상태입니다. 초음파로 인대 손상 정도를 확인하고 쉬는 기간을 정합니다." },
+            { key: "pf", name: "족저근막염", href: "/glossary/plantar-fasciitis",
+              desc: "발바닥을 받치는 근막이 뒤꿈치에 붙는 자리에 염증이 생긴 상태입니다. 러닝을 늘린 뒤에 흔합니다." },
+            { key: "ac", name: "아킬레스건염", href: "/glossary/achilles-tendinitis",
+              desc: "종아리 근육과 발뒤꿈치를 잇는 아킬레스건에 반복된 부담으로 염증이 생긴 상태입니다." },
+          ],
+          questions: [
+            { q: "어디가 아픈가요?", options: [
+              { label: "발목 바깥쪽 복숭아뼈 주변", scores: { as: 3 } },
+              { label: "발뒤꿈치 바닥", scores: { pf: 3 } },
+              { label: "발목 뒤 굵은 힘줄", scores: { ac: 3 } },
+            ]},
+            { q: "언제 아픈가요?", options: [
+              { label: "접질린 뒤 걸을 때마다", scores: { as: 2 } },
+              { label: "아침 첫발, 오래 앉았다 일어설 때", scores: { pf: 2, ac: 1 } },
+              { label: "뛰기 시작할 때, 까치발을 들 때", scores: { ac: 2 } },
+            ]},
+            { q: "지금 모습은 어떤가요?", options: [
+              { label: "붓고 멍이 들었다", scores: { as: 2 } },
+              { label: "걷다 보면 조금 풀린다", scores: { pf: 1, ac: 1 } },
+              { label: "힘줄이 두툼하게 만져진다", scores: { ac: 2 } },
+            ]},
           ],
         },
         {
-          key: "leg", label: "종아리 · 허벅지", question: "어떤 느낌에 가장 가깝나요?",
-          options: [
-            { label: "뛰다가 「뚝」 하며 뜨끔했고, 그 뒤로 힘을 주면 아프다",
-              result: { name: "근육 손상 (종아리 · 햄스트링)", desc: "전력으로 뛰거나 갑자기 방향을 틀 때 근육 일부가 늘어나거나 찢어진 상태입니다. 초음파로 손상 범위를 확인합니다.", href: "/glossary/fascia", linkLabel: "근육·근막 알아보기" } },
-            { label: "정강이 안쪽을 따라 욱신거린다",
-              result: { name: "신스플린트", desc: "달리기 양이 갑자기 늘었을 때 정강이뼈 안쪽을 따라 근육이 붙는 자리에 염증이 생긴 상태입니다." } },
+          key: "leg", label: "종아리 · 허벅지",
+          conditions: [
+            { key: "cs", name: "종아리 근육 손상", href: "/glossary/calf-strain",
+              desc: "뛰거나 박차고 나갈 때 종아리 근육 일부가 늘어나거나 찢어진 상태입니다. 초음파로 손상 범위를 확인합니다." },
+            { key: "hs", name: "햄스트링 손상", href: "/glossary/hamstring-strain",
+              desc: "전력으로 뛰거나 다리를 크게 뻗을 때 허벅지 뒤 근육 일부가 늘어나거나 찢어진 상태입니다." },
+            { key: "ss", name: "신스플린트", href: "/glossary/shin-splints",
+              desc: "달리기 양이 갑자기 늘었을 때 정강이뼈 안쪽을 따라 근육이 붙는 자리에 염증이 생긴 상태입니다." },
+            { key: "mf", name: "근막통증", href: "/glossary/myofascial-pain",
+              desc: "운동 뒤 종아리나 허벅지 근육과 근막이 뭉쳐 당기며 아픈 상태입니다." },
+          ],
+          questions: [
+            { q: "어디가 아픈가요?", options: [
+              { label: "종아리", scores: { cs: 3, mf: 1 } },
+              { label: "허벅지 뒤", scores: { hs: 3, mf: 1 } },
+              { label: "정강이 안쪽 뼈를 따라", scores: { ss: 3 } },
+            ]},
+            { q: "어떻게 시작됐나요?", options: [
+              { label: "뛰다가 「뚝」 하며 뜨끔했다", scores: { cs: 2, hs: 2 } },
+              { label: "달리기 양을 늘린 뒤 서서히", scores: { ss: 2, mf: 1 } },
+              { label: "운동 뒤 뭉치고 당긴다", scores: { mf: 2 } },
+            ]},
+            { q: "지금은 어떤가요?", options: [
+              { label: "멍이 들었거나 힘을 주기 어렵다", scores: { cs: 1, hs: 1 } },
+              { label: "뼈 가장자리를 누르면 아프다", scores: { ss: 2 } },
+              { label: "뭉친 곳을 누르면 아프면서 시원하다", scores: { mf: 2 } },
+            ]},
           ],
         },
       ],

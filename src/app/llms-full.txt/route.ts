@@ -78,7 +78,7 @@ export function GET() {
       s.care.checker
         ? `증상으로 찾아보기:\n${list(
             s.care.checker.areas.flatMap((a) =>
-              a.options.map((o) => `${a.label}: ${o.label} → ${o.result.name}. ${o.result.desc}`),
+              a.conditions.map((c) => `${a.label} — ${c.name}: ${c.desc}`),
             ),
           )}`
         : "",

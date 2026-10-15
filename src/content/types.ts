@@ -95,7 +95,9 @@ export type Symptom = {
       conditions: { name: string; glossarySlug?: string }[];
     }[];
     /**
-     * 자가 확인. 아픈 곳 → 가장 가까운 느낌 → 가능성이 높은 질환 → 설명·예약.
+     * 자가 확인. 아픈 곳 → 질문 세 개 → 가능성이 높은 질환 → 설명·예약.
+     *
+     * 질문의 답마다 질환별 점수를 주고, 세 답의 점수를 더해 가장 높은 질환을 보인다.
      * 진단이 아니라 짐작을 돕는 도구라 결과는 「가능성」 으로만 말한다.
      */
     checker?: {
@@ -104,17 +106,18 @@ export type Symptom = {
       areas: {
         key: string;
         label: string;
-        question: string;
-        options: {
-          label: string;
-          result: {
-            name: string;
-            desc: string;
-            /** 설명 페이지. 용어사전이나 부위 안내 */
-            href?: string;
-            /** 설명 단추 문구. 없으면 「{name} 자세히 보기」 */
-            linkLabel?: string;
-          };
+        /** 이 부위에서 나올 수 있는 결과. 점수가 같으면 앞에 있는 것이 이긴다 */
+        conditions: {
+          key: string;
+          name: string;
+          desc: string;
+          /** 설명 페이지. 용어사전이나 부위 안내 */
+          href?: string;
+        }[];
+        /** 세 개. 답마다 conditions 의 key 에 점수를 준다 */
+        questions: {
+          q: string;
+          options: { label: string; scores: Record<string, number> }[];
         }[];
       }[];
     };
