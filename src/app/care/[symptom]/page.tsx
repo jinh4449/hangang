@@ -54,6 +54,8 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
   const s = getSymptom((await params).symptom);
   if (!s) notFound();
   const { care } = s;
+  // 묶음 공통 과정이 있으면(한방내과) 과목별 과정 대신 그것을 쓴다
+  const stages = DEPARTMENTS.find((d) => d.key === s.department)?.stages ?? care.stages;
 
   return (
     <>
@@ -514,7 +516,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           note="첫 내원부터 마무리까지 어떤 순서로 진행되는지 미리 알려 드립니다."
         >
           <ol className="grid gap-2.5">
-            {care.stages.map((st, i) => (
+            {stages.map((st, i) => (
               <li
                 key={st.label}
                 className="grid grid-cols-[3rem_minmax(0,1fr)] items-start gap-4 rounded-[1rem] border border-line bg-surface px-5 py-5 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6"
