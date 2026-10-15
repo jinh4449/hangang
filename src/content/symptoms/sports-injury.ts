@@ -88,11 +88,11 @@ export const sportsInjury: Symptom = {
         {
           key: "shoulder", label: "어깨",
           conditions: [
-            { key: "si", name: "어깨 충돌증후군", href: "/glossary/shoulder-impingement",
+            { key: "si", name: "어깨 충돌증후군", ultrasound: true, href: "/glossary/shoulder-impingement",
               desc: "팔을 들 때 어깨 힘줄이 뼈 사이에 끼이며 아픈 상태입니다. 서브·스매싱·숄더프레스처럼 팔을 머리 위로 드는 운동에서 흔합니다." },
-            { key: "rc", name: "회전근개 손상", href: "/glossary/rotator-cuff",
+            { key: "rc", name: "회전근개 손상", ultrasound: true, href: "/glossary/rotator-cuff",
               desc: "어깨를 감싸 움직이는 힘줄(회전근개)에 염증이나 부분 손상이 생긴 상태입니다. 초음파로 힘줄 상태를 바로 확인할 수 있습니다." },
-            { key: "ca", name: "석회성 건염", href: "/glossary/calcific-tendinitis",
+            { key: "ca", name: "석회성 건염", ultrasound: true, href: "/glossary/calcific-tendinitis",
               desc: "힘줄에 쌓인 석회 주변에 염증이 생기며 갑자기 심하게 아픈 상태입니다. 초음파로 석회의 위치와 크기를 확인합니다." },
           ],
           questions: [
@@ -116,9 +116,9 @@ export const sportsInjury: Symptom = {
         {
           key: "elbow", label: "팔꿈치",
           conditions: [
-            { key: "te", name: "테니스엘보", href: "/glossary/tennis-elbow",
+            { key: "te", name: "테니스엘보", ultrasound: true, href: "/glossary/tennis-elbow",
               desc: "손목을 젖히는 근육의 힘줄이 팔꿈치 바깥쪽에 붙는 자리에 손상과 염증이 생긴 상태입니다." },
-            { key: "go", name: "골프엘보", href: "/glossary/golfers-elbow",
+            { key: "go", name: "골프엘보", ultrasound: true, href: "/glossary/golfers-elbow",
               desc: "손목을 굽히는 근육의 힘줄이 팔꿈치 안쪽에 붙는 자리에 손상과 염증이 생긴 상태입니다." },
           ],
           questions: [
@@ -142,9 +142,9 @@ export const sportsInjury: Symptom = {
         {
           key: "wrist", label: "손목 · 손",
           conditions: [
-            { key: "wt", name: "손목 힘줄염", href: "/glossary/wrist-tendinitis",
+            { key: "wt", name: "손목 힘줄염", ultrasound: true, href: "/glossary/wrist-tendinitis",
               desc: "손목을 젖히거나 비트는 동작이 반복되어 손목 힘줄에 염증이 생긴 상태입니다." },
-            { key: "ct", name: "손목터널증후군", href: "/glossary/carpal-tunnel",
+            { key: "ct", name: "손목터널증후군", ultrasound: true, href: "/glossary/carpal-tunnel",
               desc: "손목 안쪽 통로에서 신경이 눌려 손가락이 저린 상태입니다. 그립을 오래 쥐는 운동에서 심해질 수 있습니다." },
             { key: "ws", name: "손목 염좌", href: "/glossary/ligament",
               desc: "넘어지며 손을 짚거나 손목이 꺾여 손목 인대가 늘어나거나 다친 상태입니다. 뼈에 금이 가지 않았는지 함께 확인합니다." },
@@ -198,15 +198,15 @@ export const sportsInjury: Symptom = {
         {
           key: "knee", label: "무릎",
           conditions: [
-            { key: "pt", name: "슬개건염", href: "/glossary/patellar-tendinitis",
+            { key: "pt", name: "슬개건염", ultrasound: true, href: "/glossary/patellar-tendinitis",
               desc: "무릎뼈 아래 힘줄에 반복된 부담으로 염증이 생긴 상태입니다. 점프·러닝이 많은 운동에서 흔합니다." },
             { key: "rk", name: "러너스 니", href: "/glossary/runners-knee",
               desc: "무릎뼈와 허벅지뼈가 맞닿는 자리에 부담이 쌓여 무릎 앞이 시큰한 상태입니다. 달리기를 늘린 뒤에 흔합니다." },
-            { key: "pa", name: "거위발건염", href: "/glossary/pes-anserine",
+            { key: "pa", name: "거위발건염", ultrasound: true, href: "/glossary/pes-anserine",
               desc: "무릎 안쪽 아래에 모이는 세 힘줄과 그 아래 점액낭에 염증이 생긴 상태입니다." },
-            { key: "it", name: "장경인대 증후군", href: "/glossary/itb-syndrome",
+            { key: "it", name: "장경인대 증후군", ultrasound: true, href: "/glossary/itb-syndrome",
               desc: "허벅지 바깥쪽 긴 띠(장경인대)가 무릎 바깥에서 쓸리며 아픈 상태입니다. 러너에게 흔합니다." },
-            { key: "mc", name: "무릎 내측 인대 손상", href: "/glossary/ligament",
+            { key: "mc", name: "무릎 내측 인대 손상", ultrasound: true, href: "/glossary/ligament",
               desc: "무릎 안쪽 인대가 늘어나거나 일부 찢어진 상태입니다. 무릎이 빠지는 느낌이 있으면 MRI를 함께 권해 드립니다." },
           ],
           questions: [
@@ -232,11 +232,11 @@ export const sportsInjury: Symptom = {
         {
           key: "ankle", label: "발목 · 발",
           conditions: [
-            { key: "as", name: "발목 염좌", href: "/glossary/ankle-sprain",
+            { key: "as", name: "발목 염좌", ultrasound: true, href: "/glossary/ankle-sprain",
               desc: "발목 인대가 늘어나거나 일부 찢어진 상태입니다. 초음파로 인대 손상 정도를 확인하고 쉬는 기간을 정합니다." },
-            { key: "pf", name: "족저근막염", href: "/glossary/plantar-fasciitis",
+            { key: "pf", name: "족저근막염", ultrasound: true, href: "/glossary/plantar-fasciitis",
               desc: "발바닥을 받치는 근막이 뒤꿈치에 붙는 자리에 염증이 생긴 상태입니다. 러닝을 늘린 뒤에 흔합니다." },
-            { key: "ac", name: "아킬레스건염", href: "/glossary/achilles-tendinitis",
+            { key: "ac", name: "아킬레스건염", ultrasound: true, href: "/glossary/achilles-tendinitis",
               desc: "종아리 근육과 발뒤꿈치를 잇는 아킬레스건에 반복된 부담으로 염증이 생긴 상태입니다." },
           ],
           questions: [
@@ -260,9 +260,9 @@ export const sportsInjury: Symptom = {
         {
           key: "leg", label: "종아리 · 허벅지",
           conditions: [
-            { key: "cs", name: "종아리 근육 손상", href: "/glossary/calf-strain",
+            { key: "cs", name: "종아리 근육 손상", ultrasound: true, href: "/glossary/calf-strain",
               desc: "뛰거나 박차고 나갈 때 종아리 근육 일부가 늘어나거나 찢어진 상태입니다. 초음파로 손상 범위를 확인합니다." },
-            { key: "hs", name: "햄스트링 손상", href: "/glossary/hamstring-strain",
+            { key: "hs", name: "햄스트링 손상", ultrasound: true, href: "/glossary/hamstring-strain",
               desc: "전력으로 뛰거나 다리를 크게 뻗을 때 허벅지 뒤 근육 일부가 늘어나거나 찢어진 상태입니다." },
             { key: "ss", name: "신스플린트", href: "/glossary/shin-splints",
               desc: "달리기 양이 갑자기 늘었을 때 정강이뼈 안쪽을 따라 근육이 붙는 자리에 염증이 생긴 상태입니다." },
@@ -336,7 +336,7 @@ export const sportsInjury: Symptom = {
     treatmentsNote: "운동을 무조건 쉬게 하지 않습니다. 손상 정도에 따라 해도 되는 운동과 피할 운동을 나눠 말씀드립니다.",
 
     stages: [
-      { label: "문진 · 초음파", detail: "어떤 운동을 하다가, 어떤 동작에서 다쳤는지 여쭙고, 손상 부위를 초음파로 확인합니다. 골절이나 인대 완전 파열이 의심되면 영상 검사를 먼저 안내합니다." },
+      { label: "문진 · 초음파", detail: "어떤 운동을 하다가, 어떤 동작에서 다쳤는지 여쭙고, 힘줄·인대 손상이 의심되면 초음파로 확인합니다. 골절이나 인대 완전 파열이 의심되면 영상 검사를 먼저 안내합니다." },
       { label: "붓기 · 통증 줄이기", detail: "다친 직후에는 침과 약침으로 붓기와 통증을 먼저 가라앉힙니다. 이 시기에는 피할 동작을 구체적으로 알려 드립니다." },
       { label: "회복 치료", detail: "힘줄·인대 상태에 맞춰 초음파 약침, 체외충격파, 도침 가운데 필요한 치료를 이어 갑니다." },
       { label: "운동 복귀", detail: "통증 없이 할 수 있는 동작부터 단계적으로 운동량을 늘립니다. 같은 손상이 반복되지 않게 자세와 정렬도 함께 봅니다." },
@@ -359,13 +359,11 @@ export const sportsInjury: Symptom = {
 
   faq: [
     { q: "운동은 완전히 쉬어야 하나요?",
-      a: "꼭 그렇지는 않습니다. 다친 직후에는 아픈 동작을 피하는 것이 좋지만, 손상 정도에 따라 해도 되는 운동이 있습니다. 초음파로 상태를 확인한 뒤 피할 동작과 해도 되는 동작을 나눠 말씀드립니다." },
+      a: "꼭 그렇지는 않습니다. 다친 직후에는 아픈 동작을 피하는 것이 좋지만, 손상 정도에 따라 해도 되는 운동이 있습니다. 진찰로 상태를 확인한 뒤 피할 동작과 해도 되는 동작을 나눠 말씀드립니다." },
     { q: "언제 다시 운동할 수 있나요?",
       a: "손상 부위와 정도에 따라 다릅니다. 통증 없이 일상 동작이 되고, 다친 동작을 가볍게 해 봐도 아프지 않을 때부터 운동량을 단계적으로 늘립니다. 진료하면서 복귀 시점을 함께 정합니다." },
     { q: "삐었을 때 바로 와도 되나요?",
       a: "네. 다친 직후에 오시면 어디가 얼마나 다쳤는지 먼저 확인하고, 붓기와 통증을 줄이는 치료를 시작합니다. 체중을 싣지 못할 만큼 아프면 뼈 검사를 먼저 안내해 드립니다." },
-    { q: "정형외과에서 MRI를 찍었는데 가져가야 하나요?",
-      a: "가지고 오시면 도움이 됩니다. 영상 결과와 초음파 화면을 함께 보면서 지금 상태와 치료 계획을 설명드립니다." },
     { q: "같은 곳을 자꾸 다치는데 이유가 있나요?",
       a: "손상이 완전히 회복되기 전에 운동량을 올렸거나, 다친 뒤 바뀐 자세 때문에 같은 자리에 부담이 계속 몰리는 경우가 많습니다. 손상 부위와 함께 정렬과 움직임도 확인합니다." },
   ],

@@ -113,6 +113,12 @@ export type Symptom = {
           desc: string;
           /** 설명 페이지. 용어사전이나 부위 안내 */
           href?: string;
+          /**
+           * 초음파로 확인할 수 있는 손상인지. 힘줄·인대·얕은 근육처럼 화면에 보이는
+           * 것만 true. 디스크·뼈·연골·근막통증처럼 초음파로 보기 어려운 것은 비워 둔다.
+           * 결과 화면의 안내 문장이 이 값에 따라 달라진다
+           */
+          ultrasound?: boolean;
         }[];
         /** 세 개. 답마다 conditions 의 key 에 점수를 준다 */
         questions: {

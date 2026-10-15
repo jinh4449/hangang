@@ -170,7 +170,10 @@ export function SymptomChecker({ checker }: { checker: Checker }) {
                 함께 살펴볼 손상 · {also?.name}
               </p>
               <p className="kr mt-3 text-[14px] leading-6 text-muted">
-                ※ 증상만으로 짐작한 결과입니다. 정확한 진단은 진찰과 초음파로 확인합니다.
+                ※ 증상만으로 짐작한 결과입니다.{" "}
+                {c.ultrasound
+                  ? "정확한 진단은 진찰과 초음파로 확인합니다."
+                  : "정확한 진단은 진찰로 확인하고, 필요하면 영상 검사를 안내해 드립니다."}
               </p>
               <div className="mt-7 flex flex-wrap gap-2.5">
                 {c.href && (
@@ -200,7 +203,7 @@ export function SymptomChecker({ checker }: { checker: Checker }) {
             <h3 className="display kr mt-6 text-[1.8rem] leading-tight text-herb">진찰로 함께 확인해 보세요</h3>
             <p className="kr mt-4 max-w-[58ch] text-[17px] leading-8 text-ink">
               {a.label} 통증은 같은 자리라도 힘줄·인대·근육 가운데 어디가 다쳤는지에 따라 치료가 달라집니다.
-              어떤 운동을 하다가 어떻게 아팠는지 말씀해 주시면 초음파로 함께 확인해 드립니다.
+              어떤 운동을 하다가 어떻게 아팠는지 말씀해 주시면 진찰로 함께 확인해 드립니다.
             </p>
             <div className="mt-7">
               <Link

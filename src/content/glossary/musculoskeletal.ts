@@ -37,7 +37,7 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
       "같은 자세를 오래 유지하거나 한쪽 근육을 반복해서 쓰는 생활과 관련이 깊습니다.",
     ],
     signs: ["어깨 위쪽에 딱딱한 덩어리가 만져진다", "누르면 다른 곳까지 울리듯 아프다"],
-    care: "통증이 시작되는 자리를 진찰로 찾고, 필요하면 초음파로 근막의 상태를 확인한 뒤 침과 약침을 놓습니다.",
+    care: "통증이 시작되는 자리를 진찰로 찾아 그 자리에 침과 약침을 놓습니다.",
     treatmentSlug: "acupuncture",
     see: ["fascia", "acute-neck-strain"],
   },
@@ -285,10 +285,10 @@ export const MUSCULOSKELETAL: GlossaryTerm[] = [
       "쪼그려 앉으면 무릎뼈 주변이 아프다",
     ],
     care:
-      "초음파로 무릎 앞 힘줄과 주변 조직을 확인하고, 침·약침으로 통증을 줄이며 허벅지·골반 정렬을 추나로 함께 봅니다. 운동량을 어떻게 조절할지 함께 정합니다.",
+      "진찰로 무릎뼈의 움직임과 허벅지·엉덩이 근육의 균형을 확인하고, 침·약침으로 통증을 줄이며 골반 정렬을 추나로 함께 봅니다. 운동량을 어떻게 조절할지 함께 정합니다.",
     needsTests: ["무릎이 크게 붓거나 걸리는 느낌이 있을 때 — 연골·반월상연골 손상 확인을 위해 MRI를 권해 드립니다"],
     partSlug: "knee",
-    treatmentSlug: "ultrasound-pharmacopuncture",
+    treatmentSlug: "acupuncture",
     see: ["patellar-tendinitis", "itb-syndrome"],
   },
   {
