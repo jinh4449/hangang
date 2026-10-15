@@ -115,6 +115,158 @@ export function Arrow({ className = "" }: { className?: string }) {
 }
 
 /**
+ * 하위 페이지 머리글 — 옅은 녹빛 띠.
+ *
+ * 위치(메뉴 이름) → 큰 제목 → 금빛 한 줄 → 설명 → 예약·전화 단추. 오른쪽에는 같은 메뉴의
+ * 다른 페이지 목록을 두어, 제목 옆 빈자리를 「여기서 어디로 갈 수 있는지」 로 채운다.
+ * 아이콘은 배경에 크게 옅게 깐다. 진료과목·병원 소개·의료진·콘텐츠 페이지가 함께 쓴다.
+ *
+ * siblings 를 주지 않으면 지금 주소(current)가 들어 있는 상단 메뉴의 링크를 쓴다.
+ */
+export function SubHero({
+  current,
+  title,
+  sub,
+  lede,
+  icon,
+  section,
+  siblings,
+  narrow,
+  cta = true,
+}: {
+  /** 지금 페이지 주소. 목록에서 초록으로 표시하고, 상단 메뉴를 찾는 데 쓴다 */
+  current: string;
+  title: string;
+  /** 제목 아래 금빛 한 줄 */
+  sub?: string;
+  lede?: string;
+  icon?: React.ReactNode;
+  /** 위치 표시와 목록 머리의 이름. 없으면 상단 메뉴 이름 */
+  section?: { label: string; href?: string; parent?: { label: string; href: string } };
+  siblings?: { label: string; href: string }[];
+  /** 본문 폭이 좁은(58rem) 페이지. 머리글 글줄을 본문 왼쪽 끝에 맞춘다 */
+  narrow?: boolean;
+  /** 예약·전화 단추. 진료과목처럼 바로 예약으로 이어지는 페이지에만 둔다 */
+  cta?: boolean;
+}) {
+  const entry = NAV.find((e) => e.href === current || e.groups.some((g) => g.links.some((l) => l.href === current)));
+  const links = siblings ?? entry?.groups.flatMap((g) => g.links) ?? [];
+  const sec = section ?? (entry ? { label: entry.label, href: entry.href } : undefined);
+  const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
+
+  return (
+    // 큰 화면에서는 설명 길이와 관계없이 모든 하위 페이지 머리글을 같은 높이로 세운다
+    <section className="relative isolate overflow-hidden border-b border-line bg-gradient-to-b from-tint via-tint/40 to-paper lg:flex lg:min-h-[32rem] lg:flex-col lg:justify-end">
+      {icon && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-16 right-[-4rem] -z-10 h-[26rem] w-[26rem] text-herb opacity-[0.06] lg:right-[8%] [&_svg]:h-full [&_svg]:w-full"
+        >
+          {icon}
+        </div>
+      )}
+      <div
+        className={
+          "mx-auto grid w-full gap-10 pb-12 pt-12 lg:items-end lg:pb-16 lg:pt-16 " +
+          (narrow
+            ? "max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)]"
+            : "max-w-[80rem] px-[clamp(1.25rem,3vw,2.5rem)] lg:grid-cols-[minmax(0,1fr)_19rem]")
+        }
+      >
+        <div>
+          {sec && (
+            <nav aria-label="페이지 위치" className="enter kr flex items-center gap-2 text-[14px] text-muted" style={d(0)}>
+              {sec.parent && (
+                <>
+                  <Link href={sec.parent.href} className="hover:text-herb">
+                    {sec.parent.label}
+                  </Link>
+                  <span aria-hidden="true" className="text-faint">/</span>
+                </>
+              )}
+              {sec.href ? (
+                <Link href={sec.href} className="font-semibold text-herb hover:underline">
+                  {sec.label}
+                </Link>
+              ) : (
+                <span className="font-semibold text-herb">{sec.label}</span>
+              )}
+            </nav>
+          )}
+          <h1 className="display kr enter mt-5 text-[2.5rem] leading-[1.15] text-balance sm:text-[3.4rem]" style={d(120)}>
+            {title}
+          </h1>
+          {sub && (
+            <p className="enter kr mt-3 font-medium text-ochre" style={d(200)}>
+              {sub}
+            </p>
+          )}
+          {lede && (
+            <p className="enter kr mt-6 max-w-[46ch] text-[18px] leading-8 text-muted" style={d(280)}>
+              {lede}
+            </p>
+          )}
+          {cta && (
+            <div className="enter mt-8 flex flex-wrap gap-2" style={d(360)}>
+              <Link
+                href="/reservation"
+                className="press inline-flex items-center gap-2 rounded-full bg-herb px-6 py-3 text-[15px] font-semibold text-paper"
+              >
+                상담 예약하기
+                <Arrow className="arw" />
+              </Link>
+              <PhoneLink className="press inline-flex items-center rounded-full bg-surface px-6 py-3 text-[15px] font-semibold text-ink ring-1 ring-line">
+                {CLINIC.phone}
+              </PhoneLink>
+            </div>
+          )}
+        </div>
+
+        {/* 같은 메뉴의 다른 페이지. 하나뿐이면 세우지 않는다 */}
+        {links.length > 1 && (
+          <nav aria-label={`${sec?.label ?? ""} 페이지`} className="enter" style={d(420)}>
+            {sec && <p className="kr text-[13px] font-semibold text-herb">{sec.label}</p>}
+            {/* 좁은 페이지는 본문 폭에 맞춰 한 줄 단추로, 넓은 페이지는 큰 화면에서 오른쪽 목록으로 */}
+            <ul
+              className={
+                narrow
+                  ? "mt-3 flex flex-wrap gap-2"
+                  : "mt-3 flex gap-2 overflow-x-auto lg:block lg:overflow-visible lg:rounded-[1.25rem] lg:bg-surface/80 lg:p-2 lg:ring-1 lg:ring-line lg:backdrop-blur"
+              }
+            >
+              {links.map((l) => {
+                const on = l.href === current;
+                return (
+                  <li key={l.href + l.label} className="shrink-0">
+                    <Link
+                      href={l.href}
+                      aria-current={on ? "page" : undefined}
+                      className={
+                        "kr flex items-center justify-between gap-3 rounded-full px-4 py-2 text-[15px] transition-colors " +
+                        (narrow ? "" : "lg:rounded-xl lg:px-4 lg:py-3 ") +
+                        (on
+                          ? "bg-herb font-semibold text-paper"
+                          : "bg-surface text-ink ring-1 ring-line hover:text-herb " +
+                            (narrow ? "" : "lg:bg-transparent lg:ring-0 lg:hover:bg-tint"))
+                      }
+                    >
+                      {l.label}
+                      {!narrow && (
+                        <Arrow className={"arw hidden h-3.5 w-3.5 lg:block " + (on ? "opacity-0" : "text-herb")} />
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        )}
+      </div>
+    </section>
+  );
+}
+
+/**
  * 상세 페이지의 첫 화면.
  * 스크롤을 기다리지 않고 로드와 동시에 어절 단위로 글자가 맺힌다.
  * 지연은 CSS 변수로만 넘기고 계산은 여기서 끝낸다.

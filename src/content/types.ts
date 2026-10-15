@@ -92,8 +92,41 @@ export type Symptom = {
       sport: string;
       /** 그 종목에서 손상이 왜 생기는지 한 줄 */
       lede: string;
-      conditions: { name: string; note: string; glossarySlug?: string }[];
+      conditions: { name: string; glossarySlug?: string }[];
     }[];
+    /**
+     * 자가 확인. 아픈 곳 → 질문 세 개 → 가능성이 높은 질환 → 설명·예약.
+     *
+     * 질문의 답마다 질환별 점수를 주고, 세 답의 점수를 더해 가장 높은 질환을 보인다.
+     * 진단이 아니라 짐작을 돕는 도구라 결과는 「가능성」 으로만 말한다.
+     */
+    checker?: {
+      title: string;
+      note?: string;
+      areas: {
+        key: string;
+        label: string;
+        /** 이 부위에서 나올 수 있는 결과. 점수가 같으면 앞에 있는 것이 이긴다 */
+        conditions: {
+          key: string;
+          name: string;
+          desc: string;
+          /** 설명 페이지. 용어사전이나 부위 안내 */
+          href?: string;
+          /**
+           * 초음파로 확인할 수 있는 손상인지. 힘줄·인대·얕은 근육처럼 화면에 보이는
+           * 것만 true. 디스크·뼈·연골·근막통증처럼 초음파로 보기 어려운 것은 비워 둔다.
+           * 결과 화면의 안내 문장이 이 값에 따라 달라진다
+           */
+          ultrasound?: boolean;
+        }[];
+        /** 세 개. 답마다 conditions 의 key 에 점수를 준다 */
+        questions: {
+          q: string;
+          options: { label: string; scores: Record<string, number> }[];
+        }[];
+      }[];
+    };
     /** icon 은 TREATMENT_ICONS 의 키. 없으면 아이콘 없이 선다 */
     treatments: { name: string; body: string; covered: boolean; icon?: string }[];
     /** 치료 칸 아래에 한 줄로 덧붙이는 단서 */

@@ -3,7 +3,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { columnsByDate } from "@/content/column";
 import { CLINIC } from "@/content/clinic";
-import { PageHead, Cta, JsonLd } from "@/components/site";
+import { SubHero, Cta, JsonLd } from "@/components/site";
+import { DocIcon } from "@/components/icons";
 import { ColumnFilter } from "@/components/column-filter";
 import { webPage, breadcrumb, SITE_URL } from "@/content/schema";
 
@@ -47,12 +48,16 @@ export default function ColumnIndex() {
           })),
         }}
       />
-      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
-        <PageHead
-          eyebrow="원장 칼럼"
-          title="진료실에서 자주 받는 질문"
-          lede="묻기 애매해서 그냥 넘어가시는 것들을 먼저 꺼내 정리했습니다."
-        />
+      <SubHero
+        narrow
+        cta={false}
+        current="/column"
+        title="진료실에서 자주 받는 질문"
+        sub="원장 칼럼"
+        lede="묻기 애매해서 그냥 넘어가시는 것들을 먼저 꺼내 정리했습니다."
+        icon={<DocIcon />}
+      />
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12 [&>:first-child]:mt-0">
         {/* 카드. 그림으로 무슨 글인지 먼저 알리고, 아래에 누가 언제 썼는지를 둔다.
             의료 글은 「누가 썼나」가 믿을지를 가르는 첫 단서다 */}
         <ColumnFilter

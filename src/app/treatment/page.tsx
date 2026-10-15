@@ -2,7 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { TREATMENTS, AXIS_STORY } from "@/content/treatment";
 import { CLINIC } from "@/content/clinic";
-import { PageHead, Cta, JsonLd } from "@/components/site";
+import { SubHero, Cta, JsonLd } from "@/components/site";
+import { NeedleIcon } from "@/components/icons";
 import { webPage, breadcrumb, SITE_URL } from "@/content/schema";
 
 export const metadata: Metadata = {
@@ -48,8 +49,16 @@ export default function TreatmentIndex() {
           })),
         }}
       />
-      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
-        <PageHead eyebrow="치료 방법" title={AXIS_STORY.title} lede={AXIS_STORY.lede} />
+      <SubHero
+        narrow
+        cta={false}
+        current="/treatment"
+        title={AXIS_STORY.title}
+        sub="치료 방법"
+        lede={AXIS_STORY.lede}
+        icon={<NeedleIcon />}
+      />
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12 [&>:first-child]:mt-0">
 
         <div className="mt-10 grid gap-3 md:grid-cols-2">
           {AXIS_STORY.axes.map((a) => (

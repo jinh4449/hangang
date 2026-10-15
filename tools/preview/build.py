@@ -262,6 +262,29 @@ JS = """
     });
   });
 
+  /* 증상 자가 확인 (src/components/symptom-checker.tsx 와 같은 규칙) */
+  document.querySelectorAll('[data-checker]').forEach(function(root){
+    var order=JSON.parse(root.getAttribute('data-ck-order')||'{}');
+    var picks=[];
+    function show(to){ root.querySelectorAll('[data-ck-panel]').forEach(function(p){ p.hidden=p.getAttribute('data-ck-panel')!==to; }); }
+    root.querySelectorAll('[data-ck-go]').forEach(function(b){
+      b.addEventListener('click',function(){ var to=b.getAttribute('data-ck-go'); if(/-q0$/.test(to)) picks=[]; show(to); });
+    });
+    root.querySelectorAll('[data-ck-pick]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var qi=+b.getAttribute('data-ck-q'); picks=picks.slice(0,qi); picks.push(JSON.parse(b.getAttribute('data-ck-scores')));
+        var next=b.getAttribute('data-ck-next'); if(next){ show(next); return; }
+        var area=b.getAttribute('data-ck-area'), tot={};
+        picks.forEach(function(p){ for(var k in p) tot[k]=(tot[k]||0)+p[k]; });
+        var ranked=(order[area]||[]).map(function(c,i){return {k:c[0],n:c[1],s:tot[c[0]]||0,i:i};})
+          .filter(function(x){return x.s>0;}).sort(function(a,b){return b.s-a.s||a.i-b.i;});
+        var id=ranked[0]?area+'-r-'+ranked[0].k:area+'-r-none'; show(id);
+        var panel=root.querySelector('[data-ck-panel="'+id+'"]'), al=panel&&panel.querySelector('[data-ck-also]');
+        if(al){ al.hidden=!ranked[1]; if(ranked[1]) al.textContent='함께 살펴볼 손상 · '+ranked[1].n; }
+      });
+    });
+  });
+
   /* 원장 칼럼 원장별 보기 (src/components/column-filter.tsx 와 같은 규칙) */
   document.querySelectorAll('[data-column-filter]').forEach(function(root){
     var btns=root.querySelectorAll('[data-author-btn]');

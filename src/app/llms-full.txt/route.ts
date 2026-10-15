@@ -70,13 +70,27 @@ export function GET() {
       `치료:\n${list(
         s.care.treatments.map((t) => `${t.name}${t.covered ? " (건강보험)" : ""} — ${t.body}`),
       )}`,
-      `비용: ${s.cost.lede}\n${list(
-        s.cost.rows.map(
-          (r) => `${r.item} · ${r.coverage} · ${r.price}${r.note ? ` (${r.note})` : ""}`,
-        ),
-      )}`,
+      s.care.bySport
+        ? `종목별로 자주 보는 손상:\n${list(
+            s.care.bySport.map((g) => `${g.sport} — ${g.conditions.map((c) => c.name).join(", ")}`),
+          )}`
+        : "",
+      s.care.checker
+        ? `증상으로 찾아보기:\n${list(
+            s.care.checker.areas.flatMap((a) =>
+              a.conditions.map((c) => `${a.label} — ${c.name}: ${c.desc}`),
+            ),
+          )}`
+        : "",
+      s.cost.rows.length
+        ? `비용: ${s.cost.lede}\n${list(
+            s.cost.rows.map(
+              (r) => `${r.item} · ${r.coverage} · ${r.price}${r.note ? ` (${r.note})` : ""}`,
+            ),
+          )}`
+        : "",
       s.doubt
-        ? `${s.doubt.question}\n${s.doubt.lede}\n도움이 되는 경우:\n${list(s.doubt.worksFor)}\n한계가 있거나 다른 진료가 나은 경우:\n${list(s.doubt.limitsOf)}`
+        ? `${s.doubt.question}\n${s.doubt.lede}\n도움이 되는 경우:\n${list(s.doubt.worksFor)}\n추가 검사가 필요할 수 있는 경우:\n${list(s.doubt.limitsOf)}`
         : "",
       qa(s.faq),
     ]

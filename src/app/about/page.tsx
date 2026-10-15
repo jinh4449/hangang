@@ -3,7 +3,8 @@ import { HOURS } from "@/content/hours";
 import Link from "next/link";
 import Image from "next/image";
 import { CLINIC } from "@/content/clinic";
-import { PageHead, Section, Bezel, Cta, JsonLd, Arrow } from "@/components/site";
+import { SubHero, Section, Bezel, Cta, JsonLd, Arrow } from "@/components/site";
+import { LogoMark } from "@/components/logo";
 import { WHY_ICONS, UltrasoundIcon } from "@/components/icons";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
 
@@ -16,7 +17,17 @@ export const metadata: Metadata = {
 
 export default function About() {
   return (
-    <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
+    <>
+      <SubHero
+        narrow
+        cta={false}
+        current="/about"
+        title={`${CLINIC.name} 소개`}
+        sub={CLINIC.tagline}
+        lede={`${CLINIC.landmark}에 있습니다. 이진희·왕소정 두 원장이 함께 진료합니다.`}
+        icon={<LogoMark />}
+      />
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12 [&>:first-child]:mt-0">
       <JsonLd
         data={medicalWebPage({
           name: `${CLINIC.name} 병원 소개`,
@@ -26,11 +37,6 @@ export default function About() {
       />
       <JsonLd data={breadcrumb([{ name: "병원 소개", path: "/about" }])} />
 
-      <PageHead
-        eyebrow="병원 소개"
-        title={CLINIC.name}
-        lede={`${CLINIC.tagline}. ${CLINIC.landmark}에 있습니다. 이진희·왕소정 두 원장이 함께 진료합니다.`}
-      />
 
       <Section title="진료 방침" note={CLINIC.whyHero.sub}>
         <div className="rounded-[2rem] bg-ink p-8 text-paper md:p-10">
@@ -150,5 +156,6 @@ export default function About() {
 
       <Cta label="예약 · 상담" />
     </article>
+    </>
   );
 }

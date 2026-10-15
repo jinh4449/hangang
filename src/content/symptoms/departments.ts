@@ -1,4 +1,4 @@
-import type { DepartmentKey } from "../types";
+import type { DepartmentKey, Stage } from "../types";
 
 /**
  * 진료과목 묶음.
@@ -8,8 +8,28 @@ import type { DepartmentKey } from "../types";
  * 다이어트 — 따로 선다.
  * 한방내과 — 소화불량, 만성피로. 앞으로 내과 질환 과목이 늘어나는 자리다.
  */
-export const DEPARTMENTS: { key: DepartmentKey; name: string; line: string }[] = [
+export const DEPARTMENTS: {
+  key: DepartmentKey;
+  name: string;
+  line: string;
+  /**
+   * 묶음 공통 치료 과정. 있으면 이 묶음의 모든 과목이 과목별 stages 대신 이것을 쓴다.
+   * 한방내과처럼 내원하면 같은 검사와 진찰을 거치는 묶음에 둔다
+   */
+  stages?: Stage[];
+}[] = [
   { key: "pain", name: "통증치료", line: "갑자기 아픈 통증부터 오래된 통증, 운동 중 손상, 교통사고 후유증까지." },
   { key: "diet", name: "다이어트", line: "체질과 생활에 맞춘 한약과 관리로 감량을 돕습니다." },
-  { key: "internal", name: "한방내과", line: "검사는 정상인데 불편한 소화·피로 같은 몸속 문제를 봅니다." },
+  {
+    key: "internal",
+    name: "한방내과",
+    line: "검사는 정상인데 불편한 소화·피로 같은 몸속 문제를 봅니다.",
+    // 한방내과에 과목이 늘어나도 내원하면 이 순서로 진료한다
+    stages: [
+      { label: "기초 검사", detail: "자율신경 검사, 혈관 건강도 검사, 인바디(체성분), 혈압을 먼저 측정합니다. 지금 몸 상태를 숫자로 확인하는 단계입니다." },
+      { label: "원장 진찰 — 문진 · 설진 · 복진", detail: "증상이 언제, 어떻게 나타나는지 자세히 여쭙고, 혀와 배를 직접 살펴 몸 상태와 체질을 봅니다." },
+      { label: "자세한 상담", detail: "검사 결과와 진찰 내용을 함께 보면서 지금 상태를 쉽게 설명드리고, 치료 방향과 기간을 함께 정합니다." },
+      { label: "치료 · 경과 확인", detail: "몸 상태에 맞춘 처방과 침 치료를 시작하고, 내원할 때마다 변화를 확인하며 처방을 조정합니다." },
+    ],
+  },
 ];
