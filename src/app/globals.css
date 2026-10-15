@@ -643,7 +643,30 @@ a.tile-dark:hover {
   .scroll-cue-rail::after { animation: none; opacity: 0.6; }
 }
 
-/* 진료과목 페이지 본문. 머리글 띠가 위 경계를 맡으므로 첫 덩어리는 위 여백 없이 붙인다 */
+/* 진료과목 페이지 간격. 절과 절, 제목과 내용, 칸과 칸 사이를 넉넉히 띄운다.
+   공통 Section 은 다른 페이지와 함께 쓰므로 여기서만 넓힌다.
+   머리글 띠가 위 경계를 맡으므로 첫 덩어리는 위 여백 없이 붙인다 */
+.care-body > section,
+.care-body > aside,
+.care-body > div {
+  margin-top: 6rem;
+}
 .care-body > :first-child {
   margin-top: 0;
 }
+.care-body > section > .rise.mt-2 {
+  margin-top: 0.875rem;
+}
+.care-body > section > .rise.mt-6 {
+  margin-top: 2.25rem;
+}
+.care-body .gap-2\.5 {
+  gap: 1rem;
+}
+.care-body .gap-3 {
+  gap: 1.125rem;
+}
+.care-body .gap-4 {
+  gap: 1.25rem;
+}
+
