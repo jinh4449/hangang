@@ -642,3 +642,12 @@ a.tile-dark:hover {
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue-rail::after { animation: none; opacity: 0.6; }
 }
+
+/* 진료과목 페이지의 절 틀(Rail). 머리글 바로 아래 첫 절은 머리글의 밑줄이
+   이미 경계라, 선을 한 번 더 긋지 않는다 */
+header + .rail {
+  border-top-width: 0;
+  margin-top: 3rem;
+  padding-top: 0;
+}
+

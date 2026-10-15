@@ -6,7 +6,7 @@ import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { columnsFor } from "@/content/column";
 import { getPart } from "@/content/part";
 import { CLINIC, SITE_URL, sentences } from "@/content/clinic";
-import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
+import { PageHead, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb, faqPage } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
 import { PhoneLink } from "@/components/phone-link";
@@ -33,6 +33,36 @@ function Seq({
     >
       <span className="seq-in">{children}</span>
     </span>
+  );
+}
+
+/**
+ * 진료과목 페이지의 절 틀.
+ *
+ * 큰 화면에서는 왼쪽 칸에 절 제목과 설명, 오른쪽에 내용을 둔다. 진료 기록지처럼
+ * 「무엇에 대한 내용인지」 가 늘 왼쪽에 서 있어, 긴 페이지를 내려도 지금 어디를
+ * 읽는지 놓치지 않는다. 절과 절 사이는 가는 선 하나로만 끊는다.
+ */
+function Rail({
+  title,
+  note,
+  children,
+}: {
+  title: string;
+  note?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section className="rail mt-16 grid gap-x-14 gap-y-7 border-t border-line pt-10 lg:grid-cols-[15rem_minmax(0,1fr)]">
+      <div className="lg:sticky lg:top-28 lg:self-start">
+        <span aria-hidden="true" className="block h-[3px] w-8 rounded-full bg-gradient-to-r from-herb to-grad-b" />
+        <h2 className="display kr mt-4 text-[1.55rem] leading-snug text-balance">{title}</h2>
+        {note && <p className="kr mt-3 text-[15px] leading-7 text-muted">{note}</p>}
+      </div>
+      <div className="rise">
+        <div className="rise-in">{children}</div>
+      </div>
+    </section>
   );
 }
 
@@ -279,49 +309,45 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </div>
         )}
 
+        {/* ── 아래 절들은 모두 같은 틀(Rail)로 선다.
+            왼쪽에 절 제목, 오른쪽에 내용. 내용은 상자 대신 가는 선으로 나눈다.
+            상자는 누를 수 있는 것에만 쓴다 — 그래야 누를 곳이 눈에 띈다. */}
+
         {/* 종목별 손상 — 「어떤 운동을 하다가」 로 찾아온 사람이 자기 종목부터 찾게 한다.
-            종목마다 질환을 나눠 두어, 그 운동의 손상을 많이 본다는 것이 한눈에 드러나게 한다.
-            용어사전에 있는 질환은 눌러서 더 읽을 수 있다 */}
+            종목마다 질환을 나눠 두어 그 운동의 손상을 많이 본다는 것이 드러나게 한다 */}
         {care.bySport && (
-          <Section
+          <Rail
             title="종목별로 자주 보는 손상"
             note="운동마다 다치는 자리가 다릅니다. 하시는 운동을 찾아 비슷한 증상이 있는지 확인해 보세요."
           >
-            <div className="grid gap-4 sm:grid-cols-2">
-              {care.bySport.map((g, gi) => (
-                <section
-                  key={g.sport}
-                  className="flex flex-col rounded-[1.5rem] border border-line bg-surface p-6 sm:p-7"
-                >
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-mono text-[12px] tracking-[0.1em] text-ochre">
-                      {String(gi + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="kr text-[20px] font-bold leading-snug">{g.sport}</h3>
-                  </div>
-                  <p className="kr mt-2 text-[15px] leading-7 text-muted">{g.lede}</p>
-                  <ul className="mt-4 grid gap-1 border-t border-line pt-3">
+            <div className="grid gap-x-12 gap-y-12 md:grid-cols-2">
+              {care.bySport.map((g) => (
+                <section key={g.sport}>
+                  <h3 className="kr border-b-2 border-herb pb-3 text-[21px] font-bold leading-snug">
+                    {g.sport}
+                  </h3>
+                  <p className="kr mt-3 text-[15px] leading-7 text-muted">{g.lede}</p>
+                  <ul className="mt-3">
                     {g.conditions.map((c) => {
                       const body = (
                         <>
                           <span className="kr flex items-center gap-1.5 text-[16px] font-semibold text-ink">
                             {c.name}
-                            {c.glossarySlug && <Arrow />}
+                            {c.glossarySlug && (
+                              <Arrow className="arw h-3.5 w-3.5 text-herb opacity-60 group-hover:opacity-100" />
+                            )}
                           </span>
                           <span className="kr mt-0.5 block text-[14.5px] leading-6 text-muted">{c.note}</span>
                         </>
                       );
                       return (
-                        <li key={c.name}>
+                        <li key={c.name} className="border-t border-line first:border-t-0">
                           {c.glossarySlug ? (
-                            <Link
-                              href={`/glossary/${c.glossarySlug}`}
-                              className="-mx-2 block rounded-xl px-2 py-2 transition-colors hover:bg-tint [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:text-herb"
-                            >
+                            <Link href={`/glossary/${c.glossarySlug}`} className="group block py-3 hover:[&_span:first-child]:text-herb">
                               {body}
                             </Link>
                           ) : (
-                            <div className="py-2">{body}</div>
+                            <div className="py-3">{body}</div>
                           )}
                         </li>
                       );
@@ -330,185 +356,161 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                 </section>
               ))}
             </div>
-          </Section>
+          </Rail>
         )}
 
-        {/* 진료 흐름 — 순서가 곧 내용이라 번호를 붙여 칸으로 세운다 */}
+        {/* 진료 흐름 — 순서가 곧 내용이라 번호를 붙인다 */}
         {care.flow && (
-          <Section
+          <Rail
             title="저희는 이렇게 봅니다"
             note="같은 통증이라도 원인이 다르면 치료가 달라집니다. 그 갈림길을 짐작이 아니라 화면으로 가릅니다."
           >
-            <ol className="grid gap-3 sm:grid-cols-2">
+            <ol className="grid gap-x-10 sm:grid-cols-2">
               {care.flow.map((f, i) => (
-                <li
-                  key={f.title}
-                  className="flex flex-col rounded-[1.25rem] border border-line bg-surface p-6"
-                >
-                  <span className="font-mono text-[11px] tracking-[0.1em] text-herb">
+                <li key={f.title} className="border-t border-line py-6">
+                  <span className="font-display text-[15px] font-semibold tabular-nums text-ochre">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="kr mt-3 text-[18px] font-bold leading-snug">{f.title}</h3>
-                  <p className="kr mt-2 text-[16.5px] leading-7 text-muted">{f.text}</p>
-                  {f.tag && (
-                    <span className="kr mt-4 self-start rounded-full bg-tint px-3 py-1 text-xs font-medium text-herb">
-                      {f.tag}
-                    </span>
-                  )}
+                  <h3 className="kr mt-2 text-[19px] font-bold leading-snug">{f.title}</h3>
+                  <p className="kr mt-2 text-[16px] leading-7 text-muted">{f.text}</p>
+                  {f.tag && <p className="kr mt-3 text-[13.5px] font-medium text-herb">{f.tag}</p>}
                 </li>
               ))}
             </ol>
-          </Section>
+          </Rail>
         )}
 
-        <Section title="이런 증상이 있다면" note="아래 항목 중 여러 개에 해당한다면 진찰을 권합니다.">
-          <ul className="grid gap-2.5 sm:grid-cols-2">
+        <Rail title="이런 증상이 있다면" note="여러 개에 해당한다면 진찰을 권합니다.">
+          <ul className="grid gap-x-10 sm:grid-cols-2">
             {care.signs.map((sign) => (
               <li
                 key={sign}
-                className="kr flex items-start gap-3 rounded-[1rem] border border-line bg-surface px-5 py-4 text-[17px] leading-7"
+                className="kr flex items-start gap-3.5 border-t border-line py-4 text-[17px] leading-7"
               >
-                <span
-                  aria-hidden="true"
-                  className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-tint text-[13px] font-bold text-herb"
-                >
-                  ✓
-                </span>
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-herb">
+                  <path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
                 {sign}
               </li>
             ))}
           </ul>
-        </Section>
+        </Rail>
 
-        <Section title="어떻게 치료하나요?">
-          <div className="grid gap-4 sm:grid-cols-2">
+        <Rail title="어떻게 치료하나요?">
+          <ul>
             {care.treatments.map((t) => {
               const Icon = t.icon ? TREATMENT_ICONS[t.icon] : undefined;
               return (
-                <div
+                <li
                   key={t.name}
-                  className="flex flex-col rounded-[1.5rem] border border-line bg-surface p-7 transition-colors hover:border-herb-line"
+                  className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-5 border-t border-line py-6 first:border-t-0 first:pt-0 sm:grid-cols-[2.5rem_14rem_minmax(0,1fr)] sm:gap-x-8"
                 >
-                  {Icon && (
-                    <span className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-full bg-tint text-herb">
-                      <Icon className="h-7 w-7" />
-                    </span>
-                  )}
-                  <h3 className="kr text-[20px] font-bold leading-snug">{t.name}</h3>
-                  <p className="kr mt-3 text-[16.5px] leading-7 text-muted">{t.body}</p>
-                  {t.covered && (
-                    <span className="kr mt-5 self-start rounded-full border border-herb-line bg-tint px-3 py-1 text-xs font-medium text-herb">
-                      건강보험 적용
-                    </span>
-                  )}
-                </div>
+                  <span className="text-herb">{Icon && <Icon className="h-7 w-7" />}</span>
+                  <h3 className="kr text-[19px] font-bold leading-snug">
+                    {t.name}
+                    {t.covered && (
+                      <span className="kr mt-1.5 block text-[13px] font-medium text-herb">건강보험 적용</span>
+                    )}
+                  </h3>
+                  <p className="kr col-start-2 mt-2 text-[16px] leading-7 text-muted sm:col-start-3 sm:mt-0">
+                    {t.body}
+                  </p>
+                </li>
               );
             })}
-          </div>
+          </ul>
           {care.treatmentsNote && (
-            <p className="kr mt-4 rounded-[1rem] border border-line bg-surface-2 px-6 py-5 text-[16.5px] leading-7 text-muted">
+            <p className="kr mt-6 border-l-2 border-ochre pl-5 text-[16px] leading-7 text-ink">
               {care.treatmentsNote}
             </p>
           )}
-        </Section>
+        </Rail>
 
-        {/* 치료 비용 — 물어보기 전에 먼저 꺼낸다. 표로 세워야 항목과 금액이 한눈에 붙는다 */}
+        {/* 치료 비용 — 물어보기 전에 먼저 꺼낸다. 항목과 금액이 한 줄에 붙게 세운다 */}
         {s.cost.rows.length > 0 && (
-          <Section title="치료 비용" note={s.cost.lede}>
-            <div className="grid gap-2.5">
+          <Rail title="치료 비용" note={s.cost.lede}>
+            <ul>
               {s.cost.rows.map((r) => (
-                <div
+                <li
                   key={r.item}
-                  className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 rounded-[1rem] border border-line bg-surface px-6 py-5"
+                  className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-line py-5 first:border-t-0 first:pt-0"
                 >
-                  <div className="min-w-0">
-                    <span className="kr text-[18px] font-bold">{r.item}</span>
-                    <span
-                      className={
-                        "kr ml-3 inline-block rounded-full px-2.5 py-0.5 text-[12px] font-medium " +
-                        (r.coverage === "급여"
-                          ? "border border-herb-line bg-tint text-herb"
-                          : "border border-ochre-line bg-ochre-soft text-ochre")
-                      }
-                    >
-                      {r.coverage}
-                    </span>
-                    {r.note && (
-                      <span className="kr mt-2 block text-[15px] leading-7 text-muted">{r.note}</span>
-                    )}
-                  </div>
-                  <span className="kr shrink-0 text-[18px] font-bold tabular-nums">{r.price}</span>
-                </div>
+                  <span className="kr text-[17px] font-bold">{r.item}</span>
+                  <span
+                    className={
+                      "kr text-[12.5px] font-semibold " +
+                      (r.coverage === "급여" ? "text-herb" : "text-ochre")
+                    }
+                  >
+                    {r.coverage}
+                  </span>
+                  <span aria-hidden="true" className="hidden flex-1 border-b border-dotted border-line sm:block" />
+                  <span className="kr ml-auto text-[17px] font-bold tabular-nums sm:ml-0">{r.price}</span>
+                  {r.note && <span className="kr basis-full text-[14.5px] leading-6 text-muted">{r.note}</span>}
+                </li>
               ))}
-            </div>
+            </ul>
 
             {/* 금액만 적어 두면 「이건 보험이 되나」 를 다시 물어야 한다 */}
             {s.cost.insurance.length > 0 && (
-              <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
+              <div className="mt-8 grid gap-x-10 gap-y-6 rounded-[1.25rem] bg-surface-2 p-6 sm:grid-cols-2 sm:p-7">
                 {s.cost.insurance.map((ins) => (
-                  <div key={ins.title} className="rounded-[1rem] bg-surface-2 px-6 py-5">
-                    <h3 className="kr text-[17px] font-bold leading-snug">{ins.title}</h3>
-                    <p className="kr mt-2 text-[16px] leading-7 text-muted">{ins.body}</p>
+                  <div key={ins.title}>
+                    <h3 className="kr text-[16px] font-bold leading-snug">{ins.title}</h3>
+                    <p className="kr mt-1.5 text-[15px] leading-7 text-muted">{ins.body}</p>
                   </div>
                 ))}
               </div>
             )}
-          </Section>
+          </Rail>
         )}
 
-        <Section
-          title="치료 과정"
-          note="첫 내원부터 마무리까지 어떤 순서로 진행되는지 미리 알려 드립니다."
-        >
-          <ol className="grid gap-2.5">
+        {/* 치료 과정 — 위에서 아래로 이어지는 한 줄기 */}
+        <Rail title="치료 과정" note="첫 내원부터 마무리까지 어떤 순서로 진행되는지 미리 알려 드립니다.">
+          <ol className="relative">
             {care.stages.map((st, i) => (
-              <li
-                key={st.label}
-                className="grid grid-cols-[3rem_minmax(0,1fr)] items-start gap-4 rounded-[1rem] border border-line bg-surface px-5 py-5 sm:grid-cols-[4rem_minmax(0,1fr)] sm:gap-6"
-              >
-                <span className="grid h-10 w-10 place-items-center rounded-full bg-tint font-mono text-[15px] font-bold tabular-nums text-herb">
-                  {String(i + 1).padStart(2, "0")}
+              <li key={st.label} className="relative grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-5 pb-8 last:pb-0">
+                {i < care.stages.length - 1 && (
+                  <span aria-hidden="true" className="absolute left-[1.1rem] top-9 bottom-1 w-px bg-herb-line" />
+                )}
+                <span className="relative z-10 grid h-9 w-9 place-items-center rounded-full border border-herb-line bg-paper font-display text-[14px] font-semibold tabular-nums text-herb">
+                  {i + 1}
                 </span>
-                <div>
+                <div className="pt-1">
                   <h3 className="kr text-[18px] font-bold leading-snug">{st.label}</h3>
-                  <p className="kr mt-2 text-[16.5px] leading-7 text-muted">{st.detail}</p>
+                  <p className="kr mt-1.5 text-[16px] leading-7 text-muted">{st.detail}</p>
                 </div>
               </li>
             ))}
           </ol>
-        </Section>
+        </Rail>
 
         {/* 되는 경우와 안 되는 경우.
             효과를 묻는 사람에게 「됩니다」 만 말하면 믿지 않는다.
             안 되는 경우를 같이 적어야 되는 경우도 믿긴다 */}
         {s.doubt && (
-          <Section title={s.doubt.question} note={s.doubt.lede}>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-[1.5rem] border border-herb-line bg-tint p-7">
-                <h3 className="kr text-[18px] font-bold text-herb">이런 경우에 도움이 됩니다</h3>
-                <ul className="mt-4 grid gap-2.5">
+          <Rail title={s.doubt.question} note={s.doubt.lede}>
+            <div className="grid gap-x-10 gap-y-8 md:grid-cols-2">
+              <div>
+                <h3 className="kr border-b-2 border-herb pb-3 text-[17px] font-bold text-herb">
+                  이런 경우에 도움이 됩니다
+                </h3>
+                <ul>
                   {s.doubt.worksFor.map((w) => (
-                    <li key={w} className="kr flex items-start gap-2.5 text-[16.5px] leading-7">
-                      <span aria-hidden="true" className="mt-1 text-[13px] font-bold text-herb">
-                        ✓
-                      </span>
+                    <li key={w} className="kr border-b border-line py-3.5 text-[16px] leading-7">
                       {w}
                     </li>
                   ))}
                 </ul>
               </div>
-
               {/* 다른 과가 나은 경우를 숨기면, 그 사람은 여기서 시간을 버린다 */}
-              <div className="rounded-[1.5rem] border border-ochre-line bg-ochre-soft p-7">
-                <h3 className="kr text-[18px] font-bold text-ochre">
-                  이럴 때는 다른 진료가 먼저입니다
+              <div>
+                <h3 className="kr border-b-2 border-ochre pb-3 text-[17px] font-bold text-ochre">
+                  이럴 때는 추가 검사가 필요할 수 있습니다
                 </h3>
-                <ul className="mt-4 grid gap-2.5">
+                <ul>
                   {s.doubt.limitsOf.map((l) => (
-                    <li key={l} className="kr flex items-start gap-2.5 text-[16.5px] leading-7">
-                      <span aria-hidden="true" className="mt-1 text-[13px] font-bold text-ochre">
-                        !
-                      </span>
+                    <li key={l} className="kr border-b border-line py-3.5 text-[16px] leading-7">
                       {l}
                     </li>
                   ))}
@@ -517,35 +519,29 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
             </div>
 
             {s.doubt.grounds.length > 0 && (
-              <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+              <div className="mt-10 grid gap-x-10 sm:grid-cols-2">
                 {s.doubt.grounds.map((g) => (
-                  <div
-                    key={g.title}
-                    className="rounded-[1rem] border border-line bg-surface px-6 py-5"
-                  >
+                  <div key={g.title} className="border-t border-line py-5">
                     <h3 className="kr text-[17px] font-bold leading-snug">{g.title}</h3>
-                    <p className="kr mt-2 text-[16px] leading-7 text-muted">{g.body}</p>
+                    <p className="kr mt-1.5 text-[15.5px] leading-7 text-muted">{g.body}</p>
                   </div>
                 ))}
               </div>
             )}
-          </Section>
+          </Rail>
         )}
 
         {care.extraSections?.map((sec) => (
-          <Section key={sec.title} title={sec.title} note={sec.note}>
-            <div className="grid gap-2.5 sm:grid-cols-2">
+          <Rail key={sec.title} title={sec.title} note={sec.note}>
+            <div className="grid gap-x-10 sm:grid-cols-2">
               {sec.items.map((it) => (
-                <div
-                  key={it.title}
-                  className="rounded-[1rem] border border-line bg-surface px-6 py-5"
-                >
-                  <h3 className="kr text-[18px] font-bold leading-snug">{it.title}</h3>
-                  <p className="kr mt-2 text-[16.5px] leading-7 text-muted">{it.body}</p>
+                <div key={it.title} className="border-t border-line py-5">
+                  <h3 className="kr text-[17px] font-bold leading-snug">{it.title}</h3>
+                  <p className="kr mt-1.5 text-[16px] leading-7 text-muted">{it.body}</p>
                 </div>
               ))}
             </div>
-          </Section>
+          </Rail>
         ))}
 
         {/* 부위로 갈라지는 자리.
@@ -553,11 +549,11 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
             문장을 그대로 세우고 누르면 그 부위 안내로 보낸다. 문장은 부위
             자료의 signs 첫 줄을 쓴다 — 그 부위에서 가장 흔한 호소다 */}
         {care.partSlugs && care.partSlugs.length > 0 && (
-          <Section
+          <Rail
             title="어디가 아프신가요"
             note="해당하는 곳을 누르시면 그 부위의 치료와 걸리는 기간을 볼 수 있습니다."
           >
-            <div className="border-t border-line">
+            <div className="grid gap-3 sm:grid-cols-2">
               {care.partSlugs.map((slug) => {
                 const part = getPart(slug);
                 if (!part) return null;
@@ -565,85 +561,67 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
                   <Link
                     key={slug}
                     href={`/part/${slug}`}
-                    className="group flex items-center justify-between gap-5 border-b border-line py-4"
+                    className="tile group flex items-center justify-between gap-4 bg-surface px-5 py-4"
                   >
                     <span className="min-w-0">
-                      <span className="kr block text-[16.5px] leading-7 text-muted">
-                        {part.signs[0]}
-                      </span>
+                      <span className="kr block text-[17px] font-bold group-hover:text-herb">{part.name}</span>
+                      <span className="kr mt-0.5 block truncate text-[14.5px] text-muted">{part.signs[0]}</span>
                     </span>
-                    <span className="kr flex shrink-0 items-center gap-2 text-[16px] font-bold group-hover:text-herb">
-                      {part.name}
-                      <span
-                        aria-hidden="true"
-                        className="grid h-7 w-7 place-items-center rounded-full bg-tint text-herb"
-                      >
-                        <Arrow className="arw h-3.5 w-3.5" />
-                      </span>
-                    </span>
+                    <Arrow className="arw h-4 w-4 shrink-0 text-herb" />
                   </Link>
                 );
               })}
             </div>
-          </Section>
+          </Rail>
         )}
 
         {s.faq.length > 0 && (
-          <Section title="자주 묻는 질문" note="진료실에서 실제로 많이 받는 질문입니다.">
-            <div className="border-t border-line">
+          <Rail title="자주 묻는 질문" note="진료실에서 실제로 많이 받는 질문입니다.">
+            <div>
               {s.faq.map((f) => (
-                <details key={f.q} className="group border-b border-line">
-                  <summary className="kr flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-[18px] font-bold [&::-webkit-details-marker]:hidden">
+                <details key={f.q} className="group border-b border-line first:border-t">
+                  <summary className="kr flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-[17.5px] font-bold [&::-webkit-details-marker]:hidden">
                     {f.q}
                     <span
                       aria-hidden="true"
-                      className="shrink-0 text-[19px] text-faint transition-transform group-open:rotate-45"
+                      className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-line text-[16px] text-muted transition-transform group-open:rotate-45"
                     >
                       +
                     </span>
                   </summary>
-                  <p className="kr pb-6 text-[16.5px] leading-8 text-muted">{f.a}</p>
+                  <p className="kr pb-6 text-[16px] leading-8 text-muted">{f.a}</p>
                 </details>
               ))}
             </div>
-          </Section>
+          </Rail>
         )}
 
         {/* 이어지는 글.
-            자주 묻는 질문 바로 다음, 예약 앞에 둔다. 칼럼 제목이 전부 질문
-            형태라 이 자리에 놓이면 「관련 글 목록」이 아니라 문답의 연장으로
-            읽힌다. 페이지 맨 아래 카드 세 장으로 만들면 어느 사이트에나 있는
-            부속물이 되어 사람도 검색엔진도 그냥 지나친다 */}
+            칼럼 제목이 전부 질문 형태라 이 자리에 놓이면 「관련 글 목록」이 아니라
+            문답의 연장으로 읽힌다 */}
         {columnsFor(s.slug).length > 0 && (
-          <Section
+          <Rail
             title="이런 것도 궁금하실 겁니다"
             note="진료실에서 자주 나오는 질문을 원장이 글로 정리했습니다."
           >
-            <div className="border-t border-line">
+            <div>
               {columnsFor(s.slug).map((c) => (
                 <Link
                   key={c.slug}
                   href={`/column/${c.slug}`}
-                  className="group flex items-start justify-between gap-5 border-b border-line py-5"
+                  className="group flex items-start justify-between gap-5 border-b border-line py-5 first:border-t"
                 >
                   <span className="min-w-0">
-                    <span className="kr block text-[18px] font-bold leading-snug group-hover:text-herb">
+                    <span className="kr block text-[17.5px] font-bold leading-snug group-hover:text-herb">
                       {c.title}
                     </span>
-                    <span className="kr mt-1.5 block text-[16px] leading-7 text-muted">
-                      {c.summary}
-                    </span>
+                    <span className="kr mt-1 block text-[15.5px] leading-7 text-muted">{c.summary}</span>
                   </span>
-                  <span
-                    aria-hidden="true"
-                    className="mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-tint text-herb"
-                  >
-                    <Arrow className="arw" />
-                  </span>
+                  <Arrow className="arw mt-1.5 h-4 w-4 shrink-0 text-herb" />
                 </Link>
               ))}
             </div>
-          </Section>
+          </Rail>
         )}
 
         <Cta />
