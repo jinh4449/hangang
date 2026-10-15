@@ -88,20 +88,44 @@ export function MobileNav() {
                   >
                     {entry.label}
                   </Link>
-                  <div className="mt-3 grid gap-x-5 gap-y-2.5 sm:grid-cols-2">
-                    {entry.groups
-                      .flatMap((g) => g.links)
-                      .map((l) => (
-                        <Link
-                          key={l.href + l.label}
-                          href={l.href}
-                          onClick={() => setOpen(false)}
-                          className="kr text-[16px] text-muted"
-                        >
-                          {l.label}
-                        </Link>
+                  {/* 진료과목처럼 묶음이 뜻을 갖는 메뉴는 묶음 이름을 함께 세운다.
+                      나머지는 묶음 없이 링크만 늘어놓는다 */}
+                  {entry.groups.length > 1 && entry.href === "/care" ? (
+                    <div className="mt-3 grid gap-4">
+                      {entry.groups.map((g) => (
+                        <div key={g.title}>
+                          <p className="kr text-[13px] font-semibold text-herb">{g.title}</p>
+                          <div className="mt-1.5 grid gap-x-5 gap-y-2 sm:grid-cols-2">
+                            {g.links.map((l) => (
+                              <Link
+                                key={l.href + l.label}
+                                href={l.href}
+                                onClick={() => setOpen(false)}
+                                className="kr text-[16px] text-muted"
+                              >
+                                {l.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
                       ))}
-                  </div>
+                    </div>
+                  ) : (
+                    <div className="mt-3 grid gap-x-5 gap-y-2.5 sm:grid-cols-2">
+                      {entry.groups
+                        .flatMap((g) => g.links)
+                        .map((l) => (
+                          <Link
+                            key={l.href + l.label}
+                            href={l.href}
+                            onClick={() => setOpen(false)}
+                            className="kr text-[16px] text-muted"
+                          >
+                            {l.label}
+                          </Link>
+                        ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </nav>

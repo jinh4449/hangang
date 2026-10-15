@@ -20,6 +20,18 @@ export function SpineIcon({ className = base }: P) {
   );
 }
 
+/** 스포츠 손상 — 달리는 사람 */
+export function RunnerIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="14.5" cy="4.5" r="1.8" {...stroke} />
+      <path d="M8 9.5l3.2-1.6 3.3 1.3 1.6 3.3 2.9.8" {...stroke} />
+      <path d="M14.5 9.2l-2.3 4.6 3.2 2.6-.9 4.6" {...stroke} />
+      <path d="M12.2 13.8l-2.1 3.4-4.3.6" {...stroke} />
+    </svg>
+  );
+}
+
 /** 교통사고 — 충격 */
 export function ImpactIcon({ className = base }: P) {
   return (
@@ -135,6 +147,7 @@ export const WHY_ICONS: Record<string, (p: P) => React.JSX.Element> = {
 
 export const SYMPTOM_ICONS: Record<string, (p: P) => React.JSX.Element> = {
   pain: SpineIcon,
+  "sports-injury": RunnerIcon,
   "car-accident": ImpactIcon,
   diet: ScaleIcon,
   indigestion: StomachIcon,

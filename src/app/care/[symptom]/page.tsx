@@ -2,11 +2,11 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import type { Metadata } from "next";
-import { SYMPTOMS, getSymptom } from "@/content/symptoms";
+import { SYMPTOMS, getSymptom, DEPARTMENTS, symptomsIn } from "@/content/symptoms";
 import { columnsFor } from "@/content/column";
 import { getPart } from "@/content/part";
 import { CLINIC, SITE_URL, sentences } from "@/content/clinic";
-import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
+import { Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb, faqPage } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
 import { PhoneLink } from "@/components/phone-link";
@@ -118,27 +118,84 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         </section>
       )}
 
-      <article className="mx-auto w-full max-w-[80rem] px-[clamp(1.25rem,3vw,2.5rem)] py-12">
-        {!s.heroImage && (
-          <>
-            {(() => {
-              const Icon = SYMPTOM_ICONS[s.slug];
-              return Icon ? <Icon className="mb-5 h-10 w-10 text-herb" /> : null;
-            })()}
-            {/* 제목 밑에 한 문단. 지금까지 이 자리가 비어 있어서, 화면에 들어온 사람이
-                제목 다음에 바로 증상 목록을 만났다. 물어보러 온 질문에 답하지 않고
-                항목부터 세우는 꼴이다.
+      {/* 머리글 — 옅은 녹빛 띠 위에 과목 이름을 크게 세운다.
+          오른쪽에는 같은 진료과목 묶음의 다른 과목을 두어, 비어 있던 자리를
+          「여기서 어디로 갈 수 있는지」 로 채운다. 과목 아이콘은 배경에 크게 옅게 깐다 */}
+      {!s.heroImage && (() => {
+        const Icon = SYMPTOM_ICONS[s.slug];
+        const dept = DEPARTMENTS.find((d) => d.key === s.department);
+        const siblings = symptomsIn(s.department);
+        return (
+          <section className="relative isolate overflow-hidden border-b border-line bg-gradient-to-b from-tint via-tint/40 to-paper">
+            {Icon && (
+              <Icon className="pointer-events-none absolute -bottom-16 right-[-4rem] -z-10 h-[26rem] w-[26rem] text-herb opacity-[0.06] lg:right-[8%]" />
+            )}
+            <div className="mx-auto grid w-full max-w-[80rem] gap-10 px-[clamp(1.25rem,3vw,2.5rem)] pb-12 pt-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:items-end lg:pb-16 lg:pt-16">
+              <div>
+                <nav aria-label="진료과목 위치" className="enter kr flex items-center gap-2 text-[14px] text-muted" style={{ "--d": "0ms" } as React.CSSProperties}>
+                  <Link href="/care" className="hover:text-herb">진료과목</Link>
+                  <span aria-hidden="true" className="text-faint">/</span>
+                  <span className="font-semibold text-herb">{dept?.name}</span>
+                </nav>
+                <h1 className="display kr enter mt-5 text-[2.5rem] leading-[1.15] sm:text-[3.4rem]" style={{ "--d": "120ms" } as React.CSSProperties}>
+                  {care.title}
+                </h1>
+                <p className="enter kr mt-3 font-medium text-ochre" style={{ "--d": "200ms" } as React.CSSProperties}>
+                  {s.clinicalName}
+                </p>
+                {!s.highlight && (
+                  <p className="enter kr mt-6 max-w-[46ch] text-[18px] leading-8 text-muted" style={{ "--d": "280ms" } as React.CSSProperties}>
+                    {care.leadLine ?? care.lede}
+                  </p>
+                )}
+                <div className="enter mt-8 flex flex-wrap gap-2" style={{ "--d": "360ms" } as React.CSSProperties}>
+                  <Link
+                    href="/reservation"
+                    className="press inline-flex items-center gap-2 rounded-full bg-herb px-6 py-3 text-[15px] font-semibold text-paper"
+                  >
+                    상담 예약하기
+                    <Arrow className="arw" />
+                  </Link>
+                  <PhoneLink className="press inline-flex items-center rounded-full bg-surface px-6 py-3 text-[15px] font-semibold text-ink ring-1 ring-line">
+                    {CLINIC.phone}
+                  </PhoneLink>
+                </div>
+              </div>
 
-                아래 highlight 가 있는 과목은 그쪽이 이미 답이므로 겹쳐 놓지 않는다.
-                답이 둘이면 어느 쪽이 답인지 흐려진다 */}
-            <PageHead
-              eyebrow={s.clinicalName}
-              title={care.title}
-              lede={s.highlight ? undefined : (care.leadLine ?? care.lede)}
-            />
-          </>
-        )}
+              {/* 같은 묶음의 과목. 과목이 하나뿐인 묶음은 세우지 않는다 */}
+              {siblings.length > 1 && (
+                <nav aria-label={`${dept?.name} 과목`} className="enter" style={{ "--d": "420ms" } as React.CSSProperties}>
+                  <p className="kr text-[13px] font-semibold text-herb">{dept?.name}</p>
+                  <ul className="mt-3 flex gap-2 overflow-x-auto lg:block lg:overflow-visible lg:rounded-[1.25rem] lg:bg-surface/80 lg:p-2 lg:ring-1 lg:ring-line lg:backdrop-blur">
+                    {siblings.map((o) => {
+                      const on = o.slug === s.slug;
+                      return (
+                        <li key={o.slug} className="shrink-0">
+                          <Link
+                            href={`/care/${o.slug}`}
+                            aria-current={on ? "page" : undefined}
+                            className={
+                              "kr flex items-center justify-between gap-3 rounded-full px-4 py-2 text-[15px] transition-colors lg:rounded-xl lg:px-4 lg:py-3 " +
+                              (on
+                                ? "bg-herb font-semibold text-paper"
+                                : "bg-surface text-ink ring-1 ring-line hover:text-herb lg:bg-transparent lg:ring-0 lg:hover:bg-tint")
+                            }
+                          >
+                            {o.name}
+                            <Arrow className={"arw hidden h-3.5 w-3.5 lg:block " + (on ? "opacity-0" : "text-herb")} />
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </nav>
+              )}
+            </div>
+          </section>
+        );
+      })()}
 
+      <article className="care-body mx-auto w-full max-w-[80rem] px-[clamp(1.25rem,3vw,2.5rem)] py-12">
         {/* 이 과목에서 가장 먼저 알려야 할 사실. 없으면 렌더링하지 않는다 */}
         {s.highlight && (
           <aside className="mt-8 rounded-[2rem] bg-herb p-7 text-paper md:p-8">
@@ -277,6 +334,60 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
               );
             })}
           </div>
+        )}
+
+        {/* 종목별 손상 — 「어떤 운동을 하다가」 로 찾아온 사람이 자기 종목부터 찾게 한다.
+            종목마다 질환을 나눠 두어, 그 운동의 손상을 많이 본다는 것이 한눈에 드러나게 한다.
+            용어사전에 있는 질환은 눌러서 더 읽을 수 있다 */}
+        {care.bySport && (
+          <Section
+            title="종목별로 자주 보는 손상"
+            note="운동마다 다치는 자리가 다릅니다. 하시는 운동을 찾아 비슷한 증상이 있는지 확인해 보세요."
+          >
+            <div className="grid gap-4 sm:grid-cols-2">
+              {care.bySport.map((g, gi) => (
+                <section
+                  key={g.sport}
+                  className="flex flex-col rounded-[1.5rem] border border-line bg-surface p-6 sm:p-7"
+                >
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-mono text-[12px] tracking-[0.1em] text-ochre">
+                      {String(gi + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="kr text-[20px] font-bold leading-snug">{g.sport}</h3>
+                  </div>
+                  <p className="kr mt-2 text-[15px] leading-7 text-muted">{g.lede}</p>
+                  <ul className="mt-4 grid gap-1 border-t border-line pt-3">
+                    {g.conditions.map((c) => {
+                      const body = (
+                        <>
+                          <span className="kr flex items-center gap-1.5 text-[16px] font-semibold text-ink">
+                            {c.name}
+                            {c.glossarySlug && <Arrow />}
+                          </span>
+                          <span className="kr mt-0.5 block text-[14.5px] leading-6 text-muted">{c.note}</span>
+                        </>
+                      );
+                      return (
+                        <li key={c.name}>
+                          {c.glossarySlug ? (
+                            <Link
+                              href={`/glossary/${c.glossarySlug}`}
+                              className="-mx-2 block rounded-xl px-2 py-2 transition-colors hover:bg-tint [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:text-herb"
+                            >
+                              {body}
+                            </Link>
+                          ) : (
+                            <div className="py-2">{body}</div>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </Section>
         )}
 
         {/* 진료 흐름 — 순서가 곧 내용이라 번호를 붙여 칸으로 세운다 */}

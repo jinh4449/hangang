@@ -642,3 +642,8 @@ a.tile-dark:hover {
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue-rail::after { animation: none; opacity: 0.6; }
 }
+
+/* 진료과목 페이지 본문. 머리글 띠가 위 경계를 맡으므로 첫 덩어리는 위 여백 없이 붙인다 */
+.care-body > :first-child {
+  margin-top: 0;
+}

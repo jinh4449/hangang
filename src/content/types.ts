@@ -16,8 +16,16 @@ export type Stage = {
   detail: string;
 };
 
+/**
+ * 진료과목 묶음. 메뉴·진료과목 첫 페이지·메인에서 이 단위로 나눠 세운다.
+ * 내과 질환처럼 과목이 늘어날 묶음은 여기에 과목만 더하면 된다.
+ */
+export type DepartmentKey = "pain" | "diet" | "internal";
+
 export type Symptom = {
   slug: string;
+  /** 어느 진료과목 묶음에 드는지 */
+  department: DepartmentKey;
   /** 환자가 쓰는 말 */
   name: string;
   /** 의학 용어 */
@@ -74,6 +82,17 @@ export type Symptom = {
        * 비워 두면 흰 판으로 선다
        */
       tone?: "herb" | "ink";
+    }[];
+    /**
+     * 종목별로 자주 보는 손상. 「어떤 운동을 하다가」 로 찾아오는 스포츠 손상에만 쓴다.
+     * 종목을 먼저 고르게 하면 자기 이야기를 빨리 찾고, 종목마다 질환을 나눠 두면
+     * 그 운동의 손상을 많이 본다는 것이 한눈에 드러난다.
+     */
+    bySport?: {
+      sport: string;
+      /** 그 종목에서 손상이 왜 생기는지 한 줄 */
+      lede: string;
+      conditions: { name: string; note: string; glossarySlug?: string }[];
     }[];
     /** icon 은 TREATMENT_ICONS 의 키. 없으면 아이콘 없이 선다 */
     treatments: { name: string; body: string; covered: boolean; icon?: string }[];

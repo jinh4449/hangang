@@ -1,9 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CLINIC, SITE_URL } from "@/content/clinic";
-import { SYMPTOMS, getSymptom } from "@/content/symptoms";
+import { SYMPTOMS, getSymptom, DEPARTMENTS, symptomsIn } from "@/content/symptoms";
 import { homeColumns } from "@/content/column";
-import { PARTS } from "@/content/part";
 import { JsonLd, Arrow } from "@/components/site";
 import { webPage, breadcrumb } from "@/content/schema";
 import {
@@ -319,6 +318,11 @@ const QA = homeColumns().map((c) => ({
 /** 2026-06-12 → 2026.06.12 */
 const dotted = (iso: string) => iso.replaceAll("-", ".");
 
+
+/* 진료과목 묶음이 큰 화면의 세 칸 격자에서 차지하는 폭과, 묶음 안의 칸 수.
+   Tailwind 가 클래스 이름을 찾을 수 있게 문자열을 통째로 적어 둔다 */
+const DEPT_SPAN: Record<number, string> = { 1: "lg:col-span-1", 2: "lg:col-span-2", 3: "lg:col-span-3" };
+const DEPT_COLS: Record<number, string> = { 1: "lg:grid-cols-1", 2: "lg:grid-cols-2", 3: "lg:grid-cols-3" };
 export default function Home() {
   return (
     <>
@@ -689,105 +693,94 @@ export default function Home() {
           >
             어떤 치료가
           </H2>
-          {/* 칸을 모두 같은 크기로 세운다. 첫 칸만 색으로 눌러 무게를 준다 */}
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {SYMPTOMS.map((s, i) => (
-              <Rise key={s.slug} fill>
-                <Link
-                  href={`/care/${s.slug}`}
-                  className={
-                    "tile flex h-full min-h-[15rem] flex-col justify-between p-8 " +
-                    (i === 0 ? "tile-dark bg-herb text-paper" : "bg-surface")
-                  }
-                >
-                <div>
-                  {(() => {
-                    const Icon = SYMPTOM_ICONS[s.slug];
-                    return Icon ? (
-                      <Icon
-                        className={
-                          i === 0
-                            ? "h-8 w-8 text-paper/70"
-                            : "h-8 w-8 text-herb"
-                        }
-                      />
-                    ) : null;
-                  })()}
-                  <h3 className="kr mt-4 text-xl font-bold leading-snug">
-                    {s.name}
-                  </h3>
-                  <p
-                    className={
-                      "mt-1 font-display text-sm " +
-                      (i === 0 ? "text-paper/60" : "text-faint")
-                    }
-                  >
-                    {s.clinicalName}
-                  </p>
+          {/* 진료과목 묶음(통증치료 · 다이어트 · 한방내과)마다 이름을 세우고 그 아래에 과목을 둔다.
+              큰 화면에서는 세 칸 격자 안에서 묶음이 과목 수만큼 칸을 차지한다.
+              칸은 모두 같은 크기로 세우고, 첫 칸만 색으로 눌러 무게를 준다 */}
+          <div className="mt-10 grid gap-x-4 gap-y-10 lg:grid-cols-3">
+            {DEPARTMENTS.map((d) => {
+              const list = symptomsIn(d.key);
+              return (
+                <div key={d.key} className={DEPT_SPAN[list.length] ?? "lg:col-span-3"}>
+                  <div className="flex items-baseline gap-3 border-b border-line pb-3">
+                    <h3 className="kr shrink-0 text-[17px] font-bold text-herb">{d.name}</h3>
+                    <p className="kr hidden truncate text-[14px] text-faint sm:block">{d.line}</p>
+                  </div>
+                  <div className={"mt-4 grid gap-4 sm:grid-cols-2 " + (DEPT_COLS[list.length] ?? "")}>
+                    {list.map((s) => {
+                      const i = SYMPTOMS.indexOf(s);
+                      return (
+                      <Rise key={s.slug} fill>
+                        <Link
+                          href={`/care/${s.slug}`}
+                          className={
+                            "tile flex h-full min-h-[15rem] flex-col justify-between p-8 " +
+                            (i === 0 ? "tile-dark bg-herb text-paper" : "bg-surface")
+                          }
+                        >
+                        <div>
+                          {(() => {
+                            const Icon = SYMPTOM_ICONS[s.slug];
+                            return Icon ? (
+                              <Icon
+                                className={
+                                  i === 0
+                                    ? "h-8 w-8 text-paper/70"
+                                    : "h-8 w-8 text-herb"
+                                }
+                              />
+                            ) : null;
+                          })()}
+                          <h4 className="kr mt-4 text-xl font-bold leading-snug">
+                            {s.name}
+                          </h4>
+                          <p
+                            className={
+                              "mt-1 font-display text-sm " +
+                              (i === 0 ? "text-paper/60" : "text-faint")
+                            }
+                          >
+                            {s.clinicalName}
+                          </p>
+                        </div>
+                        <div className="mt-6">
+                          {s.highlight && (
+                            <span
+                              className={
+                                "mb-2 inline-block rounded-full px-3 py-1 text-xs font-semibold " +
+                                (i === 0
+                                  ? "bg-paper/15 text-paper"
+                                  : "bg-ochre-soft text-ochre")
+                              }
+                            >
+                              {s.highlight.label}
+                            </span>
+                          )}
+                          <p
+                            className={
+                              "kr text-[15px] leading-7 " +
+                              (i === 0 ? "text-paper/80" : "text-muted")
+                            }
+                          >
+                            {s.summary}
+                          </p>
+                          <span
+                            className={
+                              "tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium " +
+                              (i === 0 ? "text-paper" : "text-herb")
+                            }
+                          >
+                            자세히 보기
+                            <Arrow />
+                          </span>
+                        </div>
+                        </Link>
+                      </Rise>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="mt-6">
-                  {s.highlight && (
-                    <span
-                      className={
-                        "mb-2 inline-block rounded-full px-3 py-1 text-xs font-semibold " +
-                        (i === 0
-                          ? "bg-paper/15 text-paper"
-                          : "bg-ochre-soft text-ochre")
-                      }
-                    >
-                      {s.highlight.label}
-                    </span>
-                  )}
-                  <p
-                    className={
-                      "kr text-[15px] leading-7 " +
-                      (i === 0 ? "text-paper/80" : "text-muted")
-                    }
-                  >
-                    {s.summary}
-                  </p>
-                  <span
-                    className={
-                      "tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium " +
-                      (i === 0 ? "text-paper" : "text-herb")
-                    }
-                  >
-                    자세히 보기
-                    <Arrow />
-                  </span>
-                </div>
-                </Link>
-              </Rise>
-            ))}
-
-            {/* 진료과목이 5개라 3열 격자에 한 칸이 빈다. 없는 과목을 지어내는 대신
-                이미 있는 부위별 페이지로 채운다 */}
-            <Rise fill>
-              <Link
-                href="/part"
-                className="tile flex h-full min-h-[15rem] flex-col justify-between bg-surface p-8"
-              >
-              <div>
-                <MapPinIcon className="h-8 w-8 text-herb" />
-                <h3 className="kr mt-4 text-xl font-bold leading-snug">
-                  부위별로 찾기
-                </h3>
-                <p className="mt-1 font-display text-sm text-faint">
-                  {PARTS.map((p) => p.name).join(" · ")}
-                </p>
-              </div>
-              <div className="mt-6">
-                <p className="kr text-[15px] leading-7 text-muted">
-                  아픈 곳이 어디인지로 찾으시면 해당 부위의 흔한 원인부터
-                  보여드립니다.
-                </p>
-                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  자세히 보기
-                  <Arrow />
-                </span>
-              </div>
-              </Link>
-            </Rise>
+              );
+            })}
           </div>
         </section>
 

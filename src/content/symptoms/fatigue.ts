@@ -2,6 +2,7 @@ import type { Symptom } from "../types";
 
 export const fatigue: Symptom = {
   slug: "fatigue",
+  department: "internal",
   name: "만성피로",
   clinicalName: "만성 피로 · 기력 저하",
   summary: "자고 일어나도 개운하지 않은 상태가 몇 달째라면.",
