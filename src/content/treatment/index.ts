@@ -108,6 +108,45 @@ const chuna: Treatment = {
   partSlugs: ["low-back", "neck", "knee"],
 };
 
+const acupotomy: Treatment = {
+  slug: "acupotomy",
+  name: "도침",
+  fullName: "도침 (침도)",
+  axis: "structure",
+  covered: false,
+  summary: "오래되어 서로 들러붙은 근육과 근막을 떼어 내, 굳은 움직임을 풀어 줍니다.",
+  lede:
+    "도침은 끝이 납작한 칼날 모양으로 된 침입니다. 일반 침이 근육을 자극한다면, 도침은 " +
+    "오래된 통증으로 서로 들러붙은(유착된) 근육과 근막 사이를 떼어 내는 데 씁니다.",
+  body: [
+    { t: "h", text: "왜 유착을 보는가" },
+    { t: "p", text:
+      "통증이 오래가면 근육과 근막, 힘줄 주변 조직이 서로 들러붙어 미끄러지듯 움직여야 할 층이 " +
+      "한 덩어리처럼 굳습니다. 이렇게 굳은 자리는 침이나 약침으로 잠시 풀려도 다시 당기고 아픈 일이 반복됩니다." },
+    { t: "p", text:
+      "도침은 그 들러붙은 층 사이를 떼어 내(박리) 조직이 다시 제자리에서 움직이게 하는 것을 목표로 합니다." },
+    { t: "h", text: "주로 만성 통증에 씁니다" },
+    { t: "p", text:
+      "갑자기 생긴 통증보다, 몇 달에서 몇 년씩 이어진 통증에 주로 씁니다. 퇴행성 관절 질환, 허리디스크, " +
+      "척추관협착증, 테니스엘보·골프엘보처럼 오래 끌어 온 통증에서 다른 치료와 함께 계획합니다." },
+    { t: "note", tone: "info", title: "한 가지 치료로만 끝내지 않습니다", text:
+      "유착을 떼어 낸 뒤에는 침·약침으로 남은 통증을 줄이고, 추나요법으로 같은 자리에 다시 부담이 몰리지 않게 " +
+      "정렬을 함께 다룹니다." },
+  ],
+  goodFor: [
+    "오래된 허리·목 통증, 허리디스크, 척추관협착증",
+    "무릎 등 퇴행성 관절 질환에서 굳고 당기는 통증",
+    "테니스엘보, 골프엘보처럼 오래 끌어 온 힘줄 주변 통증",
+    "침이나 약침으로 잠시 풀렸다가 다시 굳는 근육·근막 통증",
+  ],
+  limits: [
+    "일반 침보다 굵어, 시술한 자리가 하루 이틀 뻐근하거나 멍이 들 수 있습니다",
+    "막 다친 직후의 급성 통증에는 다른 치료를 먼저 합니다",
+    "혈액을 묽게 하는 약을 드시거나 지병이 있으면 미리 말씀해 주세요",
+  ],
+  partSlugs: ["low-back", "knee", "elbow"],
+};
+
 const acupuncture: Treatment = {
   slug: "acupuncture",
   name: "침 · 전침",
@@ -174,7 +213,7 @@ const herbal: Treatment = {
   partSlugs: [],
 };
 
-export const TREATMENTS: Treatment[] = [ultrasoundPharma, chuna, acupuncture, herbal];
+export const TREATMENTS: Treatment[] = [ultrasoundPharma, chuna, acupotomy, acupuncture, herbal];
 export const getTreatment = (slug: string) => TREATMENTS.find((t) => t.slug === slug);
 
 /** 두 축 서사. 홈과 통증치료 페이지에서 함께 쓴다 */

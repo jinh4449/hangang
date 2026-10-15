@@ -264,7 +264,8 @@ export type Treatment = {
   body: Block[];
   goodFor: string[];
   limits: string[];
-  cost: string;
+  /** 비용 안내. 원장님이 안내하지 않기로 한 치료는 비워 둔다 */
+  cost?: string;
   partSlugs: string[];
 };
 

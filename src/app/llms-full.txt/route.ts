@@ -106,14 +106,16 @@ export function GET() {
 
   const treatments = TREATMENTS.map((t) =>
     [
-      `### ${t.fullName}${t.covered ? " (건강보험 적용)" : " (비급여)"}`,
+      `### ${t.fullName}${t.covered ? " (건강보험 적용)" : t.cost ? " (비급여)" : ""}`,
       source("/treatment"),
       t.lede,
       blocks(t.body),
       `이런 경우에 씁니다:\n${list(t.goodFor)}`,
       `한계:\n${list(t.limits)}`,
-      `비용: ${t.cost}`,
-    ].join("\n\n"),
+      t.cost ? `비용: ${t.cost}` : "",
+    ]
+      .filter(Boolean)
+      .join("\n\n"),
   ).join("\n\n");
 
   const compares = COMPARES.map((c) =>

@@ -86,7 +86,7 @@ ${nearest.map((a) => link(`/area/${a.slug}`, a.title, `${a.name}에서 차로 �
 ${[
   link("/about", "병원 소개", "진료 방침과 공간"),
   link("/doctors", "의료진 소개", "두 원장의 이력"),
-  link("/treatment", "치료 방법", "추나·침·약침·한약이 각각 하는 일"),
+  link("/treatment", "치료 방법", "추나·침·약침·도침·한약이 각각 하는 일"),
   link("/directions", "오시는 길", "주소, 주차, 대중교통, 진료시간"),
   link("/reservation", "예약 · 상담", "전화와 네이버 예약"),
 ].join("\n")}
