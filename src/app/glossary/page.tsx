@@ -37,6 +37,7 @@ export default function GlossaryIndex() {
       <JsonLd data={breadcrumb([{ name: "한의학 용어사전", path: "/glossary" }])} />
       <SubHero
         narrow
+        cta={false}
         current="/glossary"
         title="한의학 용어사전"
         sub={`${GLOSSARY.length}개 용어`}

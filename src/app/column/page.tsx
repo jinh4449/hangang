@@ -50,6 +50,7 @@ export default function ColumnIndex() {
       />
       <SubHero
         narrow
+        cta={false}
         current="/column"
         title="진료실에서 자주 받는 질문"
         sub="원장 칼럼"

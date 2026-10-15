@@ -51,6 +51,7 @@ export default function TreatmentIndex() {
       />
       <SubHero
         narrow
+        cta={false}
         current="/treatment"
         title={AXIS_STORY.title}
         sub="치료 방법"

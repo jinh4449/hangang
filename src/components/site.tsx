@@ -132,6 +132,7 @@ export function SubHero({
   section,
   siblings,
   narrow,
+  cta = true,
 }: {
   /** 지금 페이지 주소. 목록에서 초록으로 표시하고, 상단 메뉴를 찾는 데 쓴다 */
   current: string;
@@ -145,6 +146,8 @@ export function SubHero({
   siblings?: { label: string; href: string }[];
   /** 본문 폭이 좁은(58rem) 페이지. 머리글 글줄을 본문 왼쪽 끝에 맞춘다 */
   narrow?: boolean;
+  /** 예약·전화 단추. 진료과목처럼 바로 예약으로 이어지는 페이지에만 둔다 */
+  cta?: boolean;
 }) {
   const entry = NAV.find((e) => e.href === current || e.groups.some((g) => g.links.some((l) => l.href === current)));
   const links = siblings ?? entry?.groups.flatMap((g) => g.links) ?? [];
@@ -152,7 +155,8 @@ export function SubHero({
   const d = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
 
   return (
-    <section className="relative isolate overflow-hidden border-b border-line bg-gradient-to-b from-tint via-tint/40 to-paper">
+    // 큰 화면에서는 설명 길이와 관계없이 모든 하위 페이지 머리글을 같은 높이로 세운다
+    <section className="relative isolate overflow-hidden border-b border-line bg-gradient-to-b from-tint via-tint/40 to-paper lg:flex lg:min-h-[32rem] lg:flex-col lg:justify-end">
       {icon && (
         <div
           aria-hidden="true"
@@ -202,18 +206,20 @@ export function SubHero({
               {lede}
             </p>
           )}
-          <div className="enter mt-8 flex flex-wrap gap-2" style={d(360)}>
-            <Link
-              href="/reservation"
-              className="press inline-flex items-center gap-2 rounded-full bg-herb px-6 py-3 text-[15px] font-semibold text-paper"
-            >
-              상담 예약하기
-              <Arrow className="arw" />
-            </Link>
-            <PhoneLink className="press inline-flex items-center rounded-full bg-surface px-6 py-3 text-[15px] font-semibold text-ink ring-1 ring-line">
-              {CLINIC.phone}
-            </PhoneLink>
-          </div>
+          {cta && (
+            <div className="enter mt-8 flex flex-wrap gap-2" style={d(360)}>
+              <Link
+                href="/reservation"
+                className="press inline-flex items-center gap-2 rounded-full bg-herb px-6 py-3 text-[15px] font-semibold text-paper"
+              >
+                상담 예약하기
+                <Arrow className="arw" />
+              </Link>
+              <PhoneLink className="press inline-flex items-center rounded-full bg-surface px-6 py-3 text-[15px] font-semibold text-ink ring-1 ring-line">
+                {CLINIC.phone}
+              </PhoneLink>
+            </div>
+          )}
         </div>
 
         {/* 같은 메뉴의 다른 페이지. 하나뿐이면 세우지 않는다 */}

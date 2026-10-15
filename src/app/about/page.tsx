@@ -20,6 +20,7 @@ export default function About() {
     <>
       <SubHero
         narrow
+        cta={false}
         current="/about"
         title={`${CLINIC.name} 소개`}
         sub={CLINIC.tagline}

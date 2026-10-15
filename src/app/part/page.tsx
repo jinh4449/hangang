@@ -25,6 +25,7 @@ export default function PartIndex() {
       <JsonLd data={breadcrumb([{ name: "통증 · 근골격", path: "/part" }])} />
       <SubHero
         narrow
+        cta={false}
         current="/part"
         title="통증 · 근골격"
         sub="부위별 안내"

@@ -18,6 +18,7 @@ export default function Doctors() {
     <>
       <SubHero
         narrow
+        cta={false}
         current="/doctors"
         title="두 원장이 함께 진료합니다"
         sub="이진희 · 왕소정 대표원장"
