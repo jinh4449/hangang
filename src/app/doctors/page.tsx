@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { CLINIC } from "@/content/clinic";
-import { PageHead, Section, Cta, JsonLd, Arrow } from "@/components/site";
+import { SubHero, Section, Cta, JsonLd, Arrow } from "@/components/site";
+import { CoDoctorIcon } from "@/components/icons";
 import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
@@ -14,7 +15,16 @@ export const metadata: Metadata = {
 
 export default function Doctors() {
   return (
-    <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12">
+    <>
+      <SubHero
+        narrow
+        current="/doctors"
+        title="두 원장이 함께 진료합니다"
+        sub="이진희 · 왕소정 대표원장"
+        lede="통증·초음파는 이진희 원장, 한약·소화·피로는 왕소정 원장이 맡아 함께 진료합니다."
+        icon={<CoDoctorIcon />}
+      />
+      <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12 [&>:first-child]:mt-0">
       <JsonLd
         data={medicalWebPage({
           name: `${CLINIC.name} 의료진 소개`,
@@ -24,7 +34,6 @@ export default function Doctors() {
       />
       <JsonLd data={breadcrumb([{ name: "의료진 소개", path: "/doctors" }])} />
 
-      <PageHead eyebrow="의료진 소개" title="두 원장이 함께 진료합니다" />
 
       {/* 이력은 줄글로 늘어놓으면 눈이 미끄러진다. 사진 옆에 묶음별로 세운다 */}
       {CLINIC.doctors.map((d) => (
@@ -88,5 +97,6 @@ export default function Doctors() {
 
       <Cta label="예약 · 상담" />
     </article>
+    </>
   );
 }

@@ -670,3 +670,23 @@ a.tile-dark:hover {
   gap: 1.25rem;
 }
 
+/* 증상 체크 — 화면이 바뀔 때 툭 튀어나오듯 맺힌다 */
+@keyframes ck-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.ck-pop:not([hidden]) {
+  animation: ck-pop 0.38s cubic-bezier(0.2, 0.9, 0.3, 1.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ck-pop:not([hidden]) {
+    animation: none;
+  }
+}
+

@@ -55,169 +55,222 @@ export function SymptomChecker({ checker }: { checker: Checker }) {
     setAt(ranked[0] ? `${area.key}-r-${ranked[0].key}` : `${area.key}-r-none`);
   };
 
-  const steps = (n: number, total: number, text: string) => (
-    <p className="kr flex flex-wrap items-center gap-3 text-[14px] font-medium text-herb">
-      <span className="flex gap-1" aria-hidden="true">
-        {Array.from({ length: total }, (_, i) => (
-          <span key={i} className={"h-1.5 w-6 rounded-full " + (i < n ? "bg-herb" : "bg-herb/15")} />
+  // 부위 고르기 + 질문 세 개 + 결과. 게임의 단계 표시처럼 칸을 채워 간다
+  const TOTAL = 5;
+  const steps = (n: number, text: string) => (
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <span className="flex gap-1.5" aria-hidden="true">
+        {Array.from({ length: TOTAL }, (_, i) => (
+          <span
+            key={i}
+            className={
+              "h-2 w-7 rounded-full transition-colors " + (i < n ? "bg-herb-light" : "bg-paper/15")
+            }
+          />
         ))}
       </span>
-      {text}
-    </p>
+      <span className="kr text-[14px] font-semibold text-herb-light">{text}</span>
+    </div>
   );
 
-  const back = (to: string, label: string, onClick?: () => void) => (
+  const back = (to: string, label: string) => (
     <button
       type="button"
       data-ck-go={to}
-      onClick={() => {
-        onClick?.();
-        setAt(to);
-      }}
-      className="kr mt-6 text-[14.5px] font-medium text-muted underline-offset-4 hover:text-herb hover:underline"
+      onClick={() => setAt(to)}
+      className="kr mt-7 text-[14.5px] font-medium text-paper/60 underline-offset-4 hover:text-paper hover:underline"
     >
       ← {label}
     </button>
   );
 
   const panel = (id: string, children: React.ReactNode) => (
-    <div key={id} data-ck-panel={id} hidden={at !== id}>
+    <div key={id} data-ck-panel={id} hidden={at !== id} className="ck-pop">
       {children}
     </div>
   );
 
-  // 부위 고르기 + 질문 세 개 + 결과
-  const TOTAL = 5;
+  const LETTERS = ["A", "B", "C", "D", "E"];
 
   return (
-    <div
+    <section
       data-checker
+      aria-labelledby="checker-title"
       // 미리보기 스크립트가 결과를 계산할 때 쓰는 부위별 질환 순서
       data-ck-order={JSON.stringify(
         Object.fromEntries(checker.areas.map((a) => [a.key, a.conditions.map((c) => [c.key, c.name])])),
       )}
-      className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-tint via-surface to-ochre-soft/60 p-6 ring-1 ring-herb/15 sm:p-10"
+      className="relative isolate overflow-hidden rounded-[2.25rem] bg-herb-deep px-6 py-10 text-paper shadow-[0_30px_80px_-30px_rgba(22,65,47,0.7)] sm:px-12 sm:py-14"
     >
-      {panel(
-        "areas",
-        <>
-          {steps(1, TOTAL, "아픈 곳을 골라 주세요")}
-          <div className="mt-6 grid grid-cols-2 gap-2.5 sm:grid-cols-4">
-            {checker.areas.map((a) => (
-              <button
-                key={a.key}
-                type="button"
-                data-ck-go={`${a.key}-q0`}
-                onClick={() => start(a)}
-                className="kr rounded-2xl bg-surface px-4 py-4 text-[16.5px] font-bold text-ink ring-1 ring-line transition hover:-translate-y-0.5 hover:text-herb hover:ring-herb"
-              >
-                {a.label}
-              </button>
-            ))}
-          </div>
-        </>,
-      )}
+      {/* 배경 — 옥색·금빛 빛 번짐과 옅은 격자. 게임 판처럼 다른 절과 한눈에 갈리게 한다 */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-24 -top-28 -z-10 h-96 w-96 rounded-full"
+        style={{ background: "radial-gradient(circle, rgba(132,194,167,.35) 0%, rgba(132,194,167,0) 70%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-32 -left-24 -z-10 h-96 w-96 rounded-full"
+        style={{ background: "radial-gradient(circle, rgba(194,161,102,.28) 0%, rgba(194,161,102,0) 70%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
 
-      {checker.areas.map((a) => [
-        ...a.questions.map((q, qi) =>
-          panel(
-            `${a.key}-q${qi}`,
-            <>
-              {steps(qi + 2, TOTAL, `${a.label} · 질문 ${qi + 1} / ${a.questions.length}`)}
-              <h3 className="kr mt-5 text-[22px] font-bold leading-snug sm:text-[24px]">{q.q}</h3>
-              <div className="mt-5 grid gap-2.5">
-                {q.options.map((o) => (
-                  <button
-                    key={o.label}
-                    type="button"
-                    data-ck-pick=""
-                    data-ck-area={a.key}
-                    data-ck-q={qi}
-                    data-ck-scores={JSON.stringify(o.scores)}
-                    data-ck-next={qi < a.questions.length - 1 ? `${a.key}-q${qi + 1}` : ""}
-                    onClick={() => pick(a, qi, o.scores)}
-                    className="kr group flex items-center justify-between gap-4 rounded-2xl bg-surface px-5 py-4 text-left text-[16.5px] leading-7 text-ink ring-1 ring-line transition hover:ring-herb"
-                  >
-                    {o.label}
-                    <span aria-hidden="true" className="shrink-0 text-herb transition-transform group-hover:translate-x-0.5">
-                      →
-                    </span>
-                  </button>
-                ))}
-              </div>
-              {qi === 0
-                ? back("areas", "아픈 곳 다시 고르기")
-                : back(`${a.key}-q${qi - 1}`, "이전 질문")}
-            </>,
-          ),
-        ),
+      {/* 머리 — 늘 보인다 */}
+      <div className="flex flex-wrap items-end justify-between gap-6 border-b border-paper/15 pb-8">
+        <div>
+          <span className="kr inline-flex items-center gap-2 rounded-full bg-paper/10 px-3.5 py-1.5 text-[13px] font-semibold text-herb-light ring-1 ring-herb-light/30">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-live" />
+            1분 증상 체크
+          </span>
+          <h2 id="checker-title" className="display kr mt-4 text-[2rem] leading-[1.2] sm:text-[2.7rem]">
+            {checker.title}
+          </h2>
+          {checker.note && (
+            <p className="kr mt-3 max-w-[48ch] text-[16px] leading-7 text-paper/70">{checker.note}</p>
+          )}
+        </div>
+      </div>
 
-        ...a.conditions.map((c) =>
-          panel(
-            `${a.key}-r-${c.key}`,
-            <>
-              {steps(TOTAL, TOTAL, `${a.label} · 가능성이 높은 손상`)}
-              <h3 className="display kr mt-6 text-[2rem] leading-tight text-herb sm:text-[2.4rem]">
-                {c.name}
-                <span className="kr ml-2 align-middle text-[16px] font-medium tracking-normal text-ink">일 수 있습니다</span>
-              </h3>
-              <p className="kr mt-4 max-w-[58ch] text-[17px] leading-8 text-ink">{c.desc}</p>
-              <p
-                data-ck-also=""
-                hidden={!(at === `${a.key}-r-${c.key}` && also)}
-                className="kr mt-3 text-[15px] text-muted"
-              >
-                함께 살펴볼 손상 · {also?.name}
-              </p>
-              <p className="kr mt-3 text-[14px] leading-6 text-muted">
-                ※ 증상만으로 짐작한 결과입니다.{" "}
-                {c.ultrasound
-                  ? "정확한 진단은 진찰과 초음파로 확인합니다."
-                  : "정확한 진단은 진찰로 확인하고, 필요하면 영상 검사를 안내해 드립니다."}
-              </p>
-              <div className="mt-7 flex flex-wrap gap-2.5">
-                {c.href && (
-                  <Link
-                    href={c.href}
-                    className="kr inline-flex items-center gap-2 rounded-full bg-surface px-6 py-3 text-[15px] font-semibold text-herb ring-1 ring-herb/30 hover:ring-herb"
-                  >
-                    {c.name} 자세히 보기 →
-                  </Link>
-                )}
-                <Link
-                  href="/reservation"
-                  className="kr inline-flex items-center gap-2 rounded-full bg-herb px-6 py-3 text-[15px] font-semibold text-paper"
+      <div className="pt-8">
+        {panel(
+          "areas",
+          <>
+            {steps(1, "STEP 1 · 아픈 곳을 골라 주세요")}
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {checker.areas.map((a) => (
+                <button
+                  key={a.key}
+                  type="button"
+                  data-ck-go={`${a.key}-q0`}
+                  onClick={() => start(a)}
+                  className="kr group flex min-h-[5.5rem] flex-col justify-between rounded-2xl bg-paper/[0.07] p-4 text-left ring-1 ring-paper/15 transition hover:-translate-y-1 hover:bg-paper hover:text-herb-deep hover:ring-paper"
                 >
-                  이 증상으로 예약하기 →
-                </Link>
+                  <span className="text-[18px] font-bold leading-snug">{a.label}</span>
+                  <span className="text-[13px] font-medium text-paper/50 group-hover:text-herb">
+                    질문 {a.questions.length}개 →
+                  </span>
+                </button>
+              ))}
+            </div>
+          </>,
+        )}
+
+        {checker.areas.map((a) => [
+          ...a.questions.map((q, qi) =>
+            panel(
+              `${a.key}-q${qi}`,
+              <>
+                {steps(qi + 2, `STEP ${qi + 2} · ${a.label} · 질문 ${qi + 1} / ${a.questions.length}`)}
+                <h3 className="kr mt-6 text-[24px] font-bold leading-snug sm:text-[28px]">{q.q}</h3>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {q.options.map((o, oi) => (
+                    <button
+                      key={o.label}
+                      type="button"
+                      data-ck-pick=""
+                      data-ck-area={a.key}
+                      data-ck-q={qi}
+                      data-ck-scores={JSON.stringify(o.scores)}
+                      data-ck-next={qi < a.questions.length - 1 ? `${a.key}-q${qi + 1}` : ""}
+                      onClick={() => pick(a, qi, o.scores)}
+                      className="kr group flex items-center gap-4 rounded-2xl bg-paper/[0.07] px-5 py-4 text-left text-[16.5px] leading-7 ring-1 ring-paper/15 transition hover:-translate-y-0.5 hover:bg-paper hover:text-ink hover:ring-paper"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-grad-b/90 font-display text-[15px] font-bold text-herb-deep"
+                      >
+                        {LETTERS[oi]}
+                      </span>
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+                {qi === 0 ? back("areas", "아픈 곳 다시 고르기") : back(`${a.key}-q${qi - 1}`, "이전 질문")}
+              </>,
+            ),
+          ),
+
+          ...a.conditions.map((c) =>
+            panel(
+              `${a.key}-r-${c.key}`,
+              <>
+                {steps(TOTAL, `RESULT · ${a.label}`)}
+                <div className="mt-6 rounded-[1.75rem] bg-paper p-7 text-ink shadow-2xl sm:p-10">
+                  <p className="kr text-[14px] font-semibold text-ochre">가능성이 높은 손상</p>
+                  <h3 className="display kr mt-2 text-[2.2rem] leading-tight text-herb sm:text-[2.8rem]">
+                    {c.name}
+                    <span className="kr ml-2 align-middle text-[17px] font-medium tracking-normal text-ink">
+                      일 수 있습니다
+                    </span>
+                  </h3>
+                  <p className="kr mt-4 max-w-[58ch] text-[17px] leading-8">{c.desc}</p>
+                  <p
+                    data-ck-also=""
+                    hidden={!(at === `${a.key}-r-${c.key}` && also)}
+                    className="kr mt-4 inline-block rounded-full bg-tint px-4 py-1.5 text-[14.5px] text-herb"
+                  >
+                    함께 살펴볼 손상 · {also?.name}
+                  </p>
+                  <p className="kr mt-4 text-[14px] leading-6 text-muted">
+                    ※ 증상만으로 짐작한 결과입니다.{" "}
+                    {c.ultrasound
+                      ? "정확한 진단은 진찰과 초음파로 확인합니다."
+                      : "정확한 진단은 진찰로 확인하고, 필요하면 영상 검사를 안내해 드립니다."}
+                  </p>
+                  <div className="mt-7 flex flex-wrap gap-2.5">
+                    {c.href && (
+                      <Link
+                        href={c.href}
+                        className="kr inline-flex items-center gap-2 rounded-full bg-surface px-6 py-3 text-[15px] font-semibold text-herb ring-1 ring-herb/30 hover:ring-herb"
+                      >
+                        {c.name} 자세히 보기 →
+                      </Link>
+                    )}
+                    <Link
+                      href="/reservation"
+                      className="kr inline-flex items-center gap-2 rounded-full bg-herb px-6 py-3 text-[15px] font-semibold text-paper"
+                    >
+                      이 증상으로 예약하기 →
+                    </Link>
+                  </div>
+                </div>
+                {back("areas", "처음부터 다시")}
+              </>,
+            ),
+          ),
+
+          panel(
+            `${a.key}-r-none`,
+            <>
+              {steps(TOTAL, `RESULT · ${a.label}`)}
+              <div className="mt-6 rounded-[1.75rem] bg-paper p-7 text-ink shadow-2xl sm:p-10">
+                <h3 className="display kr text-[1.9rem] leading-tight text-herb">진찰로 함께 확인해 보세요</h3>
+                <p className="kr mt-4 max-w-[58ch] text-[17px] leading-8">
+                  {a.label} 통증은 같은 자리라도 힘줄·인대·근육 가운데 어디가 다쳤는지에 따라 치료가 달라집니다.
+                  어떤 운동을 하다가 어떻게 아팠는지 말씀해 주시면 진찰로 함께 확인해 드립니다.
+                </p>
+                <div className="mt-7">
+                  <Link
+                    href="/reservation"
+                    className="kr inline-flex items-center gap-2 rounded-full bg-herb px-6 py-3 text-[15px] font-semibold text-paper"
+                  >
+                    진료 예약하기 →
+                  </Link>
+                </div>
               </div>
               {back("areas", "처음부터 다시")}
             </>,
           ),
-        ),
-
-        panel(
-          `${a.key}-r-none`,
-          <>
-            {steps(TOTAL, TOTAL, `${a.label} · 직접 확인이 필요합니다`)}
-            <h3 className="display kr mt-6 text-[1.8rem] leading-tight text-herb">진찰로 함께 확인해 보세요</h3>
-            <p className="kr mt-4 max-w-[58ch] text-[17px] leading-8 text-ink">
-              {a.label} 통증은 같은 자리라도 힘줄·인대·근육 가운데 어디가 다쳤는지에 따라 치료가 달라집니다.
-              어떤 운동을 하다가 어떻게 아팠는지 말씀해 주시면 진찰로 함께 확인해 드립니다.
-            </p>
-            <div className="mt-7">
-              <Link
-                href="/reservation"
-                className="kr inline-flex items-center gap-2 rounded-full bg-herb px-6 py-3 text-[15px] font-semibold text-paper"
-              >
-                진료 예약하기 →
-              </Link>
-            </div>
-            {back("areas", "처음부터 다시")}
-          </>,
-        ),
-      ])}
-
-    </div>
+        ])}
+      </div>
+    </section>
   );
 }
