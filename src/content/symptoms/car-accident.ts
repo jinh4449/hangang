@@ -2,6 +2,7 @@ import type { Symptom } from "../types";
 
 export const carAccident: Symptom = {
   slug: "car-accident",
+  department: "pain",
   name: "교통사고 후유증",
   clinicalName: "경추 염좌 · 편타손상",
   summary: "사고 직후에는 괜찮다가 2~3일 뒤부터 아픈 경우가 많습니다.",

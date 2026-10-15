@@ -173,7 +173,7 @@ export default async function PartPage({ params }: PageProps<"/part/[slug]">) {
         <Section title="함께 보기">
           <div className="flex flex-wrap gap-2">
             <Link href="/care/pain" className="badge inline-block rounded-full border border-line bg-surface px-5 py-2.5 text-sm hover:border-herb">
-              통증치료 전체 안내
+              급·만성 통증 안내
             </Link>
             {/* 진료실에서 듣는 병명이 무엇인지 한 문장으로 답하는 곳 */}
             {termsForPart(p.slug).map((t) => (

@@ -7,6 +7,7 @@ import type { Symptom } from "../types";
  */
 export const diet: Symptom = {
   slug: "diet",
+  department: "diet",
   name: "다이어트",
   clinicalName: "비만 · 체중 관리",
   summary: "굶는 방식으로는 오래 못 갑니다. 식습관과 체질을 함께 봅니다.",

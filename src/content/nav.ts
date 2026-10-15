@@ -1,4 +1,4 @@
-import { SYMPTOMS } from "./symptoms";
+import { DEPARTMENTS, symptomsIn } from "./symptoms";
 
 /**
  * 헤더 메뉴.
@@ -33,15 +33,14 @@ export const NAV: NavEntry[] = [
   {
     label: "진료과목",
     href: "/care",
-    groups: [
-      {
-        title: "무엇 때문에 오셨나요",
-        links: SYMPTOMS.map((s) => ({
-          label: s.name,
-          href: `/care/${s.slug}`,
-        })),
-      },
-    ],
+    // 진료과목 묶음(통증치료·다이어트·한방내과)마다 칸을 나눈다
+    groups: DEPARTMENTS.map((d) => ({
+      title: d.name,
+      links: symptomsIn(d.key).map((s) => ({
+        label: s.name,
+        href: `/care/${s.slug}`,
+      })),
+    })),
   },
   {
     label: "콘텐츠",

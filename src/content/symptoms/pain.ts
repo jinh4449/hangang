@@ -2,12 +2,13 @@ import type { Symptom } from "../types";
 
 export const pain: Symptom = {
   slug: "pain",
-  name: "통증치료",
+  department: "pain",
+  name: "급·만성 통증",
   clinicalName: "척추·관절 통증",
   summary: "허리, 목, 어깨, 무릎. 참고 지내던 통증의 원인을 먼저 찾습니다.",
 
   care: {
-    title: "통증치료",
+    title: "급·만성 통증",
     /* 화면에는 두 갈래 칸이 대신 서므로 여기 글은 검색 결과에 뜨는 설명으로 쓴다.
        그래서 사실을 밀도 있게 담는다 */
     lede:

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { SYMPTOMS } from "@/content/symptoms";
+import { SYMPTOMS, DEPARTMENTS, symptomsIn } from "@/content/symptoms";
 import { CLINIC } from "@/content/clinic";
 import { PageHead, Cta, JsonLd, Arrow } from "@/components/site";
 import { SYMPTOM_ICONS } from "@/components/icons";
@@ -8,9 +8,9 @@ import { breadcrumb, medicalWebPage } from "@/content/schema";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/care" },
-  title: "진료과목 — 통증·교통사고·다이어트·소화불량·만성피로",
+  title: "진료과목 — 통증치료·다이어트·한방내과",
   description:
-    "김포한강한의원 진료과목 — 통증치료, 교통사고 후유증, 다이어트, 소화불량, 만성피로. 과목마다 쓰는 치료와 예상 기간, 비용을 미리 확인하실 수 있습니다. 김포 장기역 도보 1분.",
+    "김포한강한의원 진료과목 — 통증치료(급·만성 통증, 스포츠 손상, 교통사고 후유증), 다이어트, 한방내과(소화불량, 만성피로). 과목마다 쓰는 치료와 예상 기간, 비용을 미리 확인하실 수 있습니다. 김포 장기역 도보 1분.",
 };
 
 export default function CareIndex() {
@@ -32,27 +32,40 @@ export default function CareIndex() {
           lede="과목마다 원인을 찾는 방법도, 쓰는 치료도, 예상되는 기간도 다릅니다. 해당하는 곳을 눌러 확인해 보세요."
         />
 
-        <div className="mt-10 grid gap-3 sm:grid-cols-2">
-          {SYMPTOMS.map((s) => {
-            const Icon = SYMPTOM_ICONS[s.slug];
-            return (
-              <Link key={s.slug} href={`/care/${s.slug}`} className="tile block bg-surface p-7">
-                {Icon ? <Icon className="h-8 w-8 text-herb" /> : null}
-                <h2 className="kr mt-4 text-xl font-bold">{s.name}</h2>
-                <p className="mt-1 font-display text-sm text-faint">{s.clinicalName}</p>
-                {s.highlight && (
-                  <span className="mt-3 inline-block rounded-full bg-ochre-soft px-3 py-1 text-xs font-semibold text-ochre">
-                    {s.highlight.label}
-                  </span>
-                )}
-                <p className="kr mt-3 text-[16px] leading-7 text-muted">{s.summary}</p>
-                <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
-                  자세히 보기
-                  <Arrow />
-                </span>
-              </Link>
-            );
-          })}
+        {/* 진료과목 묶음마다 이름과 한 줄 설명을 세우고 그 아래에 과목을 둔다 */}
+        <div className="mt-10 grid gap-12">
+          {DEPARTMENTS.map((d) => (
+            <section key={d.key} aria-labelledby={`dept-${d.key}`}>
+              <div className="border-b border-line pb-3">
+                <h2 id={`dept-${d.key}`} className="kr text-2xl font-bold text-herb">
+                  {d.name}
+                </h2>
+                <p className="kr mt-1 text-[15px] text-muted">{d.line}</p>
+              </div>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {symptomsIn(d.key).map((s) => {
+                const Icon = SYMPTOM_ICONS[s.slug];
+                return (
+                  <Link key={s.slug} href={`/care/${s.slug}`} className="tile block bg-surface p-7">
+                    {Icon ? <Icon className="h-8 w-8 text-herb" /> : null}
+                    <h3 className="kr mt-4 text-xl font-bold">{s.name}</h3>
+                    <p className="mt-1 font-display text-sm text-faint">{s.clinicalName}</p>
+                    {s.highlight && (
+                      <span className="mt-3 inline-block rounded-full bg-ochre-soft px-3 py-1 text-xs font-semibold text-ochre">
+                        {s.highlight.label}
+                      </span>
+                    )}
+                    <p className="kr mt-3 text-[16px] leading-7 text-muted">{s.summary}</p>
+                    <span className="tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-herb">
+                      자세히 보기
+                      <Arrow />
+                    </span>
+                  </Link>
+                );
+              })}
+              </div>
+            </section>
+          ))}
         </div>
 
         <Cta />

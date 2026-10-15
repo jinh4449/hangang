@@ -2,6 +2,7 @@ import type { Symptom } from "../types";
 
 export const indigestion: Symptom = {
   slug: "indigestion",
+  department: "internal",
   name: "소화불량",
   clinicalName: "기능성 소화불량 · 역류성 식도염",
   summary: "내시경에서 이상이 없다는데 계속 더부룩하다면.",

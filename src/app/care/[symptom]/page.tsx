@@ -279,6 +279,60 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
           </div>
         )}
 
+        {/* 종목별 손상 — 「어떤 운동을 하다가」 로 찾아온 사람이 자기 종목부터 찾게 한다.
+            종목마다 질환을 나눠 두어, 그 운동의 손상을 많이 본다는 것이 한눈에 드러나게 한다.
+            용어사전에 있는 질환은 눌러서 더 읽을 수 있다 */}
+        {care.bySport && (
+          <Section
+            title="종목별로 자주 보는 손상"
+            note="운동마다 다치는 자리가 다릅니다. 하시는 운동을 찾아 비슷한 증상이 있는지 확인해 보세요."
+          >
+            <div className="grid gap-4 sm:grid-cols-2">
+              {care.bySport.map((g, gi) => (
+                <section
+                  key={g.sport}
+                  className="flex flex-col rounded-[1.5rem] border border-line bg-surface p-6 sm:p-7"
+                >
+                  <div className="flex items-baseline gap-3">
+                    <span className="font-mono text-[12px] tracking-[0.1em] text-ochre">
+                      {String(gi + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="kr text-[20px] font-bold leading-snug">{g.sport}</h3>
+                  </div>
+                  <p className="kr mt-2 text-[15px] leading-7 text-muted">{g.lede}</p>
+                  <ul className="mt-4 grid gap-1 border-t border-line pt-3">
+                    {g.conditions.map((c) => {
+                      const body = (
+                        <>
+                          <span className="kr flex items-center gap-1.5 text-[16px] font-semibold text-ink">
+                            {c.name}
+                            {c.glossarySlug && <Arrow />}
+                          </span>
+                          <span className="kr mt-0.5 block text-[14.5px] leading-6 text-muted">{c.note}</span>
+                        </>
+                      );
+                      return (
+                        <li key={c.name}>
+                          {c.glossarySlug ? (
+                            <Link
+                              href={`/glossary/${c.glossarySlug}`}
+                              className="-mx-2 block rounded-xl px-2 py-2 transition-colors hover:bg-tint [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:text-herb"
+                            >
+                              {body}
+                            </Link>
+                          ) : (
+                            <div className="py-2">{body}</div>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              ))}
+            </div>
+          </Section>
+        )}
+
         {/* 진료 흐름 — 순서가 곧 내용이라 번호를 붙여 칸으로 세운다 */}
         {care.flow && (
           <Section
