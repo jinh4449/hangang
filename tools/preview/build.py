@@ -262,6 +262,16 @@ JS = """
     });
   });
 
+  /* 증상 자가 확인 (src/components/symptom-checker.tsx 와 같은 규칙) */
+  document.querySelectorAll('[data-checker]').forEach(function(root){
+    root.querySelectorAll('[data-ck-go]').forEach(function(b){
+      b.addEventListener('click',function(){
+        var to=b.getAttribute('data-ck-go');
+        root.querySelectorAll('[data-ck-panel]').forEach(function(p){ p.hidden=p.getAttribute('data-ck-panel')!==to; });
+      });
+    });
+  });
+
   /* 원장 칼럼 원장별 보기 (src/components/column-filter.tsx 와 같은 규칙) */
   document.querySelectorAll('[data-column-filter]').forEach(function(root){
     var btns=root.querySelectorAll('[data-author-btn]');

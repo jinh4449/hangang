@@ -17,7 +17,7 @@ export const sportsInjury: Symptom = {
   care: {
     title: "스포츠 손상",
     lede:
-      "러닝·골프·테니스·헬스·축구·등산 중에 생긴 힘줄·인대·근육 손상을 봅니다. 미국 근골격계 초음파사(RMSK) " +
+      "러닝·골프·테니스·헬스·축구 중에 생긴 힘줄·인대·근육 손상을 봅니다. 미국 근골격계 초음파사(RMSK) " +
       "자격을 갖춘 원장이 삼성 V7 초음파로 손상 부위를 확인하고, 초음파 약침·침·체외충격파·도침·추나요법으로 " +
       "치료하며 운동 복귀 시점을 함께 정합니다.",
     leadLine:
@@ -27,66 +27,137 @@ export const sportsInjury: Symptom = {
     bySport: [
       {
         sport: "러닝 · 마라톤",
-        lede: "같은 동작을 수만 번 되풀이해, 발바닥부터 무릎까지 힘줄과 근막에 부담이 쌓입니다.",
+        lede: "같은 동작을 수만 번 되풀이해 발바닥부터 무릎까지 부담이 쌓입니다.",
         conditions: [
-          { name: "족저근막염", note: "아침 첫발을 디딜 때 발뒤꿈치가 찌릿하다", glossarySlug: "plantar-fasciitis" },
-          { name: "아킬레스건염", note: "뛰기 시작할 때 발목 뒤가 뻣뻣하고 아프다", glossarySlug: "achilles-tendinitis" },
-          { name: "러너스 니(슬개대퇴 통증)", note: "내리막이나 계단을 내려갈 때 무릎 앞이 시큰하다" },
-          { name: "장경인대 증후군", note: "일정 거리를 넘기면 무릎 바깥쪽이 아파 멈추게 된다" },
-          { name: "정강이 통증(신스플린트)", note: "정강이 안쪽을 따라 욱신거린다" },
+          { name: "족저근막염", glossarySlug: "plantar-fasciitis" },
+          { name: "아킬레스건염", glossarySlug: "achilles-tendinitis" },
+          { name: "러너스 니" },
+          { name: "장경인대 증후군" },
+          { name: "신스플린트" },
         ],
       },
       {
         sport: "골프",
-        lede: "한쪽으로 세게 비트는 스윙이 반복돼 팔꿈치 안쪽과 허리, 어깨에 부담이 몰립니다.",
+        lede: "한쪽으로 세게 비트는 스윙이 팔꿈치 안쪽과 허리, 어깨에 몰립니다.",
         conditions: [
-          { name: "골프엘보(내측상과염)", note: "팔꿈치 안쪽이 아프고 손에 힘을 주기 어렵다", glossarySlug: "golfers-elbow" },
-          { name: "허리 염좌", note: "스윙 뒤 허리가 뻐근하고 비틀 때 아프다", glossarySlug: "lumbar-sprain" },
-          { name: "회전근개 힘줄염", note: "백스윙에서 어깨가 걸리고 아프다", glossarySlug: "rotator-cuff" },
-          { name: "손목 힘줄염", note: "임팩트 때 손목이 시큰하다" },
+          { name: "골프엘보", glossarySlug: "golfers-elbow" },
+          { name: "허리 염좌", glossarySlug: "lumbar-sprain" },
+          { name: "회전근개 힘줄염", glossarySlug: "rotator-cuff" },
+          { name: "손목 힘줄염" },
         ],
       },
       {
         sport: "테니스 · 배드민턴 · 탁구",
-        lede: "라켓을 쥐고 손목을 젖히는 동작과 갑자기 멈추고 도는 발놀림이 많습니다.",
+        lede: "라켓을 쥐고 젖히는 손목, 갑자기 멈추고 도는 발놀림이 많습니다.",
         conditions: [
-          { name: "테니스엘보(외측상과염)", note: "라켓을 쥐거나 문고리를 돌릴 때 팔꿈치 바깥이 아프다", glossarySlug: "tennis-elbow" },
-          { name: "어깨 충돌증후군", note: "스매싱이나 서브 때 어깨 앞쪽이 걸린다", glossarySlug: "shoulder-impingement" },
-          { name: "종아리 근육 손상", note: "뛰다가 종아리가 「뚝」 하며 뜨끔했다" },
-          { name: "발목 염좌", note: "방향을 바꾸다 발목을 접질렸다", glossarySlug: "ankle-sprain" },
+          { name: "테니스엘보", glossarySlug: "tennis-elbow" },
+          { name: "어깨 충돌증후군", glossarySlug: "shoulder-impingement" },
+          { name: "종아리 근육 손상" },
+          { name: "발목 염좌", glossarySlug: "ankle-sprain" },
         ],
       },
       {
         sport: "헬스 · 웨이트 · 크로스핏",
-        lede: "무거운 무게를 드는 순간 어깨·허리·팔꿈치의 힘줄에 큰 힘이 실립니다.",
+        lede: "무거운 무게를 드는 순간 어깨·허리·팔꿈치 힘줄에 큰 힘이 실립니다.",
         conditions: [
-          { name: "어깨 충돌증후군 · 이두건염", note: "벤치프레스나 숄더프레스 때 어깨 앞이 아프다", glossarySlug: "shoulder-impingement" },
-          { name: "허리 염좌", note: "데드리프트·스쿼트 뒤 허리가 뻐근하다", glossarySlug: "lumbar-sprain" },
-          { name: "팔꿈치 힘줄염", note: "턱걸이·컬 동작에서 팔꿈치가 시큰하다", glossarySlug: "tennis-elbow" },
-          { name: "손목 통증", note: "푸시업·프론트 랙 자세에서 손목이 아프다" },
+          { name: "어깨 충돌증후군", glossarySlug: "shoulder-impingement" },
+          { name: "허리 염좌", glossarySlug: "lumbar-sprain" },
+          { name: "팔꿈치 힘줄염", glossarySlug: "tennis-elbow" },
+          { name: "손목 통증" },
         ],
       },
       {
         sport: "축구 · 풋살 · 농구",
-        lede: "뛰다 멈추고, 방향을 틀고, 부딪히는 일이 잦아 발목·무릎·허벅지 손상이 많습니다.",
+        lede: "뛰다 멈추고 방향을 틀고 부딪혀 발목·무릎·허벅지 손상이 많습니다.",
         conditions: [
-          { name: "발목 염좌(인대 손상)", note: "착지하다 발목을 접질려 붓고 멍이 들었다", glossarySlug: "ankle-sprain" },
-          { name: "무릎 내측 인대 손상", note: "무릎 안쪽을 부딪히거나 꺾인 뒤 안쪽이 아프다", glossarySlug: "ligament" },
-          { name: "햄스트링 손상", note: "전력으로 뛰다 허벅지 뒤가 당기며 뜨끔했다" },
-          { name: "슬개건염(점퍼스 니)", note: "점프하고 착지할 때 무릎 아래가 아프다", glossarySlug: "patellar-tendinitis" },
-        ],
-      },
-      {
-        sport: "등산 · 자전거",
-        lede: "오래 오르내리거나 같은 자세로 페달을 밟아 무릎 주변 힘줄과 허리·목에 부담이 쌓입니다.",
-        conditions: [
-          { name: "거위발건염", note: "내려올 때 무릎 안쪽 아래가 아프다", glossarySlug: "pes-anserine" },
-          { name: "슬개건염", note: "오르막이나 페달을 세게 밟을 때 무릎 앞이 아프다", glossarySlug: "patellar-tendinitis" },
-          { name: "발목 염좌", note: "하산길에 발을 헛디뎌 접질렸다", glossarySlug: "ankle-sprain" },
-          { name: "목 · 허리 근막 통증", note: "오래 숙인 자세로 타고 나면 목과 허리가 뻐근하다", glossarySlug: "myofascial-pain" },
+          { name: "발목 염좌", glossarySlug: "ankle-sprain" },
+          { name: "무릎 내측 인대 손상", glossarySlug: "ligament" },
+          { name: "햄스트링 손상" },
+          { name: "슬개건염", glossarySlug: "patellar-tendinitis" },
         ],
       },
     ],
+
+    /* 자가 확인. 아픈 곳 → 가장 가까운 느낌 → 「이 질환일 수 있습니다」.
+       진단이 아니라 짐작을 돕는 것이므로 결과는 「가능성」 으로 말하고,
+       정확한 진단은 진찰과 초음파로 한다는 말을 늘 붙인다 */
+    checker: {
+      title: "내 증상, 어떤 손상일까요?",
+      note: "아픈 곳과 느낌을 차례로 누르시면 가능성이 높은 손상을 알려 드립니다.",
+      areas: [
+        {
+          key: "shoulder", label: "어깨", question: "어떤 느낌에 가장 가깝나요?",
+          options: [
+            { label: "팔을 옆으로 들어 올릴 때 특정 각도에서 걸리듯 아프다",
+              result: { name: "어깨 충돌증후군", desc: "팔을 들 때 어깨 힘줄이 뼈 사이에 끼이며 아픈 상태입니다. 서브·스매싱·숄더프레스처럼 팔을 머리 위로 드는 운동에서 흔합니다.", href: "/glossary/shoulder-impingement" } },
+            { label: "던지거나 스윙한 뒤 어깨가 아프고, 밤에 누우면 더 아프다",
+              result: { name: "회전근개 손상", desc: "어깨를 감싸 움직이는 힘줄(회전근개)에 염증이나 부분 손상이 생긴 상태입니다. 초음파로 힘줄 상태를 바로 확인할 수 있습니다.", href: "/glossary/rotator-cuff" } },
+            { label: "갑자기 심하게 아파 팔을 거의 움직이지 못한다",
+              result: { name: "석회성 건염", desc: "힘줄에 석회가 쌓였다가 염증이 생기며 갑자기 심하게 아픈 상태입니다. 초음파로 석회의 위치와 크기를 확인합니다.", href: "/glossary/calcific-tendinitis" } },
+          ],
+        },
+        {
+          key: "elbow", label: "팔꿈치", question: "어디가 아픈가요?",
+          options: [
+            { label: "바깥쪽이 아프다. 라켓을 쥐거나 문고리를 돌릴 때 심하다",
+              result: { name: "테니스엘보", desc: "손목을 젖히는 근육의 힘줄이 팔꿈치 바깥쪽에 붙는 자리에 손상과 염증이 생긴 상태입니다.", href: "/glossary/tennis-elbow" } },
+            { label: "안쪽이 아프다. 골프 스윙이나 턱걸이 때 심하다",
+              result: { name: "골프엘보", desc: "손목을 굽히는 근육의 힘줄이 팔꿈치 안쪽에 붙는 자리에 손상과 염증이 생긴 상태입니다.", href: "/glossary/golfers-elbow" } },
+          ],
+        },
+        {
+          key: "wrist", label: "손목 · 손", question: "어떤 느낌에 가장 가깝나요?",
+          options: [
+            { label: "손목을 젖히거나 바닥을 짚을 때 아프다",
+              result: { name: "손목 힘줄염", desc: "푸시업·임팩트처럼 손목에 체중이나 충격이 실리는 동작이 반복되며 손목 힘줄에 염증이 생긴 상태입니다.", href: "/glossary/tendon", linkLabel: "힘줄 손상 알아보기" } },
+            { label: "손가락이 저리고 밤에 더 심하다",
+              result: { name: "손목터널증후군", desc: "손목 안쪽 통로에서 신경이 눌려 손가락이 저린 상태입니다. 그립을 오래 쥐는 운동에서 심해질 수 있습니다.", href: "/glossary/carpal-tunnel" } },
+          ],
+        },
+        {
+          key: "back", label: "허리", question: "어떤 느낌에 가장 가깝나요?",
+          options: [
+            { label: "들거나 비틀다 삐끗했고, 허리만 아프다",
+              result: { name: "허리 염좌", desc: "허리 근육과 인대가 갑자기 늘어나거나 다친 상태입니다. 데드리프트·스쿼트·골프 스윙 뒤에 흔합니다.", href: "/glossary/lumbar-sprain" } },
+            { label: "엉덩이나 다리로 저림이 뻗친다",
+              result: { name: "허리디스크", desc: "추간판이 밀려나와 신경을 자극해 다리까지 저린 상태일 수 있습니다. 힘이 빠지는 느낌이 있으면 영상 검사를 함께 권해 드립니다.", href: "/glossary/lumbar-disc" } },
+          ],
+        },
+        {
+          key: "knee", label: "무릎", question: "어디가, 언제 아픈가요?",
+          options: [
+            { label: "무릎 앞·아래가 아프다. 점프하거나 계단을 오를 때 심하다",
+              result: { name: "슬개건염", desc: "무릎뼈 아래 힘줄에 반복된 부담으로 염증이 생긴 상태입니다. 점프·러닝이 많은 운동에서 흔합니다.", href: "/glossary/patellar-tendinitis" } },
+            { label: "무릎 안쪽 아래가 아프다. 내리막을 내려갈 때 심하다",
+              result: { name: "거위발건염", desc: "무릎 안쪽 아래에 모이는 세 힘줄과 그 아래 점액낭에 염증이 생긴 상태입니다.", href: "/glossary/pes-anserine" } },
+            { label: "무릎 바깥쪽이 아프다. 일정 거리를 넘게 뛰면 시작된다",
+              result: { name: "장경인대 증후군", desc: "허벅지 바깥쪽 긴 띠(장경인대)가 무릎 바깥에서 쓸리며 아픈 상태입니다. 러너에게 흔합니다.", href: "/part/knee", linkLabel: "무릎 통증 알아보기" } },
+            { label: "꺾이거나 부딪힌 뒤 무릎 안쪽이 아프다",
+              result: { name: "무릎 내측 인대 손상", desc: "무릎 안쪽 인대가 늘어나거나 일부 찢어진 상태입니다. 무릎이 빠지는 느낌이 있으면 MRI를 함께 권해 드립니다.", href: "/glossary/ligament", linkLabel: "인대 손상 알아보기" } },
+          ],
+        },
+        {
+          key: "ankle", label: "발목 · 발", question: "어떤 느낌에 가장 가깝나요?",
+          options: [
+            { label: "접질린 뒤 발목이 붓고 멍이 들었다",
+              result: { name: "발목 염좌", desc: "발목 인대가 늘어나거나 일부 찢어진 상태입니다. 초음파로 인대 손상 정도를 확인하고 쉬는 기간을 정합니다.", href: "/glossary/ankle-sprain" } },
+            { label: "아침 첫발을 디딜 때 발뒤꿈치가 찌릿하다",
+              result: { name: "족저근막염", desc: "발바닥을 받치는 근막이 뒤꿈치에 붙는 자리에 염증이 생긴 상태입니다. 러닝을 늘린 뒤에 흔합니다.", href: "/glossary/plantar-fasciitis" } },
+            { label: "발목 뒤 굵은 힘줄이 뻣뻣하고 아프다",
+              result: { name: "아킬레스건염", desc: "종아리 근육과 발뒤꿈치를 잇는 아킬레스건에 반복된 부담으로 염증이 생긴 상태입니다.", href: "/glossary/achilles-tendinitis" } },
+          ],
+        },
+        {
+          key: "leg", label: "종아리 · 허벅지", question: "어떤 느낌에 가장 가깝나요?",
+          options: [
+            { label: "뛰다가 「뚝」 하며 뜨끔했고, 그 뒤로 힘을 주면 아프다",
+              result: { name: "근육 손상 (종아리 · 햄스트링)", desc: "전력으로 뛰거나 갑자기 방향을 틀 때 근육 일부가 늘어나거나 찢어진 상태입니다. 초음파로 손상 범위를 확인합니다.", href: "/glossary/fascia", linkLabel: "근육·근막 알아보기" } },
+            { label: "정강이 안쪽을 따라 욱신거린다",
+              result: { name: "신스플린트", desc: "달리기 양이 갑자기 늘었을 때 정강이뼈 안쪽을 따라 근육이 붙는 자리에 염증이 생긴 상태입니다." } },
+          ],
+        },
+      ],
+    },
 
     signs: [
       "운동 중에 「뚝」 소리나 뜨끔한 느낌이 있었다",
@@ -152,22 +223,8 @@ export const sportsInjury: Symptom = {
     ],
   },
 
-  cost: {
-    lede: "침·전침·부항과 추나요법은 건강보험이 적용됩니다. 추나요법은 한 해 20회까지 급여입니다.",
-    rows: [
-      { item: "추나요법 — 단순", coverage: "급여", price: "3만원대", note: "건강보험 적용 · 연 20회 한도" },
-      { item: "추나요법 — 복잡", coverage: "급여", price: "5만원대", note: "건강보험 적용 · 연 20회 한도에 합산" },
-      { item: "약침", coverage: "비급여", price: "회당 10,000 ~ 30,000원" },
-    ],
-    insurance: [
-      {
-        title: "실손의료보험",
-        body:
-          "가입 시기와 약관에 따라 보장 범위가 다릅니다. 가입하신 보험사의 약관 확인이 필요하며, " +
-          "청구에 필요한 서류는 진료 후 발급해 드립니다.",
-      },
-    ],
-  },
+  // 비용은 이 과목에서 따로 안내하지 않는다
+  cost: { lede: "", rows: [], insurance: [] },
 
   faq: [
     { q: "운동은 완전히 쉬어야 하나요?",

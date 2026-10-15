@@ -92,8 +92,32 @@ export type Symptom = {
       sport: string;
       /** 그 종목에서 손상이 왜 생기는지 한 줄 */
       lede: string;
-      conditions: { name: string; note: string; glossarySlug?: string }[];
+      conditions: { name: string; glossarySlug?: string }[];
     }[];
+    /**
+     * 자가 확인. 아픈 곳 → 가장 가까운 느낌 → 가능성이 높은 질환 → 설명·예약.
+     * 진단이 아니라 짐작을 돕는 도구라 결과는 「가능성」 으로만 말한다.
+     */
+    checker?: {
+      title: string;
+      note?: string;
+      areas: {
+        key: string;
+        label: string;
+        question: string;
+        options: {
+          label: string;
+          result: {
+            name: string;
+            desc: string;
+            /** 설명 페이지. 용어사전이나 부위 안내 */
+            href?: string;
+            /** 설명 단추 문구. 없으면 「{name} 자세히 보기」 */
+            linkLabel?: string;
+          };
+        }[];
+      }[];
+    };
     /** icon 은 TREATMENT_ICONS 의 키. 없으면 아이콘 없이 선다 */
     treatments: { name: string; body: string; covered: boolean; icon?: string }[];
     /** 치료 칸 아래에 한 줄로 덧붙이는 단서 */

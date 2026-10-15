@@ -10,6 +10,7 @@ import { Section, Cta, JsonLd, Arrow } from "@/components/site";
 import { breadcrumb, faqPage } from "@/content/schema";
 import { SYMPTOM_ICONS, TREATMENT_ICONS } from "@/components/icons";
 import { PhoneLink } from "@/components/phone-link";
+import { SymptomChecker } from "@/components/symptom-checker";
 
 /**
  * 차례로 솟아오르는 한 줄.
@@ -342,51 +343,46 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
         {care.bySport && (
           <Section
             title="종목별로 자주 보는 손상"
-            note="운동마다 다치는 자리가 다릅니다. 하시는 운동을 찾아 비슷한 증상이 있는지 확인해 보세요."
+            note="운동마다 다치는 자리가 다릅니다. 하시는 운동을 찾아 보세요."
           >
-            <div className="grid gap-4 sm:grid-cols-2">
-              {care.bySport.map((g, gi) => (
-                <section
+            <div className="border-t border-line">
+              {care.bySport.map((g) => (
+                <div
                   key={g.sport}
-                  className="flex flex-col rounded-[1.5rem] border border-line bg-surface p-6 sm:p-7"
+                  className="grid gap-x-8 gap-y-3 border-b border-line py-6 md:grid-cols-[15rem_minmax(0,1fr)]"
                 >
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-mono text-[12px] tracking-[0.1em] text-ochre">
-                      {String(gi + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="kr text-[20px] font-bold leading-snug">{g.sport}</h3>
+                  <div>
+                    <h3 className="kr text-[19px] font-bold leading-snug">{g.sport}</h3>
+                    <p className="kr mt-1 text-[14px] leading-6 text-muted">{g.lede}</p>
                   </div>
-                  <p className="kr mt-2 text-[15px] leading-7 text-muted">{g.lede}</p>
-                  <ul className="mt-4 grid gap-1 border-t border-line pt-3">
-                    {g.conditions.map((c) => {
-                      const body = (
-                        <>
-                          <span className="kr flex items-center gap-1.5 text-[16px] font-semibold text-ink">
+                  <ul className="flex flex-wrap content-start gap-2">
+                    {g.conditions.map((c) => (
+                      <li key={c.name}>
+                        {c.glossarySlug ? (
+                          <Link
+                            href={`/glossary/${c.glossarySlug}`}
+                            className="kr inline-flex items-center gap-1 rounded-full bg-tint px-4 py-2 text-[15px] font-medium text-herb ring-1 ring-herb/15 transition-colors hover:bg-herb hover:text-paper"
+                          >
                             {c.name}
-                            {c.glossarySlug && <Arrow />}
+                          </Link>
+                        ) : (
+                          <span className="kr inline-flex rounded-full bg-surface px-4 py-2 text-[15px] text-ink ring-1 ring-line">
+                            {c.name}
                           </span>
-                          <span className="kr mt-0.5 block text-[14.5px] leading-6 text-muted">{c.note}</span>
-                        </>
-                      );
-                      return (
-                        <li key={c.name}>
-                          {c.glossarySlug ? (
-                            <Link
-                              href={`/glossary/${c.glossarySlug}`}
-                              className="-mx-2 block rounded-xl px-2 py-2 transition-colors hover:bg-tint [&_svg]:h-3.5 [&_svg]:w-3.5 [&_svg]:text-herb"
-                            >
-                              {body}
-                            </Link>
-                          ) : (
-                            <div className="py-2">{body}</div>
-                          )}
-                        </li>
-                      );
-                    })}
+                        )}
+                      </li>
+                    ))}
                   </ul>
-                </section>
+                </div>
               ))}
             </div>
+          </Section>
+        )}
+
+        {/* 자가 확인 — 종목을 훑어본 사람이 「그래서 나는 뭔가」 를 바로 확인하게 한다 */}
+        {care.checker && (
+          <Section title={care.checker.title} note={care.checker.note}>
+            <SymptomChecker checker={care.checker} />
           </Section>
         )}
 
