@@ -24,7 +24,6 @@ export default function About() {
         current="/about"
         title={`${CLINIC.name} 소개`}
         sub={CLINIC.tagline}
-        lede={`${CLINIC.landmark}에 있습니다. 이진희·왕소정 두 원장이 함께 진료합니다.`}
         icon={<LogoMark />}
       />
       <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12 [&>:first-child]:mt-0">
