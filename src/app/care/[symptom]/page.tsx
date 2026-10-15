@@ -554,7 +554,7 @@ export default async function CarePage({ params }: PageProps<"/care/[symptom]">)
               {/* 다른 과가 나은 경우를 숨기면, 그 사람은 여기서 시간을 버린다 */}
               <div className="rounded-[1.5rem] border border-ochre-line bg-ochre-soft p-7">
                 <h3 className="kr text-[18px] font-bold text-ochre">
-                  이럴 때는 다른 진료가 먼저입니다
+                  이럴 때는 추가 검사가 필요할 수 있습니다
                 </h3>
                 <ul className="mt-4 grid gap-2.5">
                   {s.doubt.limitsOf.map((l) => (

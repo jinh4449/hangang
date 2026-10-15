@@ -90,7 +90,7 @@ export function GET() {
           )}`
         : "",
       s.doubt
-        ? `${s.doubt.question}\n${s.doubt.lede}\n도움이 되는 경우:\n${list(s.doubt.worksFor)}\n한계가 있거나 다른 진료가 나은 경우:\n${list(s.doubt.limitsOf)}`
+        ? `${s.doubt.question}\n${s.doubt.lede}\n도움이 되는 경우:\n${list(s.doubt.worksFor)}\n추가 검사가 필요할 수 있는 경우:\n${list(s.doubt.limitsOf)}`
         : "",
       qa(s.faq),
     ]
