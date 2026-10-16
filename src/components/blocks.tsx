@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Block } from "@/content/types";
 
 /**
@@ -158,6 +159,21 @@ export function Blocks({ blocks, numbered = true }: { blocks: Block[]; numbered?
                   </tbody>
                 </table>
               </div>
+            </figure>
+          );
+        if (b.t === "figure")
+          return (
+            <figure key={i} className="max-w-[58ch]">
+              <Image
+                src={b.src}
+                width={b.w}
+                height={b.h}
+                alt={b.alt}
+                className="h-auto w-full rounded-2xl ring-1 ring-line"
+              />
+              {b.caption && (
+                <figcaption className="kr mt-2 text-[14px] leading-7 text-ink/70">{b.caption}</figcaption>
+              )}
             </figure>
           );
         if (b.t === "steps")

@@ -49,6 +49,8 @@ function blocks(body: Block[]) {
             `|${b.head.map(() => "---").join("|")}|`,
             ...b.rows.map((r) => `| ${r.map(plain).join(" | ")} |`),
           ].join("\n");
+        case "figure":
+          return `(그림) ${b.alt}`;
         case "steps":
           return b.items.map((x, i) => `${i + 1}. ${x.title} — ${plain(x.text)}`).join("\n");
         case "note":

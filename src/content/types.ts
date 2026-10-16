@@ -241,6 +241,8 @@ export type Block =
   | { t: "summary"; title?: string; items: string[] }
   /** 비교표. 첫 칸은 항목 이름으로 굵게 나온다. 모바일에서는 가로로 밀어 본다 */
   | { t: "table"; title?: string; head: string[]; rows: string[][] }
+  /** 그림 한 장. 글자 없는 SVG 도식에 번호만 달고 설명은 바로 아래 표나 글로 둔다 */
+  | { t: "figure"; src: string; w: number; h: number; alt: string; caption?: string }
   /** 순서가 있는 흐름. 번호를 붙여 위에서 아래로 */
   | { t: "steps"; items: { title: string; text: string }[] }
   /**
