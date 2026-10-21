@@ -107,6 +107,26 @@ const clinicJsonLd = {
     longitude: CLINIC.geo.lng,
   },
   hasMap: CLINIC.placeUrl,
+  // 예약하는 곳. AI 에이전트가 「예약해 줘」를 받았을 때 사이트를 뒤지지 않고
+  // 이 주소로 바로 간다. 예약은 네이버에서만 받으므로 그 주소 하나만 적는다
+  ...(CLINIC.booking.naverBookingUrl
+    ? {
+        potentialAction: {
+          "@type": "ReserveAction",
+          name: "진료 예약",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: CLINIC.booking.naverBookingUrl,
+            inLanguage: "ko",
+            actionPlatform: [
+              "https://schema.org/DesktopWebPlatform",
+              "https://schema.org/MobileWebPlatform",
+            ],
+          },
+          result: { "@type": "Reservation", name: "진료 예약" },
+        },
+      }
+    : {}),
   areaServed: [
     { "@type": "City", name: "김포시" },
     { "@type": "City", name: "인천광역시 서구" },
