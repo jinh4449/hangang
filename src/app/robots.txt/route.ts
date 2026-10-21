@@ -1,4 +1,3 @@
-import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/content/clinic";
 
 /**
@@ -14,6 +13,11 @@ import { SITE_URL } from "@/content/clinic";
  * 페이지를 열어 보는 쪽이 검색이고, 모델에 남는 쪽이 학습이다. 동네 병원은
  * 둘 다 들어가는 편이 이득이라 모두 허용한다. 「김포 한의원 추천해줘」처럼
  * 모델이 기억에서 답하는 질문은 학습에 들어가야 후보에 오른다.
+ *
+ * Content-Signal 은 「긁어 간 글을 어디에 써도 되는가」를 밝히는 줄이다
+ * (contentsignals.org). 검색 결과, AI 답변, 학습 모두 허용한다고 적는다.
+ * Next 의 robots.ts 는 이 줄을 넣을 자리가 없어 글로 직접 만든다.
+ * 봇은 제 이름의 묶음을 찾으면 「*」 묶음을 보지 않으므로 묶음마다 넣는다.
  */
 
 // 정적 내보내기에서는 빌드 때 한 번만 만든다고 알려 줘야 한다
@@ -39,16 +43,14 @@ const TRAINING_BOTS = [
   "CCBot",
 ];
 
-export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: [
-      { userAgent: "Yeti", allow: "/" },
-      ...[...ANSWER_BOTS, ...TRAINING_BOTS].map((userAgent) => ({
-        userAgent,
-        allow: "/",
-      })),
-      { userAgent: "*", allow: "/" },
-    ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
-  };
+const SIGNAL = "Content-Signal: search=yes, ai-input=yes, ai-train=yes";
+
+export function GET() {
+  const groups = ["Yeti", ...ANSWER_BOTS, ...TRAINING_BOTS, "*"].map(
+    (ua) => `User-Agent: ${ua}\n${SIGNAL}\nAllow: /`,
+  );
+  const text = [...groups, `Sitemap: ${SITE_URL}/sitemap.xml`].join("\n\n") + "\n";
+  return new Response(text, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  });
 }
