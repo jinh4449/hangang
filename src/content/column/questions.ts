@@ -814,7 +814,7 @@ const amenorrhea: Column = {
     { t: "summary", title: "3줄 요약", items: [
       "규칙적이던 생리가 **3개월 넘게** 없으면, 진료지침은 원인을 확인하도록 권합니다.",
       "생리가 없는 동안은 대개 **배란도 없어**, 미루는 만큼 임신을 준비할 시간이 줄어듭니다.",
-      "프로락틴이 높은 경우처럼 ==원인을 찾으면 배란을 되찾는 경우가 많아==, 일찍 확인할수록 유리합니다.",
+      "원인은 ==검사 몇 가지로 대부분 정리되니==, 일찍 확인할수록 유리합니다.",
     ]},
 
     { t: "h", text: "무월경은 언제부터라고 보나요?" },
@@ -854,20 +854,6 @@ const amenorrhea: Column = {
       "같은 연구에서 회복을 가른 것은 처음의 **체중(BMI)과 스트레스 호르몬(코르티솔)** 이었습니다. 체중이 너무 낮지 않고 스트레스 호르몬이 낮을수록 잘 돌아왔습니다. " +
       "그래서 「기다리기」보다 **원인을 확인하고 몸을 회복시키는 쪽으로 움직이는 것**이 중요합니다." },
 
-    { t: "h", text: "뇌하수체 문제라면 골든타임이 있나요?" },
-    { t: "p", text:
-      "진료지침이 「몇 개월까지」라는 숫자를 따로 정해 두지는 않았습니다. 다만 지침과 연구를 함께 보면 " +
-      "**3개월에 원인 확인**이 실제 기준이 되고, 늦어질수록 임신을 준비할 시간과 몸의 회복력이 함께 줄어든다는 점은 분명합니다." },
-    { t: "p", text:
-      "반가운 점도 있습니다. 뇌하수체에서 프로락틴이 많이 나와 생리가 멈춘 여성 459명을 대상으로 한 임상시험에서, " +
-      "약(카버골린)으로 치료한 분의 **83%는 프로락틴이 정상으로 돌아왔고, 72%는 배란이 돌아오거나 임신했습니다.** " +
-      "==원인을 찾으면 되돌릴 수 있는 경우가 많다==는 뜻이라, 확인을 미룰 이유가 없습니다." },
-
-    { t: "h", text: "난소 기능이 일찍 떨어지는 경우도 있나요?" },
-    { t: "p", text:
-      "40세 이전에 난소 기능이 떨어지는 **조기 난소 부전**은 생각보다 흔해서, 2024년 국제 진료지침은 약 **3.5%**로 보고했습니다. " +
-      "대표적인 신호가 바로 생리가 드물어지거나 멈추는 것입니다. 일찍 알면 임신 계획을 앞당기거나 난임 전문 상담을 서둘러 받는 등 ==할 수 있는 일이 남아 있을 때 준비할 수 있습니다==." },
-
     { t: "h", text: "뼈에는 영향이 없나요?" },
     { t: "p", text:
       "생리가 없는 동안은 여성호르몬(에스트로겐)도 부족해 골밀도가 떨어질 수 있습니다. " +
@@ -896,19 +882,15 @@ const amenorrhea: Column = {
     { t: "h", text: "상담 오실 때 이것만 챙겨 오세요" },
     { t: "ul", items: [
       "마지막 생리 날짜와 그전의 생리 주기",
-      "산부인과 호르몬 검사나 초음파 결과가 있으면 함께",
       "드시는 약과 영양제 이름, 최근 체중 변화, 임신 계획이 있는지",
     ]},
 
-    { t: "note", tone: "check", title: "이럴 때는 검사를 먼저 권해 드립니다", text:
-      "생리가 3개월 넘게 없는데 아직 호르몬 검사를 받지 않으셨거나, 1~2년 안에 임신을 계획하고 계시거나, 임신이 아닌데 젖이 나온다면 " +
-      "산부인과에서 혈액검사부터 받아 보시길 권합니다. 대부분은 검사 몇 가지로 원인이 정리되고, 어디서 어떤 검사를 받으면 되는지는 저희가 안내해 드립니다." },
   ],
   clinic: [
     { t: "steps", items: [
       { title: "기초 검사", text: "자율신경 검사, 혈관 건강도 검사, 인바디, 혈압을 먼저 확인합니다." },
       { title: "원장 진찰", text: "생리 기록과 체중 변화, 생활을 여쭙고 문진·설진·복진으로 진찰합니다." },
-      { title: "검사 결과 확인", text: "호르몬 검사를 아직 받지 않으셨다면 산부인과 검사를 먼저 받으시도록 안내합니다." },
+      { title: "검사 이상이 없다면", text: "검사에서 특별한 이상이 없는데도 생리가 돌아오지 않는다면, 몸의 균형을 회복하는 한의학적 치료가 도움이 될 수 있습니다." },
       { title: "상담·치료", text: "원인과 체질에 맞춰 첩약과 침 치료를 하고, 체중과 식사, 운동을 생활에 맞게 정리해 드립니다." },
     ]},
     { t: "p", text:
@@ -930,14 +912,6 @@ const amenorrhea: Column = {
     {
       cite: "American College of Obstetricians and Gynecologists, Practice Committee of the American Society for Reproductive Medicine. Female age-related fertility decline. Committee Opinion No. 589. Obstet Gynecol. 2014;123(3):719-721.",
       url: "https://pubmed.ncbi.nlm.nih.gov/24559617/",
-    },
-    {
-      cite: "Webster J, Piscitelli G, Polli A, Ferrari CI, Ismail I, Scanlon MF. A comparison of cabergoline and bromocriptine in the treatment of hyperprolactinemic amenorrhea. N Engl J Med. 1994;331(14):904-909.",
-      url: "https://pubmed.ncbi.nlm.nih.gov/?term=A+comparison+of+cabergoline+and+bromocriptine+in+the+treatment+of+hyperprolactinemic+amenorrhea",
-    },
-    {
-      cite: "Panay N, Anderson RA, et al. Evidence-based guideline: premature ovarian insufficiency. Hum Reprod Open. 2024;2024(4):hoae065.",
-      url: "https://doi.org/10.1093/hropen/hoae065",
     },
   ],
 };
