@@ -791,7 +791,7 @@ const rotatorCuffPartial: Column = {
 const amenorrhea: Column = {
   slug: "amenorrhea-when-to-check",
   authorKey: "wang",
-  title: "무월경, 생리 안 해서 편한데 그냥 둬도 될까요?",
+  title: "무월경, 편하다고 두면 안 되는 이유",
   question: "무월경 원인",
   summary:
     "생리가 없는 동안은 대개 배란도 없습니다. 3개월이 넘으면 편하다고 넘기지 말고 원인을 확인해 보세요.",
