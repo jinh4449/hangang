@@ -822,7 +822,7 @@ export default function Home() {
                       {q.summary}
                     </span>
                     <span className="mt-5 flex items-center justify-between pl-7">
-                      <time dateTime={q.date} className="font-mono text-[12px] text-faint">
+                      <time dateTime={q.date} className="font-mono text-[13px] font-medium text-muted">
                         {dotted(q.date)}
                       </time>
                       <span className="tile-arrow inline-flex items-center gap-1.5 text-sm font-medium text-herb">

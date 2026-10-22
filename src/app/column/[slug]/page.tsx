@@ -84,12 +84,25 @@ export default async function ColumnPage({ params }: PageProps<"/column/[slug]">
           <h1 className="kr text-3xl font-bold leading-tight tracking-tight text-balance sm:text-[2.4rem]">
             {c.title}
           </h1>
-          <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-sm text-faint">
-            <time dateTime={c.date} className="tabular-nums">
-              {fmtDate(c.date)}
-            </time>
-            <span aria-hidden="true">·</span>
-            <span>{author ? `${author.name} ${author.role}` : CLINIC.name}</span>
+          {/* 작성일은 글을 믿을지 정하는 단서라 흐린 글씨로 묻어 두지 않는다 */}
+          <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2.5">
+            <span className="inline-flex items-center gap-2 rounded-full bg-tint px-3.5 py-1.5 text-[15px] ring-1 ring-herb-line/60">
+              <span className="kr font-semibold text-herb">작성일</span>
+              <time dateTime={c.date} className="font-mono font-medium tabular-nums text-ink">
+                {fmtDate(c.date)}
+              </time>
+            </span>
+            {c.updated && c.updated !== c.date && (
+              <span className="inline-flex items-center gap-2 rounded-full bg-surface px-3.5 py-1.5 text-[15px] ring-1 ring-line">
+                <span className="kr font-semibold text-muted">수정일</span>
+                <time dateTime={c.updated} className="font-mono font-medium tabular-nums text-ink">
+                  {fmtDate(c.updated)}
+                </time>
+              </span>
+            )}
+            <span className="kr text-[15px] font-medium text-muted">
+              {author ? `${author.name} ${author.role}` : CLINIC.name}
+            </span>
           </div>
         </header>
 

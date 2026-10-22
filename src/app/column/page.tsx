@@ -104,7 +104,7 @@ export default function ColumnIndex() {
                       <p className="kr text-[14px] font-semibold">
                         {author ? `${author.name} ${author.role}` : CLINIC.name}
                       </p>
-                      <p className="mt-1 font-mono text-[12px] text-faint">
+                      <p className="mt-1 font-mono text-[13px] font-medium text-muted">
                         <time dateTime={c.date} className="tabular-nums">
                           {fmtDate(c.date)}
                         </time>
