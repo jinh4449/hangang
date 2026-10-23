@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node tools/unshallow.mjs",
     "build": "next build",
     "postbuild": "node tools/version.mjs && node tools/indexnow.mjs",
     "start": "next start",
