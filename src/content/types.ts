@@ -223,6 +223,12 @@ export type Area = {
   local: { title: string; body: string }[];
   /** 이 지역에서 특히 많이 찾는 진료과목 */
   focusSlugs: string[];
+  /**
+   * 페이지 맨 아래(지도·예약 다음)에 두는 진료 안내 문단. 질환 이름으로 검색하는
+   * 분을 받으려는 글이라 길 안내보다 뒤에 둔다. links 는 용어사전 slug.
+   * 동네마다 문장을 따로 쓴다 — 같은 글을 돌려 쓰면 지역 이름만 바꾼 페이지가 된다
+   */
+  conditions?: { title: string; body: string; links: string[] }[];
 };
 
 /** 칼럼 본문 블록. 자유 HTML 대신 타입으로 묶어 형태가 흐트러지지 않게 한다 */
