@@ -1,9 +1,33 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { AREAS, getArea } from "@/content/area";
 import { CLINIC, SITE_URL } from "@/content/clinic";
 import { PageHead, Section, Cta, Bezel, JsonLd, MapPanel } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
+import { DEPARTMENTS, getSymptom, symptomsIn } from "@/content/symptoms";
+
+/**
+ * 「여기서 무엇을 보나」를 동네 페이지에도 짧게 둔다.
+ *
+ * ChatGPT 에 「신스플린트 있는데 장기동 한의원 추천」을 물었더니 이 페이지를
+ * 출처로 걸면서 「진료 가능 여부는 방문 전에 확인하라」고 답했다. 이 페이지에
+ * 위치와 시간만 있어서 무엇을 진료하는지 알 길이 없었기 때문이다.
+ *
+ * 동네마다 같은 글이 늘면 「지역 이름만 바꾼 페이지」로 읽히므로(아래 주석)
+ * 설명 문장 없이 이름과 링크만 둔다. 종목별 손상 이름은 스포츠 손상 내용에서
+ * 끌어와, 그쪽을 고치면 여기도 따라간다.
+ */
+const SPORT_CONDITIONS = [
+  ...new Set(getSymptom("sports-injury")?.care.bySport?.flatMap((b) => b.conditions.map((c) => c.name)) ?? []),
+];
+const DOCTOR_LINE = CLINIC.doctors
+  .map((d) => {
+    const all = Object.values(d.career).flat() as string[];
+    const rmsk = all.some((t) => t.includes("근골격계 초음파사"));
+    return `${d.name} ${d.role}${rmsk ? "(미국 근골격계 초음파사 RMSK)" : ""}`;
+  })
+  .join(" · ");
 
 export const generateStaticParams = () => AREAS.map((a) => ({ slug: a.slug }));
 
@@ -108,6 +132,37 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
             ))}
           </div>
         )}
+
+        <Section title={`${CLINIC.name}에서 보는 진료`} note={`진료: ${DOCTOR_LINE}`}>
+          <div className="grid gap-6">
+            {DEPARTMENTS.map((d) => {
+              const list = symptomsIn(d.key);
+              if (list.length === 0) return null;
+              return (
+                <div key={d.key}>
+                  <h3 className="kr text-[15px] font-bold text-herb">{d.name}</h3>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {list.map((s) => (
+                      <li key={s.slug}>
+                        <Link
+                          href={`/care/${s.slug}`}
+                          className="kr inline-flex rounded-full bg-surface px-3.5 py-1.5 text-[15px] font-medium ring-1 ring-line hover:ring-herb"
+                        >
+                          {s.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  {d.key === "pain" && SPORT_CONDITIONS.length > 0 && (
+                    <p className="kr mt-3 text-[15px] leading-7 text-muted">
+                      스포츠 손상: {SPORT_CONDITIONS.join(", ")}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </Section>
 
         <Section title="지도와 길찾기" note="네이버 지도, 카카오맵, 구글 지도 중 쓰시는 앱으로 여실 수 있습니다.">
           <MapPanel />
