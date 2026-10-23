@@ -100,16 +100,16 @@ export default function ColumnIndex() {
                         className="h-10 w-10 shrink-0 rounded-full object-cover object-top ring-1 ring-line"
                       />
                     )}
-                    <div className="min-w-0 leading-tight">
-                      <p className="kr text-[14px] font-semibold">
-                        {author ? `${author.name} ${author.role}` : CLINIC.name}
-                      </p>
-                      <p className="mt-1 font-mono text-[12px] text-faint">
-                        <time dateTime={c.date} className="tabular-nums">
-                          {fmtDate(c.date)}
-                        </time>
-                      </p>
-                    </div>
+                    <p className="kr min-w-0 truncate text-[14px] font-semibold">
+                      {author ? `${author.name} ${author.role}` : CLINIC.name}
+                    </p>
+                    {/* 작성일은 오른쪽 칩으로 따로 세운다. 이름 밑 작은 글씨로는 눈에 잘 띄지 않았다 */}
+                    <time
+                      dateTime={c.date}
+                      className="ml-auto shrink-0 rounded-full bg-tint px-3 py-1 font-mono text-[13.5px] font-semibold tabular-nums text-herb ring-1 ring-herb-line/60"
+                    >
+                      {fmtDate(c.date)}
+                    </time>
                   </div>
                 </div>
               </Link>
