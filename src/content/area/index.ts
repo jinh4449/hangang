@@ -64,6 +64,24 @@ export const AREAS: Area[] = [
           "평일은 밤 8시까지 진료하니, 퇴근 후에 오셔도 시간이 됩니다.",
       },
     ],
+    conditions: [
+      {
+        title: "장기동에서 허리·목·어깨 통증으로 찾으실 때",
+        body:
+          "골드라인으로 출퇴근하며 오래 앉아 일하시는 분들은 목디스크와 거북목증후군, 허리디스크, 갑자기 목이 안 돌아가는 담 결림으로 진료를 받으십니다. " +
+          "팔이 올라가지 않는 오십견과 회전근개 손상, 손을 많이 쓰는 분의 테니스엘보와 손목터널증후군도 봅니다. " +
+          "족저근막염이나 아킬레스건염처럼 힘줄과 근막의 문제는 근골격 초음파로 함께 보고, 신스플린트(신스프린트)나 러너스 니 같은 러닝 손상도 진료합니다.",
+        links: ["cervical-disc", "forward-head", "lumbar-disc", "acute-neck-strain", "frozen-shoulder", "rotator-cuff", "tennis-elbow", "carpal-tunnel", "plantar-fasciitis", "shin-splints", "runners-knee"],
+      },
+      {
+        title: "검사는 정상인데 소화가 안 되고 피곤하다면",
+        body:
+          "내시경은 깨끗한데 자꾸 체하는 기능성 소화불량, 약을 먹어도 되풀이되는 역류성 식도염, 쉬어도 풀리지 않는 만성피로는 한방내과에서 봅니다. " +
+          "자율신경 검사와 혈관 건강도 검사, 인바디와 혈압을 먼저 확인하고 문진·설진·복진으로 진찰합니다. " +
+          "체질과 생활에 맞춘 한방 다이어트 상담도 함께 받으실 수 있습니다.",
+        links: ["functional-dyspepsia", "reflux", "chronic-fatigue", "herbal-diet"],
+      },
+    ],
     focusSlugs: ["pain", "fatigue"],
   },
   {
@@ -136,6 +154,23 @@ export const AREAS: Area[] = [
           "자리가 없으면 장기1공영주차장과 장기2공영주차장이 가까이 있습니다.",
       },
     ],
+    conditions: [
+      {
+        title: "구래동 사무실·상가에서 오래 앉아 계신다면",
+        body:
+          "하루 종일 앉아 일하시는 분은 허리디스크와 다리로 뻗치는 좌골신경통, 거북목과 뒷목에서 올라오는 경추성 두통으로 오십니다. " +
+          "키보드와 마우스를 오래 쓰면 손목터널증후군과 방아쇠수지가, 헬스장에서 무게를 올리다 보면 어깨 충돌증후군과 요추 염좌가 생기기 쉽습니다. " +
+          "교통사고 뒤 목과 허리 통증은 자동차보험으로 진료받으실 수 있습니다.",
+        links: ["lumbar-disc", "sciatica", "forward-head", "cervicogenic-headache", "carpal-tunnel", "trigger-finger", "shoulder-impingement", "lumbar-sprain", "accident-aftereffects"],
+      },
+      {
+        title: "급하게 먹고 늦게 자는 생활이 이어질 때",
+        body:
+          "점심을 서둘러 드시고 오후 내내 더부룩한 기능성 소화불량, 늦은 야식 뒤 신물이 올라오는 역류성 식도염, 야근이 이어진 뒤 아침이 무거운 만성피로를 봅니다. " +
+          "처음 오시면 자율신경·혈관 건강도·인바디·혈압 검사를 먼저 하고, 원장이 문진·설진·복진으로 진찰한 뒤 자세히 상담드립니다.",
+        links: ["functional-dyspepsia", "reflux", "chronic-fatigue"],
+      },
+    ],
     focusSlugs: ["pain", "fatigue", "diet"],
   },
   {
@@ -164,6 +199,23 @@ export const AREAS: Area[] = [
         body:
           "운양역에서 장기역은 바로 다음 역입니다. 차가 막히는 시간에는 지하철이 편하고, " +
           "그 외 시간에는 차로 7분이면 도착하십니다.",
+      },
+    ],
+    conditions: [
+      {
+        title: "운양동에서 관절·힘줄 통증으로 찾으실 때",
+        body:
+          "아이를 안아 올리다 생긴 손목 힘줄염과 허리 염좌, 오래 서 있는 일로 생긴 족저근막염, 계단을 내려갈 때 시큰한 무릎 퇴행성 관절염과 거위발건염으로 오십니다. " +
+          "골프 연습을 다니시는 분의 골프엘보, 어깨가 굳어 밤에 더 아픈 오십견과 석회성 건염도 진료합니다. " +
+          "교통사고 뒤 남은 목·허리 통증은 자동차보험으로 치료받으실 수 있습니다.",
+        links: ["wrist-tendinitis", "lumbar-sprain", "plantar-fasciitis", "knee-oa", "pes-anserine", "golfers-elbow", "frozen-shoulder", "calcific-tendinitis", "accident-aftereffects"],
+      },
+      {
+        title: "식사 뒤 더부룩함과 쌓인 피로",
+        body:
+          "식사 뒤 더부룩함이 오래가는 기능성 소화불량, 가슴 쓰림이 되풀이되는 역류성 식도염, 육아와 일이 겹쳐 쌓인 만성피로는 한방내과에서 봅니다. " +
+          "검사로 몸 상태를 먼저 확인하고, 체질에 맞춘 한약과 침으로 치료합니다. 체중 관리가 고민이시면 한방 다이어트도 상담드립니다.",
+        links: ["functional-dyspepsia", "reflux", "chronic-fatigue", "herbal-diet"],
       },
     ],
     focusSlugs: ["pain", "fatigue"],

@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import type { Metadata } from "next";
 import { AREAS, getArea } from "@/content/area";
 import { CLINIC, SITE_URL } from "@/content/clinic";
 import { PageHead, Section, Cta, Bezel, JsonLd, MapPanel } from "@/components/site";
 import { breadcrumb } from "@/content/schema";
+import { getTerm } from "@/content/glossary";
 
 export const generateStaticParams = () => AREAS.map((a) => ({ slug: a.slug }));
 
@@ -114,6 +116,32 @@ export default async function AreaPage({ params }: PageProps<"/area/[slug]">) {
         </Section>
 
         <Cta />
+
+        {/* 질환 이름으로 검색하는 분을 받는 글. 길을 찾으러 온 분의 앞을 막지 않게
+            지도와 예약 다음, 맨 아래에 조용히 둔다 */}
+        {a.conditions && a.conditions.length > 0 && (
+          <div className="mt-16 grid gap-9 border-t border-line pt-10">
+            {a.conditions.map((c) => (
+              <section key={c.title}>
+                <h2 className="kr text-[17px] font-bold leading-snug">{c.title}</h2>
+                <p className="kr mt-2 max-w-[62ch] text-[15.5px] leading-8 text-muted">{c.body}</p>
+                <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1.5">
+                  {c.links.map((slug) => {
+                    const t = getTerm(slug);
+                    if (!t) return null;
+                    return (
+                      <li key={slug}>
+                        <Link href={`/glossary/${slug}`} className="kr text-[14px] text-herb underline-offset-4 hover:underline">
+                          {t.term}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ))}
+          </div>
+        )}
       </article>
     </>
   );

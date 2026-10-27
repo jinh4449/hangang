@@ -33,7 +33,7 @@ export const sportsInjury: Symptom = {
           { name: "아킬레스건염", glossarySlug: "achilles-tendinitis" },
           { name: "러너스 니", glossarySlug: "runners-knee" },
           { name: "장경인대 증후군", glossarySlug: "itb-syndrome" },
-          { name: "신스플린트", glossarySlug: "shin-splints" },
+          { name: "신스플린트(신스프린트)", glossarySlug: "shin-splints" },
         ],
       },
       {
@@ -265,7 +265,7 @@ export const sportsInjury: Symptom = {
             { key: "hs", name: "햄스트링 손상", ultrasound: true, href: "/glossary/hamstring-strain",
               desc: "전력으로 뛰거나 다리를 크게 뻗을 때 허벅지 뒤 근육 일부가 늘어나거나 찢어진 상태입니다." },
             { key: "ss", name: "신스플린트", href: "/glossary/shin-splints",
-              desc: "달리기 양이 갑자기 늘었을 때 정강이뼈 안쪽을 따라 근육이 붙는 자리에 염증이 생긴 상태입니다." },
+              desc: "달리기 양이 갑자기 늘었을 때 정강이뼈 안쪽을 따라 근육이 붙는 자리에 염증이 생긴 상태입니다. 「신스프린트」라고도 부릅니다." },
             { key: "mf", name: "근막통증", href: "/glossary/myofascial-pain",
               desc: "운동 뒤 종아리나 허벅지 근육과 근막이 뭉쳐 당기며 아픈 상태입니다." },
           ],
