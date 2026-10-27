@@ -3,6 +3,7 @@ import { Outfit } from "next/font/google";
 import { SiteHeader, SiteFooter, JsonLd } from "@/components/site";
 import { webSite } from "@/content/schema";
 import { RiseInit } from "@/components/rise";
+import { NaverAnalytics } from "@/components/naver-analytics";
 import { CLINIC, SITE_URL } from "@/content/clinic";
 import { withJosa } from "@/content/josa";
 import { SYMPTOMS } from "@/content/symptoms";
@@ -243,6 +244,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <style>{`.rise,.seq{clip-path:none!important}.rise>.rise-in,.seq>.seq-in{transform:none!important}`}</style>
         </noscript>
         <RiseInit />
+        <NaverAnalytics />
         <SiteHeader />
         <main className="flex-1 pt-20">{children}</main>
         <SiteFooter />
