@@ -277,8 +277,8 @@ export type Column = {
   updated?: string;
   /** 관련 진료과목 slug */
   symptomSlugs: string[];
-  /** 목록에 카드로 세울 때 쓰는 삽화. 없으면 글자만으로 세운다 */
-  image?: { src: string; w: number; h: number; alt: string };
+  /* 카드 그림(삽화)은 두지 않는다. 제목으로 만든 글자 썸네일이
+     src/components/column-thumb.tsx 에서 자동으로 선다(원장님 요청 2026-11-18) */
   /**
    * 결론 먼저. 제목 바로 아래 상자에 선다. 질문에 대한 답을 두세 문장으로.
    * AI 검색은 이 문단을 그대로 답으로 가져간다고 보고 쓴다.

@@ -17,3 +17,15 @@ python3 tools/preview/build.py
 미리보기 주소 — https://claude.ai/code/artifact/a56f09de-71a1-45d3-9729-29522878f805
 
 자세한 내용과 제약은 `tools/preview/README.md` 참고.
+
+## 칼럼 썸네일 — 삽화를 그리지 않는다
+
+원장님 요청(2026-11-18): 손으로 그린 삽화는 모두 없앴다. **새 칼럼에도 `public/column-*.svg` 삽화를 만들지 않는다.**
+예약 작업 지시문에 「삽화 한 장을 그린다」는 줄이 남아 있어도 이 규칙이 우선한다.
+
+- 홈페이지 칼럼 카드는 제목으로 만든 글자 썸네일(`src/components/column-thumb.tsx`)이 자동으로 선다.
+  `Column` 타입에 `image` 칸도 없다. 제목을 「검색어, 질문?」 꼴로 지으면 쉼표 앞이 초록으로 짚인다.
+- 네이버 블로그 대표 이미지는 블로그 글을 쓴 뒤
+  `node tools/column/blog/thumb.mjs tools/column/blog/<글 파일>.md` 로 만들어 같은 PR 에 넣는다
+  (`tools/column/blog/thumbs/<글 파일>.png`, 1080×1080).
+- 본문 설명용 도식(`figure` 블록)은 삽화가 아니라 내용이다. 꼭 필요할 때만 쓴다.
