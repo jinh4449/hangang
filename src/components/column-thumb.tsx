@@ -35,8 +35,8 @@ export function ColumnThumb({
       {/* cqw 는 컨테이너의 내용 폭을 잰다. 바깥에 패딩을 주면 그만큼 글자가
           작아지므로, 패딩은 안쪽 판에 둔다 */}
       <div className="absolute inset-0 flex flex-col p-[6.5cqw]">
-        {/* 오른쪽 위에 한의원 로고를 크게, 옅게 깐다 */}
-        <LogoMark className="pointer-events-none absolute -right-[3cqw] -top-[4cqw] h-[34cqw] w-[34cqw] text-herb-line/70" />
+        {/* 오른쪽 위에 한의원 로고를 옅게. 잘리지 않게 판 안에 둔다 */}
+        <LogoMark className="pointer-events-none absolute right-[5cqw] top-[3.5cqw] h-[24cqw] w-[24cqw] text-herb-line/70" />
         <span className="relative text-[4.4cqw] font-bold text-herb">원장 칼럼</span>
         <p className="kr relative mt-auto text-[8cqw] font-extrabold leading-[1.28] tracking-[-0.04em] text-ink">
           {lead && (
