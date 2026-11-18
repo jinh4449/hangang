@@ -10,6 +10,12 @@ import { QUESTION_COLUMNS } from "./questions";
  * 말투: 칼럼을 읽고 「가서 물어보면 되겠다」 싶어야 한다. 위험 신호를 앞에
  * 늘어놓거나 「즉시」「지체 없이」 같은 말로 겁주지 않는다. 검사가 필요한
  * 경우는 황토색 check 상자 하나에 두세 줄로, 차분하게 끝에 둔다.
+ *
+ * 썸네일: 원장님 요청(2026-11-18)으로 카드 그림은 손으로 그린 삽화 대신
+ * 제목 글자 썸네일(src/components/column-thumb.tsx)이 자동으로 선다.
+ * 새 칼럼은 삽화 SVG 를 그리지 않아도 되고 image 는 비워 둬도 된다.
+ * 제목을 「검색어, 질문?」 꼴로 지으면 쉼표 앞이 초록으로 짚인다.
+ * 블로그 대표 이미지는 tools/column/blog/thumb.mjs 로 만든다(README 참고).
  */
 
 // 글쓴이: 통증·초음파·교통사고는 이진희(lee), 한약·소화·피로·소아·다이어트는 왕소정(wang)
@@ -372,9 +378,10 @@ export const columnsByDate = () =>
   [...COLUMNS].sort((a, b) => (a.date < b.date ? 1 : -1));
 
 /**
- * 첫 화면 Q&A 에 세우는 칼럼. 삽화가 있는 최신 여섯 편.
+ * 첫 화면 Q&A 에 세우는 칼럼. 최신 여섯 편. 카드 그림은 제목으로 만든
+ * 글자 썸네일(ColumnThumb)이라 삽화가 없는 글도 선다.
  *
  * 손으로 고르면 칼럼이 늘어도 첫 화면은 그대로 낡는다. 월·수·금 새 글이
  * 올라오면 여기도 저절로 바뀐다. 여섯은 3열 두 줄을 꽉 채우는 수다.
  */
-export const homeColumns = () => columnsByDate().filter((c) => c.image).slice(0, 6);
+export const homeColumns = () => columnsByDate().slice(0, 6);
