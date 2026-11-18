@@ -6,6 +6,7 @@ import { CLINIC } from "@/content/clinic";
 import { SubHero, Cta, JsonLd } from "@/components/site";
 import { DocIcon } from "@/components/icons";
 import { ColumnFilter } from "@/components/column-filter";
+import { ColumnThumb } from "@/components/column-thumb";
 import { webPage, breadcrumb, SITE_URL } from "@/content/schema";
 
 export const metadata: Metadata = {
@@ -58,7 +59,7 @@ export default function ColumnIndex() {
         icon={<DocIcon />}
       />
       <article className="mx-auto w-full max-w-[58rem] px-[clamp(1.5rem,6vw,7rem)] py-12 [&>:first-child]:mt-0">
-        {/* 카드. 그림으로 무슨 글인지 먼저 알리고, 아래에 누가 언제 썼는지를 둔다.
+        {/* 카드. 글자 썸네일로 무슨 글인지 먼저 알리고, 아래에 누가 언제 썼는지를 둔다.
             의료 글은 「누가 썼나」가 믿을지를 가르는 첫 단서다 */}
         <ColumnFilter
           tabs={CLINIC.doctors.map((d) => ({ key: d.key, label: `${d.name} 원장` }))}
@@ -69,16 +70,10 @@ export default function ColumnIndex() {
                 href={`/column/${c.slug}`}
                 className="group flex w-full flex-col overflow-hidden rounded-[1.5rem] bg-surface ring-1 ring-line transition-shadow hover:ring-herb"
               >
-                <div className="aspect-[8/5] overflow-hidden bg-tint">
-                  {c.image ? (
-                    <Image
-                      src={c.image.src}
-                      width={c.image.w}
-                      height={c.image.h}
-                      alt={c.image.alt}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                  ) : null}
+                <div className="overflow-hidden">
+                  <div className="transition-transform duration-500 group-hover:scale-[1.03]">
+                    <ColumnThumb column={c} showAuthor={false} />
+                  </div>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
                   {/* 카드 높이를 맞추려고 제목은 한 줄, 요약은 두 줄 높이로 고정한다.
