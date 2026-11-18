@@ -32,21 +32,21 @@ const lead = i > 0 ? title.slice(0, i + 1) : "";
 const rest = i > 0 ? title.slice(i + 1).trim() : title;
 
 const FONT = join(ROOT, "node_modules/pretendard/dist/web/static/woff2");
-const mark = readFileSync(join(ROOT, "brand/mark.svg"), "utf8").replaceAll("#0A777E", "#1e5b45");
+// 오른쪽 위에 옅게 까는 한의원 로고. 홈페이지 카드와 같은 색(--herb-line)
+const mark = readFileSync(join(ROOT, "brand/mark.svg"), "utf8").replaceAll("#0A777E", "#bcd8ca").replace("<svg ", '<svg class="logo" ');
 
 const html = `<!doctype html><meta charset="utf-8"><style>
 @font-face{font-family:P;font-weight:600;src:url(file://${FONT}/Pretendard-SemiBold.woff2)}
 @font-face{font-family:P;font-weight:800;src:url(file://${FONT}/Pretendard-ExtraBold.woff2)}
 html,body{margin:0}
 .c{width:1080px;height:1080px;box-sizing:border-box;padding:110px 100px;background:#eef4f0;font-family:P;color:#171a18;display:flex;flex-direction:column;position:relative;overflow:hidden;word-break:keep-all}
-.ring{position:absolute;right:-150px;top:-150px;width:450px;height:450px;border-radius:50%;border:34px solid #bcd8ca;opacity:.7}
-.k{display:flex;align-items:center;gap:16px;font-weight:800;font-size:36px;color:#1e5b45;position:relative}
-.k svg{width:52px;height:52px}
-.t{margin-top:auto;font-weight:800;font-size:96px;line-height:1.28;letter-spacing:-.045em;position:relative}
-.t em{font-style:normal;color:#1e5b45;box-shadow:inset 0 -22px 0 #e0cca6}
-.f{margin-top:44px;font-weight:600;font-size:36px;color:#5c665f;position:relative}
-</style><div class="c"><div class="ring"></div>
-<div class="k">${mark}원장 칼럼</div>
+.logo{position:absolute;right:-70px;top:-90px;width:470px;height:470px;opacity:.7}
+.k{font-weight:800;font-size:46px;color:#1e5b45;position:relative}
+.t{margin-top:auto;font-weight:800;font-size:106px;line-height:1.26;letter-spacing:-.045em;position:relative}
+.t em{font-style:normal;color:#1e5b45;box-shadow:inset 0 -24px 0 #e0cca6}
+.f{margin-top:44px;font-weight:600;font-size:42px;color:#5c665f;position:relative}
+</style><div class="c">${mark}
+<div class="k">원장 칼럼</div>
 <div class="t">${lead ? `<em>${esc(lead)}</em><br>` : ""}${esc(rest)}</div>
 <div class="f">김포한강한의원${author ? ` · ${esc(author)} 원장` : ""}</div>
 </div>`;

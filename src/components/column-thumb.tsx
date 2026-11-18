@@ -34,16 +34,14 @@ export function ColumnThumb({
     >
       {/* cqw 는 컨테이너의 내용 폭을 잰다. 바깥에 패딩을 주면 그만큼 글자가
           작아지므로, 패딩은 안쪽 판에 둔다 */}
-      <div className="absolute inset-0 flex flex-col p-[7cqw]">
-        <span className="pointer-events-none absolute -right-[14cqw] -top-[14cqw] h-[42cqw] w-[42cqw] rounded-full border-[3.2cqw] border-herb-line/70" />
-        <span className="relative flex items-center gap-[1.6cqw] text-[3.6cqw] font-bold text-herb">
-          <LogoMark className="h-[5cqw] w-[5cqw]" />
-          원장 칼럼
-        </span>
-        <p className="kr relative mt-auto text-[7.2cqw] font-extrabold leading-[1.3] tracking-[-0.04em] text-ink">
+      <div className="absolute inset-0 flex flex-col p-[6.5cqw]">
+        {/* 오른쪽 위에 한의원 로고를 크게, 옅게 깐다 */}
+        <LogoMark className="pointer-events-none absolute -right-[7cqw] -top-[9cqw] h-[44cqw] w-[44cqw] text-herb-line/70" />
+        <span className="relative text-[4.4cqw] font-bold text-herb">원장 칼럼</span>
+        <p className="kr relative mt-auto text-[8cqw] font-extrabold leading-[1.28] tracking-[-0.04em] text-ink">
           {lead && (
             <>
-              <span className="text-herb [box-shadow:inset_0_-1.6cqw_0_var(--ochre-line)]">
+              <span className="text-herb [box-shadow:inset_0_-1.8cqw_0_var(--ochre-line)]">
                 {lead}
               </span>
               <br />
@@ -52,7 +50,7 @@ export function ColumnThumb({
           {rest}
         </p>
         {author && (
-          <span className="relative mt-[3cqw] text-[3.4cqw] font-semibold text-muted">
+          <span className="relative mt-[2.6cqw] text-[4cqw] font-semibold text-muted">
             {author.name} {author.role}
           </span>
         )}
