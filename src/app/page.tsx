@@ -3,6 +3,7 @@ import Image from "next/image";
 import { CLINIC, SITE_URL } from "@/content/clinic";
 import { SYMPTOMS, getSymptom, DEPARTMENTS, symptomsIn } from "@/content/symptoms";
 import { homeColumns } from "@/content/column";
+import { ColumnThumb } from "@/components/column-thumb";
 import { JsonLd, Arrow } from "@/components/site";
 import { webPage, breadcrumb } from "@/content/schema";
 import {
@@ -312,7 +313,8 @@ const QA = homeColumns().map((c) => ({
   summary: c.summary,
   href: `/column/${c.slug}`,
   date: c.date,
-  image: c.image,
+  title: c.title,
+  authorKey: c.authorKey,
 }));
 
 /** 2026-06-12 → 2026.06.12 */
@@ -790,7 +792,7 @@ export default function Home() {
           <H2 accent="자주 묻는 질문" note="진료실에서 실제로 받는 질문들입니다.">
             Q&amp;A
           </H2>
-          {/* 삽화가 위, 질문이 아래. 그림이 먼저 눈에 들어와야 여섯 장이
+          {/* 글자 썸네일이 위, 질문이 아래. 제목 판이 먼저 눈에 들어와야 여섯 장이
               글자 덩어리로 뭉치지 않는다 */}
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {QA.map((q) => (
@@ -799,15 +801,7 @@ export default function Home() {
                   href={q.href}
                   className="tile flex h-full flex-col overflow-hidden bg-surface"
                 >
-                  {q.image && (
-                    <Image
-                      src={q.image.src}
-                      alt={q.image.alt}
-                      width={q.image.w}
-                      height={q.image.h}
-                      className="block aspect-[8/5] w-full object-cover"
-                    />
-                  )}
+                  <ColumnThumb column={q} />
                   <div className="flex grow flex-col p-6">
                     <span className="flex gap-2.5">
                       <span

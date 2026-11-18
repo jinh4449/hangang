@@ -372,9 +372,10 @@ export const columnsByDate = () =>
   [...COLUMNS].sort((a, b) => (a.date < b.date ? 1 : -1));
 
 /**
- * 첫 화면 Q&A 에 세우는 칼럼. 삽화가 있는 최신 여섯 편.
+ * 첫 화면 Q&A 에 세우는 칼럼. 최신 여섯 편. 카드 그림은 제목으로 만든
+ * 글자 썸네일(ColumnThumb)이라 삽화가 없는 글도 선다.
  *
  * 손으로 고르면 칼럼이 늘어도 첫 화면은 그대로 낡는다. 월·수·금 새 글이
  * 올라오면 여기도 저절로 바뀐다. 여섯은 3열 두 줄을 꽉 채우는 수다.
  */
-export const homeColumns = () => columnsByDate().filter((c) => c.image).slice(0, 6);
+export const homeColumns = () => columnsByDate().slice(0, 6);
