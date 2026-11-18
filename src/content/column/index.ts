@@ -11,9 +11,10 @@ import { QUESTION_COLUMNS } from "./questions";
  * 늘어놓거나 「즉시」「지체 없이」 같은 말로 겁주지 않는다. 검사가 필요한
  * 경우는 황토색 check 상자 하나에 두세 줄로, 차분하게 끝에 둔다.
  *
- * 썸네일: 원장님 요청(2026-11-18)으로 카드 그림은 손으로 그린 삽화 대신
+ * 썸네일: 원장님 요청(2026-11-18)으로 삽화는 모두 없앴다. 카드 그림은
  * 제목 글자 썸네일(src/components/column-thumb.tsx)이 자동으로 선다.
- * 새 칼럼은 삽화 SVG 를 그리지 않아도 되고 image 는 비워 둬도 된다.
+ * 새 칼럼에 삽화 SVG 를 그리지 않는다(Column 타입에 image 칸도 없다).
+ * 본문 설명용 도식(figure 블록)은 삽화가 아니라 내용이라 필요할 때만 쓴다.
  * 제목을 「검색어, 질문?」 꼴로 지으면 쉼표 앞이 초록으로 짚인다.
  * 블로그 대표 이미지는 tools/column/blog/thumb.mjs 로 만든다(README 참고).
  */
@@ -27,12 +28,6 @@ const nextDayPain: Column = {
   summary: "치료 다음 날의 뻐근함은 흔하고 자연스러운 반응입니다. 대개 하루 이틀이면 풀립니다.",
   date: "2026-08-11",
   symptomSlugs: ["pain", "car-accident"],
-  image: {
-    src: "/column-sore-after.svg",
-    w: 800,
-    h: 500,
-    alt: "치료 다음 날 잠깐 올라갔다가 며칠에 걸쳐 내려가는 통증 곡선",
-  },
   answer:
     "잘못된 것이 아닙니다. 굳어 있던 관절과 근육이 움직이기 시작하면서 생기는 흔한 반응이고, 대개 하루 이틀 안에 풀립니다. 다음 진료 때 어땠는지 말씀해 주시면 강도를 맞춰 드립니다.",
   body: [
@@ -106,12 +101,6 @@ const howManySessions: Column = {
      검색엔진이 신호로 쓰지 않는다 */
   updated: "2026-09-04",
   symptomSlugs: ["pain"],
-  image: {
-    src: "/column-sessions.svg",
-    w: 800,
-    h: 500,
-    alt: "치료 회차가 지날수록 낮아지는 통증을 막대로 그린 그림",
-  },
   answer:
     "통증을 줄이는 데는 대체로 5회 안팎, 정렬과 자세까지 다루려면 10회 이상을 봅니다. 상태에 따라 달라지므로 첫 진료에서 예상 횟수를 먼저 말씀드리고, 좋아지는 정도를 보며 함께 조정합니다.",
   body: [
@@ -180,12 +169,6 @@ const herbLiver: Column = {
   summary: "걱정되지만 묻기 어려우셨던 분들을 위해 정리했습니다. 진찰 후 처방한 한약은 안심하고 드셔도 됩니다.",
   date: "2026-08-19",
   symptomSlugs: ["pain", "indigestion", "fatigue"],
-  image: {
-    src: "/column-herb-liver.svg",
-    w: 800,
-    h: 500,
-    alt: "한약 파우치와 간을 함께 살피는 그림",
-  },
   answer:
     "한의사가 진찰하고 처방한 한약으로 간에 문제가 생기는 경우는 드뭅니다. 한방병원 입원 환자 6,894명을 분석한 국내 연구에서도 간 기능이 정상이던 분들에게 간 손상이 생긴 경우는 적었습니다. 드시는 약과 건강 상태를 확인하고 처방하니 안심하고 상담받으셔도 됩니다.",
   body: [
@@ -254,12 +237,6 @@ const ultrasoundWhat: Column = {
   summary: "X-ray에 안 나오는데 계속 아픈 이유를 화면으로 함께 보며 설명드립니다.",
   date: "2026-08-22",
   symptomSlugs: ["pain", "car-accident"],
-  image: {
-    src: "/column-ultrasound.svg",
-    w: 800,
-    h: 500,
-    alt: "초음파 탐촉자와 화면에 보이는 근육·힘줄 층",
-  },
   answer:
     "한의원 초음파로는 근육·힘줄·인대처럼 엑스레이에 잘 보이지 않는 부드러운 조직이 부어 있는지, 움직일 때 어디서 걸리는지를 실시간으로 봅니다. 아픈 이유를 화면으로 함께 보면서 설명드릴 수 있습니다.",
   body: [
