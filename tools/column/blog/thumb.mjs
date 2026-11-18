@@ -40,7 +40,7 @@ const html = `<!doctype html><meta charset="utf-8"><style>
 @font-face{font-family:P;font-weight:800;src:url(file://${FONT}/Pretendard-ExtraBold.woff2)}
 html,body{margin:0}
 .c{width:1080px;height:1080px;box-sizing:border-box;padding:110px 100px;background:#eef4f0;font-family:P;color:#171a18;display:flex;flex-direction:column;position:relative;overflow:hidden;word-break:keep-all}
-.logo{position:absolute;right:-70px;top:-90px;width:470px;height:470px;opacity:.7}
+.logo{position:absolute;right:70px;top:40px;width:330px;height:330px;opacity:.8}
 .k{font-weight:800;font-size:46px;color:#1e5b45;position:relative}
 .t{margin-top:auto;font-weight:800;font-size:106px;line-height:1.26;letter-spacing:-.045em;position:relative}
 .t em{font-style:normal;color:#1e5b45;box-shadow:inset 0 -24px 0 #e0cca6}
