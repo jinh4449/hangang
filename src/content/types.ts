@@ -32,6 +32,12 @@ export type Symptom = {
   clinicalName: string;
   /** 목록·카드에 쓰는 한 줄 */
   summary: string;
+  /**
+   * 첫 화면 「진료별로 살펴보기」 사진 카드. line 은 카드 아래 한 줄,
+   * photo 는 그 과목을 보여 주는 진료 공간·장비 사진(정사각에 가깝게 잘린다).
+   * 사진이 없으면 아이콘 판으로 대신 선다
+   */
+  card?: { line: string; photo?: { src: string; alt: string; position?: string } };
 
   care: {
     title: string;

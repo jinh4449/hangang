@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CLINIC, SITE_URL } from "@/content/clinic";
-import { SYMPTOMS, getSymptom, DEPARTMENTS, symptomsIn } from "@/content/symptoms";
+import { SYMPTOMS, getSymptom } from "@/content/symptoms";
 import { homeColumns } from "@/content/column";
 import { ColumnThumb } from "@/components/column-thumb";
 import { JsonLd, Arrow } from "@/components/site";
@@ -321,10 +321,6 @@ const QA = homeColumns().map((c) => ({
 const dotted = (iso: string) => iso.replaceAll("-", ".");
 
 
-/* 진료과목 묶음이 큰 화면의 세 칸 격자에서 차지하는 폭과, 묶음 안의 칸 수.
-   Tailwind 가 클래스 이름을 찾을 수 있게 문자열을 통째로 적어 둔다 */
-const DEPT_SPAN: Record<number, string> = { 1: "lg:col-span-1", 2: "lg:col-span-2", 3: "lg:col-span-3" };
-const DEPT_COLS: Record<number, string> = { 1: "lg:grid-cols-1", 2: "lg:grid-cols-2", 3: "lg:grid-cols-3" };
 export default function Home() {
   return (
     <>
@@ -672,103 +668,47 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 진료과목 — 같은 크기 격자 */}
+        {/* 진료과목 — 과목마다 진료 공간 사진 한 장과 한 줄. 김포에서 그 진료를 찾는
+            검색어(「김포 ○○」)를 카드 제목으로 세운다. 사진이 없는 과목은 아이콘 판으로 선다 */}
         <section className="band screen">
           <H2
-            accent="필요하신가요?"
-            note={[
-              "과목마다 치료 방법과 예상 기간이 다릅니다.",
-              "해당하는 곳을 눌러 확인해 보세요.",
-            ]}
+            accent="진료별로 살펴보기"
+            note="김포에서 다니실 때 고르는 기준과 진료 흐름을 과목별로 정리했습니다."
           >
-            어떤 치료가
+            김포 한의원,
           </H2>
-          {/* 진료과목 묶음(통증치료 · 다이어트 · 한방내과)마다 이름을 세우고 그 아래에 과목을 둔다.
-              큰 화면에서는 세 칸 격자 안에서 묶음이 과목 수만큼 칸을 차지한다.
-              칸은 모두 같은 크기로 세우고, 첫 칸만 색으로 눌러 무게를 준다 */}
-          <div className="mt-10 grid gap-x-4 gap-y-10 lg:grid-cols-3">
-            {DEPARTMENTS.map((d) => {
-              const list = symptomsIn(d.key);
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SYMPTOMS.map((s) => {
+              const Icon = SYMPTOM_ICONS[s.slug];
+              const photo = s.card?.photo;
               return (
-                <div key={d.key} className={DEPT_SPAN[list.length] ?? "lg:col-span-3"}>
-                  <div className="flex items-baseline gap-3 border-b border-line pb-3">
-                    <h3 className="kr shrink-0 text-[17px] font-bold text-herb">{d.name}</h3>
-                    <p className="kr hidden truncate text-[14px] text-faint sm:block">{d.line}</p>
-                  </div>
-                  <div className={"mt-4 grid gap-4 sm:grid-cols-2 " + (DEPT_COLS[list.length] ?? "")}>
-                    {list.map((s) => {
-                      const i = SYMPTOMS.indexOf(s);
-                      return (
-                      <Rise key={s.slug} fill>
-                        <Link
-                          href={`/care/${s.slug}`}
-                          className={
-                            "tile flex h-full min-h-[15rem] flex-col justify-between p-8 " +
-                            (i === 0 ? "tile-dark bg-herb text-paper" : "bg-surface")
-                          }
-                        >
-                        <div>
-                          {(() => {
-                            const Icon = SYMPTOM_ICONS[s.slug];
-                            return Icon ? (
-                              <Icon
-                                className={
-                                  i === 0
-                                    ? "h-8 w-8 text-paper/70"
-                                    : "h-8 w-8 text-herb"
-                                }
-                              />
-                            ) : null;
-                          })()}
-                          <h4 className="kr mt-4 text-xl font-bold leading-snug">
-                            {s.name}
-                          </h4>
-                          <p
-                            className={
-                              "mt-1 font-display text-sm " +
-                              (i === 0 ? "text-paper/60" : "text-faint")
-                            }
-                          >
-                            {s.clinicalName}
-                          </p>
+                <Rise key={s.slug} fill>
+                  <Link
+                    href={`/care/${s.slug}`}
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface ring-1 ring-line transition-shadow hover:ring-herb"
+                  >
+                    <div className="relative aspect-square overflow-hidden bg-tint">
+                      {photo ? (
+                        <Image
+                          src={photo.src}
+                          alt={photo.alt}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                          style={photo.position ? { objectPosition: photo.position } : undefined}
+                        />
+                      ) : (
+                        <div className="grid h-full place-items-center bg-gradient-to-br from-tint via-surface to-ochre-soft">
+                          {Icon && <Icon className="h-16 w-16 text-herb/35" />}
                         </div>
-                        <div className="mt-6">
-                          {s.highlight && (
-                            <span
-                              className={
-                                "mb-2 inline-block rounded-full px-3 py-1 text-xs font-semibold " +
-                                (i === 0
-                                  ? "bg-paper/15 text-paper"
-                                  : "bg-ochre-soft text-ochre")
-                              }
-                            >
-                              {s.highlight.label}
-                            </span>
-                          )}
-                          <p
-                            className={
-                              "kr text-[15px] leading-7 " +
-                              (i === 0 ? "text-paper/80" : "text-muted")
-                            }
-                          >
-                            {s.summary}
-                          </p>
-                          <span
-                            className={
-                              "tile-arrow mt-4 inline-flex items-center gap-1.5 text-sm font-medium " +
-                              (i === 0 ? "text-paper" : "text-herb")
-                            }
-                          >
-                            자세히 보기
-                            <Arrow />
-                          </span>
-                        </div>
-                        </Link>
-                      </Rise>
-                      );
-                    })}
-                  </div>
-                </div>
+                      )}
+                    </div>
+                    <div className="flex-1 px-6 py-5">
+                      <h3 className="kr text-[18px] font-bold text-herb">김포 {s.name}</h3>
+                      <p className="kr mt-1.5 text-[14.5px] leading-6 text-muted">{s.card?.line ?? s.summary}</p>
+                    </div>
+                  </Link>
+                </Rise>
               );
             })}
           </div>

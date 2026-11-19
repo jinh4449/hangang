@@ -6,6 +6,7 @@ export const pain: Symptom = {
   name: "급·만성 통증",
   clinicalName: "척추·관절 통증",
   summary: "허리, 목, 어깨, 무릎. 참고 지내던 통증의 원인을 먼저 찾습니다.",
+  card: { line: "어디서 오는 통증인지 먼저 찾고 침·약침·추나로 치료합니다" },
 
   care: {
     title: "급·만성 통증",
