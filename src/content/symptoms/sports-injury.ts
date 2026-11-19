@@ -13,7 +13,6 @@ export const sportsInjury: Symptom = {
   name: "스포츠 손상",
   clinicalName: "힘줄·인대·근육 손상",
   summary: "러닝, 골프, 테니스, 헬스. 운동하다 다친 힘줄과 인대를 초음파로 확인하고 치료합니다.",
-  card: { line: "다친 힘줄과 인대를 초음파로 보고 복귀 시점을 함께 정합니다" },
 
   care: {
     title: "스포츠 손상",

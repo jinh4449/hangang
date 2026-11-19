@@ -6,7 +6,6 @@ export const fatigue: Symptom = {
   name: "만성피로",
   clinicalName: "만성 피로 · 기력 저하",
   summary: "자고 일어나도 개운하지 않은 상태가 몇 달째라면.",
-  card: { line: "자율신경·혈관 검사로 지금 몸 상태부터 확인합니다" },
 
   care: {
     title: "만성피로",

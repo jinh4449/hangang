@@ -11,7 +11,6 @@ export const diet: Symptom = {
   name: "다이어트",
   clinicalName: "비만 · 체중 관리",
   summary: "굶는 방식으로는 오래 못 갑니다. 식습관과 체질을 함께 봅니다.",
-  card: { line: "체질과 식습관을 보고 생활에 맞춰 처방합니다" },
 
   care: {
     title: "다이어트",

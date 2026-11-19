@@ -7,6 +7,7 @@ import type { DepartmentKey, Stage } from "../types";
  *            「재활」 이 아니라 통증치료로 묶는다.
  * 다이어트 — 따로 선다.
  * 한방내과 — 소화불량, 만성피로. 앞으로 내과 질환 과목이 늘어나는 자리다.
+ * 보약     — 성장보약, 산후보약. 시기에 맞춰 몸을 보하는 한약.
  */
 export const DEPARTMENTS: {
   key: DepartmentKey;
@@ -31,5 +32,10 @@ export const DEPARTMENTS: {
       { label: "자세한 상담", detail: "검사 결과와 진찰 내용을 함께 보면서 지금 상태를 쉽게 설명드리고, 치료 방향과 기간을 함께 정합니다." },
       { label: "치료 · 경과 확인", detail: "몸 상태에 맞춘 처방과 침 치료를 시작하고, 내원할 때마다 변화를 확인하며 처방을 조정합니다." },
     ],
+  },
+  {
+    key: "tonic",
+    name: "보약",
+    line: "성장기 아이와 출산 뒤 회복기, 시기에 맞춘 한약을 처방합니다.",
   },
 ];

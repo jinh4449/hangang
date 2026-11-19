@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { CLINIC, SITE_URL } from "@/content/clinic";
-import { SYMPTOMS, getSymptom } from "@/content/symptoms";
+import { getSymptom } from "@/content/symptoms";
 import { homeColumns } from "@/content/column";
+import { HOME_CARDS } from "@/content/home-cards";
 import { ColumnThumb } from "@/components/column-thumb";
 import { JsonLd, Arrow } from "@/components/site";
 import { webPage, breadcrumb } from "@/content/schema";
@@ -160,29 +161,6 @@ function H2({
           ))}
         </p>
       )}
-    </div>
-  );
-}
-
-/**
- * 첫 화면 배경 — 한강.
- *
- * 흰 바탕에 글자만 있으면 비어 보인다. 그렇다고 무늬를 깔면 글자와 다툰다.
- * 그래서 낮게 깔린 빛 한 겹만 둔다. 이름이 한강이니 물가의 새벽빛이다.
- * 장식이 아니라 공기라서, 있는 줄 모르고 읽다가 없으면 허전한 정도로만 넣는다.
- */
-function RiverGlow() {
-  return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-      {/* 흐림을 걸어야 가장자리에 금이 보이지 않는다. 칸 밖으로 넉넉히 빼 둔다 */}
-      <div
-        className="absolute left-1/2 top-[62%] h-[46rem] w-[76rem] -translate-x-1/2 rounded-[50%] opacity-70 blur-[90px]"
-        style={{ background: "radial-gradient(closest-side, rgba(30,91,69,.20), transparent)" }}
-      />
-      <div
-        className="absolute right-[-14rem] top-[-16rem] h-[38rem] w-[38rem] rounded-full opacity-70 blur-[80px]"
-        style={{ background: "radial-gradient(closest-side, rgba(194,161,102,.24), transparent)" }}
-      />
     </div>
   );
 }
@@ -668,8 +646,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 진료과목 — 과목마다 진료 공간 사진 한 장과 한 줄. 김포에서 그 진료를 찾는
-            검색어(「김포 ○○」)를 카드 제목으로 세운다. 사진이 없는 과목은 아이콘 판으로 선다 */}
+        {/* 진료별 카드 — 진료 공간 사진 한 장과 한 줄. 김포에서 그 진료를 찾는
+            검색어를 카드 제목으로 세운다(content/home-cards.ts). 사진이 없으면 아이콘 판으로 선다 */}
         <section className="band screen">
           <H2
             accent="진료별로 살펴보기"
@@ -678,24 +656,23 @@ export default function Home() {
             김포 한의원,
           </H2>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {SYMPTOMS.map((s) => {
-              const Icon = SYMPTOM_ICONS[s.slug];
-              const photo = s.card?.photo;
+            {HOME_CARDS.map((c) => {
+              const Icon = SYMPTOM_ICONS[c.icon];
               return (
-                <Rise key={s.slug} fill>
+                <Rise key={c.title} fill>
                   <Link
-                    href={`/care/${s.slug}`}
+                    href={c.href}
                     className="group flex h-full flex-col overflow-hidden rounded-2xl bg-surface ring-1 ring-line transition-shadow hover:ring-herb"
                   >
                     <div className="relative aspect-square overflow-hidden bg-tint">
-                      {photo ? (
+                      {c.photo ? (
                         <Image
-                          src={photo.src}
-                          alt={photo.alt}
+                          src={c.photo.src}
+                          alt={c.photo.alt}
                           fill
                           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                          style={photo.position ? { objectPosition: photo.position } : undefined}
+                          style={c.photo.position ? { objectPosition: c.photo.position } : undefined}
                         />
                       ) : (
                         <div className="grid h-full place-items-center bg-gradient-to-br from-tint via-surface to-ochre-soft">
@@ -704,8 +681,8 @@ export default function Home() {
                       )}
                     </div>
                     <div className="flex-1 px-6 py-5">
-                      <h3 className="kr text-[18px] font-bold text-herb">김포 {s.name}</h3>
-                      <p className="kr mt-1.5 text-[14.5px] leading-6 text-muted">{s.card?.line ?? s.summary}</p>
+                      <h3 className="kr text-[18px] font-bold text-herb">{c.title}</h3>
+                      <p className="kr mt-1.5 text-[14.5px] leading-6 text-muted">{c.line}</p>
                     </div>
                   </Link>
                 </Rise>

@@ -6,7 +6,6 @@ export const indigestion: Symptom = {
   name: "소화불량",
   clinicalName: "기능성 소화불량 · 역류성 식도염",
   summary: "내시경에서 이상이 없다는데 계속 더부룩하다면.",
-  card: { line: "검사는 정상인데 더부룩한 속, 원인을 나눠 봅니다" },
 
   care: {
     title: "소화불량",

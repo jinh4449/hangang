@@ -145,6 +145,30 @@ export const WHY_ICONS: Record<string, (p: P) => React.JSX.Element> = {
   redirect: RedirectIcon,
 };
 
+/** 성장 — 자라는 새싹과 키 눈금 */
+export function GrowthIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path d="M12 21v-9" {...stroke} />
+      <path d="M12 12c0-3.3 2.4-5.5 5.5-5.5 0 3.3-2.4 5.5-5.5 5.5Z" {...stroke} />
+      <path d="M12 14.5c0-2.6-1.9-4.4-4.4-4.4 0 2.6 1.9 4.4 4.4 4.4Z" {...stroke} />
+      <path d="M4 21h16M5 4v17M5 8h1.8M5 12h1.8M5 16h1.8" {...stroke} />
+    </svg>
+  );
+}
+
+/** 산후 — 품에 안은 아기 */
+export function PostpartumIcon({ className = base }: P) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="12" cy="5.5" r="2.5" {...stroke} />
+      <path d="M6 20c0-4.5 2.7-8 6-8s6 3.5 6 8" {...stroke} />
+      <path d="M8 15.5c1.5 1.4 6.5 1.4 8 0" {...stroke} />
+      <circle cx="12" cy="14.6" r="1.4" {...stroke} />
+    </svg>
+  );
+}
+
 export const SYMPTOM_ICONS: Record<string, (p: P) => React.JSX.Element> = {
   pain: SpineIcon,
   "sports-injury": RunnerIcon,
@@ -152,6 +176,8 @@ export const SYMPTOM_ICONS: Record<string, (p: P) => React.JSX.Element> = {
   diet: ScaleIcon,
   indigestion: StomachIcon,
   fatigue: BatteryIcon,
+  growth: GrowthIcon,
+  postpartum: PostpartumIcon,
 };
 
 /** 예약 창구 아이콘. 브랜드 색 타일 위에 얹어 쓴다 */

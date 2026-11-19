@@ -6,7 +6,6 @@ export const carAccident: Symptom = {
   name: "교통사고 후유증",
   clinicalName: "경추 염좌 · 편타손상",
   summary: "사고 직후에는 괜찮다가 2~3일 뒤부터 아픈 경우가 많습니다.",
-  card: { line: "자동차보험 접수부터 치료, 회복 점검까지 안내합니다" },
 
   care: {
     title: "교통사고 후유증",
