@@ -375,7 +375,8 @@ export default function Home() {
             </p>
           </Enter>
 
-          <div className="mt-auto pt-24">
+          {/* 문구는 바닥에 붙이지 않고 화면 위쪽 절반에 띄운다. 큰 화면에서도 같은 높이에 선다 */}
+          <div className="my-auto pb-[8vh] pt-12">
             <h1 className="display display-black kr text-[2.1rem] leading-[1.24] text-white sm:text-[3rem] lg:text-[3.6rem] xl:text-[4.1rem]">
               <span className="line-mask">
                 <span className="line-up" style={{ "--d": "250ms" } as React.CSSProperties}>
@@ -438,21 +439,22 @@ export default function Home() {
               </div>
             </Enter>
 
-            {/* 처음 오는 분이 가장 먼저 확인하는 네 가지 */}
-            <Enter d={1240}>
-              <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-white/20 pt-6 sm:flex sm:flex-wrap sm:gap-x-10">
-                {CLINIC.heroMarks.map((m) => {
-                  const Icon = MARK_ICONS[m.icon];
-                  return (
-                    <li key={m.label} className="kr flex items-center gap-2 text-[14.5px] font-semibold text-white sm:text-[15.5px]">
-                      {Icon && <Icon className="h-[1.1em] w-[1.1em] shrink-0 text-[#e7c79a]" />}
-                      {m.label}
-                    </li>
-                  );
-                })}
-              </ul>
-            </Enter>
           </div>
+
+          {/* 처음 오는 분이 가장 먼저 확인하는 네 가지 */}
+          <Enter d={1240}>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-4 border-t border-white/20 pt-6 sm:flex sm:flex-wrap sm:gap-x-10">
+              {CLINIC.heroMarks.map((m) => {
+                const Icon = MARK_ICONS[m.icon];
+                return (
+                  <li key={m.label} className="kr flex items-center gap-2 text-[14.5px] font-semibold text-white sm:text-[15.5px]">
+                    {Icon && <Icon className="h-[1.1em] w-[1.1em] shrink-0 text-[#e7c79a]" />}
+                    {m.label}
+                  </li>
+                );
+              })}
+            </ul>
+          </Enter>
         </div>
       </section>
 
