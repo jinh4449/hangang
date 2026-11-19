@@ -353,134 +353,83 @@ export default function Home() {
         }}
       />
 
-      {/* 히어로 — 환자가 속으로 던지는 세 가지 질문을 그대로 세운다.
-          첫 화면은 이 세 줄만 보이게 화면을 통째로 쓴다 */}
-      <section className="relative flex min-h-[calc(100svh-5rem)] flex-col justify-center overflow-hidden border-b border-line">
-        {/* 진료 공간 사진을 흐리게 깔고 그 위에 문구를 세운다. 흐린 가장자리가 비치지
-            않게 조금 키우고, 글자가 읽히도록 가운데를 밝게 덮는다 */}
-        <div aria-hidden="true" className="absolute inset-0 -z-0 overflow-hidden">
-          <Image
-            src="/clinic-interior.webp"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="scale-110 object-cover object-[45%_60%] blur-[5px]"
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.78)_45%,rgba(255,255,255,0.55)_100%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
-        </div>
-
-        {/* 세로 가운데 정렬이라, 아래에 빈 칸을 두면 그 절반만큼 글이 올라간다.
-            제목 한 줄만큼 올리려고 한 줄 높이의 두 배를 비워 둔다 */}
-        <div
-          aria-hidden="true"
-          className="order-last h-[calc(2*clamp(2.5rem,6vw,5.25rem))] shrink-0"
+      {/* 히어로 — 진료 공간 사진을 화면 가득 깔고, 환자가 속으로 던지는 세 가지 질문을
+          왼쪽 아래에 흰 글씨로 세운다. 사진 아래쪽을 어둡게 덮어 글자가 읽히게 한다 */}
+      <section className="relative isolate flex min-h-[calc(100svh-5rem)] flex-col overflow-hidden bg-ink">
+        <Image
+          src="/clinic-interior.webp"
+          alt="김포한강한의원 접수 데스크와 대기 공간"
+          fill
+          priority
+          sizes="100vw"
+          className="-z-10 object-cover object-[50%_45%]"
         />
-        <div className="relative mx-auto w-full max-w-[80rem] px-[clamp(1.5rem,6vw,7rem)] pb-14 pt-12 text-center sm:pt-16 xl:pb-20 xl:pt-24">
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/35 to-black/5" />
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/25 to-transparent" />
+
+        <div className="mx-auto flex w-full max-w-[80rem] flex-1 flex-col px-[clamp(1.5rem,6vw,7rem)] pb-10 pt-10 sm:pt-14 xl:pb-14">
           <Enter d={0}>
-            <span className="inline-block rounded-full bg-tint px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.15em] text-herb">
-              {CLINIC.tagline}
-            </span>
-          </Enter>
-
-          <h1 className="display display-black kr mt-8 text-[2.15rem] leading-[1.26] sm:text-[3.1rem] lg:text-[3.8rem] xl:text-[4.5rem] 2xl:text-[5.2rem]">
-            <span
-              className="enter block"
-              style={{ "--d": "180ms" } as React.CSSProperties}
-            >
-              내 증상, 이해해줄까?
-            </span>
-            <span
-              className="enter block"
-              style={{ "--d": "430ms" } as React.CSSProperties}
-            >
-              편하게 물어봐도 될까?
-            </span>
-            <span
-              className="enter block"
-              style={{ "--d": "680ms" } as React.CSSProperties}
-            >
-              {/* 세 번째 질문에만 표시가 남는다. 물음 뒤에 답이 오는 순서.
-                  밑줄은 한글 받침을 뚫고 지나가므로 글자 뒤에 깔리는 쪽을 쓴다 */}
-              <span className="relative inline-block">
-                <span className="grad">믿고 맡겨도 될까?</span>
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 300 10"
-                  preserveAspectRatio="none"
-                  className="answer-mark absolute left-0 top-full h-[0.16em] w-full overflow-visible"
-                >
-                  {/* pathLength 로 길이를 1로 맞춘다. 그래야 글자 폭이 바뀌어도
-                      선이 잘리지 않고 끝까지 그어진다 */}
-                  <path
-                    d="M2 6C64 2 168 1.5 298 4.5"
-                    pathLength={1}
-                    fill="none"
-                    stroke="var(--grad-b)"
-                    strokeWidth="3.4"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-            </span>
-          </h1>
-
-          <Enter d={900}>
-            <p className="kr mx-auto mt-7 max-w-[56ch] text-[18px] leading-8 text-muted xl:mt-9 xl:text-[20px] xl:leading-9">
-              <Lines>
-                {[
-                  "꼼꼼히 짚어보고, 충분히 듣고, 이해하기 쉽게 설명합니다.",
-                  "꼭 필요한 치료로 삶에 도움이 되는 진료를 합니다.",
-                ]}
-              </Lines>
+            <p className="flex items-center gap-3 whitespace-nowrap text-[9.5px] font-medium uppercase tracking-[0.18em] text-white/80 sm:gap-4 sm:text-[11px] sm:tracking-[0.28em]">
+              <span aria-hidden="true" className="h-px w-6 bg-white/60 sm:w-8" />
+              Gimpo Hangang Korean Medical Clinic
             </p>
           </Enter>
 
-          {/* 처음 오는 분이 가장 먼저 확인하는 네 가지. 한 줄로 세우고 점으로 끊는다 */}
-          <Enter d={1080}>
-            <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-1.5 gap-y-3 xl:mt-10">
-              {CLINIC.heroMarks.map((m, i) => {
-                const Icon = MARK_ICONS[m.icon];
-                return (
-                  <li key={m.label} className="flex items-center">
-                    <span className="kr flex items-center gap-2 text-[15px] font-semibold sm:text-[16px]">
-                      {Icon && <Icon className="h-[1.15em] w-[1.15em] shrink-0 text-grad-b" />}
+          <div className="mt-auto pt-24">
+            <h1 className="display display-black kr text-[2.1rem] leading-[1.24] text-white sm:text-[3rem] lg:text-[3.6rem] xl:text-[4.1rem]">
+              <span className="enter block" style={{ "--d": "180ms" } as React.CSSProperties}>
+                내 증상, 이해해줄까?
+              </span>
+              <span className="enter block" style={{ "--d": "430ms" } as React.CSSProperties}>
+                편하게 물어봐도 될까?
+              </span>
+              <span className="enter block text-[#e7c79a]" style={{ "--d": "680ms" } as React.CSSProperties}>
+                믿고 맡겨도 될까?
+              </span>
+            </h1>
+
+            <Enter d={900}>
+              <p className="kr mt-6 max-w-[48ch] text-[16px] leading-8 text-white/85 sm:text-[17px]">
+                꼼꼼히 짚어보고, 충분히 듣고, 이해하기 쉽게 설명합니다.
+                <br />
+                꼭 필요한 치료로 삶에 도움이 되는 진료를 합니다.
+              </p>
+            </Enter>
+
+            <Enter d={1080}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href="/reservation"
+                  className="press inline-flex items-center gap-2.5 rounded-xl bg-herb px-6 py-3.5 text-[16px] font-semibold text-paper"
+                >
+                  진료 예약하기
+                  <Arrow className="arw" />
+                </Link>
+                <a
+                  href={CLINIC.phoneHref}
+                  className="press inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-[16px] font-semibold text-white ring-1 ring-white/50 hover:bg-white/10"
+                >
+                  {CLINIC.phone}
+                </a>
+              </div>
+            </Enter>
+
+            {/* 처음 오는 분이 가장 먼저 확인하는 네 가지 */}
+            <Enter d={1240}>
+              <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-white/20 pt-6 sm:flex sm:flex-wrap sm:gap-x-10">
+                {CLINIC.heroMarks.map((m) => {
+                  const Icon = MARK_ICONS[m.icon];
+                  return (
+                    <li key={m.label} className="kr flex items-center gap-2 text-[14.5px] font-semibold text-white sm:text-[15.5px]">
+                      {Icon && <Icon className="h-[1.1em] w-[1.1em] shrink-0 text-[#e7c79a]" />}
                       {m.label}
-                    </span>
-                    {/* 구분점은 뒤에 붙인다. 앞에 두면 줄이 바뀔 때 점으로 시작한다 */}
-                    {i < CLINIC.heroMarks.length - 1 && (
-                      <span aria-hidden="true" className="px-2.5 text-[13px] text-faint sm:px-3.5">
-                        ·
-                      </span>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          </Enter>
-
-          <Enter d={1240}>
-            <div className="mt-9 xl:mt-11">
-              <Link
-                href="/reservation"
-                className="press inline-flex items-center gap-2.5 rounded-full bg-herb px-8 py-4 text-[17px] font-semibold text-paper shadow-[var(--shadow-ambient)]"
-              >
-                진료 예약하기
-                <Arrow className="arw" />
-              </Link>
-            </div>
-          </Enter>
-
+                    </li>
+                  );
+                })}
+              </ul>
+            </Enter>
+          </div>
         </div>
-
-        <a
-          href="#why"
-          aria-label="아래로"
-          className="scroll-cue absolute bottom-7 left-1/2 hidden -translate-x-1/2 sm:block"
-        >
-          <span aria-hidden="true" className="scroll-cue-rail" />
-        </a>
       </section>
 
       <div className="mx-auto w-full max-w-[90rem] px-[clamp(1.5rem,6vw,7rem)] py-16 xl:py-24">
