@@ -362,7 +362,7 @@ export default function Home() {
           fill
           priority
           sizes="100vw"
-          className="-z-10 object-cover object-[50%_45%]"
+          className="hero-zoom -z-10 object-cover object-[50%_45%]"
         />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-black/80 via-black/35 to-black/5" />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/25 to-transparent" />
@@ -370,21 +370,45 @@ export default function Home() {
         <div className="mx-auto flex w-full max-w-[80rem] flex-1 flex-col px-[clamp(1.5rem,6vw,7rem)] pb-10 pt-10 sm:pt-14 xl:pb-14">
           <Enter d={0}>
             <p className="flex items-center gap-3 whitespace-nowrap text-[9.5px] font-medium uppercase tracking-[0.18em] text-white/80 sm:gap-4 sm:text-[11px] sm:tracking-[0.28em]">
-              <span aria-hidden="true" className="h-px w-6 bg-white/60 sm:w-8" />
+              <span aria-hidden="true" className="rule-grow h-px w-6 bg-white/60 sm:w-8" style={{ "--d": "200ms" } as React.CSSProperties} />
               Gimpo Hangang Korean Medical Clinic
             </p>
           </Enter>
 
           <div className="mt-auto pt-24">
             <h1 className="display display-black kr text-[2.1rem] leading-[1.24] text-white sm:text-[3rem] lg:text-[3.6rem] xl:text-[4.1rem]">
-              <span className="enter block" style={{ "--d": "180ms" } as React.CSSProperties}>
-                내 증상, 이해해줄까?
+              <span className="line-mask">
+                <span className="line-up" style={{ "--d": "250ms" } as React.CSSProperties}>
+                  내 증상, 이해해줄까?
+                </span>
               </span>
-              <span className="enter block" style={{ "--d": "430ms" } as React.CSSProperties}>
-                편하게 물어봐도 될까?
+              <span className="line-mask">
+                <span className="line-up" style={{ "--d": "450ms" } as React.CSSProperties}>
+                  편하게 물어봐도 될까?
+                </span>
               </span>
-              <span className="enter block text-[#e7c79a]" style={{ "--d": "680ms" } as React.CSSProperties}>
-                믿고 맡겨도 될까?
+              {/* 세 번째 질문에만 금색 밑줄이 그어진다. 물음 뒤에 답이 오는 순서 */}
+              <span className="line-mask pb-[0.22em]">
+                <span className="line-up text-[#e7c79a]" style={{ "--d": "650ms" } as React.CSSProperties}>
+                  <span className="relative inline-block">
+                    믿고 맡겨도 될까?
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 300 10"
+                      preserveAspectRatio="none"
+                      className="answer-mark absolute left-0 top-full h-[0.14em] w-full overflow-visible"
+                    >
+                      <path
+                        d="M2 6C64 2 168 1.5 298 4.5"
+                        pathLength={1}
+                        fill="none"
+                        stroke="#e7c79a"
+                        strokeWidth="3.4"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                </span>
               </span>
             </h1>
 

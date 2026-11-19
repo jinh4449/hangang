@@ -599,7 +599,7 @@ a.tile-dark:hover {
 }
 @media (prefers-reduced-motion: no-preference) {
   .answer-mark path {
-    animation: answerDraw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 2.05s forwards;
+    animation: answerDraw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 1.45s forwards;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -690,3 +690,48 @@ a.tile-dark:hover {
   }
 }
 
+
+/* ── 첫 화면(사진) 움직임 ──
+   사진은 천천히 다가오고, 문구는 줄마다 가려진 칸 아래에서 밀려 올라온다.
+   움직임을 줄이도록 설정한 기기에서는 모두 끈다 */
+@keyframes heroZoom {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+@keyframes lineUp {
+  from { transform: translateY(110%); }
+  to { transform: none; }
+}
+@keyframes ruleGrow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.hero-zoom {
+  animation: heroZoom 9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: 40% 55%;
+}
+.line-mask {
+  display: block;
+  overflow: hidden;
+  /* 받침과 물음표 아래가 잘리지 않게 아래로 조금 여유를 둔다 */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.line-up {
+  display: block;
+  animation: lineUp 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+.rule-grow {
+  transform-origin: left;
+  animation: ruleGrow 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-zoom,
+  .line-up,
+  .rule-grow {
+    animation: none !important;
+    transform: none !important;
+  }
+}
