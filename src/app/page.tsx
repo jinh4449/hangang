@@ -356,7 +356,20 @@ export default function Home() {
       {/* 히어로 — 환자가 속으로 던지는 세 가지 질문을 그대로 세운다.
           첫 화면은 이 세 줄만 보이게 화면을 통째로 쓴다 */}
       <section className="relative flex min-h-[calc(100svh-5rem)] flex-col justify-center overflow-hidden border-b border-line">
-        <RiverGlow />
+        {/* 진료 공간 사진을 흐리게 깔고 그 위에 문구를 세운다. 흐린 가장자리가 비치지
+            않게 조금 키우고, 글자가 읽히도록 가운데를 밝게 덮는다 */}
+        <div aria-hidden="true" className="absolute inset-0 -z-0 overflow-hidden">
+          <Image
+            src="/clinic-interior.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="scale-110 object-cover object-[45%_60%] blur-[5px]"
+          />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.78)_45%,rgba(255,255,255,0.55)_100%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent" />
+        </div>
 
         {/* 세로 가운데 정렬이라, 아래에 빈 칸을 두면 그 절반만큼 글이 올라간다.
             제목 한 줄만큼 올리려고 한 줄 높이의 두 배를 비워 둔다 */}
