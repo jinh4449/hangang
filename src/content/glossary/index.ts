@@ -18,6 +18,7 @@ import { MUSCULOSKELETAL } from "./musculoskeletal";
 import { CARE } from "./care";
 import { BASICS } from "./basics";
 import { LIFE } from "./life";
+import { FORMULAS } from "./formulas";
 import { GLOSSARY_CATEGORIES, type GlossaryCategory, type GlossaryTerm } from "./types";
 
 export { GLOSSARY_CATEGORIES };
@@ -25,7 +26,7 @@ export type { GlossaryCategory, GlossaryTerm };
 
 const byTerm = (a: GlossaryTerm, b: GlossaryTerm) => a.term.localeCompare(b.term, "ko");
 
-export const GLOSSARY: GlossaryTerm[] = [...CORE, ...MUSCULOSKELETAL, ...CARE, ...BASICS, ...LIFE].sort(byTerm);
+export const GLOSSARY: GlossaryTerm[] = [...CORE, ...MUSCULOSKELETAL, ...CARE, ...BASICS, ...LIFE, ...FORMULAS].sort(byTerm);
 
 // 주소가 겹치거나 없는 용어를 가리키면 빌드에서 바로 멈춘다.
 // 조용히 빠진 링크는 아무도 모르는 채로 남는다
