@@ -24,7 +24,10 @@ export const generateStaticParams = () => GLOSSARY.map((t) => ({ slug: t.slug })
 function titleOf(t: GlossaryTerm) {
   if (t.question) return `${t.question}?`;
   const sick = t.category === "musculoskeletal" || t.category === "internal" || t.category === "accident";
-  const hook = sick
+  // 처방은 「어디서 나온 무슨 약인가」를 찾는다
+  const hook = t.category === "formula"
+    ? "출전과 쓰임"
+    : sick
     ? t.needsTests?.length
       ? "증상과 검사가 필요한 때"
       : "뜻과 증상"
@@ -133,7 +136,7 @@ export default async function TermPage({ params }: PageProps<"/glossary/[slug]">
       </Section>
 
       {t.signs && t.signs.length > 0 && (
-        <Section title="흔히 겪는 모습">
+        <Section title={t.category === "formula" ? "주로 쓰는 경우" : "흔히 겪는 모습"}>
           <ul className="readlist sm:grid-cols-2 sm:gap-x-10">
             {t.signs.map((s) => (
               <li key={s} className="kr text-[15.5px]">

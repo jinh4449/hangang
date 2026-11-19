@@ -39,6 +39,11 @@ export const GLOSSARY_CATEGORIES = [
     blurb: "첩약, 제형, 복용법, 많이 묻는 약재",
   },
   {
+    slug: "formula",
+    name: "한약 처방",
+    blurb: "보중익기탕, 쌍화탕처럼 자주 쓰는 처방의 출전과 쓰임",
+  },
+  {
     slug: "anatomy",
     name: "몸의 구조",
     blurb: "힘줄, 인대, 근막, 추간판처럼 통증이 생기는 조직",
